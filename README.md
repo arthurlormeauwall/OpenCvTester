@@ -45,5 +45,5 @@ En date du 09/10/21 :
 
 
 
-La partie de rendu de l’image est finie. Mes tests fonctionnent bien. Il me reste à coder la partie GUI que je compte faire avec Swing. 
+A cette date, la partie de rendu de l’image est finie. Il me reste à coder la partie GUI que je compte faire avec Swing. 
 
