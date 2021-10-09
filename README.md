@@ -6,14 +6,6 @@ Actuellement technicien dans l’audiovisuel, je voudrais entamer une reconversi
 Je me suis formé seul et ce programme est avant tout un exemple concret de mon niveau en programmation. Le code est toujours en cours d'écriture.
 
 
-
-
-
-
-Tout d'abord voici en quelques mots le projet d'origine :
-
-
-
 Le projet a pour but de pouvoir tester la librairie de vision par ordinateur "Open CV". L'ensemble du code fonctionne comme un framework, et s'utilise en deux étapes : coder l'algorithme de traitement d’image / tester à travers une interface graphique.
 
 
