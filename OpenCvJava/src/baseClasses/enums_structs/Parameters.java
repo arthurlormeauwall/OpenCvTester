@@ -6,8 +6,8 @@ import baseClasses.openCvFacade.Frame;
 
 public class Parameters {
 
-		Stack<Float> float_parameters;
-		Stack<String> string_parameters;
-		Stack<Integer> int_parameters;
-		Stack <Frame> frame_parameters;
+		public Stack<Float> float_parameters;
+		public Stack<String> string_parameters;
+		public Stack<Integer> int_parameters;
+		public Stack <Frame> frame_parameters;
 }

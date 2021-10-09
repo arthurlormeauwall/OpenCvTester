@@ -22,7 +22,7 @@ public class DbControls
 
 		m_controls.push(c_grayScale);
 		m_controls.push(c_rgbMult);
-		//PUSH BACK CONTROL HERER
+		//PUSH CONTROL HERER
 	}
 	
 	public AlphaControl getAlphaControl(){
@@ -41,4 +41,5 @@ public class DbControls
 	protected GrayScaleControl c_grayScale;
 	protected AlphaControl c_alpha;
 	protected MultBgrControl c_rgbMult;
+	// ADD CONTROL HERE
 };
