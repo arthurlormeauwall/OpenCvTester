@@ -1,6 +1,7 @@
-package baseClasses.history;
+package baseClasses.history.historyParameters;
 
 import baseClasses.Id;
+import baseClasses.history.HistoryParameter;
 
 
 public class IdHistoryParameter implements HistoryParameter<Id>

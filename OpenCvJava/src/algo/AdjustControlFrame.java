@@ -1,8 +1,7 @@
 package algo;
 
 import baseClasses.Id;
-
-import baseClasses.history.FrameHistoryParameter;
+import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.StateHistory;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;

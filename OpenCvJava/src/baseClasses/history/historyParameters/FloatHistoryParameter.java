@@ -1,7 +1,9 @@
-package baseClasses.history;
+package baseClasses.history.historyParameters;
 
 
 import java.util.Stack;
+
+import baseClasses.history.HistoryParameter;
 
 
 

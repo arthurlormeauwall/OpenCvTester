@@ -2,7 +2,7 @@ package baseClasses;
 
 import baseClasses.enums_structs.ChainCommand;
 import baseClasses.enums_structs.ItemAndId;
-import baseClasses.history.IdHistoryParameter;
+import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 
 import java.util.Stack;

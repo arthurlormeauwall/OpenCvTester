@@ -1,7 +1,8 @@
-package baseClasses.history;
+package baseClasses.history.historyParameters;
 
 
 
+import baseClasses.history.HistoryParameter;
 import baseClasses.openCvFacade.Frame;
 
 public class FrameHistoryParameter implements HistoryParameter<Frame>

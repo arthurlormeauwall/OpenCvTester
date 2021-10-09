@@ -3,7 +3,7 @@ package algo;
 import java.util.Stack;
 
 import baseClasses.Id;
-import baseClasses.history.FloatHistoryParameter;
+import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.StateHistory;
 import baseClasses.history.imp.UndoHistory;
 

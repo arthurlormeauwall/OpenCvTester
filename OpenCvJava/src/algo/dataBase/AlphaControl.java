@@ -7,7 +7,7 @@ import org.opencv.core.Mat;
 import algo.AdjustControlFrame;
 import baseClasses.Control;
 import baseClasses.Id;
-import baseClasses.history.FrameHistoryParameter;
+import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 

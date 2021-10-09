@@ -1,7 +1,8 @@
-package baseClasses.history;
+package baseClasses.history.historyParameters;
 
 
 import baseClasses.Control;
+import baseClasses.history.HistoryParameter;
 
 
 public class ControlHistoryParameter implements HistoryParameter<Control>

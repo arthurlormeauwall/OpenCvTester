@@ -8,7 +8,7 @@ import org.opencv.core.Mat;
 import algo.AdjustControlFloat;
 import baseClasses.Control;
 import baseClasses.Id;
-import baseClasses.history.FloatHistoryParameter;
+import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 
 public class GrayScaleControl extends AdjustControlFloat 

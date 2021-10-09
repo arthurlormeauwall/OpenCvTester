@@ -1,7 +1,8 @@
-package baseClasses.history;
+package baseClasses.history.historyParameters;
 
 import baseClasses.enums_structs.ChainCommand;
 import baseClasses.enums_structs.ItemAndId;
+import baseClasses.history.HistoryParameter;
 
 public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 {

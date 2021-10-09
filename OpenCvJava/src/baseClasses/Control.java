@@ -1,6 +1,6 @@
 package baseClasses;
 
-import baseClasses.history.IdHistoryParameter;
+import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 
 
