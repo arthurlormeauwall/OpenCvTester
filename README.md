@@ -1,9 +1,9 @@
 # ImageAdjuster_java
 
 
-Actuellement technicien dans l’audiovisuel, je voudrais entamer une reconversion professionnelle et devenir développeur.
+Actuellement technicien dans l’audiovisuel, je voudrais entamer une reconversion professionnelle et devenir développeur. 
 
-Je me suis formé seul et ce programme est avant tout un exemple concret du niveau que j'ai pu atteindre en programmation. Le code est toujours en cours d'écriture.
+Je me suis formé seul et ce programme est avant tout un exemple concret de mon niveau en programmation. Le code est toujours en cours d'écriture.
 
 
 
@@ -43,7 +43,7 @@ Finalement, je dois préciser que j’ai commencé à coder le projet en C++ (pr
 
 En date du 09/10/21 :
 
-
-
 A cette date, la partie de rendu de l’image est finie. Il me reste à coder la partie GUI que je compte faire avec Swing. 
+
+Contacts : Arthur Lormeau-Wall, arthurlormeau@gmail.com
 
