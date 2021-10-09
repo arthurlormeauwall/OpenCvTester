@@ -1,6 +1,6 @@
 package baseClasses;
 
-import baseClasses.enums_structs.ChainCommand;
+import baseClasses.enums_structs.ChainActions;
 import baseClasses.enums_structs.ItemAndId;
 import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
@@ -42,15 +42,15 @@ public abstract class Layer extends Control
 	public void addControl(Stack<Id>  id, Stack<Integer> controlNumber) {
 
 		Control control = createControl(id, controlNumber);
-		setChain(ChainCommand.ADD, control, id);
+		setChain(ChainActions.ADD, control, id);
 		updateRenderAtId(id.get(0));
 	}
 	public void delControl(Stack<Id> id) {
 
-		setChain(ChainCommand.DELETE, m_controls.getControl(0), id);
+		setChain(ChainActions.DELETE, m_controls.getControl(0), id);
 	}
 	
-	public void setChain (ChainCommand chainCommand, Control control, Stack<Id> id) {
+	public void setChain (ChainActions chainCommand, Control control, Stack<Id> id) {
 		ItemAndId<Control> parameter = new ItemAndId<Control>();
 		parameter.s_chainCommand = chainCommand;
 		parameter.s_control = control;

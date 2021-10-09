@@ -48,6 +48,8 @@ public abstract class Control extends Command
       	m_undoIdHistory.setState(new IdHistoryParameter());
     	m_renderAtIdHistory.setState(new IdHistoryParameter());
     }
+    
+    public abstract void compute();
 
     public Id getId(){
     	return m_id;
@@ -70,8 +72,6 @@ public abstract class Control extends Command
     	 m_renderAtIdHistory = renderAtIdHistory;
     }
  
-    public abstract void compute();
-    
     public void updateId(int groupDeepnessIndex, int newValue) {
     	 m_id.setControlOrLayer(groupDeepnessIndex, newValue);
     }

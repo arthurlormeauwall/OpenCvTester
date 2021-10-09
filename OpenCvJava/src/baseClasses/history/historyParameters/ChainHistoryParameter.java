@@ -1,6 +1,6 @@
 package baseClasses.history.historyParameters;
 
-import baseClasses.enums_structs.ChainCommand;
+import baseClasses.enums_structs.ChainActions;
 import baseClasses.enums_structs.ItemAndId;
 import baseClasses.history.HistoryParameter;
 
@@ -27,8 +27,8 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	
 	public void invert() {
 
-        if (m_p.s_chainCommand == ChainCommand.ADD) { m_p.s_chainCommand = ChainCommand.DELETE; }
-        else if (m_p.s_chainCommand == ChainCommand.DELETE) { m_p.s_chainCommand = ChainCommand.ADD; }
+        if (m_p.s_chainCommand == ChainActions.ADD) { m_p.s_chainCommand = ChainActions.DELETE; }
+        else if (m_p.s_chainCommand == ChainActions.DELETE) { m_p.s_chainCommand = ChainActions.ADD; }
 	}
 	public ItemAndId<T> getParameter() {
 		return m_p;

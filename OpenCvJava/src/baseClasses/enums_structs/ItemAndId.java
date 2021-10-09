@@ -7,5 +7,5 @@ public class ItemAndId<T> {
 	
 	 	public T s_control;
 	 	public Stack<Id> s_id;
-	 	public ChainCommand s_chainCommand;
+	 	public ChainActions s_chainCommand;
 }

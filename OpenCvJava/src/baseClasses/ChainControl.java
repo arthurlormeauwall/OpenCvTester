@@ -2,7 +2,7 @@ package baseClasses;
 
 import java.util.Stack;
 
-import baseClasses.enums_structs.ChainCommand;
+import baseClasses.enums_structs.ChainActions;
 import baseClasses.enums_structs.ItemAndId;
 import baseClasses.history.historyParameters.ChainHistoryParameter;
 import baseClasses.history.imp.ChainHistory;
@@ -83,13 +83,13 @@ public class ChainControl extends Control
     
     public void compute() {
     	
-        if (m_history.getLast().getParameter().s_chainCommand == ChainCommand.ADD) {
+        if (m_history.getLast().getParameter().s_chainCommand == ChainActions.ADD) {
             Id id = m_history.getLast().getParameter().s_id.get(0);
             Control item = m_history.getLast().getParameter().s_control;
             addControl(id, item);
         }
 
-        else if (m_history.getLast().getParameter().s_chainCommand ==  ChainCommand.DELETE) {
+        else if (m_history.getLast().getParameter().s_chainCommand ==  ChainActions.DELETE) {
             m_history.getLast().getParameter().s_control = delControl(m_history.getLast().getParameter().s_id.get(0));
         }
     }
