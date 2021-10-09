@@ -1,4 +1,4 @@
-# ImageAdjuster_java
+# OpenCvJava
 
 
 Actuellement technicien dans l’audiovisuel, je voudrais entamer une reconversion professionnelle et devenir développeur. 
