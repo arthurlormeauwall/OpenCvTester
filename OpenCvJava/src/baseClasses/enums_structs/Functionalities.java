@@ -11,5 +11,6 @@ public enum Functionalities {
 	SET_BYPASS,
 	UNDO,
 	REDO,
-	STORE
+	STORE,
+	REFRESH
 }

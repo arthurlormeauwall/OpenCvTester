@@ -7,9 +7,9 @@ import renderingEngine.Renderer;
 import baseClasses.Id;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
-import gui.UIInterface;
+import gui.UIImp;
 
-class App 
+public class App 
 {
 	public App() {
 
@@ -18,6 +18,7 @@ class App
 		m_background = new Frame();
 		m_dest = new Frame();
 		m_source = new Frame();
+		
 	}
 	
 	public void test() {
@@ -63,24 +64,29 @@ class App
 		m_renderer.play();
 	}
 
-	public void init() {
+	public void init(String fileName) {
 		
-		m_source.readFromFile("assets/20210717_203824.jpg");
+		setImage(fileName);
 		m_background.Create1DFrame(m_source.getFrame().rows(), m_source.getFrame().cols(), 0);
 		m_source.copyTo(m_dest);
 
-		Id id = new Id();
-		id.initNULL();
-		id.setGroupId(0);
+		Id rendererId = new Id();
+		rendererId.initNULL();
+		rendererId.setGroupId(0);
 	
-		m_renderer = new Renderer(m_background, id, m_undoIdHistory, m_renderAtIdHistory);
+		m_renderer = new Renderer(m_background, rendererId, m_undoIdHistory, m_renderAtIdHistory);
 
 		m_renderer.setSource(m_source);
 		m_renderer.setDest(m_dest);
-
-		test();
-		
-		m_renderer.play();
+		m_mainWin= new UIImp(m_renderer);	
+	}
+	
+	public void setImage(String fileName) {
+		m_source.readFromFile(fileName);
+	}
+	
+	public UIImp getMainWin() {
+		return m_mainWin;
 	}
 	
 	protected Stack<Id> m_layersId;
@@ -92,5 +98,5 @@ class App
 	protected Frame m_background;
 	protected Frame m_dest;
  
-	protected UIInterface m_mainWin;
+	protected UIImp m_mainWin;
 };

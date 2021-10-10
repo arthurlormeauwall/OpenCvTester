@@ -2,6 +2,8 @@ package main;
 
 import org.opencv.core.Core;
 
+import test.Test;
+
 
 public class Main {
     public static void main(String[] args){
@@ -9,7 +11,6 @@ public class Main {
     		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
     		App myApp = new App();
-    		myApp.init();
-           
+    		Test myTest= new Test(myApp);      
     }
 }

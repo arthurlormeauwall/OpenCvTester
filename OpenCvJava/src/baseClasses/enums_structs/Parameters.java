@@ -9,4 +9,5 @@ public class Parameters {
 	public Stack<String> string_parameters;
 	public Stack<Integer> int_parameters;
 	public Stack <Frame> frame_parameters;
+	public Boolean bool_parameters;
 }
