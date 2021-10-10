@@ -53,7 +53,6 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	}
 	
 	public void updateId(int groupDeepnessIndex, int newValue) {
-	
 		m_id.setControlOrLayer(groupDeepnessIndex, newValue);
 	}
 	
