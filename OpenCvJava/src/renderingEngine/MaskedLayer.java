@@ -22,9 +22,7 @@ public class MaskedLayer extends FrameLayer
 		m_alpha.setUndoId(m_undoIdHistory);
 	}
 	
-
 	public void init(Frame background, Frame source, Frame dest) {
-		
 		setSource(source);
 		setDest(dest);
 
@@ -43,12 +41,15 @@ public class MaskedLayer extends FrameLayer
 	public AlphaControl getAlpha(){
 		return m_alpha;
 	}
+	
 	public void setAlpha(Frame alpha){
 		m_alpha.setAlpha(alpha);
-		}
+	}
+	
 	public void setAlpha(int opacity){
 		m_alpha.setAlpha(opacity);
 	}
+	
 	public void setBackGround(Frame background){
 		m_background = background; 
 	}
@@ -61,12 +62,10 @@ public class MaskedLayer extends FrameLayer
 
 	// FrameLayer implementation
 	public Control getLastControl() {
-		
 		return m_alpha;
 	}
 	
 	public Control createControl(Stack<Id> id, Stack<Integer> controlIndex){
-		
 		Control newControl = (Control) m_dbControl.getControl(controlIndex.get(0));
 		newControl.getId().set(id.get(0));
 
@@ -77,7 +76,6 @@ public class MaskedLayer extends FrameLayer
 	}
 	
 	public int getNumberOfControl() {
-	
 		return m_chainOfControls.getSize() + 1;
 	}
 	
@@ -86,6 +84,7 @@ public class MaskedLayer extends FrameLayer
 		render();
 		m_alpha.compute();
 	}
+	
 	public Boolean undo() {
 		int undoControlId = m_undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
@@ -96,9 +95,9 @@ public class MaskedLayer extends FrameLayer
 		}
 		else {
 			return false;
-		}
-		
+		}	
 	}
+	
 	public Boolean redo() {
 		int undoControlId = m_undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
@@ -111,6 +110,7 @@ public class MaskedLayer extends FrameLayer
 			return false;
 		}
 	}
+	
 	public void store(){
 		int undoControlId = m_undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
@@ -120,12 +120,12 @@ public class MaskedLayer extends FrameLayer
 			m_alpha.store();
 		}
 	}
+	
 	public void updateId(int groupDeepnessIndex, int newValue){
 		m_chainOfControls.updateId(groupDeepnessIndex, newValue);
 	}
 
-	public Control clone() {
-		
+	public Control clone() {	
 		MaskedLayer newMaskedLayer= new MaskedLayer(m_id, m_undoIdHistory, m_renderAtIdHistory);
 		
 		newMaskedLayer.setChainControl(m_chainOfControls.clone());
@@ -138,7 +138,4 @@ public class MaskedLayer extends FrameLayer
 	protected Frame m_background;
 	protected AlphaControl m_alpha;
 	protected DbControls m_dbControl;
-
-
-	
 }

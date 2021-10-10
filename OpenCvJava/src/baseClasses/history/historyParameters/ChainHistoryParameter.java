@@ -6,14 +6,14 @@ import baseClasses.history.HistoryParameter;
 
 public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 {
-	 public ChainHistoryParameter(ItemAndId<T> parameter) {
-		 m_p=parameter;
-	 }
+	
+	public ChainHistoryParameter(ItemAndId<T> parameter) {
+		m_p=parameter;
+	}
 	 
-    public ChainHistoryParameter() {
-    	
-    	m_p=new ItemAndId<T>();
-    }
+	public ChainHistoryParameter() {
+		m_p=new ItemAndId<T>();
+	}
  
     public void set (ItemAndId<T> parameter) {
     	m_p.m_chainCommand= parameter.m_chainCommand;
@@ -26,7 +26,6 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	}
 	
 	public void invert() {
-
         if (m_p.m_chainCommand == ChainCommand.ADD) { m_p.m_chainCommand = ChainCommand.DELETE; }
         else if (m_p.m_chainCommand == ChainCommand.DELETE) { m_p.m_chainCommand = ChainCommand.ADD; }
 	}
@@ -36,6 +35,4 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	}
     
     protected ItemAndId<T> m_p;
-    
-	
 };

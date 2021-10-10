@@ -12,7 +12,7 @@ import baseClasses.history.imp.UndoHistory;
 public class ChainOfControls extends Control
 {
 
-    public ChainOfControls(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
+    public ChainOfControls(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) { 	
     	super (id, undoIdHistory, renderAtIdHistory);
     	m_controls = new Stack<Control>();
         m_history = new ChainHistory<ItemAndId<Control>>();
@@ -21,12 +21,11 @@ public class ChainOfControls extends Control
     }
 
 
-    public Control getControl(int index){
-        return m_controls.get(index);
+    public Control getControl(int index){	
+    	return m_controls.get(index);
     }
 
     public void addControl(Id id, Control control) {
-
         int index = getControlIndex(id);
 
         int lastControl = m_controls.size() - 1;
@@ -49,7 +48,6 @@ public class ChainOfControls extends Control
     }
 
     public Control delControl(Id id) {
-
         int index = getControlIndex(id);
         int lastControlIndex= m_controls.size()-1;
         if (index>lastControlIndex) {
@@ -61,28 +59,28 @@ public class ChainOfControls extends Control
     }
 
     public void addOrDelete(ItemAndId<Control> parameter) {
-
         m_history.setState(new ChainHistoryParameter<Control>(parameter));
         UpdateUndo();
         compute();
      }
 
-    public Stack<Control> getControlsChain() {
-        return m_controls;
+    public Stack<Control> getControlsChain() {      
+    	return m_controls;
     }
     
-    public void setControlsChain(Stack<Control> controlChain) {
+    public void setControlsChain(Stack<Control> controlChain) {   	
     	m_controls=controlChain;
     }
-    public ChainHistory<ItemAndId<Control>> getHistory(){
+    
+    public ChainHistory<ItemAndId<Control>> getHistory(){   	
     	return m_history;
     }
-    public void setHistory(ChainHistory<ItemAndId<Control>> history) {
+    
+    public void setHistory(ChainHistory<ItemAndId<Control>> history) {  	
     	m_history=history;
     }
     
     public void compute() {
-    	
         if (m_history.getState().getParameter().m_chainCommand == ChainCommand.ADD) {
             Id id = m_history.getState().getParameter().m_id.get(0);
             Control item = m_history.getState().getParameter().m_control;
@@ -99,7 +97,6 @@ public class ChainOfControls extends Control
     }
 
     public int getControlIndex(Id id) {
-
         int groupDeepnessIndex = getDeepnessIndex();
 
         int controlIndex = id.get()[groupDeepnessIndex];
@@ -107,7 +104,6 @@ public class ChainOfControls extends Control
     }
 
     public int getControlIndex(UndoHistory<Id> id) {
-
         int groupDeepnessIndex = getDeepnessIndex();
         int controlIndex = id.getState().getParameter().get()[groupDeepnessIndex];
         return controlIndex;
@@ -134,7 +130,6 @@ public class ChainOfControls extends Control
     }
     
     public void updateId(int groupDeepnessIndex, int newValue) {
-
         for (int i = 0; i < m_controls.size(); i++) {
             m_controls.get(i).updateId(groupDeepnessIndex, newValue);
         }
@@ -142,8 +137,6 @@ public class ChainOfControls extends Control
 
 
     public Boolean undo() {
-
-
 	        int undoGroupId = m_undoIdHistory.getState().getParameter().getGroupId();
 	        int currentGroupId = m_id.getGroupId();
 	        int undoControlIndex = getControlIndex(m_undoIdHistory);
@@ -160,12 +153,10 @@ public class ChainOfControls extends Control
 	        }
 	        else {
 	            return m_controls.get(undoControlIndex).undo();
-	        }
-    	
+	        } 	
     }
     
     public Boolean redo() {
-
 	        int undoGroupId = m_undoIdHistory.getState().getParameter().getGroupId();
 	        int currentGroupId = m_id.getGroupId();
 	        int undoControlIndex = getControlIndex(m_undoIdHistory);
@@ -182,8 +173,7 @@ public class ChainOfControls extends Control
 	        }
 	        else {
 	            return m_controls.get(undoControlIndex).redo();
-	        }
-	        
+	        }      
     	}
    
 
@@ -202,8 +192,7 @@ public class ChainOfControls extends Control
          }
     }
     
-    public ChainOfControls clone() {
-    	
+    public ChainOfControls clone() {	
     	Id newId= new Id();
     	
     	ChainOfControls newChainControl = new ChainOfControls(newId, m_undoIdHistory, m_renderAtIdHistory);

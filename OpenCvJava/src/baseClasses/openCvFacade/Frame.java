@@ -15,17 +15,18 @@ public class Frame {
 		m_frame = new Mat(0,0, CvType.CV_8UC3);
 		m_specs= new FrameSpecs();
 	}
+	
 	public Frame(String fileName) { 
 		m_specs= new FrameSpecs();
 		readFromFile(fileName);
 	}
+	
 	public Frame(int rows, int cols, int data) { 
 		m_specs= new FrameSpecs();
 		Create1DFrame(rows, cols, data);
 	}
 	
 	public void readFromFile(final String fileName) {
-
 		m_frame = Imgcodecs.imread(fileName, Imgcodecs.CV_LOAD_IMAGE_COLOR);
 		setSpecs();	
 	}
@@ -36,7 +37,6 @@ public class Frame {
 	}
 
 	public void Create1DFrame(int rows, int cols, int data){
-		
 		m_frame=new Mat(rows, cols, CvType.CV_8UC3);
 		
 		double[] temp= new double[3];

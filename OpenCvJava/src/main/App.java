@@ -51,9 +51,7 @@ class App
 		m_renderer.redo();
 		m_renderer.redo();
 		m_renderer.play();
-		
-		
-		
+
 		Stack<Float> floatParameters=new Stack<Float>();
 		floatParameters.push(0.6f);
 		floatParameters.push(2f);
@@ -83,10 +81,7 @@ class App
 		test();
 		m_renderer.play();
 	}
-
 	
-
-
 	protected Stack<Id> m_layersId;
 	protected Stack<Id> m_controlsId;
 	protected Renderer m_renderer;
@@ -97,7 +92,4 @@ class App
 	protected Frame m_dest;
  
 	protected UIInterface m_mainWin;
-
-
-
 };

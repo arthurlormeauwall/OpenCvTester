@@ -16,9 +16,9 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 
 	public FrameLayer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
-		 m_frames = new Stack<Frame>();
-		 m_source = new Frame ();
-		 m_dest   = new Frame ();
+		m_frames = new Stack<Frame>();
+		m_source = new Frame ();
+		m_dest   = new Frame ();
 	}
 	
 	public abstract Control getLastControl();
@@ -86,20 +86,22 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 			m_chainOfControls.getControl(i).compute();
 		}	
 	}
-	
-	
-	 public void setSource(Frame s){
+
+	public void setSource(Frame s){
 		  m_source=s;
-	  }
-	  public void setDest(Frame d)  {
+	}
+	
+	public void setDest(Frame d)  {
 		  m_dest=d;
-	  }
-	  public Frame getSource()      {
+	}
+	
+	public Frame getSource()      {
 		  return m_source;
-	  }
-	  public Frame getDest()        {
+	}
+	
+	public Frame getDest()        {
 		  return m_dest;
-	  }
+	}
 	
 	protected Stack<Frame> m_frames;
 	protected Frame m_source;

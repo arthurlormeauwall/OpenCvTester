@@ -32,6 +32,5 @@ public class IdHistoryParameter implements HistoryParameter<Id>
 		m_p.setGroupId(p.getGroupId());
 	}
 	
-	 protected Id m_p;
-	
+	 protected Id m_p;	
 };

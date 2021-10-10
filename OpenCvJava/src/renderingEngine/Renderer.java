@@ -16,7 +16,6 @@ public class Renderer extends FrameLayer
 		m_background = background;
 	}
 
-
 	public void addControlInLayer(Stack<Id> controlId, int controlIndex) {
 		Stack<Integer> temp = new Stack<Integer>();
 		temp.push(controlIndex);
@@ -26,6 +25,7 @@ public class Renderer extends FrameLayer
 		}
 		
 	}
+	
 	public void delControlInLayer(Stack<Id> controlId){
 		if (getNumberOfControl()>= controlId.get(0).get()[0]) {
 			((MaskedLayer)m_chainOfControls.getControl(controlId.get(0).get()[0])).delControl(controlId);
@@ -47,8 +47,7 @@ public class Renderer extends FrameLayer
 		if (getNumberOfControl() >= layerIndex) {
 			((MaskedLayer)m_chainOfControls.getControl(layerIndex)).setAlpha(alpha);
 			compute();
-		}
-		
+		}	
 	}   
 	
 	public void setAlpha(int layerIndex, int opacity){
@@ -79,7 +78,6 @@ public class Renderer extends FrameLayer
 			temp.setBypass(p);
 			compute();
 		}
-		
 	}   
 
 
@@ -91,10 +89,9 @@ public class Renderer extends FrameLayer
 			for (int i = 1; i < numberOfMaskedLayers; i++) {
 				((MaskedLayer)m_chainOfControls.getControl(i)).setBackGround(((MaskedLayer)m_chainOfControls.getControl(i - 1)).getDest());
 			}
-		}
-
-		
+		}	
 	}   
+	
 	public void dealFramesInMaskedLayers(){
 		for (int i = 0; i < m_chainOfControls.getSize(); i++) {
 
@@ -124,17 +121,17 @@ public class Renderer extends FrameLayer
 			
 			maskedLayer.addControl(temp, temp2);
 		}
-
 		return maskedLayer;
-	}   
+	} 
+	
 	public Control getLastControl(){
 		return m_chainOfControls.getControl(m_chainOfControls.getSize() - 1);
 	}   
+	
 	public int getNumberOfControl() {
 		return m_chainOfControls.getSize();
 	}
 	
-
 	//Control implementation
 	public void compute(){
 		dealFrames();
@@ -153,9 +150,7 @@ public class Renderer extends FrameLayer
 		}
 		else {
 			return false;
-		}
-		
-		
+		}	
 	}
 	
 	public Boolean redo() {

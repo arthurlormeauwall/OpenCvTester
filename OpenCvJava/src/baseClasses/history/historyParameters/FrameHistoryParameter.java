@@ -11,11 +11,11 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
     public FrameHistoryParameter() {
     	m_p=new Frame();
     }
+    
     public FrameHistoryParameter(Frame parameter) {
     	m_p=parameter;
     }
  
-    
 	public FrameHistoryParameter getNew() {
 		return new FrameHistoryParameter();
 	}
@@ -31,6 +31,6 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
 		m_p=parameter;		
 	}
 	
-	 protected Frame m_p;
+	protected Frame m_p;
 	
 };
