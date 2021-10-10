@@ -14,7 +14,7 @@ public class ParameterHistory<T> extends History<T>
 		
 		HistoryParameter<T> parameter = m_factory.getNew();
 		parameter.set(m_state.getParameter());  
-		m_history.push(parameter);
+		m_undoHistory.push(parameter);
 		firstUndo = true;
 	}
      
@@ -22,17 +22,17 @@ public class ParameterHistory<T> extends History<T>
 	    if (!isUndoEmpty() && m_state!=null)
 	    {
 	   	 if (firstUndo) {
-	   		 m_redoHistory.push(m_history.peek());
-	   		 m_history.pop();
-	   		 m_state=m_history.peek();
-	   		 m_history.pop();
+	   		 m_redoHistory.push(m_undoHistory.peek());
+	   		 m_undoHistory.pop();
+	   		 m_state=m_undoHistory.peek();
+	   		 m_undoHistory.pop();
 	   		 firstUndo=false;
 	   		 
 	   	 }
 	   	 else {
 	   		 m_redoHistory.push(m_state);
-	   		 m_state=m_history.peek();
-	   		 m_history.pop();
+	   		 m_state=m_undoHistory.peek();
+	   		 m_undoHistory.pop();
 	   	 }
 	    } 
 	}
@@ -40,7 +40,7 @@ public class ParameterHistory<T> extends History<T>
 	public void redo() {
 	    if (!isRedoEmpty() && m_state!=null)
 	    {
-	    	m_history.push(m_state);
+	    	m_undoHistory.push(m_state);
 	    	m_state=m_redoHistory.peek();
 	    	m_redoHistory.pop();   	
 	    }
@@ -48,18 +48,18 @@ public class ParameterHistory<T> extends History<T>
 	
 	public Boolean isUndoEmpty() { 
 		 if(firstUndo) {
-			   if (m_history.size() <= 1) {
+			   if (m_undoHistory.size() <= 1) {
 		             return true;  
 		         }
-		         else if (m_history.size() > 1) {
+		         else if (m_undoHistory.size() > 1) {
 		             return false;
 		         }
 		 }
 		 else {
-		   if (m_history.size() <= 0) {
+		   if (m_undoHistory.size() <= 0) {
 	            return true;  
 	        }
-	        else if (m_history.size() > 0) {
+	        else if (m_undoHistory.size() > 0) {
 	            return false;
 	        }
 		 }

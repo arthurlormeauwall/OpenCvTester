@@ -23,8 +23,7 @@ public class GrayScaleControl extends AdjustControlFloat
 		init();
 	}
 	
-	public void init() {
-		
+	public void init() {		
 		setFlags();
 	}
 	
@@ -89,8 +88,7 @@ public class GrayScaleControl extends AdjustControlFloat
 	            }
 	        }   
 	        m_dest.setFrame(imgDest);	
-	    }
-		
+	    }	
 	}
 
 	@Override

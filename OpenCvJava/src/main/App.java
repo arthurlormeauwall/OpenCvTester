@@ -79,6 +79,7 @@ class App
 		m_renderer.setDest(m_dest);
 
 		test();
+		
 		m_renderer.play();
 	}
 	

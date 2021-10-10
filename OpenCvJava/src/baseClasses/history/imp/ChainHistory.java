@@ -13,15 +13,15 @@ public class ChainHistory<T> extends History<T>
 		 m_state.invert();	 
 		 HistoryParameter<T> parameter = m_factory.getNew();
 		 parameter.set(m_state.getParameter());  
-		 m_history.push(parameter);
+		 m_undoHistory.push(parameter);
      }
      
      public void undo() {
          if (!isUndoEmpty() && m_state!=null) {
         	m_state.invert();
         	m_redoHistory.push(m_state);
-         	m_state.set(m_history.peek().getParameter());
-            m_history.pop();
+         	m_state.set(m_undoHistory.peek().getParameter());
+            m_undoHistory.pop();
          } 
      }
      
@@ -31,7 +31,7 @@ public class ChainHistory<T> extends History<T>
              n = m_redoHistory.peek();
              m_state = n;
              m_redoHistory.peek().invert();
-             m_history.push(m_redoHistory.peek());
+             m_undoHistory.push(m_redoHistory.peek());
              m_redoHistory.pop();
          }
      }  

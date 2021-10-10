@@ -13,22 +13,23 @@ import baseClasses.history.imp.UndoHistory;
 public class MultBgrControl extends AdjustControlFloat 
 {
 
-	public MultBgrControl(Id id) {
+	public MultBgrControl(Id id) {	
 		super(id);
 		init();
 	
 	}
-	public MultBgrControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
+	
+	public MultBgrControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {	
 		super(id, undoIdHistory, renderAtIdHistory);
 		init();
 		
 	}
-	public void init() {
-		
+	
+	public void init() {	
 		setFlags();	
 	}
 	
-	public void setFlags() {
+	public void setFlags() {	
 		Stack<Float> tempFloat= new Stack<Float>();
 		tempFloat.push(0.5f);
 		tempFloat.push(0.5f);
@@ -50,7 +51,7 @@ public class MultBgrControl extends AdjustControlFloat
 
 
 	@Override
-	public void compute() {
+	public void compute() {	
 		if (m_isBypass) {
 			m_dest=m_source;
 		}
@@ -93,8 +94,7 @@ public class MultBgrControl extends AdjustControlFloat
 	            }
 	        }
 	        m_dest.setFrame(imgDest);
-	    }
-		
+	    }	
 	}
 
 	@Override
