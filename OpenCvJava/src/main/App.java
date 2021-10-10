@@ -46,14 +46,12 @@ public class App
 		return m_mainWin;
 	}
 	
-	protected Stack<Id> m_layersId;
-	protected Stack<Id> m_controlsId;
-	protected Renderer m_renderer;
 	protected UndoHistory<Id> m_undoIdHistory;
 	protected UndoHistory<Id> m_renderAtIdHistory;
 	protected Frame m_source;
 	protected Frame m_background;
 	protected Frame m_dest;
- 
+	
+	protected Renderer m_renderer;
 	protected UIImp m_mainWin;
 };

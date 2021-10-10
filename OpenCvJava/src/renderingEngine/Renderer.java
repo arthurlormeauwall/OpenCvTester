@@ -16,11 +16,11 @@ public class Renderer extends FrameLayer
 		m_background = background;
 	}
 
-	public void addControlInLayer(Stack<Id> controlId, int controlIndex) {
-		Stack<Integer> temp = new Stack<Integer>();
-		temp.push(controlIndex);
+	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
+		Stack<Integer> stackOfControlIndexInDataBase = new Stack<Integer>();
+		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
 		if ( getNumberOfControl()>= controlId.get(0).get()[0]) {
-			((MaskedLayer)m_chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, temp);
+			((MaskedLayer)m_chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, stackOfControlIndexInDataBase);
 			compute();
 		}	
 	}
@@ -32,8 +32,8 @@ public class Renderer extends FrameLayer
 		}
 	}   
 	
-	public void addLayer(Stack<Id> controlId, Stack<Integer> controlIndex){
-		addControl(controlId, controlIndex);
+	public void addLayer(Stack<Id> controlId, Stack<Integer> stackOfindexInDataBase){
+		addControl(controlId, stackOfindexInDataBase);
 		compute();
 	}   
 	

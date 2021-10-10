@@ -22,7 +22,7 @@ public class DbControls
 
 		m_controls.push(c_grayScale);
 		m_controls.push(c_rgbMult);
-		//PUSH CONTROL HERER
+		//PUSH CONTROL HERE
 	}
 	
 	public AlphaControl getAlphaControl(){

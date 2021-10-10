@@ -59,14 +59,12 @@ public class MaskedLayer extends FrameLayer
 		((AdjustControlFloat)m_chainOfControls.getControl(controlIndex)).setParameter(parameters);
 	}
 
-
-	// FrameLayer implementation
 	public Control getLastControl() {
 		return m_alpha;
 	}
 	
-	public Control createControl(Stack<Id> id, Stack<Integer> controlIndex){
-		Control newControl = (Control) m_dbControl.getControl(controlIndex.get(0));
+	public Control createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
+		Control newControl = (Control) m_dbControl.getControl(stackOfControlIndexInDataBase.get(0));
 		newControl.getId().set(id.get(0));
 
 		newControl.setRenderAtId(m_renderAtIdHistory);
@@ -79,7 +77,6 @@ public class MaskedLayer extends FrameLayer
 		return m_chainOfControls.getSize() + 1;
 	}
 	
-	// Control implementation
 	public void compute() {
 		render();
 		m_alpha.compute();

@@ -24,7 +24,7 @@ public abstract class Layer extends Control
 	}
 	
 	public abstract void render();
-	public abstract Control createControl(Stack<Id> ids, Stack<Integer> indexListOfControls);
+	public abstract Control createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
 
 	public Control getControl(int index) {
 		return m_chainOfControls.getControl(index);
@@ -38,8 +38,8 @@ public abstract class Layer extends Control
 		return m_chainOfControls;
 	}
 	
-	public void addControl(Stack<Id>  id, Stack<Integer> indexListOfControls) {
-		Control control = createControl(id, indexListOfControls);
+	public void addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
+		Control control = createControl(id, stackOfControlIndexInDataBase);
 		addOrDelete(ChainCommand.ADD, control, id);
 		updateRenderAtId(id.get(0));
 	}

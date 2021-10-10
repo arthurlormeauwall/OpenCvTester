@@ -113,10 +113,9 @@ public class ChainOfControls extends Control
         int currentGroupId = m_id.getGroupId();
         int groupDeepnessIndex = (currentGroupId - 1) / 2;
         
-        /* if we are in a "masked-layer chain" (groupId at '1') we should get "layer"
-        so (*m_undoIdHistory).getLast()->get()[0] (with (1-1)/2 = 0) but if we are in a "control-chain" (groupId at '3')
-        we should get "control" so (*m_undoIdHistory).getLast()->get()[1] (with (3-1)/2 = 1)
-        and so on with deeper layer of nested "Layer/chain/control"  */
+        /* if we are in a "masked-layer chain" (groupId at '1') we should get layer index 
+        but if we are in a "control-chain" (groupId at '3')
+        we should get control index */
         
         return groupDeepnessIndex;
     }
