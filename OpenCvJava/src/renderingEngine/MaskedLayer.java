@@ -49,31 +49,36 @@ public class MaskedLayer extends FrameLayer
 	public void setAlpha(int opacity){
 		m_alpha.setAlpha(opacity);
 	}
-	public void setBackGround(Frame bg){
-		m_backGround = bg; 
+	public void setBackGround(Frame background){
+		m_background = background; 
 	}
-	public void setFloatParameters(int controlIndex, Stack<Float> parameter){
+	
+	public void setFloatParameters(int controlIndex, Stack<Float> parameters){
 		
-		((AdjustControlFloat)m_controls.getControl(controlIndex)).setParameter(parameter);
+		((AdjustControlFloat)m_chainOfControls.getControl(controlIndex)).setParameter(parameters);
 	}
 
 
 	// FrameLayer implementation
 	public Control getLastControl() {
+		
 		return m_alpha;
 	}
-	public Control createControl(Stack<Id> id, Stack<Integer> controlNumber){
-		Control control = (Control) m_dbControl.getControl(controlNumber.get(0));
-		control.getId().set(id.get(0));
+	
+	public Control createControl(Stack<Id> id, Stack<Integer> controlIndex){
+		
+		Control newControl = (Control) m_dbControl.getControl(controlIndex.get(0));
+		newControl.getId().set(id.get(0));
 
-		control.setRenderAtId(m_renderAtIdHistory);
-		control.setUndoId(m_undoIdHistory);
+		newControl.setRenderAtId(m_renderAtIdHistory);
+		newControl.setUndoId(m_undoIdHistory);
 
-		return control;
+		return newControl;
 	}
+	
 	public int getNumberOfControl() {
 	
-		return m_controls.getSize() + 1;
+		return m_chainOfControls.getSize() + 1;
 	}
 	
 	// Control implementation
@@ -82,9 +87,9 @@ public class MaskedLayer extends FrameLayer
 		m_alpha.compute();
 	}
 	public Boolean undo() {
-		int undoControlId = m_undoIdHistory.getLast().getParameter().get()[1];
+		int undoControlId = m_undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
-			return m_controls.undo();
+			return m_chainOfControls.undo();
 		}
 		if (undoControlId == 1) {
 			return m_alpha.undo();
@@ -95,9 +100,9 @@ public class MaskedLayer extends FrameLayer
 		
 	}
 	public Boolean redo() {
-		int undoControlId = m_undoIdHistory.getLast().getParameter().get()[1];
+		int undoControlId = m_undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
-			return m_controls.redo();
+			return m_chainOfControls.redo();
 		}
 		if (undoControlId == 1) {
 			return m_alpha.redo();
@@ -107,30 +112,30 @@ public class MaskedLayer extends FrameLayer
 		}
 	}
 	public void store(){
-		int undoControlId = m_undoIdHistory.getLast().getParameter().get()[1];
+		int undoControlId = m_undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
-			m_controls.store();
+			m_chainOfControls.store();
 		}
 		if (undoControlId == 1) {
 			m_alpha.store();
 		}
 	}
 	public void updateId(int groupDeepnessIndex, int newValue){
-		m_controls.updateId(groupDeepnessIndex, newValue);
+		m_chainOfControls.updateId(groupDeepnessIndex, newValue);
 	}
 
 	public Control clone() {
 		
-		MaskedLayer temp= new MaskedLayer(m_id, m_undoIdHistory, m_renderAtIdHistory);
+		MaskedLayer newMaskedLayer= new MaskedLayer(m_id, m_undoIdHistory, m_renderAtIdHistory);
 		
-		temp.setChainControl(m_controls.clone());
-		temp.setAlpha(m_alpha.getAlpha());
-		temp.setBackGround(m_backGround);
+		newMaskedLayer.setChainControl(m_chainOfControls.clone());
+		newMaskedLayer.setAlpha(m_alpha.getAlpha());
+		newMaskedLayer.setBackGround(m_background);
 		
-		return temp;
+		return newMaskedLayer;
 	}
 
-	protected Frame m_backGround;
+	protected Frame m_background;
 	protected AlphaControl m_alpha;
 	protected DbControls m_dbControl;
 

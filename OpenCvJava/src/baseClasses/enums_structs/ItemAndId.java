@@ -5,7 +5,7 @@ import baseClasses.Id;
 
 public class ItemAndId<T> {
 	
-	 	public T s_control;
-	 	public Stack<Id> s_id;
-	 	public ChainActions s_chainCommand;
+	 	public T m_control;
+	 	public Stack<Id> m_id;
+	 	public ChainCommand m_chainCommand;
 }

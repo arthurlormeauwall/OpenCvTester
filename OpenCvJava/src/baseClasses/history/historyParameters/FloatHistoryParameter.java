@@ -14,8 +14,8 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
     public FloatHistoryParameter() {
    
     }
-    public FloatHistoryParameter(Stack<Float> p) {
-		 m_p=p;
+    public FloatHistoryParameter(Stack<Float> parameter) {
+		 m_p=parameter;
 	 }
 	 
  
@@ -31,8 +31,8 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 		return m_p;
 	}
 
-	public void set(Stack<Float> p) {
-		m_p=p;		
+	public void set(Stack<Float> parameter) {
+		m_p=parameter;		
 	}
     
 	protected Stack<Float> m_p;

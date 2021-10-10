@@ -1,6 +1,6 @@
 package baseClasses;
 
-import baseClasses.enums_structs.ChainActions;
+import baseClasses.enums_structs.ChainCommand;
 import baseClasses.enums_structs.ItemAndId;
 import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
@@ -17,46 +17,48 @@ public abstract class Layer extends Control
 
 		Id chainId = new Id();
 		chainId.setGroupId(chainGroup);
-		m_controls = new ChainControl (chainId, m_undoIdHistory, m_renderAtIdHistory);
+		m_chainOfControls = new ChainOfControls (chainId, m_undoIdHistory, m_renderAtIdHistory);
 
-		m_controls.getId().set(m_id);
-		m_controls.getId().setGroupId(m_id.getGroupId() + 1);
+		m_chainOfControls.getId().set(m_id);
+		m_chainOfControls.getId().setGroupId(m_id.getGroupId() + 1);
 	}
 	
 	public abstract void render();
-	public abstract Control createControl(Stack<Id> ids, Stack<Integer> controlNumber);
+	public abstract Control createControl(Stack<Id> ids, Stack<Integer> indexListOfControls);
 
 	public Control getControl(int index) {
 
-		return m_controls.getControl(index);
+		return m_chainOfControls.getControl(index);
 	}
 	
-	public void setChainControl(ChainControl p)
-	{
-		m_controls=p;
-	}
-	public ChainControl getChainControl() {
-		return m_controls;
+	public void setChainControl(ChainOfControls chain) {
+		m_chainOfControls=chain;
 	}
 	
-	public void addControl(Stack<Id>  id, Stack<Integer> controlNumber) {
+	public ChainOfControls getChainControl() {
+		return m_chainOfControls;
+	}
+	
+	public void addControl(Stack<Id>  id, Stack<Integer> indexListOfControls) {
 
-		Control control = createControl(id, controlNumber);
-		setChain(ChainActions.ADD, control, id);
+		Control control = createControl(id, indexListOfControls);
+		addOrDelete(ChainCommand.ADD, control, id);
 		updateRenderAtId(id.get(0));
 	}
+	
 	public void delControl(Stack<Id> id) {
 
-		setChain(ChainActions.DELETE, m_controls.getControl(0), id);
+		addOrDelete(ChainCommand.DELETE, m_chainOfControls.getControl(0), id);
 	}
 	
-	public void setChain (ChainActions chainCommand, Control control, Stack<Id> id) {
+	public void addOrDelete (ChainCommand chainCommand, Control control, Stack<Id> id) {
+		
 		ItemAndId<Control> parameter = new ItemAndId<Control>();
-		parameter.s_chainCommand = chainCommand;
-		parameter.s_control = control;
-		parameter.s_id = id;
+		parameter.m_chainCommand = chainCommand;
+		parameter.m_control = control;
+		parameter.m_id = id;
 
-		m_controls.setChain(parameter);
+		m_chainOfControls.addOrDelete(parameter);
 	}
 	
 	public void updateRenderAtId(Id id) {
@@ -67,14 +69,12 @@ public abstract class Layer extends Control
 		if ( tempControlId < 0) { tempControlId = 0; }
 		tempId.set(tempLayerId, tempControlId, id.getGroupId());
 	
-		IdHistoryParameter temp= new IdHistoryParameter();
-		temp.set(tempId);
+		IdHistoryParameter tempHistoryParameter= new IdHistoryParameter();
+		tempHistoryParameter.set(tempId);
 
-		m_renderAtIdHistory.setLast(temp);
+		m_renderAtIdHistory.setState(tempHistoryParameter);
 	}
 
-
-
-	protected ChainControl m_controls;
+	protected ChainOfControls m_chainOfControls;
 	
-	};
+};

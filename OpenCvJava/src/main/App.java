@@ -22,22 +22,22 @@ class App
 	
 	public void test() {
 	
-		Id idL = new Id();
-		Id idC = new Id();
+		Id Layer1_id = new Id();
+		Id Control1_id = new Id();
 		
-		idL.set(0, 0, 2);
-		idC.set(0, 0, 4);
+		Layer1_id.set(0, 0, 2);
+		Control1_id.set(0, 0, 4);
 
-		Stack<Id> ids = new Stack<Id>();
-		ids.push(idL);
-		ids.push(idC);
+		Stack<Id> stackOfIds = new Stack<Id>();
+		stackOfIds.push(Layer1_id);
+		stackOfIds.push(Control1_id);
 		
-		Stack<Integer> temp= new Stack<Integer>();
-		temp.push(1);
+		Stack<Integer> controlIndexToAdd= new Stack<Integer>();
+		controlIndexToAdd.push(1);
 
-		m_renderer.addLayer(ids, temp);
+		m_renderer.addLayer(stackOfIds, controlIndexToAdd);
 		m_renderer.store();
-		m_renderer.setBypass(idC, false);
+		m_renderer.setBypass(Control1_id, false);
 		m_renderer.play();
 		m_renderer.undo();
 		m_renderer.undo();
@@ -54,19 +54,16 @@ class App
 		
 		
 		
-		Stack<Float> tempF=new Stack<Float>();
-		tempF.push(0.6f);
-		tempF.push(2f);
-		tempF.push(0.9f);
-		m_renderer.setParameters(idC, tempF);
+		Stack<Float> floatParameters=new Stack<Float>();
+		floatParameters.push(0.6f);
+		floatParameters.push(2f);
+		floatParameters.push(0.9f);
+		m_renderer.setParameters(Control1_id, floatParameters);
 		m_renderer.store();
 		m_renderer.play();
 		m_renderer.undo();
 		m_renderer.play();
 	}
-
-
-
 
 	public void init() {
 		
@@ -79,7 +76,6 @@ class App
 		id.setGroupId(0);
 	
 		m_renderer = new Renderer(m_background, id, m_undoIdHistory, m_renderAtIdHistory);
-		//m_mainWin = new UIManagerQt (m_renderer, id, m_undoIdHistory, m_renderAtIdHistory);
 
 		m_renderer.setSource(m_source);
 		m_renderer.setDest(m_dest);

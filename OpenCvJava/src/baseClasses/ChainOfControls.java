@@ -2,22 +2,22 @@ package baseClasses;
 
 import java.util.Stack;
 
-import baseClasses.enums_structs.ChainActions;
+import baseClasses.enums_structs.ChainCommand;
 import baseClasses.enums_structs.ItemAndId;
 import baseClasses.history.historyParameters.ChainHistoryParameter;
 import baseClasses.history.imp.ChainHistory;
 import baseClasses.history.imp.UndoHistory;
 
 
-public class ChainControl extends Control
+public class ChainOfControls extends Control
 {
 
-    public ChainControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
+    public ChainOfControls(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
     	super (id, undoIdHistory, renderAtIdHistory);
     	m_controls = new Stack<Control>();
         m_history = new ChainHistory<ItemAndId<Control>>();
-        m_history.setFactory(new ChainHistoryParameter<Control>());
-        m_history.setState(new ChainHistoryParameter<Control>());
+        m_history.initFactory(new ChainHistoryParameter<Control>());
+        m_history.initState(new ChainHistoryParameter<Control>());
     }
 
 
@@ -60,9 +60,9 @@ public class ChainControl extends Control
         return erasedControl;
     }
 
-    public void setChain(ItemAndId<Control> p) {
+    public void addOrDelete(ItemAndId<Control> parameter) {
 
-        m_history.setLast(new ChainHistoryParameter<Control>(p));
+        m_history.setState(new ChainHistoryParameter<Control>(parameter));
         UpdateUndo();
         compute();
      }
@@ -71,26 +71,26 @@ public class ChainControl extends Control
         return m_controls;
     }
     
-    public void setControlsChain(Stack<Control> p) {
-    	m_controls=p;
+    public void setControlsChain(Stack<Control> controlChain) {
+    	m_controls=controlChain;
     }
     public ChainHistory<ItemAndId<Control>> getHistory(){
     	return m_history;
     }
-    public void setHistory(ChainHistory<ItemAndId<Control>> p) {
-    	m_history=p;
+    public void setHistory(ChainHistory<ItemAndId<Control>> history) {
+    	m_history=history;
     }
     
     public void compute() {
     	
-        if (m_history.getLast().getParameter().s_chainCommand == ChainActions.ADD) {
-            Id id = m_history.getLast().getParameter().s_id.get(0);
-            Control item = m_history.getLast().getParameter().s_control;
+        if (m_history.getState().getParameter().m_chainCommand == ChainCommand.ADD) {
+            Id id = m_history.getState().getParameter().m_id.get(0);
+            Control item = m_history.getState().getParameter().m_control;
             addControl(id, item);
         }
 
-        else if (m_history.getLast().getParameter().s_chainCommand ==  ChainActions.DELETE) {
-            m_history.getLast().getParameter().s_control = delControl(m_history.getLast().getParameter().s_id.get(0));
+        else if (m_history.getState().getParameter().m_chainCommand ==  ChainCommand.DELETE) {
+            m_history.getState().getParameter().m_control = delControl(m_history.getState().getParameter().m_id.get(0));
         }
     }
 
@@ -109,7 +109,7 @@ public class ChainControl extends Control
     public int getControlIndex(UndoHistory<Id> id) {
 
         int groupDeepnessIndex = getDeepnessIndex();
-        int controlIndex = id.getLast().getParameter().get()[groupDeepnessIndex];
+        int controlIndex = id.getState().getParameter().get()[groupDeepnessIndex];
         return controlIndex;
     }
     
@@ -144,7 +144,7 @@ public class ChainControl extends Control
     public Boolean undo() {
 
 
-	        int undoGroupId = m_undoIdHistory.getLast().getParameter().getGroupId();
+	        int undoGroupId = m_undoIdHistory.getState().getParameter().getGroupId();
 	        int currentGroupId = m_id.getGroupId();
 	        int undoControlIndex = getControlIndex(m_undoIdHistory);
 	
@@ -166,7 +166,7 @@ public class ChainControl extends Control
     
     public Boolean redo() {
 
-	        int undoGroupId = m_undoIdHistory.getLast().getParameter().getGroupId();
+	        int undoGroupId = m_undoIdHistory.getState().getParameter().getGroupId();
 	        int currentGroupId = m_id.getGroupId();
 	        int undoControlIndex = getControlIndex(m_undoIdHistory);
 	
@@ -188,7 +188,7 @@ public class ChainControl extends Control
    
 
     public void store() {
-    	 int undoGroupId = m_undoIdHistory.getLast().getParameter().getGroupId();
+    	 int undoGroupId = m_undoIdHistory.getState().getParameter().getGroupId();
          int currentGroupId = m_id.getGroupId();
          int undoControlIndex = getControlIndex(m_undoIdHistory);
 
@@ -202,18 +202,18 @@ public class ChainControl extends Control
          }
     }
     
-    public ChainControl clone() {
+    public ChainOfControls clone() {
     	
-    	Id tempId= new Id();
+    	Id newId= new Id();
     	
-    	ChainControl temp = new ChainControl(tempId, m_undoIdHistory, m_renderAtIdHistory);
+    	ChainOfControls newChainControl = new ChainOfControls(newId, m_undoIdHistory, m_renderAtIdHistory);
     	
-    	temp.setId(m_id);
-    	temp.setControlsChain(m_controls);
-    	temp.setHistory(m_history);
-    	temp.setBypass(bypass);
+    	newChainControl.setId(m_id);
+    	newChainControl.setControlsChain(m_controls);
+    	newChainControl.setHistory(m_history);
+    	newChainControl.setBypass(m_isBypass);
     	
-    	return temp;
+    	return newChainControl;
     }
 
     protected ChainHistory<ItemAndId<Control>> m_history;

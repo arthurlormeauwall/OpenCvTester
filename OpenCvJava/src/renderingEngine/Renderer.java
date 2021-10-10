@@ -17,24 +17,24 @@ public class Renderer extends FrameLayer
 	}
 
 
-	public void addControlInLayer(Stack<Id> controlId, int controlNumber) {
+	public void addControlInLayer(Stack<Id> controlId, int controlIndex) {
 		Stack<Integer> temp = new Stack<Integer>();
-		temp.push(controlNumber);
+		temp.push(controlIndex);
 		if ( getNumberOfControl()>= controlId.get(0).get()[0]) {
-			((MaskedLayer)m_controls.getControl(controlId.get(0).get()[0])).addControl(controlId, temp);
+			((MaskedLayer)m_chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, temp);
 			compute();
 		}
 		
 	}
 	public void delControlInLayer(Stack<Id> controlId){
 		if (getNumberOfControl()>= controlId.get(0).get()[0]) {
-			((MaskedLayer)m_controls.getControl(controlId.get(0).get()[0])).delControl(controlId);
+			((MaskedLayer)m_chainOfControls.getControl(controlId.get(0).get()[0])).delControl(controlId);
 			compute();
 		}
 	}   
 	
-	public void addLayer(Stack<Id> controlId, Stack<Integer> controlNumbers){
-		addControl(controlId, controlNumbers);
+	public void addLayer(Stack<Id> controlId, Stack<Integer> controlIndex){
+		addControl(controlId, controlIndex);
 		compute();
 	}   
 	
@@ -45,7 +45,7 @@ public class Renderer extends FrameLayer
 	
 	public void setAlpha(int layerIndex, Frame alpha){
 		if (getNumberOfControl() >= layerIndex) {
-			((MaskedLayer)m_controls.getControl(layerIndex)).setAlpha(alpha);
+			((MaskedLayer)m_chainOfControls.getControl(layerIndex)).setAlpha(alpha);
 			compute();
 		}
 		
@@ -53,18 +53,18 @@ public class Renderer extends FrameLayer
 	
 	public void setAlpha(int layerIndex, int opacity){
 		if (getNumberOfControl() >= layerIndex) {
-			((MaskedLayer)m_controls.getControl(layerIndex)).setAlpha(opacity);
+			((MaskedLayer)m_chainOfControls.getControl(layerIndex)).setAlpha(opacity);
 			compute();
 		}
 	}  
 	
-	public void setParameters(Id ControlId, Stack<Float> p){
+	public void setParameters(Id ControlId, Stack<Float> parameters){
 
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		if (getNumberOfControl() != 0 && getNumberOfControl() >= layerIndex &&  ((MaskedLayer)m_controls.getControl(layerIndex)).getNumberOfControl() != 0 && ((MaskedLayer)m_controls.getControl(layerIndex)).getNumberOfControl()  >= controlIndex) {
-			AdjustControlFloat temp = (AdjustControlFloat)((MaskedLayer)m_controls.getControl(layerIndex)).getControl(controlIndex);
-			temp.setParameter(p);
+		if (getNumberOfControl() != 0 && getNumberOfControl() >= layerIndex &&  ((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getNumberOfControl() != 0 && ((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getNumberOfControl()  >= controlIndex) {
+			AdjustControlFloat adjustControlToSet = (AdjustControlFloat)((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getControl(controlIndex);
+			adjustControlToSet.setParameter(parameters);
 			compute();
 		}
 	} 
@@ -74,8 +74,8 @@ public class Renderer extends FrameLayer
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		
-		if ( getNumberOfControl()>=layerIndex && ((MaskedLayer)m_controls.getControl(layerIndex)).getNumberOfControl() >= controlIndex) {
-			AdjustControlFloat temp = ((AdjustControlFloat)((MaskedLayer)m_controls.getControl(layerIndex)).getControl(controlIndex));
+		if ( getNumberOfControl()>=layerIndex && ((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getNumberOfControl() >= controlIndex) {
+			AdjustControlFloat temp = ((AdjustControlFloat)((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getControl(controlIndex));
 			temp.setBypass(p);
 			compute();
 		}
@@ -84,19 +84,19 @@ public class Renderer extends FrameLayer
 
 
 	public void dealBackground(){
-		int layerSize = m_controls.getSize();
+		int numberOfMaskedLayers = m_chainOfControls.getSize();
 		
-		if (layerSize>0) {
-			((MaskedLayer)m_controls.getControl(0)).setBackGround(m_background);
-			for (int i = 1; i < layerSize; i++) {
-				((MaskedLayer)m_controls.getControl(i)).setBackGround(((MaskedLayer)m_controls.getControl(i - 1)).getDest());
+		if (numberOfMaskedLayers>0) {
+			((MaskedLayer)m_chainOfControls.getControl(0)).setBackGround(m_background);
+			for (int i = 1; i < numberOfMaskedLayers; i++) {
+				((MaskedLayer)m_chainOfControls.getControl(i)).setBackGround(((MaskedLayer)m_chainOfControls.getControl(i - 1)).getDest());
 			}
 		}
 
 		
 	}   
-	public void dealFramesInLayers(){
-		for (int i = 0; i < m_controls.getSize(); i++) {
+	public void dealFramesInMaskedLayers(){
+		for (int i = 0; i < m_chainOfControls.getSize(); i++) {
 
 			MaskedLayer test = (MaskedLayer)getControl(i);
 			test.dealFrames();
@@ -128,10 +128,10 @@ public class Renderer extends FrameLayer
 		return maskedLayer;
 	}   
 	public Control getLastControl(){
-		return m_controls.getControl(m_controls.getSize() - 1);
+		return m_chainOfControls.getControl(m_chainOfControls.getSize() - 1);
 	}   
 	public int getNumberOfControl() {
-		return m_controls.getSize();
+		return m_chainOfControls.getSize();
 	}
 	
 
@@ -139,14 +139,15 @@ public class Renderer extends FrameLayer
 	public void compute(){
 		dealFrames();
 		dealBackground();
-		dealFramesInLayers();
+		dealFramesInMaskedLayers();
 		render();
 	}
+	
 	public Boolean undo() {
 		m_undoIdHistory.undo();
 		m_renderAtIdHistory.undo();
 
-		if (m_controls.undo()) {
+		if (m_chainOfControls.undo()) {
 			compute();
 			return true;
 		}
@@ -156,28 +157,26 @@ public class Renderer extends FrameLayer
 		
 		
 	}
+	
 	public Boolean redo() {
 		m_undoIdHistory.redo();
 		m_renderAtIdHistory.redo();
 		
-		if (m_controls.redo())
+		if (m_chainOfControls.redo())
 		{
 			compute();
 			return true;
 		}
 		else {
 			return false;
-		}
-		
-		
-		
+		}	
 	}
+	
 	public void store(){
 		m_undoIdHistory.store();
 		m_renderAtIdHistory.store();
 
-		m_controls.store();
-	
+		m_chainOfControls.store();
 	}
 
 	@Override
@@ -187,8 +186,4 @@ public class Renderer extends FrameLayer
 	}
 
 	protected Frame m_background;
-
-
-
-	
 };

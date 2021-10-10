@@ -46,19 +46,19 @@ public class GrayScaleControl extends AdjustControlFloat
 		tempString.push("BlueMult");
 		m_flags.controlNames = tempString;
 		
-		m_flags.numberOfControls = 3;
+		m_flags.numberOfParameters = 3;
 		
-		m_history.setLast(new FloatHistoryParameter(m_flags.defaultValues));
+		m_history.setState(new FloatHistoryParameter(m_flags.defaultValues));
 		m_history.store();
 	}
 
 	@Override
 	public void compute() {
-		if (bypass) {
+		if (m_isBypass) {
 			m_dest=m_source;
 		}
 
-		if (!bypass)
+		if (!m_isBypass)
 	    {
 	        Mat imgSource = m_source.getFrame();
 	        Mat imgDest = m_dest.getFrame();
@@ -71,9 +71,9 @@ public class GrayScaleControl extends AdjustControlFloat
 	        {
 	            for (int column = 0; column < m_column; column++)
 	            {
-	                float blueMultiplier = (m_history.getLast().getParameter()).get(0);
-	                float greenMultiplier = (m_history.getLast().getParameter()).get(1);
-	                float redMultiplier = (m_history.getLast().getParameter()).get(2);
+	                float blueMultiplier = (m_history.getState().getParameter()).get(0);
+	                float greenMultiplier = (m_history.getState().getParameter()).get(1);
+	                float redMultiplier = (m_history.getState().getParameter()).get(2);
 
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];

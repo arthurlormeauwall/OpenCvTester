@@ -13,17 +13,18 @@ public abstract class History<T>
 	
 	}
 	
-	public void setFactory(HistoryParameter<T> p) {
+	public void initFactory(HistoryParameter<T> p) {
 		m_factory=p;
 	}
-	public void setState(HistoryParameter<T> p) {
+	
+	public void initState(HistoryParameter<T> p) {
 		m_state=p;
 	}
      public abstract void store();   
      public abstract void undo(); 
      public abstract void redo(); 
      
-     public void setLast(HistoryParameter<T> t) {
+     public void setState(HistoryParameter<T> t) {
     		m_state.set(t.getParameter());
     }
 
@@ -47,7 +48,7 @@ public abstract class History<T>
     }
    
     
-    public HistoryParameter<T> getLast() { 
+    public HistoryParameter<T> getState() { 
  
         return m_state; 
     	

@@ -1,6 +1,6 @@
 package baseClasses.enums_structs;
 
-public enum ChainActions {
+public enum ChainCommand {
 	ADD,
 	DELETE
 }

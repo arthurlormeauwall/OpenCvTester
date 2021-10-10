@@ -11,7 +11,6 @@ import baseClasses.enums_structs.FrameSpecs;
 
 public class Frame {
 
-
 	public Frame() { 
 		m_frame = new Mat(0,0, CvType.CV_8UC3);
 		m_specs= new FrameSpecs();
@@ -40,7 +39,6 @@ public class Frame {
 		
 		m_frame=new Mat(rows, cols, CvType.CV_8UC3);
 		
-		
 		double[] temp= new double[3];
 		
 		for (int i=0; i< 3 ;i++) {
@@ -54,7 +52,6 @@ public class Frame {
 			}
 		}
 		setSpecs();
-
 	}
 
 	public Mat getFrame(){ 
@@ -80,6 +77,7 @@ public class Frame {
 		HighGui.imshow("test", m_frame);
 		HighGui.waitKey();
 	}
+	
 	public Boolean compareTo(Frame p) {
 		Boolean value=false; 
 		
@@ -102,7 +100,6 @@ public class Frame {
 			}
 			
 		}
-		
 		
 		return value;
 	}

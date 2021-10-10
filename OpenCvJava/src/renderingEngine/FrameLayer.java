@@ -48,10 +48,11 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	}
 	
 	public void dealFrames() {
+		
 		int numberOfControls = getNumberOfControl();
 		updateNumberOfFrames();
 
-		int lastFrame = m_frames.size() - 1;
+		int lastFrameIndex = m_frames.size() - 1;
 
 		if (numberOfControls>0) {
 			Control lastControl =  getLastControl();
@@ -61,14 +62,14 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 				((IoFrame)lastControl).setDest(m_dest);
 			}
 			else if (numberOfControls >= 2) {
-				((IoFrame)m_controls.getControl(0)).setSource(m_source);
-				((IoFrame)m_controls.getControl(0)).setDest(m_frames.get(0));
+				((IoFrame)m_chainOfControls.getControl(0)).setSource(m_source);
+				((IoFrame)m_chainOfControls.getControl(0)).setDest(m_frames.get(0));
 
 				for (int j = 1; j < numberOfControls - 1; j++) {
-					((IoFrame)m_controls.getControl(j)).setSource(m_frames.get(j - 1));
-					((IoFrame)m_controls.getControl(j)).setDest(m_frames.get(j));
+					((IoFrame)m_chainOfControls.getControl(j)).setSource(m_frames.get(j - 1));
+					((IoFrame)m_chainOfControls.getControl(j)).setDest(m_frames.get(j));
 				}
-				((IoFrame)lastControl).setSource(m_frames.get(lastFrame));
+				((IoFrame)lastControl).setSource(m_frames.get(lastFrameIndex));
 				((IoFrame)lastControl).setDest(m_dest);
 			}
 		}
@@ -78,11 +79,11 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	}
 	
 	public void render() {
-		int size = m_controls.getSize();
-		int firstControl = m_controls.getControlIndex(m_renderAtIdHistory);
+		int size = m_chainOfControls.getSize();
+		int firstControl = m_chainOfControls.getControlIndex(m_renderAtIdHistory);
 
 		for (int i = firstControl; i < size; i++) {
-			m_controls.getControl(i).compute();
+			m_chainOfControls.getControl(i).compute();
 		}	
 	}
 	

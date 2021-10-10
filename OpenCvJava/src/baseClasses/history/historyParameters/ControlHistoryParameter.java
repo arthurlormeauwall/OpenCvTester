@@ -7,8 +7,8 @@ import baseClasses.history.HistoryParameter;
 
 public class ControlHistoryParameter implements HistoryParameter<Control>
 {
-	 public ControlHistoryParameter(Control p) {
-		 m_p=p;
+	 public ControlHistoryParameter(Control parameter) {
+		 m_p=parameter;
 	 }
 	 
     public ControlHistoryParameter() {
@@ -27,8 +27,8 @@ public class ControlHistoryParameter implements HistoryParameter<Control>
 		return m_p;
 	}
 
-	public void set(Control p) {
-		m_p=p.clone();		
+	public void set(Control parameter) {
+		m_p=parameter.clone();		
 	}
     
 	protected Control m_p;

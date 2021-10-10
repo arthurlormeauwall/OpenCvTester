@@ -23,7 +23,8 @@ public abstract class Control extends Command
 	    m_undoIdHistory = new UndoHistory<Id>();
 		m_renderAtIdHistory= new UndoHistory<Id>(); 
 
-	    bypass = false;
+	    m_isBypass = false;
+	    
 	    initControl();
 }
     public Control(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
@@ -36,17 +37,17 @@ public abstract class Control extends Command
 
     	    m_undoIdHistory = undoIdHistory;
     	    m_renderAtIdHistory = renderAtIdHistory;
-    	    bypass = false;
+    	    m_isBypass = false;
     	    
     	    initControl();
     }
     
     public void initControl() {
     	
-    	m_undoIdHistory.setFactory(new IdHistoryParameter());
-    	m_renderAtIdHistory.setFactory(new IdHistoryParameter());
-      	m_undoIdHistory.setState(new IdHistoryParameter());
-    	m_renderAtIdHistory.setState(new IdHistoryParameter());
+    	m_undoIdHistory.initFactory(new IdHistoryParameter());
+    	m_renderAtIdHistory.initFactory(new IdHistoryParameter());
+      	m_undoIdHistory.initState(new IdHistoryParameter());
+    	m_renderAtIdHistory.initState(new IdHistoryParameter());
     }
     
     public abstract void compute();
@@ -77,14 +78,14 @@ public abstract class Control extends Command
     }
     
     public void UpdateRender(){
-    	 IdHistoryParameter p= new IdHistoryParameter();
-    	 p.set(m_id);
-    	 m_renderAtIdHistory.setLast(p);
+    	 IdHistoryParameter tempParameter= new IdHistoryParameter();
+    	 tempParameter.set(m_id);
+    	 m_renderAtIdHistory.setState(tempParameter);
     }
     public void UpdateUndo(){
-    	 IdHistoryParameter p= new IdHistoryParameter();
-    	 p.set(m_id);
-    	 m_undoIdHistory.setLast(p);
+    	 IdHistoryParameter temparameter= new IdHistoryParameter();
+    	 temparameter.set(m_id);
+    	 m_undoIdHistory.setState(temparameter);
     }
     public void storeIdHistory(){
     	m_undoIdHistory.store();
@@ -92,17 +93,18 @@ public abstract class Control extends Command
     }
     public abstract Control clone();
     
-    public Boolean getBypassStatus () {
-    	return bypass;
+    public Boolean getBypassState () {
+    	return m_isBypass;
     }
-    public void setBypass(Boolean p) {
-    	bypass=p;
+    public void setBypass(Boolean bypassState) {
+    	m_isBypass=bypassState;
     }
 
 
+    
     protected Id m_id;
     protected UndoHistory<Id> m_undoIdHistory;
     protected UndoHistory<Id> m_renderAtIdHistory;
-    protected Boolean bypass;
+    protected Boolean m_isBypass;
    
 };

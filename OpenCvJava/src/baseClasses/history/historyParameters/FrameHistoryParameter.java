@@ -11,8 +11,8 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
     public FrameHistoryParameter() {
     	m_p=new Frame();
     }
-    public FrameHistoryParameter(Frame p) {
-    	m_p=p;
+    public FrameHistoryParameter(Frame parameter) {
+    	m_p=parameter;
     }
  
     
@@ -27,8 +27,8 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
 		return m_p;
 	}
     
-	public void set(Frame p) {
-		m_p=p;		
+	public void set(Frame parameter) {
+		m_p=parameter;		
 	}
 	
 	 protected Frame m_p;

@@ -15,7 +15,7 @@ public class AlphaControl extends AdjustControlFrame {
 
 	public AlphaControl(Id id) {
 		super(id);
-		m_history.setState(new FrameHistoryParameter());
+		m_history.initState(new FrameHistoryParameter());
 	}
 	
 	public AlphaControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
@@ -36,24 +36,24 @@ public void init() {
 		tempString.push("Alpha");
 		m_flags.controlNames = tempString;
 		
-		m_flags.numberOfControls = 1;
+		m_flags.numberOfParameters = 1;
 		
-		m_history.setLast(new FrameHistoryParameter(m_flags.defaultValues));
+		m_history.setState(new FrameHistoryParameter(m_flags.defaultValues));
 		m_history.store();
 	}
 
 	
 	public void compute() {
-		if (bypass) {
+		if (m_isBypass) {
 			m_dest.setFrame(m_source.getFrame());
 		}
-		else if (!bypass) {
+		else if (!m_isBypass) {
 			
 			Mat imgSource = m_source.getFrame();
 			Mat imgDest = m_dest.getFrame();
 			Mat background = m_background.getFrame();
 
-			Mat alpha = m_history.getLast().getParameter().getFrame();
+			Mat alpha = m_history.getState().getParameter().getFrame();
 			int NBITMAX = m_source.getSpecs().s_bitMax;
 
 			int m_row = imgDest.rows();
@@ -99,7 +99,7 @@ public void init() {
 		
 	}
 	public Frame getAlpha() {
-		return m_history.getLast().getParameter();
+		return m_history.getState().getParameter();
 	}
 	
 	@Override

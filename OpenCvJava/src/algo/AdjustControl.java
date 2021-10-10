@@ -6,7 +6,7 @@ import baseClasses.Control;
 import baseClasses.Id;
 import baseClasses.IoFrame;
 import baseClasses.enums_structs.ControlFlags;
-import baseClasses.history.imp.StateHistory;
+import baseClasses.history.imp.ParameterHistory;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 
@@ -16,7 +16,7 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	 public AdjustControl(Id id) {
 		    super (id);
 	        m_flags = new ControlFlags<N>();
-	        bypass=true;
+	        m_isBypass=true;
 	    }
 	 
 	 public AdjustControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
@@ -33,7 +33,7 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	    }
 
 	 public void setNumberOfParamters (int n) {
-	        m_flags.numberOfControls = n;
+	        m_flags.numberOfParameters = n;
 	    }
 
 	 public void reset() {
@@ -93,7 +93,7 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	  }
 
 	    
-	protected StateHistory<N> m_history;
+	protected ParameterHistory<N> m_history;
 	protected ControlFlags<N> m_flags;
 	protected Frame m_source;
 	protected Frame m_dest;

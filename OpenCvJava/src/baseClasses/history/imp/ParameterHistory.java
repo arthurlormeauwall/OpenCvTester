@@ -3,18 +3,18 @@ package baseClasses.history.imp;
 import baseClasses.history.History;
 import baseClasses.history.HistoryParameter;
 
-public class StateHistory<T> extends History<T>
+public class ParameterHistory<T> extends History<T>
 {
 
-	public StateHistory(){
+	public ParameterHistory(){
 		
 	}
 	
      public void store() {
     	
-    	 HistoryParameter<T> p = m_factory.getNew();
-    	 p.set(m_state.getParameter());  
-    	 m_history.push(p);
+    	 HistoryParameter<T> parameter = m_factory.getNew();
+    	 parameter.set(m_state.getParameter());  
+    	 m_history.push(parameter);
     	 firstUndo = true;
      }
      
@@ -63,9 +63,8 @@ public class StateHistory<T> extends History<T>
   	         else if (m_history.size() > 0) {
   	             return false;
   	         }
-  	 }
-      
- 		return null;
+    	 }
+    	 return null;
      }
      protected Boolean firstUndo; 
 };
