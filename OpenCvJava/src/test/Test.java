@@ -12,7 +12,7 @@ import main.App;
 public class Test {
 	
 	public Test(App myApp){
-		// change here path to image you want to work with
+		// change here the path to the image you want to work with
 		myApp.init("assets/20210717_203824.jpg");	
 
 		Id Layer1_id = new Id();
