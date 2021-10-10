@@ -12,8 +12,6 @@ import baseClasses.IoFrame;
 
 public abstract class FrameLayer  extends Layer implements IoFrame
 {
-
-
 	public FrameLayer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		m_frames = new Stack<Frame>();

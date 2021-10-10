@@ -22,8 +22,7 @@ public class Renderer extends FrameLayer
 		if ( getNumberOfControl()>= controlId.get(0).get()[0]) {
 			((MaskedLayer)m_chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, temp);
 			compute();
-		}
-		
+		}	
 	}
 	
 	public void delControlInLayer(Stack<Id> controlId){
@@ -58,7 +57,6 @@ public class Renderer extends FrameLayer
 	}  
 	
 	public void setParameters(Id ControlId, Stack<Float> parameters){
-
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		if (getNumberOfControl() != 0 && getNumberOfControl() >= layerIndex &&  ((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getNumberOfControl() != 0 && ((MaskedLayer)m_chainOfControls.getControl(layerIndex)).getNumberOfControl()  >= controlIndex) {
@@ -69,7 +67,6 @@ public class Renderer extends FrameLayer
 	} 
 	
 	public void setBypass(Id ControlId, Boolean p){
-
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		
@@ -106,7 +103,6 @@ public class Renderer extends FrameLayer
 
 	// FrameLayer implementation
 	public Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
-		
 		MaskedLayer maskedLayer = new MaskedLayer(controlId.get(0), m_undoIdHistory, m_renderAtIdHistory);
 		maskedLayer.init(m_background, m_source, m_dest);
 		
