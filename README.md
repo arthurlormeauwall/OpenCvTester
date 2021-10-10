@@ -33,7 +33,7 @@ Finalement, je dois préciser que j’ai commencé à coder le projet en C++ (pr
 **Plus de précisions sur le fonctionnement du code :** 
 
 La classe App contient principalement deux objets : un de type Renderer chargé de calculé l'image, et l'autre de type UIImp chargé de créer le GUI et d'appeler les différentes fonctionnalités du Renderer et du GUI en fonction des signaux émis par le GUI. L'App initialise le Renderer et le passe à l'UIImp.
-Celui-ci créera ensuite le GUI, et se chargera de récupérer les signaux émis par le GUI avec comme paramètre un objet de type Action. Cet objet sert ensuite à déterminer l'action à mener et à appeler les différentes fonctions du Renderer et du GUI en y passant les paramètres requis dans la fonction dealOrder.
+Celui-ci créé ensuite le GUI, et se charge de récupérer les signaux émis par le GUI avec comme paramètre un objet de type Action. Cet objet sert ensuite à déterminer l'action à mener et à appeler les différentes fonctions du Renderer et du GUI en y passant les paramètres requis dans la fonction dealOrder.
 
 Aujourd'hui (10/10/21) le GUI n'est pas fini et la fonction test dans la classe Test permet d'imiter les signaux du GUI. Pour cela on appel directement DealOrder (en passant par la méthode getMainWin() de App en y passant des objets Action dans la fonction dealOrder. 
 
