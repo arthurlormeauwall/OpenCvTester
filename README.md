@@ -1,17 +1,9 @@
-# ImageAdjuster_java
+# OpenCvJava
 
 
-Actuellement technicien dans l’audiovisuel, je voudrais entamer une reconversion professionnelle et devenir développeur.
+Actuellement technicien dans l’audiovisuel, je voudrais entamer une reconversion professionnelle et devenir développeur. 
 
-Je me suis formé seul et ce programme est avant tout un exemple concret du niveau que j'ai pu atteindre en programmation. Le code est toujours en cours d'écriture.
-
-
-
-
-
-
-Tout d'abord voici en quelques mots le projet d'origine :
-
+Je me suis formé seul et ce programme est avant tout un exemple concret de mon niveau en programmation. Le code est toujours en cours d'écriture.
 
 
 Le projet a pour but de pouvoir tester la librairie de vision par ordinateur "Open CV". L'ensemble du code fonctionne comme un framework, et s'utilise en deux étapes : coder l'algorithme de traitement d’image / tester à travers une interface graphique.
@@ -43,7 +35,7 @@ Finalement, je dois préciser que j’ai commencé à coder le projet en C++ (pr
 
 En date du 09/10/21 :
 
+A cette date, la partie de rendu de l’image est finie. Il me reste à coder la partie GUI que je compte faire avec Swing. 
 
-
-La partie de rendu de l’image est finie. Mes tests fonctionnent bien. Il me reste à coder la partie GUI que je compte faire avec Swing. 
+Contacts : Arthur Lormeau-Wall, arthurlormeau@gmail.com
 
