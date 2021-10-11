@@ -38,7 +38,7 @@ Celui-ci créé ensuite le GUI, et se charge de récupérer les signaux émis pa
 Aujourd'hui (10/10/21) le GUI n'est pas fini et la fonction test dans la classe Test permet d'imiter les signaux du GUI. Pour cela on appel directement DealOrder (en passant par la méthode getMainWin() de App en y passant des objets Action dans la fonction dealOrder. 
 
 
-En date du 09/10/21 :
+En date du 10/10/21 :
 
 A cette date, la partie de rendu de l’image est finie. Il me reste à coder la partie GUI que je compte faire avec Swing. 
 
