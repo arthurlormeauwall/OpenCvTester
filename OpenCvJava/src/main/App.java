@@ -1,7 +1,5 @@
 package main;
 
-import java.util.Stack;
-
 import renderingEngine.Renderer;
 
 import baseClasses.Id;
