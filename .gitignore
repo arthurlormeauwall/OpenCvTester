@@ -23,3 +23,6 @@
 hs_err_pid*
 
 OpenCvJava/.project
+OpenCvJava/.classpath
+OpenCvJava/.settings
+OpenCvJava/bin
