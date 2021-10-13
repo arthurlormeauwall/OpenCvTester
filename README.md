@@ -41,7 +41,7 @@ https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-
 
 ## Usage
 
-In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade package*. To access the `Mat` object just call the `getFrame()` method. 
+In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade package*. 
 
 To write your own algorithm you have to add a class that extends the `AdjustControlFloat` class in the *Algo.database package*. 
 This class has several important things : 
