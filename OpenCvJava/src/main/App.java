@@ -3,6 +3,7 @@ package main;
 import renderingEngine.Renderer;
 
 import baseClasses.Id;
+import baseClasses.enums_structs.GroupsId;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 import gui.UIImp;
@@ -27,7 +28,7 @@ public class App
 
 		Id rendererId = new Id();
 		rendererId.initNULL();
-		rendererId.setGroupId(0);
+		rendererId.setGroupId(GroupsId.RENDERER.ordinal());
 	
 		m_renderer = new Renderer(m_background, rendererId, m_undoIdHistory, m_renderAtIdHistory);
 

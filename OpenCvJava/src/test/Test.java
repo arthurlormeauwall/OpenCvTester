@@ -5,6 +5,7 @@ import java.util.Stack;
 import baseClasses.Id;
 import baseClasses.enums_structs.Action;
 import baseClasses.enums_structs.Functionalities;
+import baseClasses.enums_structs.GroupsId;
 import baseClasses.enums_structs.Parameters;
 import main.App;
 
@@ -18,8 +19,8 @@ public class Test {
 		Id Layer1_id = new Id();
 		Id Control1_id = new Id();
 		
-		Layer1_id.set(0, 0, 2);
-		Control1_id.set(0, 0, 4);
+		Layer1_id.set(0, 0, GroupsId.MASKED_LAYER.ordinal());
+		Control1_id.set(0, 0, GroupsId.CONTROL.ordinal());
 
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(Layer1_id);
