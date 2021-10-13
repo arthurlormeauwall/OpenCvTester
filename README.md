@@ -59,8 +59,8 @@ After adding the class you just made to the package, you need to add a variable 
 Once that is done, you can compile and run the program. 
 
 About the main structure 
-> I decided to fully separate the rendering part from the GUI. `App` class contains a `Renderer` object that has a working input frame and an output frame that is displayed in its own window.  It also has a `UIImp` object that creates the GUI and calls the renderer method when events occur.
-To be more specific, each element of the GUI will be able to communicate its events (ex: a moving slider) to the system by creating an `Action` object (see in *baseClasses.enums_structs* package) and then passing it to the `UIImp` object, calling the `dealOrder(Action parameter)` method. This method then decides, with a switch statement, which method of the `Renderer` object to call (it can also call a method of its own).  
+> `App` class contains a `Renderer` object that has a working input frame and an output frame that is displayed in its own window.  It also has a `UIImp` object that creates the GUI and calls the renderer method when events occur.
+To be more specific, each element of the GUI will be able to communicate its events (ex: a moving slider) to the system by creating an `Action` object (see in *baseClasses.enums_structs* package) and then passing it to the `UIImp` object, calling the `dealOrder(Action parameter)` method. This method then decides, with a switch statement, which method of the `Renderer` object to call (it can also call a method of its own).   
 
 
 
