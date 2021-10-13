@@ -41,15 +41,15 @@ https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-
 
 ## Usage
 
-In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade package*. 
+In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade* package. 
 
-To write your own algorithm you have to add a class that extends the `AdjustControlFloat` class in the *Algo.database package*. 
+To write your own algorithm you have to add a class that extends the `AdjustControlFloat` class in the *Algo.database* package. 
 This class has several important things : 
-* Two `Frame` objects : m_source and m_dest (input and output frame as yourAlgorithm(m_source)=m_dest)
-* Several parameters that will be tweakable. You can access them via the m_history object calling `m_history.getState()` method. This method returns an object of type `HistoryParameter<Stack<Float>>` ; then call `getParameter()` to get the `Stack<Float>` parameters : 
+* Two `Frame` objects variables : m_source and m_dest (input and output frame as yourAlgorithm(m_source)=m_dest)
+* Several parameters that will be tweakable. You can access them via the m_history variable calling `m_history.getState()` method. This method returns an object of type `HistoryParameter<Stack<Float>>` ; then call `getParameter()` to get the `Stack<Float>` parameters : 
   * `m_history.getState().getParameters.get(0)` is a first parameter, 
   * `m_history.getState().getParameters.get(1)` is a second parameter and so on
-* A `ControlFlags<Float>` object (“m_flags”) that you have to initialize in your algorithm constructor or in a method called by the constructor, to let the system know about several things that you can check in the ControlFlags class in *baseClasses.enums_structs* package (number of parameters, their names, default values etc.).
+* A `ControlFlags<Float>` variable that you have to initialize in your algorithm constructor or in a method called by the constructor, to let the system know about several things that you can check in the ControlFlags class in *baseClasses.enums_structs* package (number of parameters, their names, default values etc.).
 * A `compute()` method where you write your algorithm.
 
 You may really want to check `MultBgrControl` class to get a good example of how to create and set up and algorithms. 
