@@ -1,8 +1,7 @@
-package baseClasses.enums_structs;
+package application;
 
 import java.util.Stack;
 
-import application.Functionalities;
 import baseClasses.Id;
 
 public class Action {

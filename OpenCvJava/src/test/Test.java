@@ -2,12 +2,12 @@ package test;
 
 import java.util.Stack;
 
+import application.Action;
 import application.App;
 import application.Functionalities;
+import application.Parameters;
 import baseClasses.Id;
-import baseClasses.enums_structs.Action;
 import baseClasses.enums_structs.GroupsId;
-import baseClasses.enums_structs.Parameters;
 
 
 public class Test {

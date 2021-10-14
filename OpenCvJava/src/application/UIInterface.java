@@ -5,7 +5,6 @@ import java.util.Stack;
 import renderingEngine.Renderer;
 
 import baseClasses.Id;
-import baseClasses.enums_structs.Action;
 import baseClasses.openCvFacade.Frame;
 
 public abstract class UIInterface

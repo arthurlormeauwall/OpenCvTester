@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package application;
 
 import java.util.Stack;
 
