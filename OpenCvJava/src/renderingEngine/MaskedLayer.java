@@ -2,11 +2,11 @@ package renderingEngine;
 
 import java.util.Stack;
 
-import algo.AdjustControlFloat;
-import algo.dataBase.AlphaControl;
-import algo.dataBase.DbControls;
+import algorithmsDataBase.AlphaControl;
+import algorithmsDataBase.DbControls;
 import baseClasses.Control;
 import baseClasses.Id;
+import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 

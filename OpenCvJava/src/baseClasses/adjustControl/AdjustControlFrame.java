@@ -1,4 +1,4 @@
-package algo;
+package baseClasses.adjustControl;
 
 import baseClasses.Id;
 import baseClasses.history.historyParameters.FrameHistoryParameter;

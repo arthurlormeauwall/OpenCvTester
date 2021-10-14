@@ -1,10 +1,10 @@
-package algo.dataBase;
+package algorithmsDataBase;
 
 import java.util.Stack;
 
-import algo.AdjustControlFloat;
 import baseClasses.Control;
 import baseClasses.Id;
+import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.enums_structs.ControlFlags;
 
 public class DbControls 

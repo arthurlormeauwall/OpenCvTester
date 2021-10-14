@@ -2,10 +2,10 @@ package renderingEngine;
 
 import java.util.Stack;
 
-import algo.AdjustControlFloat;
 import application.RendererInterface;
 import baseClasses.Control;
 import baseClasses.Id;
+import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 

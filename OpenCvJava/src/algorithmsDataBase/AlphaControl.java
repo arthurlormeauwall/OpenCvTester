@@ -1,12 +1,12 @@
-package algo.dataBase;
+package algorithmsDataBase;
 
 import java.util.Stack;
 
 import org.opencv.core.Mat;
 
-import algo.AdjustControlFrame;
 import baseClasses.Control;
 import baseClasses.Id;
+import baseClasses.adjustControl.AdjustControlFrame;
 import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
