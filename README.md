@@ -71,7 +71,7 @@ If you want to test the program, you have to write your code in the `Test` class
 
 
 ## Contact
-Created by @arthurlormeauwall - feel free to contact me!
+Created by [@arthurlormeauwall](https://github.com/arthurlormeauwall) - feel free to contact me!
 
 
 
