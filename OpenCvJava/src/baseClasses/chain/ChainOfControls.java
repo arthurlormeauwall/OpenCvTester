@@ -1,9 +1,9 @@
-package baseClasses;
+package baseClasses.chain;
 
 import java.util.Stack;
 
-import baseClasses.enums_structs.ChainCommand;
-import baseClasses.enums_structs.ItemAndId;
+import baseClasses.Control;
+import baseClasses.Id;
 import baseClasses.history.historyParameters.ChainHistoryParameter;
 import baseClasses.history.imp.ChainHistory;
 import baseClasses.history.imp.UndoHistory;

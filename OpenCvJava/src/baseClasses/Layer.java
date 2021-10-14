@@ -1,7 +1,8 @@
 package baseClasses;
 
-import baseClasses.enums_structs.ChainCommand;
-import baseClasses.enums_structs.ItemAndId;
+import baseClasses.chain.ChainCommand;
+import baseClasses.chain.ChainOfControls;
+import baseClasses.chain.ItemAndId;
 import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 

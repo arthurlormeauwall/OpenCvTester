@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package baseClasses.chain;
 
 public enum ChainCommand {
 	ADD,

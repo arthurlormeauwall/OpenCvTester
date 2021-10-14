@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package baseClasses.chain;
 
 import java.util.Stack;
 import baseClasses.Id;
