@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package renderingEngine;
 
 public enum GroupsId {
 	RENDERER,

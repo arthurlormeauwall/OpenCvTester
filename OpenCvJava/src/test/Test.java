@@ -7,7 +7,7 @@ import application.App;
 import application.Functionalities;
 import application.Parameters;
 import baseClasses.Id;
-import baseClasses.enums_structs.GroupsId;
+import renderingEngine.GroupsId;
 
 
 public class Test {

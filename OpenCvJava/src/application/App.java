@@ -1,9 +1,9 @@
 package application;
 
+import renderingEngine.GroupsId;
 import renderingEngine.Renderer;
 
 import baseClasses.Id;
-import baseClasses.enums_structs.GroupsId;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 import gui.UIImp;
