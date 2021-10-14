@@ -6,8 +6,6 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 
-import baseClasses.enums_structs.FrameSpecs;
-
 
 public class Frame {
 

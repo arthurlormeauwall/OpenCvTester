@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package baseClasses.openCvFacade;
 
 public class FrameSpecs {
 	public int s_rows;
