@@ -2,6 +2,7 @@ package gui;
 
 import java.util.Stack;
 
+import application.UIInterface;
 import baseClasses.Id;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.Renderer;

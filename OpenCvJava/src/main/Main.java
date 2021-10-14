@@ -2,6 +2,7 @@ package main;
 
 import org.opencv.core.Core;
 
+import application.App;
 import test.Test;
 
 

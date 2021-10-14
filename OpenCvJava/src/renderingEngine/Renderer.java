@@ -77,7 +77,6 @@ public class Renderer extends FrameLayer
 		}
 	}   
 
-
 	public void dealBackground(){
 		int numberOfMaskedLayers = m_chainOfControls.getSize();
 		

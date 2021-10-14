@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package application;
 
 public enum Functionalities {
 	ADD_CONTROL,

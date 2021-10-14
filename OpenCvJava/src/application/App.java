@@ -1,4 +1,4 @@
-package main;
+package application;
 
 import renderingEngine.Renderer;
 
@@ -16,8 +16,7 @@ public class App
 		m_renderAtIdHistory = new UndoHistory<Id>();
 		m_background = new Frame();
 		m_dest = new Frame();
-		m_source = new Frame();
-		
+		m_source = new Frame();	
 	}
 	
 	public void init(String fileName) {
