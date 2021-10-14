@@ -13,8 +13,7 @@ public class Renderer extends RendererInterface
 {
 
 	public Renderer (Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
-		super(background, id, undoIdHistory, renderAtIdHistory);
-		
+		super(background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
 	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
@@ -176,5 +175,4 @@ public class Renderer extends RendererInterface
 		return null;
 	}
 
-	protected Frame m_background;
 };
