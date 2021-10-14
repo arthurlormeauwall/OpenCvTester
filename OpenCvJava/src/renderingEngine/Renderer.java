@@ -3,17 +3,18 @@ package renderingEngine;
 import java.util.Stack;
 
 import algo.AdjustControlFloat;
+import application.RendererInterface;
 import baseClasses.Control;
 import baseClasses.Id;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 
-public class Renderer extends FrameLayer
+public class Renderer extends RendererInterface
 {
 
 	public Renderer (Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
-		super(id, undoIdHistory, renderAtIdHistory);
-		m_background = background;
+		super(background, id, undoIdHistory, renderAtIdHistory);
+		
 	}
 
 	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
