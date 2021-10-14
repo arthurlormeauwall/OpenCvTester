@@ -1,4 +1,4 @@
-package baseClasses.enums_structs;
+package algorithmsDataBase;
 
 import java.util.Stack;
 

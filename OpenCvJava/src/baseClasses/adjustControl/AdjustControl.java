@@ -2,10 +2,10 @@ package baseClasses.adjustControl;
 
 import java.util.Stack;
 
+import algorithmsDataBase.ControlFlags;
 import baseClasses.Control;
 import baseClasses.Id;
 import baseClasses.IoFrame;
-import baseClasses.enums_structs.ControlFlags;
 import baseClasses.history.imp.ParameterHistory;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
