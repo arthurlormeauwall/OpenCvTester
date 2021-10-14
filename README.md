@@ -43,31 +43,31 @@ https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-
 
 In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade* package. 
 
-To write your own algorithm you have to add a class that extends the `AdjustControlFloat` class in the *Algo.database* package. 
+To write your own algorithm you have to add a class that extends the `AdjustControlFloat` class (see in *baseClasses.adjustControl* package) in the *algorithmsDataBase* package. 
 This class has several important things : 
 * Two `Frame` objects variables : m_source and m_dest (input and output frame as yourAlgorithm(m_source)=m_dest)
 * Several parameters that will be tweakable. You can access them via the m_history variable calling `m_history.getState()` method. This method returns an object of type `HistoryParameter<Stack<Float>>` ; then call `getParameter()` to get the `Stack<Float>` parameters : 
   * `m_history.getState().getParameters.get(0)` is a first parameter, 
   * `m_history.getState().getParameters.get(1)` is a second parameter and so on
-* A `ControlFlags<Float>` variable that you have to initialize in your algorithm constructor or in a method called by the constructor, to let the system know about several things that you can check in the ControlFlags class in *baseClasses.enums_structs* package (number of parameters, their names, default values etc.).
+* A `ControlFlags<Float>` variable that you have to initialize in your algorithm constructor or in a method called by the constructor, to let the system know about several things that you can check in the `ControlFlags` class in *algorithmsDataBase* package (number of parameters, their names, default values etc.).
 * A `compute()` method where you write your algorithm.
 
-You may really want to check `MultBgrControl` class to get a good example of how to create and set up and algorithms. 
+You may really want to check `MultBgrControl` class to get a good example of how to create and set up an algorithms. 
 
-After adding the class you just made to the package, you need to add a variable of this new type in the `DbControls` class in the *Alog.database* package. Then create the object and push it in “m_controls” in its constructor .
+After adding the class you just made to the package, you need to add a variable of this new type in the `DbControls` class in the *algorithmsDataBase* package. Then create the object and push it in “m_controls” stack in its constructor .
 
 Once that is done, you can compile and run the program. 
 
 About the main structure 
-> `App` class contains a `Renderer` object that has a working input frame and an output frame that is displayed in its own window.  It also has a `UIImp` object that creates the GUI and calls the renderer method when events occur.
-To be more specific, each element of the GUI will be able to communicate its events (ex: a moving slider) to the system by creating an `Action` object (see in *baseClasses.enums_structs* package) and then passing it to the `UIImp` object, calling the `dealOrder(Action parameter)` method. This method then decides, with a switch statement, which method of the `Renderer` object to call (it can also call a method of its own).   
+> In *application* package,`App` class contains a `Renderer` object that has a working input frame and an output frame that is displayed in its own window.  It also has a `UIImp` object that creates the GUI and calls the renderer method when events occur.
+To be more specific, each element of the GUI will be able to communicate its events (ex: a moving slider) to the system by creating an `Action` object (see in *application* package) and then passing it to the `UIImp` object, calling the `dealOrder(Action parameter)` method. This method then decides, with a switch statement, which method of the `Renderer` object to call (it can also call a method of its own).   
 
 
 
 ## Project Status
 This project is still work in progress. 
 The rendering part is fully working. The GUI does not exist yet. 
-If you want to test the program, you have to write your code in the `Test` class constructor (in the test package). Since there is no GUI, you need to mimic it and manually create your own `Action` object and pass it to the `dealOrder()` method via the `getMainWin()` method. 
+If you want to test the program, you have to write your code in the `Test` class constructor (in the *test* package). Since there is no GUI, you need to mimic it and manually create your own `Action` object and pass it to the `dealOrder()` method via the `getMainWin()` method. 
 
 
 ## Contact
