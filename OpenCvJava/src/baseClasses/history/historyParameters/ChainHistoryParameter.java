@@ -4,9 +4,10 @@ import baseClasses.chain.ChainCommand;
 import baseClasses.chain.ItemAndId;
 import baseClasses.history.HistoryParameter;
 
-public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
+public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>> 
 {
-	
+    protected ItemAndId<T> m_p;
+    
 	public ChainHistoryParameter(ItemAndId<T> parameter) {
 		m_p=parameter;
 	}
@@ -33,6 +34,4 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	public ItemAndId<T> getParameter() {
 		return m_p;
 	}
-    
-    protected ItemAndId<T> m_p;
 };

@@ -5,7 +5,11 @@ import java.util.Stack;
 
 
 public abstract class History<T>
-{
+{ 
+	protected HistoryParameter<T> m_factory;	
+	protected HistoryParameter<T> m_state;
+	protected Stack<HistoryParameter<T>> m_undoHistory;
+	protected Stack<HistoryParameter<T>> m_redoHistory; 
 
 	public History(){
 		m_undoHistory= new Stack<HistoryParameter<T>>();      
@@ -61,10 +65,4 @@ public abstract class History<T>
 	public void clearUndoHistory() {
 		m_undoHistory.clear();
 	}
-  
-	protected HistoryParameter<T> m_factory;	
-	protected HistoryParameter<T> m_state;
-	protected Stack<HistoryParameter<T>> m_undoHistory;
-	protected Stack<HistoryParameter<T>> m_redoHistory; 
-
 };

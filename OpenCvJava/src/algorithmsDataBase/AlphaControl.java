@@ -11,8 +11,10 @@ import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 
-public class AlphaControl extends AdjustControlFrame {
-
+public class AlphaControl extends AdjustControlFrame 
+{
+	protected Frame m_background;	
+	
 	public AlphaControl(Id id) {
 		super(id);
 		m_history.initState(new FrameHistoryParameter());
@@ -105,5 +107,5 @@ public class AlphaControl extends AdjustControlFrame {
 		return null;
 	}
 	
-	protected Frame m_background;	
+	
 }

@@ -13,6 +13,11 @@ import baseClasses.openCvFacade.Frame;
 
 public abstract class AdjustControl<N> extends Control implements IoFrame 
 {
+	protected ParameterHistory<N> m_history;
+	protected ControlFlags<N> m_flags;
+	protected Frame m_source;
+	protected Frame m_dest;
+	
 	public AdjustControl(Id id) {
 		super (id);
 		m_flags = new ControlFlags<N>();
@@ -93,9 +98,4 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	public Frame getDest()        {
 		return m_dest;
 	}
-	   
-	protected ParameterHistory<N> m_history;
-	protected ControlFlags<N> m_flags;
-	protected Frame m_source;
-	protected Frame m_dest;
 };

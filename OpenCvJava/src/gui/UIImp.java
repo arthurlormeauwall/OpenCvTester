@@ -7,8 +7,8 @@ import baseClasses.Id;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.Renderer;
 
-public class UIImp extends UIInterface {
-
+public class UIImp extends UIInterface 
+{
 	public UIImp(Renderer renderer) {
 		super(renderer);
 	

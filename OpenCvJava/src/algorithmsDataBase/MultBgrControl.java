@@ -12,17 +12,14 @@ import baseClasses.history.imp.UndoHistory;
 
 public class MultBgrControl extends AdjustControlFloat 
 {
-
 	public MultBgrControl(Id id) {	
 		super(id);
 		init();
-	
 	}
 	
 	public MultBgrControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {	
 		super(id, undoIdHistory, renderAtIdHistory);
 		init();
-		
 	}
 	
 	public void init() {	
@@ -102,5 +99,4 @@ public class MultBgrControl extends AdjustControlFloat
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

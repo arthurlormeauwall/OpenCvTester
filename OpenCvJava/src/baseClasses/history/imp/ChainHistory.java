@@ -5,7 +5,6 @@ import baseClasses.history.HistoryParameter;
 
 public class ChainHistory<T> extends History<T>
 {
-
 	public ChainHistory(){
 	}
 	

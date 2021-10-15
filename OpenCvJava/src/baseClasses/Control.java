@@ -6,8 +6,12 @@ import baseClasses.history.imp.UndoHistory;
 
 public abstract class Control extends Command
 {
-
-    public Control() {    
+	protected Id m_id;
+    protected UndoHistory<Id> m_undoIdHistory;
+    protected UndoHistory<Id> m_renderAtIdHistory;
+    protected Boolean m_isBypass;
+    
+	public Control() {    
 		m_id = new Id ();                                 
 		m_undoIdHistory = new UndoHistory<Id>();
 		m_renderAtIdHistory= new UndoHistory<Id>();  
@@ -100,10 +104,4 @@ public abstract class Control extends Command
     public void setBypass(Boolean bypassState) {
     	m_isBypass=bypassState;
     }
-
-    protected Id m_id;
-    protected UndoHistory<Id> m_undoIdHistory;
-    protected UndoHistory<Id> m_renderAtIdHistory;
-    protected Boolean m_isBypass;
-   
 };

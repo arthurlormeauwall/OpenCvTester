@@ -10,7 +10,8 @@ import java.util.Stack;
 
 public abstract class Layer extends Control
 {
-
+	protected ChainOfControls m_chainOfControls;
+	
 	public Layer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory){
 		
 		super (id, undoIdHistory, renderAtIdHistory);
@@ -70,7 +71,4 @@ public abstract class Layer extends Control
 
 		m_renderAtIdHistory.setState(tempHistoryParameter);
 	}
-
-	protected ChainOfControls m_chainOfControls;
-	
 };

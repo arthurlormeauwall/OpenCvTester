@@ -1,6 +1,7 @@
 package application;
 
-public enum Functionalities {
+public enum Functionalities 
+{
 	ADD_CONTROL,
 	DELETE_CONTROL,
 	ADD_LAYER,

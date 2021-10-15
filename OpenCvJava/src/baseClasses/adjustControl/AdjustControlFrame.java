@@ -8,7 +8,6 @@ import baseClasses.openCvFacade.Frame;
 
 public abstract class AdjustControlFrame extends AdjustControl<Frame>
 {
-
 	public AdjustControlFrame(Id id) {
 		super (id);
 		m_history = new ParameterHistory<Frame>();

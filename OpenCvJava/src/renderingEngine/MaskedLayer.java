@@ -12,6 +12,9 @@ import baseClasses.openCvFacade.Frame;
 
 public class MaskedLayer extends FrameLayer
 {
+	protected Frame m_background;
+	protected AlphaControl m_alpha;
+	protected DbControls m_dbControl;
 	
 	public MaskedLayer (Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
@@ -131,8 +134,4 @@ public class MaskedLayer extends FrameLayer
 		
 		return newMaskedLayer;
 	}
-
-	protected Frame m_background;
-	protected AlphaControl m_alpha;
-	protected DbControls m_dbControl;
 }

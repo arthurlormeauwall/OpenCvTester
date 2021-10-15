@@ -9,7 +9,6 @@ import baseClasses.history.imp.UndoHistory;
 
 public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 {
-
 	public AdjustControlFloat(Id id) {
 		super (id);
 		m_history = new ParameterHistory<Stack<Float>>();

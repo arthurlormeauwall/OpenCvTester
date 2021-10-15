@@ -5,9 +5,10 @@ package baseClasses.history.historyParameters;
 import baseClasses.history.HistoryParameter;
 import baseClasses.openCvFacade.Frame;
 
-public class FrameHistoryParameter implements HistoryParameter<Frame>
+public class FrameHistoryParameter implements HistoryParameter<Frame> 
 {
-
+	protected Frame m_p;
+	
     public FrameHistoryParameter() {
     	m_p=new Frame();
     }
@@ -30,7 +31,4 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
 	public void set(Frame parameter) {
 		m_p=parameter;		
 	}
-	
-	protected Frame m_p;
-	
 };

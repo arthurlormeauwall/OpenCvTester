@@ -3,6 +3,9 @@ package baseClasses;
 
 public class Id
 {
+	protected int[] m_id;
+	protected int m_group;
+	
 	public Id() {
 		m_id=new int[2];
 		initNULL();
@@ -66,7 +69,4 @@ public class Id
 		m_id[0]=-1;
 		m_id[1]=-1;
 	}
-
-	protected int[] m_id;
-	protected int m_group;
 };

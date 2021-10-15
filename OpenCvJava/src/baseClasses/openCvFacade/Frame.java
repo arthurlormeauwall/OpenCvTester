@@ -7,8 +7,11 @@ import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 
 
-public class Frame {
-
+public class Frame 
+{
+	protected FrameSpecs m_specs;
+	protected Mat m_frame;
+	
 	public Frame() { 
 		m_frame = new Mat(0,0, CvType.CV_8UC3);
 		m_specs= new FrameSpecs();
@@ -100,9 +103,5 @@ public class Frame {
 		}
 		
 		return value;
-	}
-	
-	protected FrameSpecs m_specs;
-	protected Mat m_frame;
-	
+	}	
 }

@@ -6,7 +6,8 @@ import application.App;
 import test.Test;
 
 
-public class Main {
+public class Main 
+{
     public static void main(String[] args){
     
     		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);

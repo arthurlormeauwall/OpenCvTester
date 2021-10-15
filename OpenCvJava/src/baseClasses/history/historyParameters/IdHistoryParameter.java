@@ -4,9 +4,10 @@ import baseClasses.Id;
 import baseClasses.history.HistoryParameter;
 
 
-public class IdHistoryParameter implements HistoryParameter<Id>
+public class IdHistoryParameter implements HistoryParameter<Id> 
 {
-
+	protected Id m_p;	
+	
     public IdHistoryParameter() {
     	m_p= new Id();
     }
@@ -31,6 +32,4 @@ public class IdHistoryParameter implements HistoryParameter<Id>
 		m_p.get()[1]=p.get()[1];	
 		m_p.setGroupId(p.getGroupId());
 	}
-	
-	 protected Id m_p;	
 };

@@ -5,8 +5,10 @@ import baseClasses.Control;
 import baseClasses.history.HistoryParameter;
 
 
-public class ControlHistoryParameter implements HistoryParameter<Control>
+public class ControlHistoryParameter implements HistoryParameter<Control> 
 {
+	protected Control m_p;
+	
 	public ControlHistoryParameter(Control parameter) {
 		m_p=parameter;
 	}
@@ -28,6 +30,4 @@ public class ControlHistoryParameter implements HistoryParameter<Control>
 	public void set(Control parameter) {
 		m_p=parameter.clone();		
 	}
-    
-	protected Control m_p;
 };

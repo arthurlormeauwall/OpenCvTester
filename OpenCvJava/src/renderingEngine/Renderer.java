@@ -11,7 +11,6 @@ import baseClasses.openCvFacade.Frame;
 
 public class Renderer extends RendererInterface
 {
-
 	public Renderer (Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(background, id, undoIdHistory, renderAtIdHistory);	
 	}
@@ -174,5 +173,4 @@ public class Renderer extends RendererInterface
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 };

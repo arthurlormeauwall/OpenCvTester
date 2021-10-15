@@ -11,6 +11,8 @@ import baseClasses.history.imp.UndoHistory;
 
 public class ChainOfControls extends Control
 {
+    protected ChainHistory<ItemAndId<Control>> m_history;
+    protected Stack<Control> m_controls;
 
     public ChainOfControls(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) { 	
     	super (id, undoIdHistory, renderAtIdHistory);
@@ -203,7 +205,4 @@ public class ChainOfControls extends Control
     	
     	return newChainControl;
     }
-
-    protected ChainHistory<ItemAndId<Control>> m_history;
-    protected Stack<Control> m_controls;
 };

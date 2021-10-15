@@ -12,6 +12,11 @@ import baseClasses.IoFrame;
 
 public abstract class FrameLayer  extends Layer implements IoFrame
 {
+	
+	protected Stack<Frame> m_frames;
+	protected Frame m_source;
+	protected Frame m_dest;
+	
 	public FrameLayer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		m_frames = new Stack<Frame>();
@@ -100,8 +105,4 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	public Frame getDest()        {
 		  return m_dest;
 	}
-	
-	protected Stack<Frame> m_frames;
-	protected Frame m_source;
-	protected Frame m_dest;
 };

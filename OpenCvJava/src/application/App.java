@@ -10,6 +10,15 @@ import gui.UIImp;
 
 public class App 
 {
+	protected UndoHistory<Id> m_undoIdHistory;
+	protected UndoHistory<Id> m_renderAtIdHistory;
+	protected Frame m_source;
+	protected Frame m_background;
+	protected Frame m_dest;
+	
+	protected Renderer m_renderer;
+	protected UIImp m_mainWin;
+	
 	public App() {
 
 		m_undoIdHistory = new UndoHistory<Id>();
@@ -43,13 +52,4 @@ public class App
 	public UIImp getMainWin() {
 		return m_mainWin;
 	}
-	
-	protected UndoHistory<Id> m_undoIdHistory;
-	protected UndoHistory<Id> m_renderAtIdHistory;
-	protected Frame m_source;
-	protected Frame m_background;
-	protected Frame m_dest;
-	
-	protected Renderer m_renderer;
-	protected UIImp m_mainWin;
 };

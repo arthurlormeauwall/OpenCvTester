@@ -8,7 +8,10 @@ import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.FrameLayer;
 
-public abstract class RendererInterface extends FrameLayer {
+public abstract class RendererInterface extends FrameLayer 
+{
+	protected Frame m_background;
+	
 	public RendererInterface (Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		m_background = background;
@@ -24,7 +27,5 @@ public abstract class RendererInterface extends FrameLayer {
 	public abstract void setBypass(Id ControlId, Boolean p)  ;
 	public abstract void dealBackground();  	
 	public abstract void dealFramesInMaskedLayers()  ;
-	public abstract void play();
-	
-	protected Frame m_background;
+	public abstract void play();	
 }

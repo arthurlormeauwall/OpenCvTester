@@ -8,9 +8,10 @@ import baseClasses.history.HistoryParameter;
 
 
 
-public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
+public class FloatHistoryParameter implements HistoryParameter<Stack<Float>> 
 {
-
+	protected Stack<Float> m_p;
+	
     public FloatHistoryParameter() {
     }
     
@@ -32,6 +33,4 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 	public void set(Stack<Float> parameter) {
 		m_p=parameter;		
 	}
-    
-	protected Stack<Float> m_p;
 };

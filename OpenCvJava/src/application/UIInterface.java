@@ -9,7 +9,8 @@ import baseClasses.openCvFacade.Frame;
 
 public abstract class UIInterface
 {
-
+	protected Renderer m_renderer;
+	
 	public UIInterface(Renderer renderer) {
 		m_renderer = renderer;
 	}
@@ -91,5 +92,5 @@ public abstract class UIInterface
 		play();
 	}
 
-	protected Renderer m_renderer;
+	
 };

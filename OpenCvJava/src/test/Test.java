@@ -10,8 +10,8 @@ import baseClasses.Id;
 import renderingEngine.GroupsId;
 
 
-public class Test {
-	
+public class Test 
+{
 	public Test(App myApp){
 		// change here the path to the image you want to work with
 		myApp.init("assets/20210717_203824.jpg");	

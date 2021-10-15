@@ -12,7 +12,6 @@ import baseClasses.history.imp.UndoHistory;
 
 public class GrayScaleControl extends AdjustControlFloat 
 {
-
 	public GrayScaleControl(Id id) {
 		super(id);
 		init();	

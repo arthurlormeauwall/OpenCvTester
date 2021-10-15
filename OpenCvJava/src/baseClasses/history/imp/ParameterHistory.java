@@ -4,8 +4,9 @@ import baseClasses.history.History;
 import baseClasses.history.HistoryParameter;
 
 public class ParameterHistory<T> extends History<T>
-{
-
+{	
+	protected Boolean firstUndo; 
+	
 	public ParameterHistory(){
 		
 	}
@@ -63,6 +64,4 @@ public class ParameterHistory<T> extends History<T>
 		}
 		return null;
 	}
-	
-	protected Boolean firstUndo; 
 };
