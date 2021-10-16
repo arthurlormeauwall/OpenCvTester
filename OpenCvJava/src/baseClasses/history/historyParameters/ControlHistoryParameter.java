@@ -30,4 +30,4 @@ public class ControlHistoryParameter implements HistoryParameter<Control>
 	public void set(Control parameter) {
 		control=parameter.clone();		
 	}
-};
+}

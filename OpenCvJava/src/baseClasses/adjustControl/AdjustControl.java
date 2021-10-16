@@ -22,10 +22,8 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	
 	public void initAdjsutControl() {
 		flags = new ControlFlags<N>();
-		isBypass=true;
-		
+		isBypass=true;	
 	}
-
 
 	public abstract void setParameter(N p);
 	    
@@ -100,4 +98,4 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 		// TODO Auto-generated method stub
 		return null;
 	}
-};
+}

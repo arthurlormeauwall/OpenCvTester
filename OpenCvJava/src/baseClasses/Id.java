@@ -69,4 +69,4 @@ public class Id
 		id[0]=-1;
 		id[1]=-1;
 	}
-};
+}

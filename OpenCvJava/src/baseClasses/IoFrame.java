@@ -9,4 +9,4 @@ public interface IoFrame
     public void setDest(Frame d) ;
     public Frame getSource();
     public Frame getDest();
-};
+}

@@ -71,4 +71,4 @@ public abstract class Layer extends Control
 
 		renderAtIdHistory.setState(tempHistoryParameter);
 	}
-};
+}

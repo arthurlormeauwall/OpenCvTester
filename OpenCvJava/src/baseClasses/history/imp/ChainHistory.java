@@ -34,4 +34,4 @@ public class ChainHistory<T> extends History<T>
              redoHistory.pop();
          }
      }  
-};
+}

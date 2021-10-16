@@ -178,4 +178,4 @@ public class Renderer extends RendererInterface
 	public void addAlgorithm(AdjustControlFloat algoParameters) {
 		dbControls.addAlgorithm(algoParameters);
 	}
-};
+}

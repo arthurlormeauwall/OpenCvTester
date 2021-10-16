@@ -79,4 +79,4 @@ public abstract class UIInterface extends Command implements FunctionalitiesInte
 		renderer.play();
 		play();
 	}
-};
+}

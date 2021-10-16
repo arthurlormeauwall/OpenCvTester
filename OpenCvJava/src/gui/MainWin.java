@@ -14,5 +14,4 @@ public class MainWin extends JFrame
 		this.setSize(new Dimension(400,400));
 	
 	}
-
 }

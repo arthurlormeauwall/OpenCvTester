@@ -205,4 +205,4 @@ public class ChainOfControls extends Control
     	
     	return newChainControl;
     }
-};
+}

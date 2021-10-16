@@ -39,4 +39,4 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 	public void setZeroEffectValues(Frame parameter) {
 		flags.zeroEffectValues=parameter;
 	}
-};
+}

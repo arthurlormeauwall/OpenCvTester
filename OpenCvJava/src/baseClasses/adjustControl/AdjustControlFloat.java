@@ -45,4 +45,4 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
 	}
-};
+}

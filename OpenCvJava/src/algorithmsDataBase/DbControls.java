@@ -44,4 +44,4 @@ public class DbControls
 	public void addAlgorithm(AdjustControlFloat control) {
 		controls.push(control);
 	}
-};
+}

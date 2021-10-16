@@ -71,6 +71,4 @@ public class MultBgrControl extends AdjustControlFloat
 	        dest.setFrame(imgDest);
 	    }	
 	}
-
-	
 }

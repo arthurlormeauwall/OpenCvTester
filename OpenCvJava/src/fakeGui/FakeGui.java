@@ -218,8 +218,5 @@ public class FakeGui
 		Id id = new Id();
 		id.set(maskedLayerIndex, controlIndex, GroupsId.CONTROL.ordinal());
 		return id;
-	}	
-	
-	
-	
+	}		
 }

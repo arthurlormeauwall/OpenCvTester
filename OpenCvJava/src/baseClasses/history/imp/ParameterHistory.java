@@ -64,4 +64,4 @@ public class ParameterHistory<T> extends History<T>
 		}
 		return null;
 	}
-};
+}

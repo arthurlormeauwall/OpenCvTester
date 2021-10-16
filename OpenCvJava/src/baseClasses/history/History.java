@@ -65,4 +65,4 @@ public abstract class History<T>
 	public void clearUndoHistory() {
 		undoHistory.clear();
 	}
-};
+}

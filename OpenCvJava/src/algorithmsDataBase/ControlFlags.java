@@ -8,5 +8,5 @@ public class ControlFlags<T>
 	public int numberOfParameters;
 	public T defaultValues;
 	public T zeroEffectValues;
-};
+}
 

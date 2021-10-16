@@ -34,4 +34,4 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	public ItemAndId<T> getParameter() {
 		return itemAndId;
 	}
-};
+}

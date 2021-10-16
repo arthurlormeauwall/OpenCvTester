@@ -105,4 +105,4 @@ public abstract class Control extends Command
     public void setBypass(Boolean bypassState) {
     	isBypass=bypassState;
     }
-};
+}

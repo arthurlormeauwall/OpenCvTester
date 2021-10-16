@@ -56,4 +56,4 @@ public class App
 	public UIImp getMainWin() {
 		return m_mainWin;
 	}
-};
+}
