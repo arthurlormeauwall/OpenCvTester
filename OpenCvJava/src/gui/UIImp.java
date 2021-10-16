@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import application.UIInterface;
 import baseClasses.Id;
+import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.Renderer;
 
@@ -62,6 +63,12 @@ public class UIImp extends UIInterface
 
 	@Override
 	public void setBypass(Id ControlId, Boolean p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addAlgorithm(AdjustControlFloat algorithm) {
 		// TODO Auto-generated method stub
 		
 	}

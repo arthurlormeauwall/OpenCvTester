@@ -1,4 +1,4 @@
-package algorithmsDataBase;
+package Examples;
 
 import java.util.Stack;
 

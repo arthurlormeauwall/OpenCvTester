@@ -2,6 +2,7 @@ package renderingEngine;
 
 import java.util.Stack;
 
+import algorithmsDataBase.DbControls;
 import application.RendererInterface;
 import baseClasses.Control;
 import baseClasses.Id;
@@ -11,8 +12,8 @@ import baseClasses.openCvFacade.Frame;
 
 public class Renderer extends RendererInterface
 {
-	public Renderer (Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
-		super(background, id, undoIdHistory, renderAtIdHistory);	
+	public Renderer (DbControls dbControls, Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+		super(dbControls, background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
 	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
@@ -101,7 +102,7 @@ public class Renderer extends RendererInterface
 
 	// FrameLayer implementation
 	public Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
-		MaskedLayer maskedLayer = new MaskedLayer(controlId.get(0), undoIdHistory, renderAtIdHistory);
+		MaskedLayer maskedLayer = new MaskedLayer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
 		maskedLayer.init(m_background, source, dest);
 		
 		int numberOfControlToAdd = controlNumber.size();
@@ -172,5 +173,9 @@ public class Renderer extends RendererInterface
 	public Control clone() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void addAlgorithm(AdjustControlFloat algoParameters) {
+		dbControls.addAlgorithm(algoParameters);
 	}
 };

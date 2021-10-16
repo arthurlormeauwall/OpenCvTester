@@ -1,15 +1,17 @@
 package main;
 
 import java.util.Stack;
-import application.App;
-import fakeGui.EventGenerator;
+
+import Examples.MultBgrControl;
+import fakeGui.FakeGui;
 
 
 public class Main 
 {
     public static void main(String[] args){
 
-			EventGenerator fakeGui= new EventGenerator(new App(), "assets/20210717_203824.jpg"); 
+			FakeGui fakeGui= new FakeGui("assets/20210717_203824.jpg"); 
+    		fakeGui.addAlgorithm(new MultBgrControl());
     		
     		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
     		controlIndexInDataBase.push(1);

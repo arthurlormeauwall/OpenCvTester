@@ -13,6 +13,10 @@ public abstract class UIInterface extends Command implements FunctionalitiesInte
 
 	public void dealOrder(Action p) {
 		switch (p.whatToDo) {
+			case ADD_ALGORITHM:
+				renderer.addAlgorithm(p.parameters.algoParameters);
+				addAlgorithm(p.parameters.algoParameters);
+				break;
 			case ADD_CONTROL:
 				renderer.addControlInLayer(p.id,((int)p.parameters.intParameters.get(0)));	
 				addControlInLayer (p.id, ((int)p.parameters.intParameters.get(0)));

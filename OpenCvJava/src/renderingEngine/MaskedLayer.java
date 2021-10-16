@@ -14,13 +14,13 @@ public class MaskedLayer extends FrameLayer
 {
 	protected Frame background;
 	protected AlphaControl alpha;
-	protected DbControls dbControl;
 	
-	public MaskedLayer (Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
-		super(id, undoIdHistory, renderAtIdHistory);
+	
+	public MaskedLayer (DbControls dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+		super(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
-		dbControl = new DbControls();
-		alpha = dbControl.getAlphaControl();
+		dbControls = new DbControls();
+		alpha = dbControls.getAlphaControl();
 		alpha.setRenderAtId(this.renderAtIdHistory);
 		alpha.setUndoId(this.undoIdHistory);
 	}
@@ -67,7 +67,7 @@ public class MaskedLayer extends FrameLayer
 	}
 	
 	public Control createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
-		Control newControl = (Control) dbControl.getControl(stackOfControlIndexInDataBase.get(0));
+		Control newControl = (Control) dbControls.getControl(stackOfControlIndexInDataBase.get(0));
 		newControl.getId().set(id.get(0));
 
 		newControl.setRenderAtId(renderAtIdHistory);
@@ -126,7 +126,7 @@ public class MaskedLayer extends FrameLayer
 	}
 
 	public Control clone() {	
-		MaskedLayer newMaskedLayer= new MaskedLayer(id, undoIdHistory, renderAtIdHistory);
+		MaskedLayer newMaskedLayer= new MaskedLayer(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
 		newMaskedLayer.setChainControl(chainOfControls.clone());
 		newMaskedLayer.setAlpha(alpha.getAlpha());

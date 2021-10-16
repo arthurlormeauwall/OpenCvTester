@@ -10,18 +10,16 @@ public class DbControls
 	protected Stack<AdjustControlFloat> controls;
 	protected GrayScaleControl grayScale;
 	protected AlphaControl alpha;
-	protected MultBgrControl rgbMult;
 	protected EmptyControl emptyControl;
 
 	public DbControls() {
 		controls= new Stack<AdjustControlFloat>();
 
 		alpha = new AlphaControl();
-		rgbMult = new MultBgrControl();
 		grayScale = new GrayScaleControl();
+		emptyControl= new EmptyControl();
 
 		controls.push(grayScale);
-		controls.push(rgbMult);
 	}
 	
 	public AlphaControl getAlphaControl(){

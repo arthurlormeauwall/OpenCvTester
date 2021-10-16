@@ -5,6 +5,7 @@ import renderingEngine.Renderer;
 
 import org.opencv.core.Core;
 
+import algorithmsDataBase.DbControls;
 import baseClasses.Id;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
@@ -41,7 +42,7 @@ public class App
 		rendererId.initNULL();
 		rendererId.setGroupId(GroupsId.RENDERER.ordinal());
 	
-		m_renderer = new Renderer(background, rendererId, undoIdHistory, renderAtIdHistory);
+		m_renderer = new Renderer(new DbControls(), background, rendererId, undoIdHistory, renderAtIdHistory);
 
 		m_renderer.setSource(source);
 		m_renderer.setDest(dest);

@@ -6,6 +6,7 @@ import baseClasses.openCvFacade.Frame;
 
 import java.util.Stack;
 
+import algorithmsDataBase.DbControls;
 import baseClasses.Control;
 import baseClasses.Id;
 import baseClasses.IoFrame;
@@ -16,12 +17,14 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	protected Stack<Frame> frames;
 	protected Frame source;
 	protected Frame dest;
+	protected DbControls dbControls;
 	
-	public FrameLayer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+	public FrameLayer(DbControls dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		frames = new Stack<Frame>();
 		source = new Frame ();
 		dest   = new Frame ();
+		this.dbControls = dbControls;
 	}
 	
 	public abstract Control getLastControl();
