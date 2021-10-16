@@ -1,8 +1,5 @@
 package application;
 
-import java.util.Stack;
-
-
 import baseClasses.Id;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
