@@ -12,7 +12,5 @@ public abstract class RendererInterface extends FrameLayer implements Functional
 	public RendererInterface (Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		m_background = background;
-	}
-	
-		
+	}		
 }

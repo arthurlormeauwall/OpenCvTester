@@ -65,17 +65,4 @@ public class UIImp extends UIInterface
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void dealBackground() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void dealFramesInMaskedLayers() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

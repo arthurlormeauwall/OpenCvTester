@@ -15,7 +15,5 @@ public interface FunctionalitiesInterface {
 	public abstract void setAlpha(int layerIndex, int opacity)	;
 	public abstract void setParameters(Id ControlId, Stack<Float> parameters);	
 	public abstract void setBypass(Id ControlId, Boolean p)  ;
-	public abstract void dealBackground();  	
-	public abstract void dealFramesInMaskedLayers()  ;
 	public abstract void play();
 }
