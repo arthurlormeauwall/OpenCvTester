@@ -16,6 +16,7 @@ public class Test
 	
 	private void doSomething(Id id, Parameters parameters, Functionalities whatToDo) {
 	}
+	
 	public Test(App app){
 		
 		myApp=app;
