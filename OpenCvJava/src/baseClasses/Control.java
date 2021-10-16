@@ -12,7 +12,8 @@ public abstract class Control extends Command
     protected Boolean isBypass;
     
 	public Control() {    
-		this.id = new Id ();                                 
+		this.id = new Id ();   
+		this.id.initNULL();
 		undoIdHistory = new UndoHistory<Id>();
 		renderAtIdHistory= new UndoHistory<Id>();  
  	

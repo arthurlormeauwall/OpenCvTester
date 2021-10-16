@@ -5,27 +5,22 @@ import java.util.Stack;
 import org.opencv.core.Mat;
 
 import baseClasses.Control;
-import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFrame;
 import baseClasses.history.historyParameters.FrameHistoryParameter;
-import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 
 public class AlphaControl extends AdjustControlFrame 
 {
 	protected Frame background;	
 	
-	public AlphaControl(Id id) {
-		super(id);
-		history.initState(new FrameHistoryParameter());
-	}
-	
-	public AlphaControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
-		super(id, undoIdHistory, renderAtIdHistory);		
+	public AlphaControl() {
+		super();
 	}
 	
 	public void init() {
 		setFlags();
+		history.setState(new FrameHistoryParameter(flags.defaultValues));
+		history.store();
 	}
 	
 	public void setFlags() {	
@@ -38,8 +33,7 @@ public class AlphaControl extends AdjustControlFrame
 		
 		flags.numberOfParameters = 1;
 		
-		history.setState(new FrameHistoryParameter(flags.defaultValues));
-		history.store();
+		
 	}
 
 	

@@ -1,53 +1,24 @@
 package algorithmsDataBase;
 
-import java.util.Stack;
-
 import org.opencv.core.Mat;
 
 import baseClasses.Control;
-import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
-import baseClasses.history.historyParameters.FloatHistoryParameter;
-import baseClasses.history.imp.UndoHistory;
 
 public class MultBgrControl extends AdjustControlFloat 
 {
-	public MultBgrControl(Id id) {	
-		super(id);
-		init();
+	public MultBgrControl() {	
+		super();
 	}
-	
-	public MultBgrControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {	
-		super(id, undoIdHistory, renderAtIdHistory);
-		init();
-	}
-	
-	public void init() {	
-		setFlags();	
-	}
-	
+
 	public void setFlags() {	
-		Stack<Float> tempFloat= new Stack<Float>();
-		tempFloat.push(0.5f);
-		tempFloat.push(0.5f);
-		tempFloat.push(0.5f);
-		flags.defaultValues = tempFloat;
-		flags.zeroEffectValues= tempFloat;
-		
-		Stack<String> tempString = new Stack<String>();
-		tempString.push("BlueMult");
-		tempString.push("GreenMult");
-		tempString.push("BlueMult");
-		flags.controlNames = tempString;
-		
-		flags.numberOfParameters = 3;
-		
-		history.setState(new FloatHistoryParameter(flags.defaultValues));
-		history.store();
+
+		addParameterToFlags("BlueMult", 0.5f);
+		addParameterToFlags("GreenMult", 0.5f);
+		addParameterToFlags("RedMult", 0.5f);
 	}
 
 
-	@Override
 	public void compute() {	
 		if (isBypass) {
 			dest=source;

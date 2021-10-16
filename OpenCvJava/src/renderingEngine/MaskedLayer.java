@@ -34,7 +34,7 @@ public class MaskedLayer extends FrameLayer
 
 		int whiteValue = background.getSpecs().bitMax;
 		alpha.setBackGround(background);
-		alpha.setFlags();
+		alpha.init();
 		alpha.setAlpha(whiteValue);
 		alpha.store();
 		

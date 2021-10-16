@@ -1,25 +1,30 @@
 package baseClasses.adjustControl;
 
 import java.util.Stack;
-
-import baseClasses.Id;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.ParameterHistory;
-import baseClasses.history.imp.UndoHistory;
+
 
 public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 {
-	public AdjustControlFloat(Id id) {
-		super (id);
+	public AdjustControlFloat() {
 		history = new ParameterHistory<Stack<Float>>();
 		history.initFactory(new FloatHistoryParameter());
 		history.initState(new FloatHistoryParameter());
+		initAdjControlFloat();
 	} 
-	 
-	public AdjustControlFloat(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
-		super (id, undoIdHistory, renderAtIdHistory);
-		history = new ParameterHistory<Stack<Float>>();
-	} 
+	
+	public void initAdjControlFloat() {
+		flags.controlNames = new Stack<String>();
+		flags.defaultValues= new Stack<Float>();
+		flags.numberOfParameters=0;
+		
+		history.initState(new FloatHistoryParameter());
+		setFlags();
+		history.setState(new FloatHistoryParameter(flags.defaultValues));
+		history.store();
+	}
+	public abstract void setFlags();
 	
 	public void setParameter(Stack<Float> p) {
 		history.setState(new FloatHistoryParameter(p));

@@ -4,10 +4,8 @@ import java.util.Stack;
 
 import algorithmsDataBase.ControlFlags;
 import baseClasses.Control;
-import baseClasses.Id;
 import baseClasses.IoFrame;
 import baseClasses.history.imp.ParameterHistory;
-import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
 
 
@@ -18,16 +16,16 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	protected Frame source;
 	protected Frame dest;
 	
-	public AdjustControl(Id id) {
-		super (id);
+	public AdjustControl() {
+		super();
+		initAdjsutControl();
+	}
+	
+	public void initAdjsutControl() {
 		flags = new ControlFlags<N>();
 		isBypass=true;
+		
 	}
-	 
-	public AdjustControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
-		super (id, undoIdHistory, renderAtIdHistory);
-		flags = new ControlFlags<N>();
-    }
 
 
 	public abstract void setParameter(N p);

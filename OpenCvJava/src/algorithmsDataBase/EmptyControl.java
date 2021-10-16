@@ -1,14 +1,11 @@
 package algorithmsDataBase;
 
 import baseClasses.Control;
-import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
 
 public class EmptyControl extends AdjustControlFloat {
 
-	public EmptyControl(Id id) {
-		super(id);
-		setEmptyFlags();
+	public EmptyControl() {
 	}
 
 	public void compute() {
@@ -17,6 +14,11 @@ public class EmptyControl extends AdjustControlFloat {
 
 	public Control clone() {
 		return this;
+	}
+
+	@Override
+	public void setFlags() {
+		setEmptyFlags();	
 	}
 
 }

@@ -5,25 +5,15 @@ import java.util.Stack;
 import org.opencv.core.Mat;
 
 import baseClasses.Control;
-import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
-import baseClasses.history.imp.UndoHistory;
 
 public class GrayScaleControl extends AdjustControlFloat 
 {
-	public GrayScaleControl(Id id) {
-		super(id);
-		init();	
-	}
-	public GrayScaleControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
-		super(id, undoIdHistory, renderAtIdHistory);
-		init();
+	public GrayScaleControl() {
+		super();
 	}
 	
-	public void init() {		
-		setFlags();
-	}
 	
 	public void setFlags() {
 		Stack<Float> tempFloat= new Stack<Float>();
