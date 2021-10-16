@@ -7,8 +7,7 @@ public class ParameterHistory<T> extends History<T>
 {	
 	protected Boolean firstUndo; 
 	
-	public ParameterHistory(){
-		
+	public ParameterHistory(){	
 	}
 	
 	public void store() {

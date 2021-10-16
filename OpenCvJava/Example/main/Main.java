@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Stack;
-
 import Examples.MultBgrControl;
 import fakeGui.FakeGui;
 
@@ -18,10 +17,23 @@ public class Main
     		fakeGui.addLayer(0, controlIndexInDataBase);
     		fakeGui.store();
     		fakeGui.play();
+    		
     		fakeGui.setBypass(0, 0, false);
     		fakeGui.play();
     		fakeGui.undo();
+    		fakeGui.undo();
+    		fakeGui.undo();
+    		fakeGui.undo();
+  
     		fakeGui.play();
+    		fakeGui.redo();
+    		fakeGui.redo();
+    		fakeGui.redo();
+    		fakeGui.redo();
+    		fakeGui.redo();
+    		fakeGui.redo();
+    		fakeGui.redo();
+    		fakeGui.redo();
     		fakeGui.redo();
     		fakeGui.play();
     		

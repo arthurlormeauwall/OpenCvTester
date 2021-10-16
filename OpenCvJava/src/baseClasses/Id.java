@@ -11,6 +11,11 @@ public class Id
 		initNULL();
 		group=0;
 	}
+	public Id(int[] ids) {
+		id=new int[2];
+		set(ids);
+		group=0;
+	}
 	
 	public Id(int[] indexs, int group) {
 		id=indexs;

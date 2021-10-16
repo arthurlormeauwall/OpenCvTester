@@ -16,7 +16,6 @@ public class EmptyControl extends AdjustControlFloat {
 		return this;
 	}
 
-	@Override
 	public void setFlags() {
 		setEmptyFlags();	
 	}

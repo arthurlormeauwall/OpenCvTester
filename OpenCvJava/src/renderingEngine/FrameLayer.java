@@ -30,7 +30,7 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	public abstract Control getLastControl();
 	public abstract int getNumberOfControl();
 	
-	public void updateNumberOfFrames() {
+	protected void updateNumberOfFrames() {
 
 		int numberOfControls = getNumberOfControl();
 		int numberOfFrames = frames.size();
@@ -53,7 +53,7 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 		}
 	}
 	
-	public void dealFrames() {
+	protected void dealFrames() {
 		
 		int numberOfControls = getNumberOfControl();
 		updateNumberOfFrames();

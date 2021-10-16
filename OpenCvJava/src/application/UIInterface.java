@@ -75,7 +75,7 @@ public abstract class UIInterface extends Command implements FunctionalitiesInte
 			}
 	}
 	
-	public void refresh() {
+	private void refresh() {
 		renderer.play();
 		play();
 	}

@@ -25,7 +25,7 @@ public class MaskedLayer extends FrameLayer
 		alpha.setUndoId(this.undoIdHistory);
 	}
 	
-	public void init(Frame background, Frame source, Frame dest) {
+	protected void init(Frame background, Frame source, Frame dest) {
 		setSource(source);
 		setDest(dest);
 
@@ -33,8 +33,7 @@ public class MaskedLayer extends FrameLayer
 		alpha.setDest(dest);
 
 		int whiteValue = background.getSpecs().bitMax;
-		alpha.setBackGround(background);
-		alpha.init();
+		alpha.init(background);
 		alpha.setAlpha(whiteValue);
 		alpha.store();
 		
@@ -66,7 +65,7 @@ public class MaskedLayer extends FrameLayer
 		return alpha;
 	}
 	
-	public Control createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
+	protected Control createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
 		Control newControl = (Control) dbControls.getControl(stackOfControlIndexInDataBase.get(0));
 		newControl.getId().set(id.get(0));
 
@@ -125,6 +124,7 @@ public class MaskedLayer extends FrameLayer
 		chainOfControls.updateId(groupDeepnessIndex, newValue);
 	}
 
+	
 	public Control clone() {	
 		MaskedLayer newMaskedLayer= new MaskedLayer(dbControls, id, undoIdHistory, renderAtIdHistory);
 		

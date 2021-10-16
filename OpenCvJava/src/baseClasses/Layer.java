@@ -15,18 +15,14 @@ public abstract class Layer extends Control
 	public Layer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory){
 		
 		super (id, undoIdHistory, renderAtIdHistory);
-		int chainGroup = this.id.getGroupId() + 1;
-	
-		Id chainId = new Id();
-		chainId.setGroupId(chainGroup);
+		
+		Id chainId = new Id(this.id.get());
+		chainId.setGroupId(this.id.getGroupId() + 1);
 		chainOfControls = new ChainOfControls (chainId, this.undoIdHistory, this.renderAtIdHistory);
-	
-		chainOfControls.getId().set(this.id);
-		chainOfControls.getId().setGroupId(this.id.getGroupId() + 1);
 	}
 	
 	public abstract void render();
-	public abstract Control createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
+	protected abstract Control createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
 
 	public Control getControl(int index) {
 		return chainOfControls.getControl(index);

@@ -24,7 +24,7 @@ public class Frame
 	
 	public Frame(int rows, int cols, int data) { 
 		frameSpecs= new FrameSpecs();
-		Create1DFrame(rows, cols, data);
+		CreatePlainGrayFrame(rows, cols, data);
 	}
 	
 	public void readFromFile(final String fileName) {
@@ -37,7 +37,7 @@ public class Frame
 		newFrame.setSpecs();
 	}
 
-	public void Create1DFrame(int rows, int cols, int data){
+	public void CreatePlainGrayFrame(int rows, int cols, int data){
 		frameMat=new Mat(rows, cols, CvType.CV_8UC3);
 		
 		double[] temp= new double[3];
@@ -89,6 +89,7 @@ public class Frame
 		int cols= frameMat.cols();
 		
 		if (rowsP == rows && colsP == cols){
+			
 			for (int i=0; i<rows; i++) {
 				for (int j=0; j<cols;j ++) {
 					if (p.getFrame().get(i,j) == frameMat.get(i,j)) {
@@ -98,8 +99,7 @@ public class Frame
 						value = false;
 					}
 				}
-			}
-			
+			}	
 		}
 		
 		return value;

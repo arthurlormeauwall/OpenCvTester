@@ -101,7 +101,7 @@ public class Renderer extends RendererInterface
 	}   
 
 	// FrameLayer implementation
-	public Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
+	protected Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
 		MaskedLayer maskedLayer = new MaskedLayer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
 		maskedLayer.init(m_background, source, dest);
 		
@@ -167,12 +167,6 @@ public class Renderer extends RendererInterface
 		renderAtIdHistory.store();
 
 		chainOfControls.store();
-	}
-
-	@Override
-	public Control clone() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public void addAlgorithm(AdjustControlFloat algoParameters) {

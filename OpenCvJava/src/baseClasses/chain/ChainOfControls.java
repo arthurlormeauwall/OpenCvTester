@@ -27,7 +27,7 @@ public class ChainOfControls extends Control
     	return controls.get(index);
     }
 
-    public void addControl(Id id, Control control) {
+    private void addControl(Id id, Control control) {
         int index = getControlIndex(id);
 
         int lastControl = controls.size() - 1;
@@ -49,7 +49,7 @@ public class ChainOfControls extends Control
         updateAllId(index);
     }
 
-    public Control delControl(Id id) {
+    private Control delControl(Id id) {
         int index = getControlIndex(id);
         int lastControlIndex= controls.size()-1;
         if (index>lastControlIndex) {

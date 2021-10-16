@@ -14,13 +14,14 @@ public class AlphaControl extends AdjustControlFrame
 
 	}
 	
-	public void init() {
+	public void init(Frame background) {
+		setBackGround(background);
 		setFlags();
 		history.setState(new FrameHistoryParameter(flags.defaultValues));
 		history.store();
 	}
 	
-	public void setFlags() {		
+	private void setFlags() {		
 		addParameter("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
 		setZeroEffectValues( new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));	
 	}
@@ -65,8 +66,8 @@ public class AlphaControl extends AdjustControlFrame
 	}
 		
 	
-	public void setBackGround(Frame bg){	
-		background = bg; 
+	public void setBackGround(Frame background){	
+		this.background = background; 
 	}
 	
 
@@ -76,7 +77,7 @@ public class AlphaControl extends AdjustControlFrame
 	
 	public void setAlpha(int opacity){
 		Frame alpha = new Frame();
-		alpha.Create1DFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
+		alpha.CreatePlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
 		setParameter(alpha);
 		
 	}

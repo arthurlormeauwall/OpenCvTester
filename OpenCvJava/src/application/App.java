@@ -35,7 +35,7 @@ public class App
 	public void init(String fileName) {
 		
 		setImage(fileName);
-		background.Create1DFrame(source.getFrame().rows(), source.getFrame().cols(), 0);
+		background.CreatePlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), 0);
 		source.copyTo(dest);
 
 		Id rendererId = new Id();
@@ -49,7 +49,7 @@ public class App
 		m_mainWin= new UIImp(m_renderer);	
 	}
 	
-	public void setImage(String fileName) {
+	private void setImage(String fileName) {
 		source.readFromFile(fileName);
 	}
 	

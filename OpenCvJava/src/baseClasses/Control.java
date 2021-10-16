@@ -18,8 +18,7 @@ public abstract class Control extends Command
 		renderAtIdHistory= new UndoHistory<Id>();  
  	
 		initControl();
-    }
-    
+    }    
     public Control(Id id) {	
     	this.id = new Id();
     	this.id.set(id);
@@ -30,8 +29,7 @@ public abstract class Control extends Command
 	    isBypass = false;
 	    
 	    initControl();
-    }
-    
+    } 
     public Control(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
     	this.id = new Id();
     	this.id.set(id);
@@ -44,9 +42,9 @@ public abstract class Control extends Command
 	    isBypass = false;
 	    
 	    initControl();
-    }
+    }  
     
-    public void initControl() { 	
+    private void initControl() { 	
     	undoIdHistory.initFactory(new IdHistoryParameter());
     	renderAtIdHistory.initFactory(new IdHistoryParameter());
       	undoIdHistory.initState(new IdHistoryParameter());
@@ -97,7 +95,6 @@ public abstract class Control extends Command
 		undoIdHistory.store();
 	    renderAtIdHistory.store();	
     }
-    public abstract Control clone();
     
     public Boolean getBypassState () {
     	return isBypass;

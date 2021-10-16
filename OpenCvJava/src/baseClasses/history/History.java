@@ -4,7 +4,7 @@ import java.util.Stack;
 
 
 
-public abstract class History<T>
+public abstract class History<T> 
 { 
 	protected HistoryParameter<T> factory;	
 	protected HistoryParameter<T> state;
@@ -58,11 +58,11 @@ public abstract class History<T>
 		return state;    	
 	}
 	    
-	public void clearRedoHistory() {		
+	protected void clearRedoHistory() {		
 		redoHistory.clear();
 	}
 	
-	public void clearUndoHistory() {
+	protected void clearUndoHistory() {
 		undoHistory.clear();
 	}
 }
