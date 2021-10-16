@@ -47,32 +47,31 @@ The rendering part is fully working. The GUI does not exist yet.
 
 ## Usage
 
->disclaimer : The main goal of this entire project is to provide en enterractive way of testing Open Cv, therefore I am perfecty aware it can not be achieved with no Gui. This project is still work in progress ! 
+>disclaimer : The main goal of this entire project is to provide en enterractive way of testing Open Cv, therefore I am perfecty aware it can not be achieved with no GUI. This project is still work in progress ! 
 Since the rendering part is operationnal, I decided to share it to other people anyway. This section describe how you can test it as it is now. 
 
-To use this framework you have to import FakeGui classe from fakeGui package. 
-First you create a FakeGui object passing the path to the image you want to work with.
+To use this framework you have to import `FakeGui` classe from *fakeGui* package. 
+First you create a `FakeGui` object passing the path to the image you want to work with.
 
-FakeGui classe provide methods that can mimic all the message/event the Gui will be able to send to the system :
+`FakeGui` classe provide several methods that can mimic all the message/event the GUI will be able to send to the system :
 
-`public void addControlInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase)` : add a control in a masked layer. The first two parameters tell in wich maskedLayer and where in the chain of controls already there you want to add the new control (its coordinate in the rendering chain). The third one is the index, in the control database, of the control that will be added. 
+`public void addControlInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase)` : add a control in a certain maskedlayer at a certain index. The third parameter is the index, in the control database, of the control that will be added. 
 
-`public void delControlInLayer(int maskedLayerIndex, int controlIndex)` : delete a control in a masked layer.  
+`public void delControlInLayer(int maskedLayerIndex, int controlIndex)` : delete a certain control in a certain masked layer.  
 
 `public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase)` : add a masked layer. The first parameter tell where to add the new masked layer in the chain of masked layers already there. The second one is a stack of the control indexes, in the control database, of the new controls of this masked layer.
 
-`public void delLayer(int maskedLayerIndex)` : delete a masked layer. The first two parameters are the coordinates in the rendering chain of the control you want to delete.
+`public void delLayer(int maskedLayerIndex)` : delete a certain masked layer.
 
-`public void setAlpha(int maskedLayerIndex, Frame alpha)` 	: set the alpha mask of a masked layer with a Frame object.
+`public void setAlpha(int maskedLayerIndex, Frame alpha)` 	: set the alpha mask of a  certain masked layer with a `Frame` object.
 
-`public void setAlpha(int maskedLayerIndex, int opacity)` : set the opacity of a masked layer with an int.
+`public void setAlpha(int maskedLayerIndex, int opacity)` : set the opacity of a certain masked layer with an integer data.
 
-`public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters)` : set parameters of a given control. The first two parameters are the coordinates in the rendering chain of the control you want to set. The third one is the new values of this control parameters.
+`public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters)` : set parameters of a certain control.
 
+`public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter)` : set bypass state of a certain control. 
 
-`public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter)` : set bypass state of a control. The first two parameters are the coordinates in the rendering chain of the control you want to set. The third one is the new bypass state of this control.
-
-`public void undo()` : undo the last thing that have been changed in the system ; could either be : parameters change (including opacity/alpha), maskedLayer added/deleted, control added/deleted. Change of the bypass state is not including in the undoable item.
+`public void undo()` : undo the last thing that have been changed in the entire system ; could either be : parameters change (including opacity/alpha), maskedLayer added/deleted, control added/deleted. Change of the bypass state is not including in the undoable things.
 
 `public void redo()` : see undo.
 
@@ -80,35 +79,26 @@ FakeGui classe provide methods that can mimic all the message/event the Gui will
 
 `public void play()` : refresh the image displayed.
 
-`public void addAlgorithm(AdjustControlFloat algorithm)` : add your own algorithm to the database.
+`public void addControlInDataBase(AdjustControlFloat newControl)` : add your own control to the database.
+
 
 * How add your own algorithm the the control dataBase :
 
-In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade* package. 
+To write your own control you have to create a class that extends the `AdjustControlFloat` class.
 
-To write your own algorithm you have to add a class that extends the `AdjustControlFloat` class (see in *baseClasses.adjustControl* package) in the *algorithmsDataBase* package. 
-This class has several important things : 
-* Two `Frame` objects variables : m_source and m_dest (input and output frame as yourAlgorithm(m_source)=m_dest)
-* Several parameters that will be tweakable. You can access them via the m_history variable calling `m_history.getState()` method. This method returns an object of type `HistoryParameter<Stack<Float>>` ; then call `getParameter()` to get the `Stack<Float>` parameters : 
-  * `m_history.getState().getParameters.get(0)` is a first parameter, 
-  * `m_history.getState().getParameters.get(1)` is a second parameter and so on
-* A `ControlFlags<Float>` variable that you have to initialize in your algorithm constructor or in a method called by the constructor, to let the system know about several things that you can check in the `ControlFlags` class in *algorithmsDataBase* package (number of parameters, their names, default values etc.).
-* A `compute()` method where you write your algorithm.
+`AdjustControlFloat` class provide several important things : 
+* Two `Frame` objects : source and dest (input and output frame as yourAlgorithm(source)=dest). To get the `Mat` object from a Frame object you call the 'getFrame()` mehtod.
+* Several parameters that will be tweakable. You can access them via `history` calling `getState()` method. This method returns an object of type `HistoryParameter<Stack<Float>>` ; then call `getParameter()` to get the `Stack<Float>` parameters : 
+  * `history.getState().getParameters.get(0)` is a first parameter, 
+  * `history.getState().getParameters.get(1)` is a second parameter and so on
+* Two abstract method that you have to implement : 
+ * `public void setParameterFlags()` : here you create parameters calling `addParameter(String name, Float defaultValue)` for each parameter. You can also set certain special values for those parameters with `setZeroEffectValues(Stack<Float> zeroEffectValues)` : it let the system know that when parameters are set to the those values, this equals to a bypass set to true.
+ * `public void compute()` : here you write the algorithm. 
 
-You may really want to check `MultBgrControl` class to get a good example of how to create and set up an algorithms. 
+Then you have to create an object of this new class you have just create and add it to the control database calling the `addControlInDataBase(AdjustControlFloat newControl)` method.
 
-After adding the class you just made to the package, you need to add a variable of this new type in the `DbControls` class in the *algorithmsDataBase* package. Then create the object and push it in “m_controls” stack in its constructor .
-
-Once that is done, you can compile and run the program. 
-
-About the main structure 
-> In *application* package,`App` class contains a `Renderer` object that has a working input frame and an output frame that is displayed in its own window.  It also has a `UIImp` object that creates the GUI and calls the renderer method when events occur.
-To be more specific, each element of the GUI will be able to communicate its events (ex: a moving slider) to the system by creating an `Action` object (see in *application* package) and then passing it to the `UIImp` object, calling the `dealOrder(Action parameter)` method. This method then decides, with a switch statement, which method of the `Renderer` object to call (it can also call a method of its own).   
-
-
-
-
-
+Once that is done, you can call methods of the FakeGui object to mimic the GUI and test your algorithm.
+In the example folder you may find Main.java and a MultbgrControl.java that show all this process. 
 
 
 ## Contact
