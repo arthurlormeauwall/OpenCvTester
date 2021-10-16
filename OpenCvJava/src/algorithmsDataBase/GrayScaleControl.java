@@ -10,7 +10,7 @@ public class GrayScaleControl extends AdjustControlFloat
 	}
 	
 	
-	public void setFlags() {
+	public void setParameterFlags() {
 
 		addParameter("BlueMult", 0.1f);
 		addParameter("GreenMult", 0.6f);

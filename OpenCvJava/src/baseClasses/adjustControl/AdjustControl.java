@@ -9,10 +9,10 @@ import baseClasses.history.imp.ParameterHistory;
 import baseClasses.openCvFacade.Frame;
 
 
-public abstract class AdjustControl<N> extends Control implements IoFrame 
+public abstract class AdjustControl<T> extends Control implements IoFrame 
 {
-	protected ParameterHistory<N> history;
-	protected ControlFlags<N> flags;
+	protected ParameterHistory<T> history;
+	protected ControlFlags<T> flags;
 	protected Frame source;
 	protected Frame dest;
 	
@@ -21,11 +21,11 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	}
 	
 	private void initAdjsutControl() {
-		flags = new ControlFlags<N>();
+		flags = new ControlFlags<T>();
 		isBypass=true;	
 	}
 
-	public abstract void setParameter(N p);
+	public abstract void setParameter(T p);
 	    
 	
 	public void setNames(Stack<String> names) {
@@ -40,15 +40,15 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 		setParameter(flags.defaultValues);
 	}
 	
-	public void setDefaultParameters(N p) {
+	public void setDefaultParameters(T p) {
 		flags.defaultValues = p;
 	}
-	public void setZeroEffectValues(N p) {
+	public void setZeroEffectValues(T p) {
 		flags.zeroEffectValues = p;
 	}
 	 
 	
-	public ControlFlags<N> getFlags() {
+	public ControlFlags<T> getFlags() {
 		return flags;
 	}
 	

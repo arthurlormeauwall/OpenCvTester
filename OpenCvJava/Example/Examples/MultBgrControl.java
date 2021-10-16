@@ -12,7 +12,7 @@ public class MultBgrControl extends AdjustControlFloat
 		
 	}
 
-	public void setFlags() {	
+	public void setParameterFlags() {	
 
 		addParameter("BlueMult", 0.5f);
 		addParameter("GreenMult", 0.5f);

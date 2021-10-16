@@ -20,11 +20,11 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		flags.numberOfParameters=0;
 		
 		history.initState(new FloatHistoryParameter());
-		setFlags();
+		setParameterFlags();
 		history.setState(new FloatHistoryParameter(flags.defaultValues));
 		history.store();
 	}
-	public abstract void setFlags();
+	public abstract void setParameterFlags();
 	
 	public void setParameter(Stack<Float> p) {
 		history.setState(new FloatHistoryParameter(p));

@@ -16,7 +16,7 @@ public class EmptyControl extends AdjustControlFloat {
 		return this;
 	}
 
-	public void setFlags() {
+	public void setParameterFlags() {
 		setEmptyFlags();	
 	}
 

@@ -9,6 +9,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 public class Frame 
 {
+	final int NumberOfColorLayer = 3;
 	protected FrameSpecs frameSpecs;
 	protected Mat frameMat;
 	
@@ -40,15 +41,14 @@ public class Frame
 	public void CreatePlainGrayFrame(int rows, int cols, int data){
 		frameMat=new Mat(rows, cols, CvType.CV_8UC3);
 		
-		double[] temp= new double[3];
+		double[] temp= new double[NumberOfColorLayer];
 		
-		for (int i=0; i< 3 ;i++) {
+		for (int i=0; i< NumberOfColorLayer ;i++) {
 			temp[i]=data;
 		} 
-		for (int i=0 ; i < rows ;i++) {  
-			
-			for (int j=0 ; j < cols ; j++){ 
-				
+		
+		for (int i=0 ; i < rows ;i++) {  	
+			for (int j=0 ; j < cols ; j++){ 	
 				frameMat.put(i, j, temp);
 			}
 		}
