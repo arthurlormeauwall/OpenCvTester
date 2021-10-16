@@ -1,9 +1,6 @@
 package main;
 
 import java.util.Stack;
-
-import org.opencv.core.Core;
-
 import application.App;
 import fakeGui.EventGenerator;
 
@@ -11,11 +8,8 @@ import fakeGui.EventGenerator;
 public class Main 
 {
     public static void main(String[] args){
-    
-    		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		
-    		App myApp = new App();
-			EventGenerator fakeGui= new EventGenerator(myApp, "assets/20210717_203824.jpg"); 
+
+			EventGenerator fakeGui= new EventGenerator(new App(), "assets/20210717_203824.jpg"); 
     		
     		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
     		controlIndexInDataBase.push(1);

@@ -3,6 +3,8 @@ package application;
 import renderingEngine.GroupsId;
 import renderingEngine.Renderer;
 
+import org.opencv.core.Core;
+
 import baseClasses.Id;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
@@ -20,7 +22,8 @@ public class App
 	protected UIImp m_mainWin;
 	
 	public App() {
-
+		
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		undoIdHistory = new UndoHistory<Id>();
 		renderAtIdHistory = new UndoHistory<Id>();
 		background = new Frame();
