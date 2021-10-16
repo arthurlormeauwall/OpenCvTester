@@ -37,5 +37,8 @@ public class DbControls
 	}
 	public ControlFlags<Stack<Float>> getFlags(int index){
 		return controls.get(index).getFlags();
-	}	
+	}
+	public void addAlgorithm(AdjustControlFloat control) {
+		controls.push(control);
+	}
 };
