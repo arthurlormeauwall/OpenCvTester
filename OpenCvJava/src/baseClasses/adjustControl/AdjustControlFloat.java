@@ -11,20 +11,20 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 {
 	public AdjustControlFloat(Id id) {
 		super (id);
-		m_history = new ParameterHistory<Stack<Float>>();
-		m_history.initFactory(new FloatHistoryParameter());
-		m_history.initState(new FloatHistoryParameter());
+		history = new ParameterHistory<Stack<Float>>();
+		history.initFactory(new FloatHistoryParameter());
+		history.initState(new FloatHistoryParameter());
 	} 
 	 
 	public AdjustControlFloat(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
 		super (id, undoIdHistory, renderAtIdHistory);
-		m_history = new ParameterHistory<Stack<Float>>();
+		history = new ParameterHistory<Stack<Float>>();
 	} 
 	
 	public void setParameter(Stack<Float> p) {
-		m_history.setState(new FloatHistoryParameter(p));
-		if (p==m_flags.zeroEffectValues) {
-			m_isBypass=true;
+		history.setState(new FloatHistoryParameter(p));
+		if (p==flags.zeroEffectValues) {
+			isBypass=true;
 		}
 		UpdateRender();
 		UpdateUndo();

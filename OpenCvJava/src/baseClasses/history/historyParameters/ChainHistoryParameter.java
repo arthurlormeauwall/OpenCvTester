@@ -6,20 +6,20 @@ import baseClasses.history.HistoryParameter;
 
 public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>> 
 {
-    protected ItemAndId<T> m_p;
+    protected ItemAndId<T> itemAndId;
     
-	public ChainHistoryParameter(ItemAndId<T> parameter) {
-		m_p=parameter;
+	public ChainHistoryParameter(ItemAndId<T> itemAndId) {
+		this.itemAndId=itemAndId;
 	}
 	 
 	public ChainHistoryParameter() {
-		m_p=new ItemAndId<T>();
+		itemAndId=new ItemAndId<T>();
 	}
  
     public void set (ItemAndId<T> parameter) {
-    	m_p.m_chainCommand= parameter.m_chainCommand;
-    	m_p.m_control= parameter.m_control;
-    	m_p.m_id= parameter.m_id;
+    	itemAndId.chainCommand= parameter.chainCommand;
+    	itemAndId.item= parameter.item;
+    	itemAndId.id= parameter.id;
     }
     
 	public HistoryParameter<ItemAndId<T>> getNew() {
@@ -27,11 +27,11 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	}
 	
 	public void invert() {
-        if (m_p.m_chainCommand == ChainCommand.ADD) { m_p.m_chainCommand = ChainCommand.DELETE; }
-        else if (m_p.m_chainCommand == ChainCommand.DELETE) { m_p.m_chainCommand = ChainCommand.ADD; }
+        if (itemAndId.chainCommand == ChainCommand.ADD) { itemAndId.chainCommand = ChainCommand.DELETE; }
+        else if (itemAndId.chainCommand == ChainCommand.DELETE) { itemAndId.chainCommand = ChainCommand.ADD; }
 	}
 	
 	public ItemAndId<T> getParameter() {
-		return m_p;
+		return itemAndId;
 	}
 };

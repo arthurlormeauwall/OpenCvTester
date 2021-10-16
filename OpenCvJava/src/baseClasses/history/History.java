@@ -6,22 +6,22 @@ import java.util.Stack;
 
 public abstract class History<T>
 { 
-	protected HistoryParameter<T> m_factory;	
-	protected HistoryParameter<T> m_state;
-	protected Stack<HistoryParameter<T>> m_undoHistory;
-	protected Stack<HistoryParameter<T>> m_redoHistory; 
+	protected HistoryParameter<T> factory;	
+	protected HistoryParameter<T> state;
+	protected Stack<HistoryParameter<T>> undoHistory;
+	protected Stack<HistoryParameter<T>> redoHistory; 
 
 	public History(){
-		m_undoHistory= new Stack<HistoryParameter<T>>();      
-		m_redoHistory = new Stack<HistoryParameter<T>>();
+		undoHistory= new Stack<HistoryParameter<T>>();      
+		redoHistory = new Stack<HistoryParameter<T>>();
 	}
 		
 	public void initFactory(HistoryParameter<T> p) {
-		m_factory=p;
+		factory=p;
 	}
 		
 	public void initState(HistoryParameter<T> p) {
-		m_state=p;
+		state=p;
 	}
 	
 	public abstract void store();   
@@ -29,24 +29,24 @@ public abstract class History<T>
 	public abstract void redo(); 
 	 
 	public void setState(HistoryParameter<T> t) {
-		m_state.set(t.getParameter());
+		state.set(t.getParameter());
 	}
 	
 	public Boolean isUndoEmpty() { 
-		if (m_undoHistory.size() <= 0) {
+		if (undoHistory.size() <= 0) {
 		    return true;  
 		}
-		else if (m_undoHistory.size() > 0) {
+		else if (undoHistory.size() > 0) {
 		    return false;
 		}
 			return null;
 		}
 	
 	public Boolean isRedoEmpty() {
-		if (m_redoHistory.size() <= 0) {
+		if (redoHistory.size() <= 0) {
 		    return true;
 		}
-		else if (m_redoHistory.size() > 0) {
+		else if (redoHistory.size() > 0) {
 		    return false;
 		}
 	return null;
@@ -55,14 +55,14 @@ public abstract class History<T>
 	    
 	public HistoryParameter<T> getState() { 
 	 
-		return m_state;    	
+		return state;    	
 	}
 	    
 	public void clearRedoHistory() {		
-		m_redoHistory.clear();
+		redoHistory.clear();
 	}
 	
 	public void clearUndoHistory() {
-		m_undoHistory.clear();
+		undoHistory.clear();
 	}
 };

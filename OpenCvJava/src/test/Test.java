@@ -12,7 +12,13 @@ import renderingEngine.GroupsId;
 
 public class Test 
 {
-	public Test(App myApp){
+	private App myApp;
+	
+	private void doSomething(Id id, Parameters parameters, Functionalities whatToDo) {
+	}
+	public Test(App app){
+		
+		myApp=app;
 		// change here the path to the image you want to work with
 		myApp.init("assets/20210717_203824.jpg");	
 
@@ -35,17 +41,17 @@ public class Test
 
 				
 		action.id=stackOfIds;
-		action.parameters.int_parameters=controlIndexToAdd;
+		action.parameters.intParameters=controlIndexToAdd;
 		action.whatToDo=Functionalities.ADD_LAYER;
 		myApp.getMainWin().dealOrder(action);
 
 		action.id=null;
-		action.parameters.int_parameters=null;
+		action.parameters.intParameters=null;
 		action.whatToDo=Functionalities.STORE;
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.REFRESH;
 		myApp.getMainWin().dealOrder(action);
 		
@@ -53,17 +59,17 @@ public class Test
 		stackOfIds.push(Control1_id);
 		
 		action.id=stackOfIds;
-		action.parameters.bool_parameters=false;
+		action.parameters.boolParameters=false;
 		action.whatToDo=Functionalities.SET_BYPASS;	
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.REFRESH;
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.UNDO;
 		myApp.getMainWin().dealOrder(action);
 		myApp.getMainWin().dealOrder(action);
@@ -72,12 +78,12 @@ public class Test
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.REFRESH;
 		myApp.getMainWin().dealOrder(action);
 	
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.REDO;	
 		myApp.getMainWin().dealOrder(action);
 		myApp.getMainWin().dealOrder(action);
@@ -86,7 +92,7 @@ public class Test
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.REFRESH;	
 		myApp.getMainWin().dealOrder(action);
 
@@ -96,22 +102,22 @@ public class Test
 		floatParameters.push(0.9f);
 		
 		action.id=stackOfIds;
-		action.parameters.float_parameters=floatParameters;
+		action.parameters.floatParameters=floatParameters;
 		action.whatToDo=Functionalities.SET_PARAMETERS;	
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.int_parameters=null;
+		action.parameters.intParameters=null;
 		action.whatToDo=Functionalities.STORE;		
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.REFRESH;
 		myApp.getMainWin().dealOrder(action);
 		
 		action.id=null;
-		action.parameters.bool_parameters=null;
+		action.parameters.boolParameters=null;
 		action.whatToDo=Functionalities.UNDO;	
 		myApp.getMainWin().dealOrder(action);	
 	}

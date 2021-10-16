@@ -10,13 +10,13 @@ import baseClasses.history.HistoryParameter;
 
 public class FloatHistoryParameter implements HistoryParameter<Stack<Float>> 
 {
-	protected Stack<Float> m_p;
+	protected Stack<Float> stackOfFloats;
 	
     public FloatHistoryParameter() {
     }
     
-    public FloatHistoryParameter(Stack<Float> parameter) {
-		 m_p=parameter;
+    public FloatHistoryParameter(Stack<Float> stackOfFloats) {
+		 this.stackOfFloats=stackOfFloats;
 	 }
 
 	public FloatHistoryParameter getNew() {
@@ -27,10 +27,10 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 	}
 	
 	public Stack<Float> getParameter() {
-		return m_p;
+		return stackOfFloats;
 	}
 
 	public void set(Stack<Float> parameter) {
-		m_p=parameter;		
+		stackOfFloats=parameter;		
 	}
 };

@@ -13,20 +13,20 @@ import baseClasses.openCvFacade.Frame;
 
 public abstract class AdjustControl<N> extends Control implements IoFrame 
 {
-	protected ParameterHistory<N> m_history;
-	protected ControlFlags<N> m_flags;
-	protected Frame m_source;
-	protected Frame m_dest;
+	protected ParameterHistory<N> history;
+	protected ControlFlags<N> flags;
+	protected Frame source;
+	protected Frame dest;
 	
 	public AdjustControl(Id id) {
 		super (id);
-		m_flags = new ControlFlags<N>();
-		m_isBypass=true;
+		flags = new ControlFlags<N>();
+		isBypass=true;
 	}
 	 
 	public AdjustControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
 		super (id, undoIdHistory, renderAtIdHistory);
-		m_flags = new ControlFlags<N>();
+		flags = new ControlFlags<N>();
     }
 
 
@@ -34,40 +34,40 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	    
 	
 	public void setNames(Stack<String> names) {
-		m_flags.controlNames = names;
+		flags.controlNames = names;
 	}
 	
 	public void setNumberOfParamters (int n) {
-		m_flags.numberOfParameters = n;
+		flags.numberOfParameters = n;
 	}
 	
 	public void reset() {
-		setParameter(m_flags.defaultValues);
+		setParameter(flags.defaultValues);
 	}
 	
 	public void setDefaultParameters(N p) {
-		m_flags.defaultValues = p;
+		flags.defaultValues = p;
 	}
 	public void setZeroEffectValues(N p) {
-		m_flags.zeroEffectValues = p;
+		flags.zeroEffectValues = p;
 	}
 	 
 	
 	public ControlFlags<N> getFlags() {
-		return m_flags;
+		return flags;
 	}
 	
 	public void updateId(int groupDeepnessIndex, int newValue) {
-		m_id.setControlOrLayer(groupDeepnessIndex, newValue);
+		id.setControlOrLayer(groupDeepnessIndex, newValue);
 	}
 	
 	public void store() {
-		m_history.store();
+		history.store();
 	}
 	
 	public Boolean undo() {
-		if (!m_history.isUndoEmpty()) {
-			m_history.undo();
+		if (!history.isUndoEmpty()) {
+			history.undo();
 		    return true;
 		}
 		else {
@@ -76,8 +76,8 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	}
 	 
 	public Boolean redo() {
-		if (!m_history.isRedoEmpty()) {
-		    m_history.redo();
+		if (!history.isRedoEmpty()) {
+		    history.redo();
 		    return true;
 		}
 		else {
@@ -86,16 +86,16 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	}
 	 
 	public void setSource(Frame s){
-		m_source=s;
+		source=s;
 	}
 	public void setDest(Frame d)  {
-		m_dest=d;
+		dest=d;
 	}
 	  
 	public Frame getSource()      {
-		return m_source;
+		return source;
 	}
 	public Frame getDest()        {
-		return m_dest;
+		return dest;
 	}
 };

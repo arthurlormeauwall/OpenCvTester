@@ -7,14 +7,14 @@ import baseClasses.openCvFacade.Frame;
 
 public class FrameHistoryParameter implements HistoryParameter<Frame> 
 {
-	protected Frame m_p;
+	protected Frame frame;
 	
     public FrameHistoryParameter() {
-    	m_p=new Frame();
+    	frame=new Frame();
     }
     
-    public FrameHistoryParameter(Frame parameter) {
-    	m_p=parameter;
+    public FrameHistoryParameter(Frame frame) {
+    	this.frame=frame;
     }
  
 	public FrameHistoryParameter getNew() {
@@ -25,10 +25,10 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
 	}
 	
 	public Frame getParameter() {
-		return m_p;
+		return frame;
 	}
     
 	public void set(Frame parameter) {
-		m_p=parameter;		
+		frame=parameter;		
 	}
 };

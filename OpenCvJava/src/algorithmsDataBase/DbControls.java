@@ -8,34 +8,34 @@ import baseClasses.adjustControl.AdjustControlFloat;
 
 public class DbControls 
 {
-	protected Stack<AdjustControlFloat> m_controls;
-	protected GrayScaleControl c_grayScale;
-	protected AlphaControl c_alpha;
-	protected MultBgrControl c_rgbMult;
+	protected Stack<AdjustControlFloat> controls;
+	protected GrayScaleControl grayScale;
+	protected AlphaControl alpha;
+	protected MultBgrControl rgbMult;
 	// ADD CONTROL HERE
 
 	public DbControls() {
-		m_controls= new Stack<AdjustControlFloat>();
+		controls= new Stack<AdjustControlFloat>();
 		Id id = new Id();
 		id.initNULL();
 
-		c_alpha = new AlphaControl(id);
-		c_rgbMult = new MultBgrControl(id);
-		c_grayScale = new GrayScaleControl(id);
+		alpha = new AlphaControl(id);
+		rgbMult = new MultBgrControl(id);
+		grayScale = new GrayScaleControl(id);
 		// ADD CONTROL HERE 
 
-		m_controls.push(c_grayScale);
-		m_controls.push(c_rgbMult);
+		controls.push(grayScale);
+		controls.push(rgbMult);
 		//PUSH CONTROL HERE
 	}
 	
 	public AlphaControl getAlphaControl(){
-		return c_alpha;
+		return alpha;
 	}
 	public Control getControl(int index){
-		return m_controls.get(index);
+		return controls.get(index);
 	}
 	public ControlFlags<Stack<Float>> getFlags(int index){
-		return m_controls.get(index).getFlags();
+		return controls.get(index).getFlags();
 	}	
 };

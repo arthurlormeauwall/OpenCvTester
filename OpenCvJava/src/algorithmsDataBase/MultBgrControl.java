@@ -31,44 +31,44 @@ public class MultBgrControl extends AdjustControlFloat
 		tempFloat.push(0.5f);
 		tempFloat.push(0.5f);
 		tempFloat.push(0.5f);
-		m_flags.defaultValues = tempFloat;
-		m_flags.zeroEffectValues= tempFloat;
+		flags.defaultValues = tempFloat;
+		flags.zeroEffectValues= tempFloat;
 		
 		Stack<String> tempString = new Stack<String>();
 		tempString.push("BlueMult");
 		tempString.push("GreenMult");
 		tempString.push("BlueMult");
-		m_flags.controlNames = tempString;
+		flags.controlNames = tempString;
 		
-		m_flags.numberOfParameters = 3;
+		flags.numberOfParameters = 3;
 		
-		m_history.setState(new FloatHistoryParameter(m_flags.defaultValues));
-		m_history.store();
+		history.setState(new FloatHistoryParameter(flags.defaultValues));
+		history.store();
 	}
 
 
 	@Override
 	public void compute() {	
-		if (m_isBypass) {
-			m_dest=m_source;
+		if (isBypass) {
+			dest=source;
 		}
 
-		if (!m_isBypass)
+		if (!isBypass)
 	    {
-	        Mat imgSource = m_source.getFrame();
-	        Mat imgDest = m_dest.getFrame();
+	        Mat imgSource = source.getFrame();
+	        Mat imgDest = dest.getFrame();
 
 	        int m_row = imgSource.rows();
 	        int m_column = imgSource.cols();
-	        int bitMax = m_source.getSpecs().s_bitMax;
+	        int bitMax = source.getSpecs().bitMax;
 
 	        for (int row = 0; row < m_row; row++)
 	        {
 	            for (int column = 0; column < m_column; column++)
 	            {
-	                float blueMultiplier = (m_history.getState().getParameter()).get(0);
-	                float greenMultiplier = (m_history.getState().getParameter()).get(1);
-	                float redMultiplier = (m_history.getState().getParameter()).get(2);
+	                float blueMultiplier = (history.getState().getParameter()).get(0);
+	                float greenMultiplier = (history.getState().getParameter()).get(1);
+	                float redMultiplier = (history.getState().getParameter()).get(2);
 
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];
@@ -90,7 +90,7 @@ public class MultBgrControl extends AdjustControlFloat
 	                imgDest.put(row, column, temp);
 	            }
 	        }
-	        m_dest.setFrame(imgDest);
+	        dest.setFrame(imgDest);
 	    }	
 	}
 

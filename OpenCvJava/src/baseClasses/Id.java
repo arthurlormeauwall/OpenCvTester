@@ -3,70 +3,70 @@ package baseClasses;
 
 public class Id
 {
-	protected int[] m_id;
-	protected int m_group;
+	protected int[] id;
+	protected int group;
 	
 	public Id() {
-		m_id=new int[2];
+		id=new int[2];
 		initNULL();
-		m_group=0;
+		group=0;
 	}
 	
-	public Id(int[] index, int group) {
-		m_id=index;
-		m_group=group;
+	public Id(int[] indexs, int group) {
+		id=indexs;
+		this.group=group;
 	}
 
 	public int[] get(){
-		return m_id;
+		return id;
 	}
 	
 	public Id clone() {
 		Id temp= new Id();
-		temp.get()[0]=m_id[0];
-		temp.get()[1]=m_id[1];
-		temp.setGroupId(m_group);
+		temp.get()[0]=id[0];
+		temp.get()[1]=id[1];
+		temp.setGroupId(group);
 		return temp;
 	}
 	
 	public void set(Id id){
-		m_id[0]=id.get()[0];
-		m_id[1]=id.get()[1];
-		m_group= id.getGroupId();
+		this.id[0]=id.get()[0];
+		this.id[1]=id.get()[1];
+		group= id.getGroupId();
 	}
 	
 	public void set(int[] id){
-		m_id=id;
+		this.id=id;
 	}
 	
 	public void set(int layerIndex, int controlIndex, int group){
-		m_id[0]=layerIndex;
-		m_id[1]=controlIndex;
-		m_group = group;
+		id[0]=layerIndex;
+		id[1]=controlIndex;
+		this.group = group;
 	}
 	
 	public void setControlOrLayer(int groupDeepnessIndex, int newValue){
-		m_id[groupDeepnessIndex]=newValue;
+		id[groupDeepnessIndex]=newValue;
 	}
 	
 	public void setControlId(int controlIndex){
-		m_id[1]=controlIndex;
+		id[1]=controlIndex;
 	}
 	
 	public void setLayerId(int layerIndex){
-		m_id[0]=layerIndex;
+		id[0]=layerIndex;
 	}
 	
 	public int  getGroupId(){
-		return m_group;
+		return group;
 	}
 	
 	public void setGroupId(int group){
-		m_group=group;
+		this.group=group;
 	}
 	
 	public void initNULL(){
-		m_id[0]=-1;
-		m_id[1]=-1;
+		id[0]=-1;
+		id[1]=-1;
 	}
 };

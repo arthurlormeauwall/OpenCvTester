@@ -11,34 +11,34 @@ public class UndoHistory<T> extends History<T>
 	}
 	
 	public void store() {	
-		HistoryParameter<T> parameter = m_factory.getNew();
-		parameter.set(m_state.getParameter());  
-		m_undoHistory.push(parameter);
+		HistoryParameter<T> parameter = factory.getNew();
+		parameter.set(state.getParameter());  
+		undoHistory.push(parameter);
 		firstUndo = true;
 	}
 	
 	public void undo() {
-		if (isUndoEmpty() && m_state!=null)
+		if (isUndoEmpty() && state!=null)
 			{
 			if (firstUndo) {
-				m_state=m_undoHistory.peek();
-				m_undoHistory.pop();
+				state=undoHistory.peek();
+				undoHistory.pop();
 				firstUndo=false;	 
 			}
 			else {
-				m_redoHistory.push(m_state);
-				m_state=m_undoHistory.peek();
-				m_undoHistory.pop();
+				redoHistory.push(state);
+				state=undoHistory.peek();
+				undoHistory.pop();
 			}
 		} 
 	}
 	
 	public void redo() {
-		if (isRedoEmpty()==false && m_state!=null)
+		if (isRedoEmpty()==false && state!=null)
 		{
-			m_undoHistory.push(m_state);
-			m_state=m_redoHistory.peek();
-			m_redoHistory.pop();   	
+			undoHistory.push(state);
+			state=redoHistory.peek();
+			redoHistory.pop();   	
 		}
 	}
 };

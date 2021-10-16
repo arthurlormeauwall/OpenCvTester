@@ -13,11 +13,11 @@ import baseClasses.openCvFacade.Frame;
 
 public class AlphaControl extends AdjustControlFrame 
 {
-	protected Frame m_background;	
+	protected Frame background;	
 	
 	public AlphaControl(Id id) {
 		super(id);
-		m_history.initState(new FrameHistoryParameter());
+		history.initState(new FrameHistoryParameter());
 	}
 	
 	public AlphaControl(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
@@ -29,32 +29,32 @@ public class AlphaControl extends AdjustControlFrame
 	}
 	
 	public void setFlags() {	
-		m_flags.defaultValues = new Frame(m_background.getFrame().rows(), m_background.getFrame().cols(), 255);
-		m_flags.zeroEffectValues= new Frame(m_background.getFrame().rows(), m_background.getFrame().cols(), 255);
+		flags.defaultValues = new Frame(background.getFrame().rows(), background.getFrame().cols(), 255);
+		flags.zeroEffectValues= new Frame(background.getFrame().rows(), background.getFrame().cols(), 255);
 		
 		Stack<String> tempString = new Stack<String>();
 		tempString.push("Alpha");
-		m_flags.controlNames = tempString;
+		flags.controlNames = tempString;
 		
-		m_flags.numberOfParameters = 1;
+		flags.numberOfParameters = 1;
 		
-		m_history.setState(new FrameHistoryParameter(m_flags.defaultValues));
-		m_history.store();
+		history.setState(new FrameHistoryParameter(flags.defaultValues));
+		history.store();
 	}
 
 	
 	public void compute() {
-		if (m_isBypass) {
-			m_dest.setFrame(m_source.getFrame());
+		if (isBypass) {
+			dest.setFrame(source.getFrame());
 		}
-		else if (!m_isBypass) {
+		else if (!isBypass) {
 			
-			Mat imgSource = m_source.getFrame();
-			Mat imgDest = m_dest.getFrame();
-			Mat background = m_background.getFrame();
+			Mat imgSource = source.getFrame();
+			Mat imgDest = dest.getFrame();
+			Mat background = this.background.getFrame();
 
-			Mat alpha = m_history.getState().getParameter().getFrame();
-			int NBITMAX = m_source.getSpecs().s_bitMax;
+			Mat alpha = history.getState().getParameter().getFrame();
+			int NBITMAX = source.getSpecs().bitMax;
 
 			int m_row = imgDest.rows();
 			int m_column = imgDest.cols();
@@ -77,13 +77,13 @@ public class AlphaControl extends AdjustControlFrame
 					imgDest.put(row, column, data);				
 				}				
 			}
-			m_dest.setFrame(imgDest);
+			dest.setFrame(imgDest);
 		}
 	}
 		
 	
 	public void setBackGround(Frame bg){	
-		m_background = bg; 
+		background = bg; 
 	}
 	
 
@@ -93,12 +93,12 @@ public class AlphaControl extends AdjustControlFrame
 	
 	public void setAlpha(int opacity){
 		Frame alpha = new Frame();
-		alpha.Create1DFrame(m_source.getFrame().rows(), m_source.getFrame().cols(), opacity);
+		alpha.Create1DFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
 		setParameter(alpha);
 		
 	}
 	public Frame getAlpha() {
-		return m_history.getState().getParameter();
+		return history.getState().getParameter();
 	}
 	
 	@Override

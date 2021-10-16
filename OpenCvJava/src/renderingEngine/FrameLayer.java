@@ -13,15 +13,15 @@ import baseClasses.IoFrame;
 public abstract class FrameLayer  extends Layer implements IoFrame
 {
 	
-	protected Stack<Frame> m_frames;
-	protected Frame m_source;
-	protected Frame m_dest;
+	protected Stack<Frame> frames;
+	protected Frame source;
+	protected Frame dest;
 	
 	public FrameLayer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
-		m_frames = new Stack<Frame>();
-		m_source = new Frame ();
-		m_dest   = new Frame ();
+		frames = new Stack<Frame>();
+		source = new Frame ();
+		dest   = new Frame ();
 	}
 	
 	public abstract Control getLastControl();
@@ -30,21 +30,21 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	public void updateNumberOfFrames() {
 
 		int numberOfControls = getNumberOfControl();
-		int numberOfFrames = m_frames.size();
-		int lastFrame = m_frames.size() - 1;
+		int numberOfFrames = frames.size();
+		int lastFrame = frames.size() - 1;
 
 		if (numberOfControls >= 1) {
 			if (numberOfFrames < numberOfControls - 1) {
 				for (int i = numberOfFrames; i < numberOfControls - 1; i++)
 				{
-					m_frames.push(new Frame());
-					m_source.copyTo(m_frames.get(i));
+					frames.push(new Frame());
+					source.copyTo(frames.get(i));
 				}
 			}
 			if (numberOfFrames > numberOfControls - 1) {
 				for (int i = lastFrame; i >= numberOfControls - 1; i--)
 				{
-					m_frames.pop();
+					frames.pop();
 				}
 			}
 		}
@@ -55,54 +55,54 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 		int numberOfControls = getNumberOfControl();
 		updateNumberOfFrames();
 
-		int lastFrameIndex = m_frames.size() - 1;
+		int lastFrameIndex = frames.size() - 1;
 
 		if (numberOfControls>0) {
 			Control lastControl =  getLastControl();
 
 			if (numberOfControls == 1) {
-				((IoFrame)lastControl).setSource(m_source);
-				((IoFrame)lastControl).setDest(m_dest);
+				((IoFrame)lastControl).setSource(source);
+				((IoFrame)lastControl).setDest(dest);
 			}
 			else if (numberOfControls >= 2) {
-				((IoFrame)m_chainOfControls.getControl(0)).setSource(m_source);
-				((IoFrame)m_chainOfControls.getControl(0)).setDest(m_frames.get(0));
+				((IoFrame)chainOfControls.getControl(0)).setSource(source);
+				((IoFrame)chainOfControls.getControl(0)).setDest(frames.get(0));
 
 				for (int j = 1; j < numberOfControls - 1; j++) {
-					((IoFrame)m_chainOfControls.getControl(j)).setSource(m_frames.get(j - 1));
-					((IoFrame)m_chainOfControls.getControl(j)).setDest(m_frames.get(j));
+					((IoFrame)chainOfControls.getControl(j)).setSource(frames.get(j - 1));
+					((IoFrame)chainOfControls.getControl(j)).setDest(frames.get(j));
 				}
-				((IoFrame)lastControl).setSource(m_frames.get(lastFrameIndex));
-				((IoFrame)lastControl).setDest(m_dest);
+				((IoFrame)lastControl).setSource(frames.get(lastFrameIndex));
+				((IoFrame)lastControl).setDest(dest);
 			}
 		}
 		else {
-			m_dest.setFrame(m_source.getFrame());
+			dest.setFrame(source.getFrame());
 		}
 	}
 	
 	public void render() {
-		int size = m_chainOfControls.getSize();
-		int firstControl = m_chainOfControls.getControlIndex(m_renderAtIdHistory);
+		int size = chainOfControls.getSize();
+		int firstControl = chainOfControls.getControlIndex(renderAtIdHistory);
 
 		for (int i = firstControl; i < size; i++) {
-			m_chainOfControls.getControl(i).compute();
+			chainOfControls.getControl(i).compute();
 		}	
 	}
 
 	public void setSource(Frame s){
-		  m_source=s;
+		  source=s;
 	}
 	
 	public void setDest(Frame d)  {
-		  m_dest=d;
+		  dest=d;
 	}
 	
 	public Frame getSource()      {
-		  return m_source;
+		  return source;
 	}
 	
 	public Frame getDest()        {
-		  return m_dest;
+		  return dest;
 	}
 };

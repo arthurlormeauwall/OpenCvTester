@@ -43,11 +43,13 @@ public class UIImp extends UIInterface
 	}
 
 	@Override
-	public void undo() {	
+	public Boolean undo() {	
+		return false;
 	}
 
 	@Override
-	public void redo() {	
+	public Boolean redo() {	
+		return false;
 	}
 
 	@Override
@@ -56,6 +58,24 @@ public class UIImp extends UIInterface
 
 	@Override
 	public void play() {	
+	}
+
+	@Override
+	public void setBypass(Id ControlId, Boolean p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dealBackground() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dealFramesInMaskedLayers() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

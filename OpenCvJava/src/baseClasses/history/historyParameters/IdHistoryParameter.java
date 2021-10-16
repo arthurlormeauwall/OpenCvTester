@@ -6,13 +6,13 @@ import baseClasses.history.HistoryParameter;
 
 public class IdHistoryParameter implements HistoryParameter<Id> 
 {
-	protected Id m_p;	
+	protected Id id;	
 	
     public IdHistoryParameter() {
-    	m_p= new Id();
+    	id= new Id();
     }
     public IdHistoryParameter(Id id) {
-    	m_p= id;
+    	this.id= id;
     }
  
     
@@ -24,12 +24,12 @@ public class IdHistoryParameter implements HistoryParameter<Id>
 	}
 	
 	public Id getParameter() {
-		return m_p;
+		return id;
 	}
     
 	public void set(Id p) {
-		m_p.get()[0]=p.get()[0];	
-		m_p.get()[1]=p.get()[1];	
-		m_p.setGroupId(p.getGroupId());
+		id.get()[0]=p.get()[0];	
+		id.get()[1]=p.get()[1];	
+		id.setGroupId(p.getGroupId());
 	}
 };

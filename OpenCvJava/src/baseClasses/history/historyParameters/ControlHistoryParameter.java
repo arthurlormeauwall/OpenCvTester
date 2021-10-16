@@ -7,10 +7,10 @@ import baseClasses.history.HistoryParameter;
 
 public class ControlHistoryParameter implements HistoryParameter<Control> 
 {
-	protected Control m_p;
+	protected Control control;
 	
-	public ControlHistoryParameter(Control parameter) {
-		m_p=parameter;
+	public ControlHistoryParameter(Control control) {
+		this.control=control;
 	}
 	 
     public ControlHistoryParameter() { 	
@@ -24,10 +24,10 @@ public class ControlHistoryParameter implements HistoryParameter<Control>
 	}
 	
 	public Control getParameter() {
-		return m_p;
+		return control;
 	}
 
 	public void set(Control parameter) {
-		m_p=parameter.clone();		
+		control=parameter.clone();		
 	}
 };

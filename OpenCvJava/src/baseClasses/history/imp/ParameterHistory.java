@@ -13,52 +13,52 @@ public class ParameterHistory<T> extends History<T>
 	
 	public void store() {
 		
-		HistoryParameter<T> parameter = m_factory.getNew();
-		parameter.set(m_state.getParameter());  
-		m_undoHistory.push(parameter);
+		HistoryParameter<T> parameter = factory.getNew();
+		parameter.set(state.getParameter());  
+		undoHistory.push(parameter);
 		firstUndo = true;
 	}
      
 	public void undo() {
-	    if (!isUndoEmpty() && m_state!=null){
+	    if (!isUndoEmpty() && state!=null){
 		   	if (firstUndo) {
-			   		 m_redoHistory.push(m_undoHistory.peek());
-			   		 m_undoHistory.pop();
-			   		 m_state=m_undoHistory.peek();
-			   		 m_undoHistory.pop();
+			   		 redoHistory.push(undoHistory.peek());
+			   		 undoHistory.pop();
+			   		 state=undoHistory.peek();
+			   		 undoHistory.pop();
 			   		 firstUndo=false;  
 		   	}
 			else {
-					 m_redoHistory.push(m_state);
-					 m_state=m_undoHistory.peek();
-					 m_undoHistory.pop();
+					 redoHistory.push(state);
+					 state=undoHistory.peek();
+					 undoHistory.pop();
 				 }
 			} 
 	}
 	
 	public void redo() {
-	    if (!isRedoEmpty() && m_state!=null)
+	    if (!isRedoEmpty() && state!=null)
 	    {
-	    	m_undoHistory.push(m_state);
-	    	m_state=m_redoHistory.peek();
-	    	m_redoHistory.pop();   	
+	    	undoHistory.push(state);
+	    	state=redoHistory.peek();
+	    	redoHistory.pop();   	
 	    }
 	} 
 	
 	public Boolean isUndoEmpty() { 
 		if(firstUndo) {
-			if (m_undoHistory.size() <= 1) {
+			if (undoHistory.size() <= 1) {
 				return true;  
 			}
-			else if (m_undoHistory.size() > 1) {
+			else if (undoHistory.size() > 1) {
 				return false;
 			}
 		}
 		else {
-			if (m_undoHistory.size() <= 0) {
+			if (undoHistory.size() <= 0) {
 				return true;  
 			}
-			else if (m_undoHistory.size() > 0) {
+			else if (undoHistory.size() > 0) {
 				return false;
 			}
 		}

@@ -9,29 +9,29 @@ public class ChainHistory<T> extends History<T>
 	}
 	
      public void store() { 	
-		 m_state.invert();	 
-		 HistoryParameter<T> parameter = m_factory.getNew();
-		 parameter.set(m_state.getParameter());  
-		 m_undoHistory.push(parameter);
+		 state.invert();	 
+		 HistoryParameter<T> parameter = factory.getNew();
+		 parameter.set(state.getParameter());  
+		 undoHistory.push(parameter);
      }
      
      public void undo() {
-         if (!isUndoEmpty() && m_state!=null) {
-        	m_state.invert();
-        	m_redoHistory.push(m_state);
-         	m_state.set(m_undoHistory.peek().getParameter());
-            m_undoHistory.pop();
+         if (!isUndoEmpty() && state!=null) {
+        	state.invert();
+        	redoHistory.push(state);
+         	state.set(undoHistory.peek().getParameter());
+            undoHistory.pop();
          } 
      }
      
      public void redo() {
-         if (!isRedoEmpty() && m_state!=null){
+         if (!isRedoEmpty() && state!=null){
          	 HistoryParameter<T> n;
-             n = m_redoHistory.peek();
-             m_state = n;
-             m_redoHistory.peek().invert();
-             m_undoHistory.push(m_redoHistory.peek());
-             m_redoHistory.pop();
+             n = redoHistory.peek();
+             state = n;
+             redoHistory.peek().invert();
+             undoHistory.push(redoHistory.peek());
+             redoHistory.pop();
          }
      }  
 };

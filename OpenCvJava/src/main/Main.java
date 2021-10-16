@@ -13,6 +13,7 @@ public class Main
     		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		
     		App myApp = new App();
-    		Test myTest= new Test(myApp);      
+    		@SuppressWarnings("unused")
+			Test myTest= new Test(myApp);      
     }
 }
