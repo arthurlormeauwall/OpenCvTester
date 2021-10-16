@@ -34,10 +34,13 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		UpdateRender();
 		UpdateUndo();
 	}
-	public void addParameterToFlags(String name, Float defaultValue) {
+	public void addParameter(String name, Float defaultValue) {
 		flags.controlNames.push(name);
 		flags.defaultValues.push(defaultValue);
 		flags.numberOfParameters ++;
+	}
+	public void setZeroEffectValues(Stack<Float> parameters) {
+		flags.zeroEffectValues=parameters;
 	}
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;

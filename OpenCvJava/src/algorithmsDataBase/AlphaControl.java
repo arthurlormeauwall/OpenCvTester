@@ -1,10 +1,7 @@
 package algorithmsDataBase;
 
-import java.util.Stack;
-
 import org.opencv.core.Mat;
 
-import baseClasses.Control;
 import baseClasses.adjustControl.AdjustControlFrame;
 import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.openCvFacade.Frame;
@@ -24,16 +21,10 @@ public class AlphaControl extends AdjustControlFrame
 	}
 	
 	public void setFlags() {	
-		flags.defaultValues = new Frame(background.getFrame().rows(), background.getFrame().cols(), 255);
-		flags.zeroEffectValues= new Frame(background.getFrame().rows(), background.getFrame().cols(), 255);
 		
-		Stack<String> tempString = new Stack<String>();
-		tempString.push("Alpha");
-		flags.controlNames = tempString;
-		
-		flags.numberOfParameters = 1;
-		
-		
+		addParameter("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
+		setZeroEffectValues( new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
+	
 	}
 
 	
@@ -94,12 +85,4 @@ public class AlphaControl extends AdjustControlFrame
 	public Frame getAlpha() {
 		return history.getState().getParameter();
 	}
-	
-	@Override
-	public Control clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
 }

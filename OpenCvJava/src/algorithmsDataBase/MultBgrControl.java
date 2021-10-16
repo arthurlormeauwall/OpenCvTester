@@ -1,8 +1,9 @@
 package algorithmsDataBase;
 
+import java.util.Stack;
+
 import org.opencv.core.Mat;
 
-import baseClasses.Control;
 import baseClasses.adjustControl.AdjustControlFloat;
 
 public class MultBgrControl extends AdjustControlFloat 
@@ -13,9 +14,15 @@ public class MultBgrControl extends AdjustControlFloat
 
 	public void setFlags() {	
 
-		addParameterToFlags("BlueMult", 0.5f);
-		addParameterToFlags("GreenMult", 0.5f);
-		addParameterToFlags("RedMult", 0.5f);
+		addParameter("BlueMult", 0.5f);
+		addParameter("GreenMult", 0.5f);
+		addParameter("RedMult", 0.5f);
+		
+		Stack<Float> zeroEffectValues= new Stack<Float>();
+		zeroEffectValues.push(1f);
+		zeroEffectValues.push(1f);
+		zeroEffectValues.push(1f);
+		setZeroEffectValues(zeroEffectValues);
 	}
 
 
@@ -65,9 +72,5 @@ public class MultBgrControl extends AdjustControlFloat
 	    }	
 	}
 
-	@Override
-	public Control clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

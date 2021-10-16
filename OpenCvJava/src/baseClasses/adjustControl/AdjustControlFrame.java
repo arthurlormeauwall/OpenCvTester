@@ -1,5 +1,9 @@
 package baseClasses.adjustControl;
 
+
+
+import java.util.Stack;
+
 import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.ParameterHistory;
 import baseClasses.openCvFacade.Frame;
@@ -11,6 +15,9 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 	} 
 	
 	public void initAdjControlFrame() {
+		flags.controlNames = new Stack<String>();
+		flags.defaultValues= new Frame();
+		flags.numberOfParameters=0;
 		history = new ParameterHistory<Frame>();
 		history.initFactory(new FrameHistoryParameter());
 		history.initState(new FrameHistoryParameter());
@@ -23,5 +30,13 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 		}
 		UpdateRender();
 		UpdateUndo();
+	}
+	public void addParameter(String name, Frame defaultValue) {
+		flags.controlNames.push(name);
+		flags.defaultValues = defaultValue;
+		flags.numberOfParameters ++;
+	}
+	public void setZeroEffectValues(Frame parameter) {
+		flags.zeroEffectValues=parameter;
 	}
 };

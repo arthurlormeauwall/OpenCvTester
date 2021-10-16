@@ -96,4 +96,9 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	public Frame getDest()        {
 		return dest;
 	}
+	@Override
+	public Control clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 };

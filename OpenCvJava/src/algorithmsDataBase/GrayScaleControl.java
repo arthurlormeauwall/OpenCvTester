@@ -1,12 +1,8 @@
 package algorithmsDataBase;
 
 import java.util.Stack;
-
 import org.opencv.core.Mat;
-
-import baseClasses.Control;
 import baseClasses.adjustControl.AdjustControlFloat;
-import baseClasses.history.historyParameters.FloatHistoryParameter;
 
 public class GrayScaleControl extends AdjustControlFloat 
 {
@@ -16,27 +12,16 @@ public class GrayScaleControl extends AdjustControlFloat
 	
 	
 	public void setFlags() {
-		Stack<Float> tempFloat= new Stack<Float>();
-		tempFloat.push(0.1f);
-		tempFloat.push(0.6f);
-		tempFloat.push(0.3f);
-		flags.defaultValues = tempFloat;
-		tempFloat.clear();
-		tempFloat.push(-1f);
-		tempFloat.push(-1f);
-		tempFloat.push(-1f);
-		flags.zeroEffectValues= tempFloat;
+
+		addParameter("BlueMult", 0.1f);
+		addParameter("GreenMult", 0.6f);
+		addParameter("RedMult", 0.3f);
 		
-		Stack<String> tempString = new Stack<String>();
-		tempString.push("BlueMult");
-		tempString.push("GreenMult");
-		tempString.push("BlueMult");
-		flags.controlNames = tempString;
-		
-		flags.numberOfParameters = 3;
-		
-		history.setState(new FloatHistoryParameter(flags.defaultValues));
-		history.store();
+		Stack<Float> zeroEffectValues= new Stack<Float>();
+		zeroEffectValues.push(-1f);
+		zeroEffectValues.push(-1f);
+		zeroEffectValues.push(-1f);
+		setZeroEffectValues(zeroEffectValues);
 	}
 
 	@Override
@@ -78,11 +63,4 @@ public class GrayScaleControl extends AdjustControlFloat
 	        dest.setFrame(imgDest);	
 	    }	
 	}
-
-	@Override
-	public Control clone() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
