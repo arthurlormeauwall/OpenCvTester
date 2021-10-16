@@ -1,4 +1,4 @@
-package Examples;
+package userAlgorithms;
 
 import java.util.Stack;
 

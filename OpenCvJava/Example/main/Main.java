@@ -1,8 +1,9 @@
 package main;
 
 import java.util.Stack;
-import Examples.MultBgrControl;
+
 import fakeGui.FakeGui;
+import userAlgorithms.MultBgrControl;
 
 
 public class Main 
