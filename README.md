@@ -18,6 +18,10 @@ When I started to learn OpenCv, one of the first things I did was to access pixe
 
 After connecting a simple slider to one of my algorithm parameters, I thought it would be a good exercise to add undo/redo functionality, and a Photoshop like layer structured rendering system with control over each layer opacity. 
 
+This project is nothing less, nothing more. 
+
+Users of this framework are expected to know Java and OpenCv. 
+
 
 ## Technologies Used
 
@@ -36,10 +40,49 @@ If you are an Eclipse user, you can follow this tutorial to setup OpenCv in Ecli
 https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html
 
 
-
+## Project Status
+This project is still work in progress. 
+The rendering part is fully working. The GUI does not exist yet. 
 
 
 ## Usage
+
+>disclaimer : The main goal of this entire project is to provide en enterractive way of testing Open Cv, therefore I am perfecty aware it can not be achieved with no Gui. This project is still work in progress ! 
+Since the rendering part is operationnal, I decided to share it to other people anyway. This section describe how you can test it as it is now. 
+
+To use this framework you have to import FakeGui classe from fakeGui package. 
+First you create a FakeGui object passing the path to the image you want to work with.
+
+FakeGui classe provide methods that can mimic all the message/event the Gui will be able to send to the system :
+
+`public void addControlInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase)` : add a control in a masked layer. The first two parameters tell in wich maskedLayer and where in the chain of controls already there you want to add the new control (its coordinate in the rendering chain). The third one is the index, in the control database, of the control that will be added. 
+
+`public void delControlInLayer(int maskedLayerIndex, int controlIndex)` : delete a control in a masked layer.  
+
+`public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase)` : add a masked layer. The first parameter tell where to add the new masked layer in the chain of masked layers already there. The second one is a stack of the control indexes, in the control database, of the new controls of this masked layer.
+
+`public void delLayer(int maskedLayerIndex)` : delete a masked layer. The first two parameters are the coordinates in the rendering chain of the control you want to delete.
+
+`public void setAlpha(int maskedLayerIndex, Frame alpha)` 	: set the alpha mask of a masked layer with a Frame object.
+
+`public void setAlpha(int maskedLayerIndex, int opacity)` : set the opacity of a masked layer with an int.
+
+`public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters)` : set parameters of a given control. The first two parameters are the coordinates in the rendering chain of the control you want to set. The third one is the new values of this control parameters.
+
+
+`public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter)` : set bypass state of a control. The first two parameters are the coordinates in the rendering chain of the control you want to set. The third one is the new bypass state of this control.
+
+`public void undo()` : undo the last thing that have been changed in the system ; could either be : parameters change (including opacity/alpha), maskedLayer added/deleted, control added/deleted. Change of the bypass state is not including in the undoable item.
+
+`public void redo()` : see undo.
+
+`public void store()` : store the state of an action in the history system. This method has to be called if you want to be able to undo/redo the last action. 
+
+`public void play()` : refresh the image displayed.
+
+`public void addAlgorithm(AdjustControlFloat algorithm)` : add your own algorithm to the database.
+
+* How add your own algorithm the the control dataBase :
 
 In the whole project each frame is represented by a `Frame` object so you may want to check the `Frame` class first in the *baseClasses.openCvFacade* package. 
 
@@ -64,10 +107,8 @@ To be more specific, each element of the GUI will be able to communicate its eve
 
 
 
-## Project Status
-This project is still work in progress. 
-The rendering part is fully working. The GUI does not exist yet. 
-If you want to test the program, you have to write your code in the `Test` class constructor (in the *test* package). Since there is no GUI, you need to mimic it and manually create your own `Action` object and pass it to the `dealOrder()` method via the `getMainWin()` method. 
+
+
 
 
 ## Contact
