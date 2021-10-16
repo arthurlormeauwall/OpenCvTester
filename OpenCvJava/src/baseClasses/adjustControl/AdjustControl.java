@@ -17,7 +17,6 @@ public abstract class AdjustControl<N> extends Control implements IoFrame
 	protected Frame dest;
 	
 	public AdjustControl() {
-		super();
 		initAdjsutControl();
 	}
 	

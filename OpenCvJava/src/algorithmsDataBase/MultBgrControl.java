@@ -9,7 +9,7 @@ import baseClasses.adjustControl.AdjustControlFloat;
 public class MultBgrControl extends AdjustControlFloat 
 {
 	public MultBgrControl() {	
-		super();
+		
 	}
 
 	public void setFlags() {	

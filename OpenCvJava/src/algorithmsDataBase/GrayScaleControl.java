@@ -7,7 +7,6 @@ import baseClasses.adjustControl.AdjustControlFloat;
 public class GrayScaleControl extends AdjustControlFloat 
 {
 	public GrayScaleControl() {
-		super();
 	}
 	
 	

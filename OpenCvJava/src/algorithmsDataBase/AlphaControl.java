@@ -11,7 +11,7 @@ public class AlphaControl extends AdjustControlFrame
 	protected Frame background;	
 	
 	public AlphaControl() {
-		super();
+
 	}
 	
 	public void init() {
@@ -20,11 +20,9 @@ public class AlphaControl extends AdjustControlFrame
 		history.store();
 	}
 	
-	public void setFlags() {	
-		
+	public void setFlags() {		
 		addParameter("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
-		setZeroEffectValues( new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
-	
+		setZeroEffectValues( new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));	
 	}
 
 	
