@@ -19,38 +19,41 @@ public class Main
 		fakeGui.addLayer(0, controlIndexInDataBase);
 		fakeGui.setBypass(0, 0, false);
 		
-		
-		controlIndexInDataBase.clear();
-		controlIndexInDataBase.push(1);
-		
-		fakeGui.addLayer(1, controlIndexInDataBase);
-		fakeGui.setBypass(1, 0, false);
-		
-		fakeGui.undo();
-		
-		fakeGui.redo();
-		
-		fakeGui.addControlInLayer(0, 1, 0);
-		fakeGui.setBypass(0, 1, false);
-		
-		fakeGui.undo();
-		
-		fakeGui.undo();
-		
-		fakeGui.undo();
-		
-		fakeGui.redo();
-		
-		fakeGui.redo();
-		
-		fakeGui.setBypass(0, 0, true);
 		Stack<Float> floatParameters=new Stack<Float>();
 		floatParameters.push(0.6f);
 		floatParameters.push(2f);
 		floatParameters.push(0.9f);
     		
 		fakeGui.setParameters(0, 0, floatParameters);	
-		fakeGui.setBypass(0, 0, false);
+		floatParameters.clear();
+		
+		floatParameters.push(1f);
+		floatParameters.push(0.3f);
+		floatParameters.push(1.6f);
+		fakeGui.setParameters(0, 0, floatParameters);	
+		floatParameters.clear();
+		
+		floatParameters.push(1.2f);
+		floatParameters.push(1.6f);
+		floatParameters.push(0.9f);
+		fakeGui.setParameters(0, 0, floatParameters);	
+		floatParameters.clear();
+		
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.redo();
     }
 }
 /*

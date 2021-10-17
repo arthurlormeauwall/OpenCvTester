@@ -2,6 +2,7 @@ package baseClasses.history.historyParameters;
 
 
 
+import baseClasses.chain.ItemAndId;
 import baseClasses.history.HistoryParameter;
 import baseClasses.openCvFacade.Frame;
 
@@ -30,5 +31,11 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
     
 	public void set(Frame parameter) {
 		frame=parameter;		
+	}
+	public Frame clone() {
+		Frame newFrame= new Frame();
+		frame.copyTo(newFrame);
+	
+		return newFrame;
 	}
 };

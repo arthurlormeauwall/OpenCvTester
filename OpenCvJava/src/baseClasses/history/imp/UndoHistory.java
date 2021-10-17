@@ -13,7 +13,7 @@ public class UndoHistory<T> extends History<T>
 	
 	public void store() {	
 		HistoryParameter<T> parameter = factory.getNew();
-		parameter.set(state.getParameter());  
+		parameter.set(state.clone());  
 		undoHistory.push(parameter);
 		firstUndo = true;
 		firstRedo = true;

@@ -33,4 +33,13 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 	public void set(Stack<Float> parameter) {
 		stackOfFloats=parameter;		
 	}
+	
+	public Stack<Float> clone() {
+		Stack<Float> newStackOfFloats= new Stack<Float>();
+		for (int i = 0; i<stackOfFloats.size();i++) {
+			newStackOfFloats.push(stackOfFloats.get(i));
+		}
+		
+		return newStackOfFloats;
+	}
 };

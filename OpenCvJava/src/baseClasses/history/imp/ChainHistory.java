@@ -11,7 +11,7 @@ public class ChainHistory<T> extends History<T>
      public void store() { 	
 		 state.invert();	 
 		 HistoryParameter<T> parameter = factory.getNew();
-		 parameter.set(state.getParameter());  
+		 parameter.set(state.clone());  
 		 undoHistory.push(parameter);
      }
      

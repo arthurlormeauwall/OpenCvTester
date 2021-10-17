@@ -1,5 +1,7 @@
 package baseClasses.history.historyParameters;
 
+import java.util.Stack;
+
 import baseClasses.chain.ChainCommand;
 import baseClasses.chain.ItemAndId;
 import baseClasses.history.HistoryParameter;
@@ -33,5 +35,11 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	
 	public ItemAndId<T> getParameter() {
 		return itemAndId;
+	}
+	public ItemAndId<T> clone() {
+		ItemAndId<T> newItemAndId= new ItemAndId<T>();
+		newItemAndId= itemAndId;
+		
+		return newItemAndId;
 	}
 }

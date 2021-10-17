@@ -18,7 +18,6 @@ public class AlphaControl extends AdjustControlFrame
 		setBackGround(background);
 		setFlags();
 		history.setState(new FrameHistoryParameter(flags.defaultValues));
-		history.store();
 	}
 	
 	private void setFlags() {		
