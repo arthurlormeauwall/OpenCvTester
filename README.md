@@ -18,9 +18,7 @@ When I started to learn OpenCv, one of the first things I did was to access pixe
 
 After connecting a simple slider to one of my algorithm parameters, I thought it would be a good exercise to add undo/redo functionality, and a Photoshop like layer structured rendering system with control over each layer opacity. 
 
-This project is nothing less, nothing more. 
-
-Users of this framework are expected to know Java and OpenCv. 
+This project is aim to achieve that and its purpose is mostly educationnal. Moreover, users of this framework are expected to know Java and OpenCv. 
 
 
 ## Technologies Used
@@ -36,6 +34,7 @@ Users of this framework are expected to know Java and OpenCv.
 
 ## Setup
 You can download OpenCv here https://opencv.org/releases/
+
 If you are an Eclipse user, you can follow this tutorial to setup OpenCv in Eclipse :
 https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html
 
@@ -59,11 +58,11 @@ First you create a `FakeGui` object passing the path to the image you want to wo
 
 `public void delControlInLayer(int maskedLayerIndex, int controlIndex)` : delete a certain control in a certain masked layer.  
 
-`public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase)` : add a masked layer. The first parameter tell where to add the new masked layer in the chain of masked layers already there. The second one is a stack of the control indexes, in the control database, of the new controls of this masked layer.
+`public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase)` : add a masked layer. The second parameter is a stack of the control indexes, in the control database, of the new controls of this masked layer.
 
 `public void delLayer(int maskedLayerIndex)` : delete a certain masked layer.
 
-`public void setAlpha(int maskedLayerIndex, Frame alpha)` 	: set the alpha mask of a  certain masked layer with a `Frame` object.
+`public void setAlpha(int maskedLayerIndex, Frame alpha)` 	: set the alpha mask of a certain masked layer with a `Frame` object.
 
 `public void setAlpha(int maskedLayerIndex, int opacity)` : set the opacity of a certain masked layer with an integer data.
 
@@ -73,9 +72,9 @@ First you create a `FakeGui` object passing the path to the image you want to wo
 
 `public void undo()` : undo the last thing that have been changed in the entire system ; could either be : parameters change (including opacity/alpha), maskedLayer added/deleted, control added/deleted. Change of the bypass state is not including in the undoable things.
 
-`public void redo()` : see undo.
+`public void redo()` 
 
-`public void store()` : store the state of an action in the history system. This method has to be called if you want to be able to undo/redo the last action. 
+`public void store()` : store the state of an action in the history of the last teaked control or control chain. This method has to be called if you want to be able to undo/redo the last action. 
 
 `public void play()` : refresh the image displayed.
 
@@ -84,18 +83,17 @@ First you create a `FakeGui` object passing the path to the image you want to wo
 
 * How add your own algorithm the the control dataBase :
 
+In the beginning, your control database is empty. 
 To write your own control you have to create a class that extends the `AdjustControlFloat` class.
 
 `AdjustControlFloat` class provide several important things : 
 * Two `Frame` objects : source and dest (input and output frame as yourAlgorithm(source)=dest). To get the `Mat` object from a Frame object you call the 'getFrame()` mehtod.
-* Several parameters that will be tweakable. You can access them via `history` calling `getState()` method. This method returns an object of type `HistoryParameter<Stack<Float>>` ; then call `getParameter()` to get the `Stack<Float>` parameters : 
-  * `history.getState().getParameters.get(0)` is a first parameter, 
-  * `history.getState().getParameters.get(1)` is a second parameter and so on
+* Several parameters that will be tweakable. You can access them calling `getParameter(int index)` method.
 * Two abstract method that you have to implement : 
- * `public void setParameterFlags()` : here you create parameters calling `addParameter(String name, Float defaultValue)` for each parameter. You can also set certain special values for those parameters with `setZeroEffectValues(Stack<Float> zeroEffectValues)` : it let the system know that when parameters are set to the those values, this equals to a bypass set to true.
- * `public void compute()` : here you write the algorithm. 
+  * `public void setParameterFlags()` : here you create parameters calling `addParameter(String name, Float defaultValue)` for each parameter. You can also set certain special values for those parameters with `setZeroEffectValues(Stack<Float> zeroEffectValues)` : when parameters are set to the those values, bypass is automtically set to true preventing long time computing for nothing.
+  * `public void compute()` : here you write your algorithm. Do not forget to update `dest` variable at the end (you can call `setFrame(Mat frame)`).
 
-Then you have to create an object of this new class you have just create and add it to the control database calling the `addControlInDataBase(AdjustControlFloat newControl)` method.
+Then you have to create an object of this new class and add it to the control database calling the `addControlInDataBase(AdjustControlFloat newControl)` method.
 
 Once that is done, you can call methods of the FakeGui object to mimic the GUI and test your algorithm.
 In the example folder you may find Main.java and a MultbgrControl.java that show all this process. 
