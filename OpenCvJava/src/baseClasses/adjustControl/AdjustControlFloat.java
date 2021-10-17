@@ -41,7 +41,13 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 	}
 	
 	public Float getParameter(int index) {
-		return history.getState().getParameter().get(index);
+		if (history.getState().getParameter().size()> index) {
+			return history.getState().getParameter().get(index);
+		}
+		else 
+		{
+			return flags.zeroEffectValues.lastElement();
+		}
 	}
 	
 	public void setZeroEffectValues(Stack<Float> parameters) {

@@ -46,7 +46,6 @@ public class GrayScaleControl extends AdjustControlFloat
 	            	float greenMultiplier = getParameter(1);
 	            	float redMultiplier = getParameter(2);
 
-
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];
 	                float redPixel = (float)imgSource.get(row, column)[2];

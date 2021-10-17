@@ -77,7 +77,7 @@ public class AlphaControl extends AdjustControlFrame
 	
 	public void setAlpha(int opacity){
 		Frame alpha = new Frame();
-		alpha.CreatePlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
+		alpha.createPlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
 		setParameter(alpha);
 		
 	}

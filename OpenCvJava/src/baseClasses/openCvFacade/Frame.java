@@ -25,7 +25,7 @@ public class Frame
 	
 	public Frame(int rows, int cols, int data) { 
 		frameSpecs= new FrameSpecs();
-		CreatePlainGrayFrame(rows, cols, data);
+		createPlainGrayFrame(rows, cols, data);
 	}
 	
 	public void readFromFile(final String fileName) {
@@ -38,7 +38,7 @@ public class Frame
 		newFrame.setSpecs();
 	}
 
-	public void CreatePlainGrayFrame(int rows, int cols, int data){
+	public void createPlainGrayFrame(int rows, int cols, int data){
 		frameMat=new Mat(rows, cols, CvType.CV_8UC3);
 		
 		double[] temp= new double[NumberOfColorLayer];
