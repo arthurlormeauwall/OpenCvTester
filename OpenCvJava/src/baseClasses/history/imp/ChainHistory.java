@@ -13,6 +13,7 @@ public class ChainHistory<T> extends History<T>
 		 HistoryParameter<T> parameter = factory.getNew();
 		 parameter.set(state.clone());  
 		 undoHistory.push(parameter);
+		 clearRedoHistory();
      }
      
      public void undo() {

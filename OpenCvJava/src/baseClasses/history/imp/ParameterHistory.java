@@ -16,6 +16,7 @@ public class ParameterHistory<T> extends History<T>
 		parameter.set(state.clone());
 		undoHistory.push(parameter);
 		firstUndo = true;
+		clearRedoHistory();
 	}
      
 	public void undo() {

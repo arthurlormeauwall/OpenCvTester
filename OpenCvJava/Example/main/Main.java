@@ -46,14 +46,23 @@ public class Main
 		fakeGui.undo();
 		fakeGui.undo();
 		fakeGui.redo();
+		
+		controlIndexInDataBase.clear();
+		controlIndexInDataBase.push(0);
+		fakeGui.addLayer(1, controlIndexInDataBase);
+		fakeGui.setBypass(1, 0, false);
+		
 		fakeGui.redo();
 		fakeGui.redo();
-		fakeGui.redo();
-		fakeGui.redo();
-		fakeGui.redo();
-		fakeGui.redo();
-		fakeGui.redo();
-		fakeGui.redo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
     }
 }
 /*

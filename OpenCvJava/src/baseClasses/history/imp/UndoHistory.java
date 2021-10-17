@@ -17,6 +17,7 @@ public class UndoHistory<T> extends History<T>
 		undoHistory.push(parameter);
 		firstUndo = true;
 		firstRedo = true;
+		clearRedoHistory();
 	}
 	
 	public void undo() {
