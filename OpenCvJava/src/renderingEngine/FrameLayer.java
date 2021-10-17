@@ -3,6 +3,7 @@ package renderingEngine;
 import baseClasses.Layer;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
+import userAlgorithms.MultBgrControl;
 
 import java.util.Stack;
 
@@ -44,7 +45,7 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 					source.copyTo(frames.get(i));
 				}
 			}
-			if (numberOfFrames > numberOfControls - 1) {
+			else if (numberOfFrames > numberOfControls - 1) {
 				for (int i = lastFrame; i >= numberOfControls - 1; i--)
 				{
 					frames.pop();
@@ -68,6 +69,7 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 				((IoFrame)lastControl).setDest(dest);
 			}
 			else if (numberOfControls >= 2) {
+
 				((IoFrame)chainOfControls.getControl(0)).setSource(source);
 				((IoFrame)chainOfControls.getControl(0)).setDest(frames.get(0));
 

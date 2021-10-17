@@ -3,6 +3,7 @@ package application;
 import renderingEngine.GroupsId;
 import renderingEngine.Renderer;
 
+
 import org.opencv.core.Core;
 
 import algorithmsDataBase.DbControls;
@@ -19,8 +20,8 @@ public class App
 	protected Frame background;
 	protected Frame dest;
 	
-	protected Renderer m_renderer;
-	protected UIImp m_mainWin;
+	protected Renderer renderer;
+	protected UIImp mainWin;
 	
 	public App() {
 		
@@ -37,16 +38,16 @@ public class App
 		setImage(fileName);
 		background.createPlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), 0);
 		source.copyTo(dest);
-
+		
 		Id rendererId = new Id();
 		rendererId.initNULL();
 		rendererId.setGroupId(GroupsId.RENDERER.ordinal());
 	
-		m_renderer = new Renderer(new DbControls(), background, rendererId, undoIdHistory, renderAtIdHistory);
+		renderer = new Renderer(new DbControls(), background, rendererId, undoIdHistory, renderAtIdHistory);
 
-		m_renderer.setSource(source);
-		m_renderer.setDest(dest);
-		m_mainWin= new UIImp(m_renderer);	
+		renderer.setSource(source);
+		renderer.setDest(dest);
+		mainWin= new UIImp(renderer);	
 	}
 	
 	private void setImage(String fileName) {
@@ -54,6 +55,6 @@ public class App
 	}
 	
 	public UIImp getMainWin() {
-		return m_mainWin;
+		return mainWin;
 	}
 }

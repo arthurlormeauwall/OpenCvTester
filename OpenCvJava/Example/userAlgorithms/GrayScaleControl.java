@@ -26,7 +26,7 @@ public class GrayScaleControl extends AdjustControlFloat
 	@Override
 	public void compute() {
 		if (isBypass) {
-			dest=source;
+			source.copyTo(dest);
 		}
 
 		if (!isBypass)

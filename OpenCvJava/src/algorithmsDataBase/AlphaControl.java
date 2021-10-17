@@ -29,7 +29,7 @@ public class AlphaControl extends AdjustControlFrame
 	
 	public void compute() {
 		if (isBypass) {
-			dest.setFrame(source.getFrame());
+			source.copyTo(dest);
 		}
 		else if (!isBypass) {
 			

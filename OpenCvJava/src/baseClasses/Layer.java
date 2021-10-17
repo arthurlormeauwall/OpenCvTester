@@ -59,7 +59,11 @@ public abstract class Layer extends Control
 		Id tempId= new Id();
 		int tempControlId= id.get()[1]-1;
 		int tempLayerId= id.get()[0];
-		if ( tempControlId < 0) { tempControlId = 0; }
+		if ( tempControlId < 0) { 
+			tempControlId = 0; 
+			tempLayerId--;
+			if (tempLayerId <0) { tempLayerId=0;}
+		}
 		tempId.set(tempLayerId, tempControlId, id.getGroupId());
 	
 		IdHistoryParameter tempHistoryParameter= new IdHistoryParameter();

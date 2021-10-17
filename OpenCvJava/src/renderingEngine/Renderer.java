@@ -9,6 +9,7 @@ import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
+import userAlgorithms.MultBgrControl;
 
 public class Renderer extends RendererInterface
 {
@@ -33,6 +34,7 @@ public class Renderer extends RendererInterface
 	}   
 	
 	public void addLayer(Stack<Id> controlId, Stack<Integer> stackOfindexInDataBase){
+		
 		addControl(controlId, stackOfindexInDataBase);
 		compute();
 	}   
@@ -69,7 +71,7 @@ public class Renderer extends RendererInterface
 	public void setBypass(Id ControlId, Boolean p){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		
+	
 		if ( getNumberOfControl()>=layerIndex && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl() >= controlIndex) {
 			AdjustControlFloat temp = ((AdjustControlFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex));
 			temp.setBypass(p);
@@ -97,6 +99,7 @@ public class Renderer extends RendererInterface
 	}   
 
 	public void play(){
+	
 		dest.play();
 	}   
 
@@ -129,10 +132,13 @@ public class Renderer extends RendererInterface
 	
 	//Control implementation
 	public void compute(){
+		
 		dealFrames();
 		dealBackground();
 		dealFramesInMaskedLayers();
+
 		render();
+		
 	}
 	
 	public Boolean undo() {

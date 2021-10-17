@@ -28,7 +28,7 @@ public class MultBgrControl extends AdjustControlFloat
 
 	public void compute() {	
 		if (isBypass) {
-			dest=source;
+			source.copyTo(dest);
 		}
 
 		if (!isBypass)
@@ -69,6 +69,7 @@ public class MultBgrControl extends AdjustControlFloat
 	            }
 	        }
 	        dest.setFrame(imgDest);
+
 	    }	
 	}
 }
