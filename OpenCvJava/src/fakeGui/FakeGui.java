@@ -201,7 +201,7 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 		play();
 	}
-	public void store() {
+	private void store() {
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
@@ -211,7 +211,7 @@ public class FakeGui
 		
 		myApp.getMainWin().dealOrder(action);
 	}
-	public void play() {
+	private void play() {
 	
 		Action action = new Action();
 		action.parameters= new Parameters();

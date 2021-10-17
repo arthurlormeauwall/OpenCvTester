@@ -1,8 +1,6 @@
 package baseClasses.history.historyParameters;
 
 
-
-import baseClasses.chain.ItemAndId;
 import baseClasses.history.HistoryParameter;
 import baseClasses.openCvFacade.Frame;
 

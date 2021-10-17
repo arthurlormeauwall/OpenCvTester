@@ -12,6 +12,5 @@ public class MainWin extends JFrame
 		super("My first swing app");
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(new Dimension(400,400));
-	
 	}
 }

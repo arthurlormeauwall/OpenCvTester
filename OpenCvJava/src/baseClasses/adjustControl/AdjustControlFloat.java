@@ -1,11 +1,8 @@
 package baseClasses.adjustControl;
 
 import java.util.Stack;
-
-import algorithmsDataBase.ControlFlags;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.ParameterHistory;
-import baseClasses.openCvFacade.Frame;
 
 
 public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>

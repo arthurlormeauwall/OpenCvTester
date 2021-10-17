@@ -1,11 +1,6 @@
 package baseClasses.history;
-//Test
+
 import java.util.Stack;
-
-import baseClasses.chain.ItemAndId;
-import baseClasses.history.historyParameters.ChainHistoryParameter;
-
-
 
 public abstract class History<T> 
 { 

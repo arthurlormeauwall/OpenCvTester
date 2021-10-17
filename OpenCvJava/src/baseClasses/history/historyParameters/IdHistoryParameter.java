@@ -2,7 +2,6 @@ package baseClasses.history.historyParameters;
 
 import baseClasses.Id;
 import baseClasses.history.HistoryParameter;
-import baseClasses.openCvFacade.Frame;
 
 
 public class IdHistoryParameter implements HistoryParameter<Id> 
@@ -15,8 +14,7 @@ public class IdHistoryParameter implements HistoryParameter<Id>
     public IdHistoryParameter(Id id) {
     	this.id= id;
     }
- 
-    
+  
 	public IdHistoryParameter getNew() {
 		return new IdHistoryParameter();
 	}

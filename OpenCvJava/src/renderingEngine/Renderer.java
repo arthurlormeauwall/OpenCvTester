@@ -9,7 +9,6 @@ import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
-import userAlgorithms.MultBgrControl;
 
 public class Renderer extends RendererInterface
 {
@@ -99,11 +98,9 @@ public class Renderer extends RendererInterface
 	}   
 
 	public void play(){
-	
 		dest.play();
 	}   
 
-	// FrameLayer implementation
 	protected Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
 		MaskedLayer maskedLayer = new MaskedLayer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
 		maskedLayer.init(m_background, source, dest);
@@ -130,15 +127,11 @@ public class Renderer extends RendererInterface
 		return chainOfControls.getSize();
 	}
 	
-	//Control implementation
 	public void compute(){
-		
 		dealFrames();
 		dealBackground();
 		dealFramesInMaskedLayers();
-
-		render();
-		
+		render();	
 	}
 	
 	public Boolean undo() {

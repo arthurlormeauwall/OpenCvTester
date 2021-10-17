@@ -1,7 +1,5 @@
 package baseClasses.history.historyParameters;
 
-import java.util.Stack;
-
 import baseClasses.chain.ChainCommand;
 import baseClasses.chain.ItemAndId;
 import baseClasses.history.HistoryParameter;

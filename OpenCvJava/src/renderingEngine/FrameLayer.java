@@ -3,7 +3,6 @@ package renderingEngine;
 import baseClasses.Layer;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
-import userAlgorithms.MultBgrControl;
 
 import java.util.Stack;
 
@@ -99,15 +98,15 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 		  source=s;
 	}
 	
-	public void setDest(Frame d)  {
+	public void setDest(Frame d){
 		  dest=d;
 	}
 	
-	public Frame getSource()      {
+	public Frame getSource(){
 		  return source;
 	}
 	
-	public Frame getDest()        {
+	public Frame getDest(){
 		  return dest;
 	}
 }

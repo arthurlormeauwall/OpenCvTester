@@ -65,12 +65,3 @@ public class Main
 		fakeGui.undo();
     }
 }
-/*
-source.play();
-MultBgrControl test= new MultBgrControl();
-test.setSource(dest);
-test.setDest(dest);
-test.setBypass(false);
-test.compute();
-source.play();
-dest.play();*/

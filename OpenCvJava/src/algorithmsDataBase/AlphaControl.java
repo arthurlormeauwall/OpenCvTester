@@ -1,7 +1,6 @@
 package algorithmsDataBase;
 
 import org.opencv.core.Mat;
-
 import baseClasses.adjustControl.AdjustControlFrame;
 import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.openCvFacade.Frame;

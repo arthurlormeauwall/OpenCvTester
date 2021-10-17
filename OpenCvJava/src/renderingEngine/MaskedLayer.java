@@ -9,7 +9,6 @@ import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
-import userAlgorithms.MultBgrControl;
 
 public class MaskedLayer extends FrameLayer
 {
@@ -80,13 +79,9 @@ public class MaskedLayer extends FrameLayer
 		return chainOfControls.getSize() + 1;
 	}
 	
-	public void compute() {
-		
+	public void compute() {	
 		render();
-		
-		alpha.compute();
-		
-		
+		alpha.compute();	
 	}
 	
 	public Boolean undo() {
