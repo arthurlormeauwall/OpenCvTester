@@ -14,9 +14,9 @@ public class MultBgrControl extends AdjustControlFloat
 
 	public void setParameterFlags() {	
 
-		addParameter("BlueMult", 0.5f);
-		addParameter("GreenMult", 0.5f);
-		addParameter("RedMult", 0.5f);
+		addParameterFlag("BlueMult", 0.5f);
+		addParameterFlag("GreenMult", 0.5f);
+		addParameterFlag("RedMult", 0.5f);
 		
 		Stack<Float> zeroEffectValues= new Stack<Float>();
 		zeroEffectValues.push(1f);
@@ -44,9 +44,9 @@ public class MultBgrControl extends AdjustControlFloat
 	        {
 	            for (int column = 0; column < m_column; column++)
 	            {
-	                float blueMultiplier = (history.getState().getParameter()).get(0);
-	                float greenMultiplier = (history.getState().getParameter()).get(1);
-	                float redMultiplier = (history.getState().getParameter()).get(2);
+	                float blueMultiplier = getParameter(0);
+	                float greenMultiplier = getParameter(1);
+	                float redMultiplier = getParameter(2);
 
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];

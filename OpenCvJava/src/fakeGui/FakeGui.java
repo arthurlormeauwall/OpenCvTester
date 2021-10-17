@@ -198,13 +198,13 @@ public class FakeGui
 		
 		myApp.getMainWin().dealOrder(action);
 	}
-	public void addAlgorithm(AdjustControlFloat algorithm) {
+	public void addControlInDataBase(AdjustControlFloat newControl) {
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
 		action.id=null;	
-		action.parameters.algoParameters=algorithm;
+		action.parameters.algoParameters=newControl;
 		action.whatToDo=Functionalities.ADD_ALGORITHM;
 		
 		myApp.getMainWin().dealOrder(action);

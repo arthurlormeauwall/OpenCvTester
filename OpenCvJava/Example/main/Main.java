@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Stack;
-
 import fakeGui.FakeGui;
 import userAlgorithms.MultBgrControl;
 
@@ -11,7 +10,7 @@ public class Main
     public static void main(String[] args){
     		
 		FakeGui fakeGui= new FakeGui("assets/20210717_203824.jpg"); 
-		fakeGui.addAlgorithm(new MultBgrControl());
+		fakeGui.addControlInDataBase(new MultBgrControl());
     		
 		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
 		controlIndexInDataBase.push(1);

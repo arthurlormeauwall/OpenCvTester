@@ -12,9 +12,9 @@ public class GrayScaleControl extends AdjustControlFloat
 	
 	public void setParameterFlags() {
 
-		addParameter("BlueMult", 0.1f);
-		addParameter("GreenMult", 0.6f);
-		addParameter("RedMult", 0.3f);
+		addParameterFlag("BlueMult", 0.1f);
+		addParameterFlag("GreenMult", 0.6f);
+		addParameterFlag("RedMult", 0.3f);
 		
 		Stack<Float> zeroEffectValues= new Stack<Float>();
 		zeroEffectValues.push(-1f);
@@ -42,9 +42,10 @@ public class GrayScaleControl extends AdjustControlFloat
 	        {
 	            for (int column = 0; column < m_column; column++)
 	            {
-	                float blueMultiplier = (history.getState().getParameter()).get(0);
-	                float greenMultiplier = (history.getState().getParameter()).get(1);
-	                float redMultiplier = (history.getState().getParameter()).get(2);
+	            	float blueMultiplier = getParameter(0);
+	            	float greenMultiplier = getParameter(1);
+	            	float redMultiplier = getParameter(2);
+
 
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];

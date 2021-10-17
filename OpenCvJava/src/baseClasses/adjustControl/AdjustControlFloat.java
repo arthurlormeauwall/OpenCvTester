@@ -25,6 +25,11 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		history.store();
 	}
 	public abstract void setParameterFlags();
+	public void addParameterFlag(String name, Float defaultValue) {
+		flags.controlNames.push(name);
+		flags.defaultValues.push(defaultValue);
+		flags.numberOfParameters ++;
+	}
 	
 	public void setParameter(Stack<Float> p) {
 		history.setState(new FloatHistoryParameter(p));
@@ -34,11 +39,11 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		UpdateRender();
 		UpdateUndo();
 	}
-	public void addParameter(String name, Float defaultValue) {
-		flags.controlNames.push(name);
-		flags.defaultValues.push(defaultValue);
-		flags.numberOfParameters ++;
+	
+	public Float getParameter(int index) {
+		return history.getState().getParameter().get(index);
 	}
+	
 	public void setZeroEffectValues(Stack<Float> parameters) {
 		flags.zeroEffectValues=parameters;
 	}

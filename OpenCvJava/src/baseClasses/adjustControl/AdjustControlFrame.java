@@ -31,7 +31,10 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 		UpdateRender();
 		UpdateUndo();
 	}
-	public void addParameter(String name, Frame defaultValue) {
+	public Frame getParameter() {
+		return history.getState().getParameter();
+	}
+	public void addParameterFlag(String name, Frame defaultValue) {
 		flags.controlNames.push(name);
 		flags.defaultValues = defaultValue;
 		flags.numberOfParameters ++;

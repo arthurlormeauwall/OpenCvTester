@@ -22,7 +22,7 @@ public class AlphaControl extends AdjustControlFrame
 	}
 	
 	private void setFlags() {		
-		addParameter("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
+		addParameterFlag("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
 		setZeroEffectValues( new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));	
 	}
 
@@ -37,7 +37,7 @@ public class AlphaControl extends AdjustControlFrame
 			Mat imgDest = dest.getFrame();
 			Mat background = this.background.getFrame();
 
-			Mat alpha = history.getState().getParameter().getFrame();
+			Mat alpha = getParameter().getFrame();
 			int NBITMAX = source.getSpecs().bitMax;
 
 			int m_row = imgDest.rows();
