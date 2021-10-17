@@ -1,8 +1,11 @@
 package baseClasses.adjustControl;
 
 import java.util.Stack;
+
+import algorithmsDataBase.ControlFlags;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.ParameterHistory;
+import baseClasses.openCvFacade.Frame;
 
 
 public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
@@ -24,6 +27,9 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		history.setState(new FloatHistoryParameter(flags.defaultValues));
 		history.store();
 	}
+	
+	public abstract AdjustControlFloat createNew();
+
 	public abstract void setParameterFlags();
 	public void addParameterFlag(String name, Float defaultValue) {
 		flags.controlNames.push(name);
@@ -56,4 +62,6 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
 	}
+	
+	
 }

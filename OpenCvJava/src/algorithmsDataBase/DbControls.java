@@ -25,7 +25,7 @@ public class DbControls
 			return emptyControl;
 		}
 		else {
-			return controls.get(index);	
+			return controls.get(index).createNew();	
 		}	
 	}
 	public ControlFlags<Stack<Float>> getFlags(int index){

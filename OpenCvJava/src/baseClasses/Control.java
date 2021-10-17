@@ -34,11 +34,9 @@ public abstract class Control extends Command
     	this.id = new Id();
     	this.id.set(id);
 	    
-	    undoIdHistory = new UndoHistory<Id>();
-		renderAtIdHistory= new UndoHistory<Id>(); 
-
 	    this.undoIdHistory = undoIdHistory;
-	    this.renderAtIdHistory = renderAtIdHistory;
+		this.renderAtIdHistory= renderAtIdHistory;
+	    
 	    isBypass = false;
 	    
 	    initControl();

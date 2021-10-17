@@ -4,7 +4,9 @@ import java.util.Stack;
 
 import org.opencv.core.Mat;
 
+
 import baseClasses.adjustControl.AdjustControlFloat;
+
 
 public class MultBgrControl extends AdjustControlFloat 
 {
@@ -24,7 +26,10 @@ public class MultBgrControl extends AdjustControlFloat
 		zeroEffectValues.push(1f);
 		setZeroEffectValues(zeroEffectValues);
 	}
-
+	
+	public MultBgrControl createNew() {	
+		return new MultBgrControl();
+	}
 
 	public void compute() {	
 		if (isBypass) {

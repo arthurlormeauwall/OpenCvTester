@@ -22,6 +22,10 @@ public class GrayScaleControl extends AdjustControlFloat
 		zeroEffectValues.push(-1f);
 		setZeroEffectValues(zeroEffectValues);
 	}
+	public GrayScaleControl createNew() {	
+		return new GrayScaleControl();
+	}
+
 
 	@Override
 	public void compute() {

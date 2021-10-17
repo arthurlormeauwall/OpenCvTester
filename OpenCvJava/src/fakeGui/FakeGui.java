@@ -42,6 +42,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.ADD_CONTROL;
 		
 		myApp.getMainWin().dealOrder(action);
+		store();
+		play();
 		
 	}	
 	public void delControlInLayer(int maskedLayerIndex, int controlIndex)  {
@@ -59,6 +61,9 @@ public class FakeGui
 		action.whatToDo=Functionalities.DELETE_CONTROL;
 		
 		myApp.getMainWin().dealOrder(action);
+		store();
+		play();
+		
 	}	
 	public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
@@ -77,6 +82,9 @@ public class FakeGui
 		action.whatToDo=Functionalities.ADD_LAYER;
 		
 		myApp.getMainWin().dealOrder(action);
+		store();
+		play();
+		
 	}	
 	public void delLayer(int maskedLayerIndex) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
@@ -92,6 +100,9 @@ public class FakeGui
 		action.whatToDo=Functionalities.DELETE_LAYER;
 		
 		myApp.getMainWin().dealOrder(action);
+		store();
+		play();
+		
 	}	
 	public void setAlpha(int maskedLayerIndex, Frame alpha) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
@@ -108,7 +119,10 @@ public class FakeGui
 		action.parameters.frameParameters=stackOfFrames;
 		action.whatToDo=Functionalities.SET_ALPHA_FRAME;
 		
-		myApp.getMainWin().dealOrder(action);		
+		myApp.getMainWin().dealOrder(action);	
+		store();
+		play();
+		
 	}		
 	public void setAlpha(int maskedLayerIndex, int opacity) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
@@ -125,7 +139,10 @@ public class FakeGui
 		action.parameters.intParameters=stackOfInteger;
 		action.whatToDo=Functionalities.SET_ALPHA_OPACITY;
 		
-		myApp.getMainWin().dealOrder(action);		
+		myApp.getMainWin().dealOrder(action);
+		store();
+		play();
+		
 	}	
 	public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters){
 		Id controlId = createControlId(maskedLayerIndex, controlIndex);
@@ -141,6 +158,9 @@ public class FakeGui
 		action.whatToDo=Functionalities.SET_PARAMETERS;
 		
 		myApp.getMainWin().dealOrder(action);	
+		store();
+		play();
+		
 	}	
 	public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter) {
 		Id controlId = createControlId(maskedLayerIndex, controlIndex);
@@ -156,6 +176,7 @@ public class FakeGui
 		action.whatToDo=Functionalities.SET_BYPASS;
 		
 		myApp.getMainWin().dealOrder(action);
+		play();	
 	}	
 	public void undo() {
 		Action action = new Action();
@@ -166,6 +187,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.UNDO;
 		
 		myApp.getMainWin().dealOrder(action);
+		play();
+		
 	}
 	public void redo() {
 		Action action = new Action();
@@ -176,6 +199,7 @@ public class FakeGui
 		action.whatToDo=Functionalities.REDO;
 		
 		myApp.getMainWin().dealOrder(action);
+		play();
 	}
 	public void store() {
 		Action action = new Action();

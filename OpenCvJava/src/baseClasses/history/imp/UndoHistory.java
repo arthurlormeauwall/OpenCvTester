@@ -6,6 +6,7 @@ import baseClasses.history.HistoryParameter;
 public class UndoHistory<T> extends History<T> 
 {
 	protected Boolean firstUndo; 
+	protected Boolean firstRedo;
 	
 	public UndoHistory(){		
 	}
@@ -15,10 +16,11 @@ public class UndoHistory<T> extends History<T>
 		parameter.set(state.getParameter());  
 		undoHistory.push(parameter);
 		firstUndo = true;
+		firstRedo = true;
 	}
 	
 	public void undo() {
-		if (isUndoEmpty() && state!=null)
+		if (isUndoEmpty()==false && state!=null)
 			{
 			if (firstUndo) {
 				state=undoHistory.peek();
@@ -34,11 +36,12 @@ public class UndoHistory<T> extends History<T>
 	}
 	
 	public void redo() {
-		if (isRedoEmpty()==false && state!=null)
+		if (firstRedo == false && isRedoEmpty()==false && state!=null)
 		{
 			undoHistory.push(state);
 			state=redoHistory.peek();
-			redoHistory.pop();   	
+			redoHistory.pop();
 		}
+		firstRedo=false;
 	}
 };

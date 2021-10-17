@@ -62,7 +62,7 @@ public class ChainOfControls extends Control
 
     public void addOrDelete(ItemAndId<Control> parameter) {
         history.setState(new ChainHistoryParameter<Control>(parameter));
-        UpdateUndo();
+        UpdateUndo();    
         compute();
      }
 
