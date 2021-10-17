@@ -1,4 +1,4 @@
-package algorithmsDataBase;
+package userAlgorithms;
 
 import java.util.Stack;
 import org.opencv.core.Mat;

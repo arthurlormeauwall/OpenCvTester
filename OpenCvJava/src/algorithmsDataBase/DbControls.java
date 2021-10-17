@@ -8,18 +8,13 @@ import baseClasses.adjustControl.AdjustControlFloat;
 public class DbControls 
 {
 	protected Stack<AdjustControlFloat> controls;
-	protected GrayScaleControl grayScale;
 	protected AlphaControl alpha;
 	protected EmptyControl emptyControl;
 
 	public DbControls() {
 		controls= new Stack<AdjustControlFloat>();
-
 		alpha = new AlphaControl();
-		grayScale = new GrayScaleControl();
 		emptyControl= new EmptyControl();
-
-		controls.push(grayScale);
 	}
 	
 	public AlphaControl getAlphaControl(){

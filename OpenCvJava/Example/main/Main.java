@@ -2,6 +2,7 @@ package main;
 
 import java.util.Stack;
 import fakeGui.FakeGui;
+import userAlgorithms.GrayScaleControl;
 import userAlgorithms.MultBgrControl;
 
 
@@ -11,9 +12,10 @@ public class Main
     		
 		FakeGui fakeGui= new FakeGui("assets/20210717_203824.jpg"); 
 		fakeGui.addControlInDataBase(new MultBgrControl());
+		fakeGui.addControlInDataBase(new GrayScaleControl());
     		
 		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
-		controlIndexInDataBase.push(1);
+		controlIndexInDataBase.push(0);
 		fakeGui.addLayer(0, controlIndexInDataBase);
 		fakeGui.store();
 		fakeGui.play();
