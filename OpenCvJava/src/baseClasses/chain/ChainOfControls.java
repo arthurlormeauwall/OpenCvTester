@@ -13,7 +13,6 @@ public class ChainOfControls extends Control
 {
     protected ChainHistory<ItemAndId<Control>> history;
     protected Stack<Control> controls;
-    protected Boolean readyToStore;
 
     public ChainOfControls(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) { 	
     	super (id, undoIdHistory, renderAtIdHistory);
@@ -21,7 +20,6 @@ public class ChainOfControls extends Control
         history = new ChainHistory<ItemAndId<Control>>();
         history.initFactory(new ChainHistoryParameter<Control>());
         history.initState(new ChainHistoryParameter<Control>());
-        readyToStore=false;
     }
 
 
@@ -69,12 +67,10 @@ public class ChainOfControls extends Control
 			history.setState(new ChainHistoryParameter<Control>(parameter));
 	        UpdateUndo();    
 	        compute();
-	        readyToStore=true;
 	        return true;
 		}
     	   	
     	else {
-    		readyToStore=false;
     		return false;
     	}
      }
@@ -159,11 +155,9 @@ public class ChainOfControls extends Control
 	            if (!history.isUndoEmpty()) {
 	                history.undo();
 	                compute();
-	                readyToStore=false;
 	                return true;
 	            }
 	            else {
-	            	readyToStore=false;
 	            	return false;
 	            }
 	        }
@@ -186,11 +180,9 @@ public class ChainOfControls extends Control
 	            if (!history.isRedoEmpty()) {
 	                history.redo();
 	                compute();
-	                readyToStore=false;
 	                return true;
 	            }
 	            else {
-	            	readyToStore=false;
 	            	return false;
 	            }
 	        }
@@ -205,7 +197,7 @@ public class ChainOfControls extends Control
          int currentGroupId = id.getGroupId();
          int undoControlIndex = getControlIndex(undoIdHistory);
 
-         if (undoGroupId == currentGroupId && readyToStore) {        	 
+         if (undoGroupId == currentGroupId) {        	 
         	 history.store();
          }
          
