@@ -12,17 +12,16 @@ public class ParameterHistory<T> extends History<T>
 	}
 	
 	public void store() {
-		
-		HistoryParameter<T> parameter = factory.getNew();
-		parameter.set(state.clone());
-		undoHistory.push(parameter);
-		firstUndo = true;
-		firstRedo = true;
-		clearRedoHistory();
+			HistoryParameter<T> parameter = factory.getNew();
+			parameter.set(state.clone());
+			undoHistory.push(parameter);
+			firstUndo = true;
+			firstRedo = true;
+			clearRedoHistory();
 	}
      
 	public void undo() {
-	    if (!empty() && state!=null){
+	    if (!isUndoEmpty() && state!=null){
 		   	if (firstUndo) {
 			   		 redoHistory.push(undoHistory.peek());
 			   		 undoHistory.pop();
@@ -54,7 +53,7 @@ public class ParameterHistory<T> extends History<T>
 	    }
 	} 
 	
-	public Boolean empty() { 
+	public Boolean isUndoEmpty() { 
 		if(firstUndo) {
 			if (undoHistory.size() <= 1) {
 				return true;  

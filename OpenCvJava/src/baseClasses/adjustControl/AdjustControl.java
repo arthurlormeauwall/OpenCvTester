@@ -61,7 +61,7 @@ public abstract class AdjustControl<T> extends Control implements IoFrame
 	}
 	
 	public Boolean undo() {
-		if (!history.empty()) {
+		if (!history.isUndoEmpty()) {
 			history.undo();
 		    return true;
 		}

@@ -19,14 +19,14 @@ public class Renderer extends RendererInterface
 	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
 		Stack<Integer> stackOfControlIndexInDataBase = new Stack<Integer>();
 		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
-		if ( getNumberOfControl()>= controlId.get(0).get()[0]) {
+		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
 			((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, stackOfControlIndexInDataBase);
 			compute();
 		}	
 	}
 	
 	public void delControlInLayer(Stack<Id> controlId){
-		if (getNumberOfControl()>= controlId.get(0).get()[0]) {
+		if (getNumberOfControl()> controlId.get(0).get()[0]) {
 			((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).delControl(controlId);
 			compute();
 		}
@@ -44,14 +44,14 @@ public class Renderer extends RendererInterface
 	}   
 	
 	public void setAlpha(int layerIndex, Frame alpha){
-		if (getNumberOfControl() >= layerIndex) {
+		if (getNumberOfControl() > layerIndex) {
 			((MaskedLayer)chainOfControls.getControl(layerIndex)).setAlpha(alpha);
 			compute();
 		}	
 	}   
 	
 	public void setAlpha(int layerIndex, int opacity){
-		if (getNumberOfControl() >= layerIndex) {
+		if (getNumberOfControl() >layerIndex) {
 			((MaskedLayer)chainOfControls.getControl(layerIndex)).setAlpha(opacity);
 			compute();
 		}
@@ -60,7 +60,7 @@ public class Renderer extends RendererInterface
 	public void setParameters(Id ControlId, Stack<Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		if (getNumberOfControl() != 0 && getNumberOfControl() >= layerIndex &&  ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl() != 0 && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl()  >= controlIndex) {
+		if (getNumberOfControl() > layerIndex && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl()  > controlIndex) {
 			AdjustControlFloat adjustControlToSet = (AdjustControlFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex);
 			adjustControlToSet.setParameter(parameters);
 			compute();
@@ -71,7 +71,7 @@ public class Renderer extends RendererInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 	
-		if ( getNumberOfControl()>=layerIndex && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl() >= controlIndex) {
+		if ( getNumberOfControl()>layerIndex && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl() > controlIndex) {
 			AdjustControlFloat temp = ((AdjustControlFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex));
 			temp.setBypass(p);
 			compute();

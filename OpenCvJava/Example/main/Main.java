@@ -13,11 +13,19 @@ public class Main
 		FakeGui fakeGui= new FakeGui("assets/20210717_203824.jpg"); 
 		fakeGui.addControlInDataBase(new MultBgrControl());
 		fakeGui.addControlInDataBase(new GrayScaleControl());
-    		
+    
+		
+		
 		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
 		controlIndexInDataBase.push(0);
-		fakeGui.addLayer(0, controlIndexInDataBase);        //first image
-		fakeGui.setBypass(0, 0, false);                    // darker
+		fakeGui.addLayer(0, controlIndexInDataBase);       
+		fakeGui.setBypass(0, 0, false);   
+		
+		
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.undo();
 		
 		Stack<Float> floatParameters=new Stack<Float>();
 		floatParameters.push(0.6f);

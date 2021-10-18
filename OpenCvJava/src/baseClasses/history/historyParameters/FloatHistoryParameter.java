@@ -42,4 +42,11 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 		
 		return newStackOfFloats;
 	}
+	public Boolean isEmptyObject() {
+		if (stackOfFloats.empty()) {return true;}
+		else {return false;}
+	}
+	public void setToEmptyObject() {
+		stackOfFloats.clear();
+	}
 };
