@@ -21,15 +21,17 @@ public class Renderer extends RendererInterface
 		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
 		
 		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
-			((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, stackOfControlIndexInDataBase);
-			compute();
+			if (((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, stackOfControlIndexInDataBase)) {
+				compute();
+			}
 		}	
 	}
 	
 	public void delControlInLayer(Stack<Id> controlId){
 		if (getNumberOfControl()> controlId.get(0).get()[0]) {
-			((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).delControl(controlId);
-			compute();
+			if(((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).delControl(controlId)) {
+				compute();
+			}
 		}
 	}   
 	
