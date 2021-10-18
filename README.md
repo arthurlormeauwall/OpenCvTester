@@ -85,7 +85,7 @@ To write your own control you have to create a class that extends the `AdjustCon
 
 `AdjustControlFloat` class provide several important things : 
 * Two `Frame` objects : `source` and `dest` (input and output frame as yourAlgorithm(source)=dest). To get the `Mat` object from a Frame object you call the `getFrame()` mehtod.
-* Several parameters that will be tweakable. You can access them calling `getParameter(int index)` method.
+* Several float parameters that will be tweakable. You can access them calling `getParameter(int index)` method.
 * Three abstract methods that you have to implement : 
   * `public void setParameterFlags()` : here you create parameters calling `addParameter(String name, Float defaultValue)` for each parameter. You can also set certain special values for those parameters with `setZeroEffectValues(Stack<Float> zeroEffectValues)` : when parameters are set to those values, bypass is automtically set to true.
   * `public void compute()` : here you write your algorithm. Do not forget to update `dest` variable at the end (you can call `setFrame(Mat frame)`).
