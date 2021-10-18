@@ -23,9 +23,9 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 		history.initState(new FrameHistoryParameter());
 	}
 	    
-	public void setParameter(Frame p) {			 
-		history.setState(new FrameHistoryParameter(p));
-		if (p.compareTo(flags.zeroEffectValues)) {
+	public void setParameter(Frame frame) {			 
+		history.setState(new FrameHistoryParameter(frame));
+		if (frame.compareTo(flags.zeroEffectValues)) {
 			isBypass=true;
 		}
 		UpdateRender();

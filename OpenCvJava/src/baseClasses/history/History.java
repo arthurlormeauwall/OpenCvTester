@@ -52,7 +52,6 @@ public abstract class History<T>
 	  
 	    
 	public HistoryParameter<T> getState() { 
-	 
 		return state;    	
 	}
 	    

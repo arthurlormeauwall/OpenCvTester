@@ -26,8 +26,8 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 	}
 	
 	public abstract AdjustControlFloat createNew();
-
 	public abstract void setParameterFlags();
+	
 	public void addParameterFlag(String name, Float defaultValue) {
 		flags.controlNames.push(name);
 		flags.defaultValues.push(defaultValue);

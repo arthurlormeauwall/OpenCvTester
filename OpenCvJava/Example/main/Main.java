@@ -25,7 +25,6 @@ public class Main
 		floatParameters.push(0.6f);
 		floatParameters.push(2f);
 		floatParameters.push(0.9f);
-    		
 
 		fakeGui.setParameters(0, 0, floatParameters);
 		floatParameters.clear();

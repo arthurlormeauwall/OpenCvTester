@@ -23,8 +23,7 @@ public class App
 	protected Renderer renderer;
 	protected UIImp mainWin;
 	
-	public App() {
-		
+	public App() {	
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		undoIdHistory = new UndoHistory<Id>();
 		renderAtIdHistory = new UndoHistory<Id>();

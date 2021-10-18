@@ -93,7 +93,6 @@ public abstract class Control extends Command
 		undoIdHistory.store();
 	    renderAtIdHistory.store();	
     }
-    
     public Boolean getBypassState () {
     	return isBypass;
     }
