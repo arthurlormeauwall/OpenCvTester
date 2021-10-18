@@ -16,9 +16,9 @@ public class MultBgrControl extends AdjustControlFloat
 
 	public void setParameterFlags() {	
 
-		addParameterFlag("BlueMult", 0.5f);
-		addParameterFlag("GreenMult", 0.5f);
-		addParameterFlag("RedMult", 0.5f);
+		addParameterFlag("BlueMult", 1f);
+		addParameterFlag("GreenMult", 1f);
+		addParameterFlag("RedMult", 1f);
 		
 		Stack<Float> zeroEffectValues= new Stack<Float>();
 		zeroEffectValues.push(1f);
