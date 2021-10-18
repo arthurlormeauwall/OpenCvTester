@@ -17,9 +17,6 @@ public class DbControls
 		emptyControl= new EmptyControl();
 	}
 	
-	public AlphaControl getAlphaControl(){
-		return alpha;
-	}
 	public Control getControl(int index){
 		if (controls.size()-1<index) {
 			return emptyControl;
@@ -28,6 +25,15 @@ public class DbControls
 			return controls.get(index).createNew();	
 		}	
 	}
+	
+	public void addAlgorithm(AdjustControlFloat control) {
+		controls.push(control);
+	}
+	
+	public AlphaControl getAlphaControl(){
+		return alpha;
+	}
+	
 	public ControlFlags<Stack<Float>> getFlags(int index){
 		if (controls.size()-1<index) {
 			return emptyControl.getFlags();
@@ -35,8 +41,5 @@ public class DbControls
 		else {
 			return controls.get(index).getFlags();
 		}
-	}
-	public void addAlgorithm(AdjustControlFloat control) {
-		controls.push(control);
 	}
 }

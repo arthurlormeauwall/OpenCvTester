@@ -17,16 +17,16 @@ public class FakeGui
 {
 	private App myApp;
 	
-	public FakeGui(String fileName){
-		
+	public FakeGui(String fileName){	
 		myApp= new App();
 		myApp.init(fileName);		
 	}
-	public FakeGui(App app, String fileName){
-		
+	
+	public FakeGui(App app, String fileName){	
 		myApp=app;
 		myApp.init(fileName);		
 	}
+	
 	public void addControlInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase) {
 		Id controlId = createControlId(maskedLayerIndex, controlIndex);
 		
@@ -45,7 +45,8 @@ public class FakeGui
 		store();
 		play();
 		
-	}	
+	}
+	
 	public void delControlInLayer(int maskedLayerIndex, int controlIndex)  {
 		Id controlId = createControlId(maskedLayerIndex, controlIndex);
 		
@@ -65,6 +66,7 @@ public class FakeGui
 		play();
 		
 	}	
+	
 	public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
 		Stack<Id> stackOfIds = new Stack<Id>();
@@ -86,6 +88,7 @@ public class FakeGui
 		play();
 		
 	}	
+	
 	public void delLayer(int maskedLayerIndex) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
 		
@@ -104,6 +107,7 @@ public class FakeGui
 		play();
 		
 	}	
+	
 	public void setAlpha(int maskedLayerIndex, Frame alpha) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
 		
@@ -123,7 +127,8 @@ public class FakeGui
 		store();
 		play();
 		
-	}		
+	}	
+	
 	public void setAlpha(int maskedLayerIndex, int opacity) {
 		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
 		
@@ -144,6 +149,7 @@ public class FakeGui
 		play();
 		
 	}	
+	
 	public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters){
 		Id controlId = createControlId(maskedLayerIndex, controlIndex);
 		
@@ -162,6 +168,7 @@ public class FakeGui
 		play();
 		
 	}	
+	
 	public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter) {
 		Id controlId = createControlId(maskedLayerIndex, controlIndex);
 		
@@ -177,7 +184,8 @@ public class FakeGui
 		
 		myApp.getMainWin().dealOrder(action);
 		play();	
-	}	
+	}
+	
 	public void undo() {
 		Action action = new Action();
 		action.parameters= new Parameters();
@@ -190,6 +198,7 @@ public class FakeGui
 		play();
 		
 	}
+	
 	public void redo() {
 		Action action = new Action();
 		action.parameters= new Parameters();
@@ -201,6 +210,7 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 		play();
 	}
+	
 	private void store() {
 		Action action = new Action();
 		action.parameters= new Parameters();
@@ -211,6 +221,7 @@ public class FakeGui
 		
 		myApp.getMainWin().dealOrder(action);
 	}
+	
 	private void play() {
 	
 		Action action = new Action();
@@ -222,6 +233,7 @@ public class FakeGui
 		
 		myApp.getMainWin().dealOrder(action);
 	}
+	
 	public void addControlInDataBase(AdjustControlFloat newControl) {
 		
 		Action action = new Action();
@@ -233,11 +245,13 @@ public class FakeGui
 		
 		myApp.getMainWin().dealOrder(action);
 	}
+	
 	public Id createMaskedLayerId(int maskedLayerIndex) {	
 		Id id = new Id();
 		id.set(maskedLayerIndex, 0, GroupsId.MASKED_LAYER.ordinal());
 		return id;
 	}	
+	
 	public Id createControlId(int maskedLayerIndex, int controlIndex) {
 		Id id = new Id();
 		id.set(maskedLayerIndex, controlIndex, GroupsId.CONTROL.ordinal());

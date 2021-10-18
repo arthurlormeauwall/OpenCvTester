@@ -13,32 +13,32 @@ public class ParameterHistory<T> extends History<T>
 	
 	public void store() {
 		 if (readyToStore) {
-			HistoryParameter<T> parameter = factory.getNew();
-			parameter.set(state.clone());
-			undoHistory.push(parameter);
-			firstUndo = true;
-			firstRedo = true;
-			clearRedoHistory();
-			this.readyToStore=false;
+			 HistoryParameter<T> parameter = factory.getNew();
+			 parameter.set(state.clone());
+			 undoHistory.push(parameter);
+			 firstUndo = true;
+			 firstRedo = true;
+			 clearRedoHistory();
+			 readyToStore=false;
 		 }
 	}
      
 	public void undo() {
 	    if (!isUndoEmpty() && state!=null){
-		   	if (firstUndo) {
-			   		 redoHistory.push(undoHistory.peek());
-			   		 undoHistory.pop();
-			   		 state=undoHistory.peek();
-			   		 undoHistory.pop();
-			   		 firstUndo=false; 
-			   		 firstRedo=true;
-		   	}
+			if (firstUndo) {
+				redoHistory.push(undoHistory.peek());
+				undoHistory.pop();
+				state=undoHistory.peek();
+				undoHistory.pop();
+				firstUndo=false; 
+				firstRedo=true;
+			}
 			else {
-					 redoHistory.push(state);
-					 state=undoHistory.peek();
-					 undoHistory.pop();
-				 }
-			} 
+				redoHistory.push(state);
+				state=undoHistory.peek();
+				undoHistory.pop();
+			}
+		} 
 	}
 	
 	public void redo() {
@@ -61,7 +61,7 @@ public class ParameterHistory<T> extends History<T>
 			if (undoHistory.size() <= 1) {
 				return true;  
 			}
-			else if (undoHistory.size() > 1) {
+			else {
 				return false;
 			}
 		}
@@ -69,10 +69,9 @@ public class ParameterHistory<T> extends History<T>
 			if (undoHistory.size() <= 0) {
 				return true;  
 			}
-			else if (undoHistory.size() > 0) {
+			else {
 				return false;
 			}
 		}
-		return null;
 	}
 }

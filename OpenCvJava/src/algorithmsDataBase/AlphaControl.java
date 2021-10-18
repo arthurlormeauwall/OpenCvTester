@@ -10,7 +10,6 @@ public class AlphaControl extends AdjustControlFrame
 	protected Frame background;	
 	
 	public AlphaControl() {
-
 	}
 	
 	public void init(Frame background) {

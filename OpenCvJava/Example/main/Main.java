@@ -5,11 +5,9 @@ import fakeGui.FakeGui;
 import userAlgorithms.GrayScaleControl;
 import userAlgorithms.MultBgrControl;
 
-
 public class Main 
 {
-    public static void main(String[] args){
-    		
+    public static void main(String[] args){	
 		FakeGui fakeGui= new FakeGui("assets/20210717_203824.jpg"); 
 		fakeGui.addControlInDataBase(new MultBgrControl());
 		fakeGui.addControlInDataBase(new GrayScaleControl());
@@ -75,6 +73,5 @@ public class Main
 		fakeGui.undo();                                  
 		fakeGui.redo();								
 		fakeGui.redo();									 
-
     }
 }

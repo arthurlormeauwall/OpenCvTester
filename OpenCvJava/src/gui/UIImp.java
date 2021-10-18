@@ -11,8 +11,7 @@ import renderingEngine.Renderer;
 public class UIImp extends UIInterface 
 {
 	public UIImp(Renderer renderer) {
-		super(renderer);
-	
+		super(renderer);	
 	}
 	
 	@Override

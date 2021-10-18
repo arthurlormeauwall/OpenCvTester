@@ -10,14 +10,13 @@ public class ChainHistory<T> extends History<T>
 	
      public void store() {
     	 if (readyToStore) {
-    		 state.invert();	 
-    		 HistoryParameter<T> parameter = factory.getNew();
-    		 parameter.set(state.clone());  
-    		 undoHistory.push(parameter);
-    		 clearRedoHistory();
-    		 this.readyToStore=false;
+			state.invert();	 
+			HistoryParameter<T> parameter = factory.getNew();
+			parameter.set(state.clone());  
+			undoHistory.push(parameter);
+			clearRedoHistory();
+			this.readyToStore=false;
     	 }
-    		 
      }
      
      public void undo() {

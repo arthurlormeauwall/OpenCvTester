@@ -15,7 +15,6 @@ public class MaskedLayer extends FrameLayer
 	protected Frame background;
 	protected AlphaControl alpha;
 	
-	
 	public MaskedLayer (DbControls dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
@@ -40,31 +39,6 @@ public class MaskedLayer extends FrameLayer
 		alpha.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
 
-	public AlphaControl getAlpha(){
-		return alpha;
-	}
-	
-	public void setAlpha(Frame alpha){
-		this.alpha.setAlpha(alpha);
-	}
-	
-	public void setAlpha(int opacity){
-		alpha.setAlpha(opacity);
-	}
-	
-	public void setBackGround(Frame background){
-		this.background = background; 
-	}
-	
-	public void setFloatParameters(int controlIndex, Stack<Float> parameters){
-		
-		((AdjustControlFloat)chainOfControls.getControl(controlIndex)).setParameter(parameters);
-	}
-
-	public Control getLastControl() {
-		return alpha;
-	}
-	
 	protected Control createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
 		Control newControl = (Control) dbControls.getControl(stackOfControlIndexInDataBase.get(0));
 		newControl.getId().set(id.get(0));
@@ -75,8 +49,8 @@ public class MaskedLayer extends FrameLayer
 		return newControl;
 	}
 	
-	public int getNumberOfControl() {
-		return chainOfControls.getSize() + 1;
+	public void setFloatParameters(int controlIndex, Stack<Float> parameters){	
+		((AdjustControlFloat)chainOfControls.getControl(controlIndex)).setParameter(parameters);
 	}
 	
 	public void compute() {	
@@ -124,7 +98,6 @@ public class MaskedLayer extends FrameLayer
 		chainOfControls.updateId(groupDeepnessIndex, newValue);
 	}
 
-	
 	public Control clone() {	
 		MaskedLayer newMaskedLayer= new MaskedLayer(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
@@ -133,5 +106,29 @@ public class MaskedLayer extends FrameLayer
 		newMaskedLayer.setBackGround(background);
 		
 		return newMaskedLayer;
+	}
+
+	public AlphaControl getAlpha(){
+		return alpha;
+	}
+	
+	public Control getLastControl() {
+		return alpha;
+	}
+	
+	public void setAlpha(Frame alpha){
+		this.alpha.setAlpha(alpha);
+	}
+	
+	public void setAlpha(int opacity){
+		alpha.setAlpha(opacity);
+	}
+	
+	public void setBackGround(Frame background){
+		this.background = background; 
+	}
+	
+	public int getNumberOfControl() {
+		return chainOfControls.getSize() + 1;
 	}
 }

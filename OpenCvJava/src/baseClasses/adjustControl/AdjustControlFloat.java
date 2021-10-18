@@ -27,11 +27,15 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 	
 	public abstract AdjustControlFloat createNew();
 	public abstract void setParameterFlags();
-	
-	public void addParameterFlag(String name, Float defaultValue) {
-		flags.controlNames.push(name);
-		flags.defaultValues.push(defaultValue);
-		flags.numberOfParameters ++;
+
+	public Float getParameter(int index) {
+		if (history.getState().getParameter().size()> index) {
+			return history.getState().getParameter().get(index);
+		}
+		else 
+		{
+			return flags.zeroEffectValues.lastElement();
+		}
 	}
 	
 	public void setParameter(Stack<Float> p) {
@@ -43,14 +47,10 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		UpdateUndo();
 	}
 	
-	public Float getParameter(int index) {
-		if (history.getState().getParameter().size()> index) {
-			return history.getState().getParameter().get(index);
-		}
-		else 
-		{
-			return flags.zeroEffectValues.lastElement();
-		}
+	public void addParameterFlag(String name, Float defaultValue) {
+		flags.controlNames.push(name);
+		flags.defaultValues.push(defaultValue);
+		flags.numberOfParameters ++;
 	}
 	
 	public void setZeroEffectValues(Stack<Float> parameters) {
@@ -58,7 +58,5 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 	}
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
-	}
-	
-	
+	}	
 }

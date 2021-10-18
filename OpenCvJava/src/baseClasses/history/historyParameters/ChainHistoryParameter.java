@@ -40,10 +40,16 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 		
 		return newItemAndId;
 	}
+	
 	public Boolean isEmptyObject() {
-		if (itemAndId.id.empty()) {return true;}
-		else {return false;}
+		if (itemAndId.id.empty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
+	
 	public void setToEmptyObject() {
 		itemAndId.id.clear();
 	}

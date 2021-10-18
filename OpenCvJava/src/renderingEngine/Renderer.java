@@ -40,9 +40,7 @@ public class Renderer extends RendererInterface
 			compute();
 		}	
 	}  
-	
-	
-	
+
 	public void delLayer(Stack<Id> controlId){
 		if (delControl(controlId))
 		{
@@ -83,7 +81,36 @@ public class Renderer extends RendererInterface
 			temp.setBypass(p);
 			compute();
 		}
+	}  
+
+	public void play(){
+		dest.play();
 	}   
+	
+	protected Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
+		MaskedLayer maskedLayer = new MaskedLayer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
+		maskedLayer.init(m_background, source, dest);
+		
+		int numberOfControlToAdd = controlNumber.size();
+
+		for (int i = 0; i < numberOfControlToAdd; i++) {
+			Stack<Id> temp=new Stack<Id>();
+			Stack<Integer> temp2=new Stack<Integer>();
+			
+			temp.push(controlId.get(i + 1));
+			temp2.push(controlNumber.get(i));
+			
+			maskedLayer.addControl(temp, temp2);
+		}
+		return maskedLayer;
+	} 
+	
+	public void compute(){
+		dealFrames();
+		dealBackground();
+		dealFramesInMaskedLayers();
+		render();	
+	}
 
 	public void dealBackground(){
 		int numberOfMaskedLayers = chainOfControls.getSize();
@@ -104,43 +131,6 @@ public class Renderer extends RendererInterface
 		}
 	}   
 
-	public void play(){
-		dest.play();
-	}   
-
-	protected Control createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
-		MaskedLayer maskedLayer = new MaskedLayer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
-		maskedLayer.init(m_background, source, dest);
-		
-		int numberOfControlToAdd = controlNumber.size();
-
-		for (int i = 0; i < numberOfControlToAdd; i++) {
-			Stack<Id> temp=new Stack<Id>();
-			Stack<Integer> temp2=new Stack<Integer>();
-			
-			temp.push(controlId.get(i + 1));
-			temp2.push(controlNumber.get(i));
-			
-			maskedLayer.addControl(temp, temp2);
-		}
-		return maskedLayer;
-	} 
-	
-	public Control getLastControl(){
-		return chainOfControls.getControl(chainOfControls.getSize() - 1);
-	}   
-	
-	public int getNumberOfControl() {
-		return chainOfControls.getSize();
-	}
-	
-	public void compute(){
-		dealFrames();
-		dealBackground();
-		dealFramesInMaskedLayers();
-		render();	
-	}
-	
 	public Boolean undo() {
 		undoIdHistory.undo();
 		renderAtIdHistory.undo();
@@ -177,5 +167,13 @@ public class Renderer extends RendererInterface
 
 	public void addAlgorithm(AdjustControlFloat algoParameters) {
 		dbControls.addAlgorithm(algoParameters);
+	}
+	
+	public Control getLastControl(){
+		return chainOfControls.getControl(chainOfControls.getSize() - 1);
+	}   
+	
+	public int getNumberOfControl() {
+		return chainOfControls.getSize();
 	}
 }

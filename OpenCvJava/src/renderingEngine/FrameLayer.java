@@ -13,7 +13,6 @@ import baseClasses.IoFrame;
 
 public abstract class FrameLayer  extends Layer implements IoFrame
 {
-	
 	protected Stack<Frame> frames;
 	protected Frame source;
 	protected Frame dest;

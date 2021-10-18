@@ -9,7 +9,6 @@ public class GrayScaleControl extends AdjustControlFloat
 	public GrayScaleControl() {
 	}
 	
-	
 	public void setParameterFlags() {
 
 		addParameterFlag("BlueMult", 0.1f);
@@ -22,12 +21,11 @@ public class GrayScaleControl extends AdjustControlFloat
 		zeroEffectValues.push(-1f);
 		setZeroEffectValues(zeroEffectValues);
 	}
+	
 	public GrayScaleControl createNew() {	
 		return new GrayScaleControl();
 	}
 
-
-	@Override
 	public void compute() {
 		if (isBypass) {
 			source.copyTo(dest);

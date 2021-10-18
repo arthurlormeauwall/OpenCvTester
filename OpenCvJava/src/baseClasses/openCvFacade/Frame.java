@@ -6,7 +6,6 @@ import org.opencv.core.Mat;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 
-
 public class Frame 
 {
 	final int NumberOfColorLayer = 3;
@@ -54,25 +53,6 @@ public class Frame
 		}
 		setSpecs();
 	}
-
-	public Mat getFrame(){ 
-		return frameMat; 
-	}
-
-	public void setFrame(Mat frame){
-		frameMat = frame; 
-		setSpecs();
-	}
-
-	public FrameSpecs getSpecs(){ 
-		return frameSpecs;
-	}
-	
-	public void setSpecs(){
-		frameSpecs.cols = frameMat.cols();
-		frameSpecs.rows = frameMat.rows();
-		frameSpecs.bitMax = 255; //TODO change and read actual maxbitValue of image	
-	}
 	
 	public void play() {
 		HighGui.imshow("test", frameMat);
@@ -101,7 +81,25 @@ public class Frame
 				}
 			}	
 		}
-		
 		return value;
-	}	
+	}
+
+	public Mat getFrame(){ 
+		return frameMat; 
+	}
+
+	public void setFrame(Mat frame){
+		frameMat = frame; 
+		setSpecs();
+	}
+
+	public FrameSpecs getSpecs(){ 
+		return frameSpecs;
+	}
+	
+	public void setSpecs(){
+		frameSpecs.cols = frameMat.cols();
+		frameSpecs.rows = frameMat.rows();
+		frameSpecs.bitMax = 255; //TODO change and read actual maxbitValue of image	
+	}		
 }

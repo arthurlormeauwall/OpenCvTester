@@ -3,7 +3,6 @@ package baseClasses;
 import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoHistory;
 
-
 public abstract class Control extends Command
 {
 	protected Id id;
@@ -18,7 +17,8 @@ public abstract class Control extends Command
 		renderAtIdHistory= new UndoHistory<Id>();  
  	
 		initControl();
-    }    
+    } 
+	
     public Control(Id id) {	
     	this.id = new Id();
     	this.id.set(id);
@@ -30,6 +30,7 @@ public abstract class Control extends Command
 	    
 	    initControl();
     } 
+    
     public Control(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) {
     	this.id = new Id();
     	this.id.set(id);
@@ -50,6 +51,23 @@ public abstract class Control extends Command
     }
     
     public abstract void compute();
+    
+    public void UpdateRender(){
+		IdHistoryParameter tempParameter= new IdHistoryParameter();
+		tempParameter.set(id);
+		renderAtIdHistory.setState(tempParameter);
+    }
+    
+    public void UpdateUndo(){
+		IdHistoryParameter temparameter= new IdHistoryParameter();
+		temparameter.set(id);
+		undoIdHistory.setState(temparameter);
+    }
+    
+    public void storeIdHistory(){
+		undoIdHistory.store();
+	    renderAtIdHistory.store();	
+    }
 
     public Id getId(){
     	return id;
@@ -63,12 +81,12 @@ public abstract class Control extends Command
     	return undoIdHistory;
     }
     
-    public UndoHistory<Id> getRenderAtIdHistory(){
-    	return renderAtIdHistory; 
-    }
-    
     public void setUndoId(UndoHistory<Id> undoIdHistory){
     	this.undoIdHistory = undoIdHistory; 
+    }
+    
+    public UndoHistory<Id> getRenderAtIdHistory(){
+    	return renderAtIdHistory; 
     }
     
     public void setRenderAtId(UndoHistory<Id> renderAtIdHistory){
@@ -79,24 +97,11 @@ public abstract class Control extends Command
     	id.setControlOrLayer(groupDeepnessIndex, newValue);
     }
     
-    public void UpdateRender(){
-		IdHistoryParameter tempParameter= new IdHistoryParameter();
-		tempParameter.set(id);
-		renderAtIdHistory.setState(tempParameter);
-    }
-    public void UpdateUndo(){
-		IdHistoryParameter temparameter= new IdHistoryParameter();
-		temparameter.set(id);
-		undoIdHistory.setState(temparameter);
-    }
-    public void storeIdHistory(){
-		undoIdHistory.store();
-	    renderAtIdHistory.store();	
-    }
     public Boolean getBypassState () {
     	return isBypass;
     }
+    
     public void setBypass(Boolean bypassState) {
     	isBypass=bypassState;
-    }
+    }   
 }

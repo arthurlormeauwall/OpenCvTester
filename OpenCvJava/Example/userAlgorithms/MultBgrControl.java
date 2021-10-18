@@ -10,8 +10,7 @@ import baseClasses.adjustControl.AdjustControlFloat;
 
 public class MultBgrControl extends AdjustControlFloat 
 {
-	public MultBgrControl() {	
-		
+	public MultBgrControl() {		
 	}
 
 	public void setParameterFlags() {	

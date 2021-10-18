@@ -23,29 +23,6 @@ public abstract class Layer extends Control
 	
 	public abstract void render();
 	protected abstract Control createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
-
-	public Control getControl(int index) {
-		return chainOfControls.getControl(index);
-	}
-	
-	public void setChainControl(ChainOfControls chain) {
-		chainOfControls=chain;
-	}
-	
-	public ChainOfControls getChainControl() {
-		return chainOfControls;
-	}
-	
-	public Boolean isIndexOutOfRange(Stack<Id> controlId) {
-		int indexOfControlToAddOrDelete= controlId.get(0).get()[chainOfControls.getDeepnessIndex()];
-
-		if(chainOfControls.getSize()>= indexOfControlToAddOrDelete) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
 	
 	public Boolean addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
 		
@@ -67,7 +44,7 @@ public abstract class Layer extends Control
 			return false;
 		}
 	}
-	
+
 	public Boolean addOrDelete (ChainCommand chainCommand, Control control, Stack<Id> id) {
 		ItemAndId<Control> parameter = new ItemAndId<Control>();
 		parameter.chainCommand = chainCommand;
@@ -75,6 +52,17 @@ public abstract class Layer extends Control
 		parameter.id = id;
 	
 		return chainOfControls.addOrDelete(parameter);
+	}
+	
+	public Boolean isIndexOutOfRange(Stack<Id> controlId) {
+		int indexOfControlToAddOrDelete= controlId.get(0).get()[chainOfControls.getDeepnessIndex()];
+
+		if(chainOfControls.getSize()>= indexOfControlToAddOrDelete) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	public void updateRenderAtId(Id id) {
@@ -93,4 +81,20 @@ public abstract class Layer extends Control
 
 		renderAtIdHistory.setState(tempHistoryParameter);
 	}
+
+	public Control getControl(int index) {
+		return chainOfControls.getControl(index);
+	}
+	
+	public ChainOfControls getChainControl() {
+		return chainOfControls;
+	}
+	
+	public void setChainControl(ChainOfControls chain) {
+		chainOfControls=chain;
+	}
+	
+	
+	
+	
 }

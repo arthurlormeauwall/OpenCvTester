@@ -6,8 +6,8 @@ import baseClasses.Id;
 import baseClasses.adjustControl.AdjustControlFloat;
 import baseClasses.openCvFacade.Frame;
 
-public interface FunctionalitiesInterface {
-	
+public interface FunctionalitiesInterface 
+{
 	public abstract void addAlgorithm(AdjustControlFloat algorithm);
 	public abstract void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase); 	
 	public abstract void delControlInLayer(Stack<Id> controlId)  ;	

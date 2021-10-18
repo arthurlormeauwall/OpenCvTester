@@ -34,29 +34,26 @@ public abstract class History<T>
 		readyToStore=true;
 	}
 	
+	public HistoryParameter<T> getState() { 
+		return state;    	
+	}
+	
 	public Boolean isUndoEmpty() { 
 		if (undoHistory.size() <= 0) {
 		    return true;  
 		}
-		else if (undoHistory.size() > 0) {
+		else  {
 		    return false;
 		}
-			return null;
-		}
+	}
 	
 	public Boolean isRedoEmpty() {
 		if (redoHistory.size() <= 0) {
 		    return true;
 		}
-		else if (redoHistory.size() > 0) {
+		else {
 		    return false;
 		}
-	return null;
-	}
-	  
-	    
-	public HistoryParameter<T> getState() { 
-		return state;    	
 	}
 	    
 	protected void clearRedoHistory() {		
@@ -65,7 +62,5 @@ public abstract class History<T>
 	
 	protected void clearUndoHistory() {
 		undoHistory.clear();
-	}
-	
-	
+	}	
 }

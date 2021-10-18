@@ -21,17 +21,14 @@ public class Id
 		id=indexs;
 		this.group=group;
 	}
+	
+	public void initNULL(){
+		id[0]=-1;
+		id[1]=-1;
+	}
 
 	public int[] get(){
 		return id;
-	}
-	
-	public Id clone() {
-		Id temp= new Id();
-		temp.get()[0]=id[0];
-		temp.get()[1]=id[1];
-		temp.setGroupId(group);
-		return temp;
 	}
 	
 	public void set(Id id){
@@ -53,6 +50,14 @@ public class Id
 	public void setControlOrLayer(int groupDeepnessIndex, int newValue){
 		id[groupDeepnessIndex]=newValue;
 	}
+
+	public Id clone() {
+		Id temp= new Id();
+		temp.get()[0]=id[0];
+		temp.get()[1]=id[1];
+		temp.setGroupId(group);
+		return temp;
+	}
 	
 	public void setControlId(int controlIndex){
 		id[1]=controlIndex;
@@ -68,10 +73,5 @@ public class Id
 	
 	public void setGroupId(int group){
 		this.group=group;
-	}
-	
-	public void initNULL(){
-		id[0]=-1;
-		id[1]=-1;
 	}
 }

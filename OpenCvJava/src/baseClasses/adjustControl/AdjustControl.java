@@ -26,39 +26,6 @@ public abstract class AdjustControl<T> extends Control implements IoFrame
 	}
 
 	public abstract void setParameter(T p);
-	    
-	
-	public void setNames(Stack<String> names) {
-		flags.controlNames = names;
-	}
-	
-	public void setNumberOfParamters (int n) {
-		flags.numberOfParameters = n;
-	}
-	
-	public void reset() {
-		setParameter(flags.defaultValues);
-	}
-	
-	public void setDefaultParameters(T p) {
-		flags.defaultValues = p;
-	}
-	public void setZeroEffectValues(T p) {
-		flags.zeroEffectValues = p;
-	}
-	 
-	
-	public ControlFlags<T> getFlags() {
-		return flags;
-	}
-	
-	public void updateId(int groupDeepnessIndex, int newValue) {
-		id.setControlOrLayer(groupDeepnessIndex, newValue);
-	}
-	
-	public void store() {
-		history.store();
-	}
 	
 	public Boolean undo() {
 		if (!history.isUndoEmpty()) {
@@ -76,21 +43,55 @@ public abstract class AdjustControl<T> extends Control implements IoFrame
 		    return true;
 		}
 		else {
-		return false;
+			return false;
 		}
 	}
+	
+	public void store() {
+		history.store();
+	}
+	
+	public void updateId(int groupDeepnessIndex, int newValue) {
+		id.setControlOrLayer(groupDeepnessIndex, newValue);
+	}
+	
+	public void setNames(Stack<String> names) {
+		flags.controlNames = names;
+	}
+	
+	public void setNumberOfParamters (int n) {
+		flags.numberOfParameters = n;
+	}
+	
+	public void setDefaultParameters(T p) {
+		flags.defaultValues = p;
+	}
+	
+	public void setZeroEffectValues(T p) {
+		flags.zeroEffectValues = p;
+	}
+	
+	public void reset() {
+		setParameter(flags.defaultValues);
+	}
+	
+	public ControlFlags<T> getFlags() {
+		return flags;
+	}
 	 
-	public void setSource(Frame s){
-		source=s;
-	}
-	public void setDest(Frame d)  {
-		dest=d;
-	}
-	  
 	public Frame getSource()      {
 		return source;
 	}
+	
+	public void setSource(Frame s){
+		source=s;
+	}
+	
 	public Frame getDest()        {
 		return dest;
+	}
+	
+	public void setDest(Frame d)  {
+		dest=d;
 	}
 }

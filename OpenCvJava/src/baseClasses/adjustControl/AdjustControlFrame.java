@@ -23,6 +23,10 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 		history.initState(new FrameHistoryParameter());
 	}
 	    
+	public Frame getParameter() {
+		return history.getState().getParameter();
+	}
+	
 	public void setParameter(Frame frame) {			 
 		history.setState(new FrameHistoryParameter(frame));
 		if (frame.compareTo(flags.zeroEffectValues)) {
@@ -31,9 +35,7 @@ public abstract class AdjustControlFrame extends AdjustControl<Frame>
 		UpdateRender();
 		UpdateUndo();
 	}
-	public Frame getParameter() {
-		return history.getState().getParameter();
-	}
+	
 	public void addParameterFlag(String name, Frame defaultValue) {
 		flags.controlNames.push(name);
 		flags.defaultValues = defaultValue;

@@ -5,9 +5,6 @@ import java.util.Stack;
 
 import baseClasses.history.HistoryParameter;
 
-
-
-
 public class FloatHistoryParameter implements HistoryParameter<Stack<Float>> 
 {
 	protected Stack<Float> stackOfFloats;
@@ -43,8 +40,12 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 		return newStackOfFloats;
 	}
 	public Boolean isEmptyObject() {
-		if (stackOfFloats.empty()) {return true;}
-		else {return false;}
+		if (stackOfFloats.empty()) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	public void setToEmptyObject() {
 		stackOfFloats.clear();
