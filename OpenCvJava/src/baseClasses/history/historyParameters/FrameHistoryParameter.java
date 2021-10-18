@@ -36,4 +36,12 @@ public class FrameHistoryParameter implements HistoryParameter<Frame>
 	
 		return newFrame;
 	}
+	public Boolean isEmptyObject() {
+		if (frame == null) {return true;}
+		else {return false;}
+	}
+	public void setToEmptyObject() {
+		frame=null;
+	}
+
 };

@@ -12,12 +12,12 @@ public class UndoHistory<T> extends History<T>
 	}
 	
 	public void store() {	
-		HistoryParameter<T> parameter = factory.getNew();
-		parameter.set(state.clone());  
-		undoHistory.push(parameter);
-		firstUndo = true;
-		firstRedo = true;
-		clearRedoHistory();
+			HistoryParameter<T> parameter = factory.getNew();
+			parameter.set(state.clone());  
+			undoHistory.push(parameter);
+			firstUndo = true;
+			firstRedo = true;
+			clearRedoHistory();
 	}
 	
 	public void undo() {
@@ -26,7 +26,8 @@ public class UndoHistory<T> extends History<T>
 			if (firstUndo) {
 				state=undoHistory.peek();
 				undoHistory.pop();
-				firstUndo=false;	 
+				firstUndo=false;	
+				firstRedo=true;
 			}
 			else {
 				redoHistory.push(state);
@@ -43,6 +44,10 @@ public class UndoHistory<T> extends History<T>
 			state=redoHistory.peek();
 			redoHistory.pop();
 		}
-		firstRedo=false;
+		else {
+			firstRedo=false;
+			store();
+		}
+		
 	}
 };

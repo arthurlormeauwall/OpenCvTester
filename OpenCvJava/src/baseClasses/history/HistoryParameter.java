@@ -7,4 +7,6 @@ public interface HistoryParameter<T>
 	public void invert();
 	public T getParameter();
 	public abstract T  clone();
+	public Boolean isEmptyObject();
+	public void setToEmptyObject();
 }

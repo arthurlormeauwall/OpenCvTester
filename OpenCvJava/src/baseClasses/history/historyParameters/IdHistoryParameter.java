@@ -10,6 +10,7 @@ public class IdHistoryParameter implements HistoryParameter<Id>
 	
     public IdHistoryParameter() {
     	id= new Id();
+    	id.initNULL();
     }
     public IdHistoryParameter(Id id) {
     	this.id= id;
@@ -36,5 +37,13 @@ public class IdHistoryParameter implements HistoryParameter<Id>
 		Id newId= new Id();
 		newId= id;
 		return newId;
+	}
+	
+	public Boolean isEmptyObject() {
+		if (id.getGroupId()== 0 && id.get()[0]==-1) {return true;}
+		else {return false;}
+	}
+	public void setToEmptyObject() {
+		id.set(-1,-1,0);
 	}
 };
