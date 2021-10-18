@@ -43,6 +43,10 @@ public class UndoHistory<T> extends History<T>
 			state=redoHistory.peek();
 			redoHistory.pop();
 		}
-		firstRedo=false;
+		else {
+			firstRedo=false;
+			store();
+		}
+		
 	}
 };
