@@ -21,7 +21,7 @@ public class UndoHistory<T> extends History<T>
 	}
 	
 	public void undo() {
-		if (isUndoEmpty()==false && state!=null)
+		if (empty()==false && state!=null)
 			{
 			if (firstUndo) {
 				state=undoHistory.peek();

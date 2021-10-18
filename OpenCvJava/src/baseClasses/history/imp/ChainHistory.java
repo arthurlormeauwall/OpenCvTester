@@ -17,7 +17,7 @@ public class ChainHistory<T> extends History<T>
      }
      
      public void undo() {
-         if (!isUndoEmpty() && state!=null) {
+         if (!empty() && state!=null) {
         	state.invert();
         	redoHistory.push(state);
          	state.set(undoHistory.peek().getParameter());

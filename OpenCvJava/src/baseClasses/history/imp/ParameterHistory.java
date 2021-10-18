@@ -22,7 +22,7 @@ public class ParameterHistory<T> extends History<T>
 	}
      
 	public void undo() {
-	    if (!isUndoEmpty() && state!=null){
+	    if (!empty() && state!=null){
 		   	if (firstUndo) {
 			   		 redoHistory.push(undoHistory.peek());
 			   		 undoHistory.pop();
@@ -54,7 +54,7 @@ public class ParameterHistory<T> extends History<T>
 	    }
 	} 
 	
-	public Boolean isUndoEmpty() { 
+	public Boolean empty() { 
 		if(firstUndo) {
 			if (undoHistory.size() <= 1) {
 				return true;  

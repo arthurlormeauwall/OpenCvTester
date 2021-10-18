@@ -27,10 +27,11 @@ public abstract class History<T>
 	public abstract void redo(); 
 	 
 	public void setState(HistoryParameter<T> t) {
-		state.set(t.getParameter());
+		//state.set(t.getParameter());
+		state.set(t.clone());
 	}
 	
-	public Boolean isUndoEmpty() { 
+	public Boolean empty() { 
 		if (undoHistory.size() <= 0) {
 		    return true;  
 		}

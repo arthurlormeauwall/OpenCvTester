@@ -143,7 +143,7 @@ public class ChainOfControls extends Control
 	        int undoControlIndex = getControlIndex(undoIdHistory);
 	
 	        if (undoGroupId == currentGroupId) {
-	            if (!history.isUndoEmpty()) {
+	            if (!history.empty()) {
 	                history.undo();
 	                compute();
 	                return true;
@@ -153,8 +153,13 @@ public class ChainOfControls extends Control
 	            }
 	        }
 	        else {
-	            return controls.get(undoControlIndex).undo();
-	        } 	
+	        	if (!controls.empty())
+	        	{
+	        		 return controls.get(undoControlIndex).undo();
+	        	}  
+	        	return false;
+	        }
+				
     }
     
     public Boolean redo() {

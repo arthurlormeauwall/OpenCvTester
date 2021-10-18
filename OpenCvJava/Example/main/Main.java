@@ -37,6 +37,20 @@ public class Main
 		fakeGui.setParameters(0, 0, floatParameters);	 // mag
 		floatParameters.clear();
 		
+		controlIndexInDataBase.clear();
+		controlIndexInDataBase.push(0);
+		fakeGui.addLayer(1, controlIndexInDataBase);
+		fakeGui.setBypass(1, 0, false);
+		
+		fakeGui.undo();                                 
+		fakeGui.redo();
+		
+		floatParameters.push(2f);
+		floatParameters.push(0.3f);
+		floatParameters.push(0f);
+		fakeGui.setParameters(1, 0, floatParameters);    
+		floatParameters.clear();
+		
 		
 		floatParameters.push(1.2f);
 		floatParameters.push(1.6f);
@@ -52,10 +66,7 @@ public class Main
 		fakeGui.redo();									  // Mag
 		fakeGui.redo();									  // Cyan
 		
-		controlIndexInDataBase.clear();
-		controlIndexInDataBase.push(0);
-		fakeGui.addLayer(1, controlIndexInDataBase);
-		fakeGui.setBypass(1, 0, false);
+		
 		
 		fakeGui.redo();
 		fakeGui.redo();
