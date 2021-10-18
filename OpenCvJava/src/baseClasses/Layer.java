@@ -36,23 +36,24 @@ public abstract class Layer extends Control
 		return chainOfControls;
 	}
 	
-	public void addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
+	public Boolean addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
+		
 		Control control = createControl(id, stackOfControlIndexInDataBase);
-		addOrDelete(ChainCommand.ADD, control, id);
 		updateRenderAtId(id.get(0));
+		return addOrDelete(ChainCommand.ADD, control, id);	
 	}
 	
-	public void delControl(Stack<Id> id) {
-		addOrDelete(ChainCommand.DELETE, chainOfControls.getControl(0), id);
+	public Boolean delControl(Stack<Id> id) {
+		return addOrDelete(ChainCommand.DELETE, chainOfControls.getControl(0), id);
 	}
 	
-	public void addOrDelete (ChainCommand chainCommand, Control control, Stack<Id> id) {
+	public Boolean addOrDelete (ChainCommand chainCommand, Control control, Stack<Id> id) {
 		ItemAndId<Control> parameter = new ItemAndId<Control>();
 		parameter.chainCommand = chainCommand;
 		parameter.item = control;
 		parameter.id = id;
-
-		chainOfControls.addOrDelete(parameter);
+	
+		return chainOfControls.addOrDelete(parameter);
 	}
 	
 	public void updateRenderAtId(Id id) {

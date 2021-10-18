@@ -34,13 +34,17 @@ public class Renderer extends RendererInterface
 	
 	public void addLayer(Stack<Id> controlId, Stack<Integer> stackOfindexInDataBase){
 		
-		addControl(controlId, stackOfindexInDataBase);
-		compute();
+		if (addControl(controlId, stackOfindexInDataBase)) {
+			compute();
+		}
+		
 	}   
 	
 	public void delLayer(Stack<Id> controlId){
-		delControl(controlId);
-		compute();
+		if (delControl(controlId)){
+			compute();
+		}
+		
 	}   
 	
 	public void setAlpha(int layerIndex, Frame alpha){

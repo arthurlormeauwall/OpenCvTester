@@ -14,15 +14,13 @@ public class Main
 		fakeGui.addControlInDataBase(new MultBgrControl());
 		fakeGui.addControlInDataBase(new GrayScaleControl());
     
-		
-		
 		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
 		controlIndexInDataBase.push(0);
 		fakeGui.addLayer(0, controlIndexInDataBase);       
 		fakeGui.setBypass(0, 0, false);   
 		
 		
-		fakeGui.undo();
+		fakeGui.undo(); 
 		fakeGui.undo();
 		fakeGui.undo();
 		fakeGui.undo();
@@ -32,17 +30,16 @@ public class Main
 		floatParameters.push(2f);
 		floatParameters.push(0.9f);
     		
-		fakeGui.setParameters(0, 0, floatParameters);	// Green
+		fakeGui.setParameters(0, 0, floatParameters);
 		
-		
-		fakeGui.undo();                                  // Darker
-		fakeGui.redo();                                  // Green
+		fakeGui.undo();                                  
+		fakeGui.redo();                                  
 		floatParameters.clear();
 		
 		floatParameters.push(1f);
 		floatParameters.push(0.3f);
 		floatParameters.push(1.6f);
-		fakeGui.setParameters(0, 0, floatParameters);	 // mag
+		fakeGui.setParameters(0, 0, floatParameters);	
 		floatParameters.clear();
 		
 		controlIndexInDataBase.clear();
