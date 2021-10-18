@@ -43,8 +43,7 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 			Stack<Float> parameterPassedToHistory= new Stack<Float>();
 			for (int i=0;i<flags.numberOfParameters;i++) {
 				parameterPassedToHistory.set(i, parameter.get(i));
-			}
-			
+			}	
 		}
 		history.setState(new FloatHistoryParameter(parameter));
 		if (parameter==flags.zeroEffectValues) {
