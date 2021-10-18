@@ -24,6 +24,7 @@ This project is aim to achieve that and its purpose is mostly educational. Moreo
 ## Technologies Used
 
 - OpenCv version 3.4.15
+- Java(TM) SE Runtime Environment (build 16.0.1+9-24)
 
 
 ## Features
