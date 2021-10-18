@@ -26,7 +26,8 @@ public class UndoHistory<T> extends History<T>
 			if (firstUndo) {
 				state=undoHistory.peek();
 				undoHistory.pop();
-				firstUndo=false;	 
+				firstUndo=false;	
+				firstRedo=true;
 			}
 			else {
 				redoHistory.push(state);
