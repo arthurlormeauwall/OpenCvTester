@@ -12,12 +12,15 @@ public class UndoHistory<T> extends History<T>
 	}
 	
 	public void store() {	
+		 if (readyToStore) {
 			HistoryParameter<T> parameter = factory.getNew();
 			parameter.set(state.clone());  
 			undoHistory.push(parameter);
 			firstUndo = true;
 			firstRedo = true;
 			clearRedoHistory();
+			this.readyToStore=false;
+		 }
 	}
 	
 	public void undo() {

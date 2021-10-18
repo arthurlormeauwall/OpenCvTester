@@ -36,15 +36,36 @@ public abstract class Layer extends Control
 		return chainOfControls;
 	}
 	
+	public Boolean isIndexOutOfRange(Stack<Id> controlId) {
+		int indexOfControlToAddOrDelete= controlId.get(0).get()[chainOfControls.getDeepnessIndex()];
+
+		if(chainOfControls.getSize()>= indexOfControlToAddOrDelete) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
 	public Boolean addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
 		
-		Control control = createControl(id, stackOfControlIndexInDataBase);
-		updateRenderAtId(id.get(0));
-		return addOrDelete(ChainCommand.ADD, control, id);	
+		if (!isIndexOutOfRange(id)) {
+			Control control = createControl(id, stackOfControlIndexInDataBase);
+			updateRenderAtId(id.get(0));
+			return addOrDelete(ChainCommand.ADD, control, id);	
+		}
+		else { 
+			return false;
+		}
 	}
 	
 	public Boolean delControl(Stack<Id> id) {
-		return addOrDelete(ChainCommand.DELETE, chainOfControls.getControl(0), id);
+		if (!isIndexOutOfRange(id)) {
+			return addOrDelete(ChainCommand.DELETE, chainOfControls.getControl(0), id);
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public Boolean addOrDelete (ChainCommand chainCommand, Control control, Stack<Id> id) {

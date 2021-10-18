@@ -209,7 +209,7 @@ public class ChainOfControls extends Control
         	 history.store();
          }
          
-         else if (undoControlIndex >= 0){
+         else if (undoControlIndex >= 0 && undoControlIndex < controls.size()){
              controls.get(undoControlIndex).store();
          }
     }

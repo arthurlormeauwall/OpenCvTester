@@ -8,10 +8,13 @@ public abstract class History<T>
 	protected HistoryParameter<T> state;
 	protected Stack<HistoryParameter<T>> undoHistory;
 	protected Stack<HistoryParameter<T>> redoHistory; 
+	
+	protected Boolean readyToStore;
 
 	public History(){
 		undoHistory= new Stack<HistoryParameter<T>>();      
 		redoHistory = new Stack<HistoryParameter<T>>();
+		readyToStore=false;
 	}
 		
 	public void initFactory(HistoryParameter<T> p) {
@@ -28,6 +31,7 @@ public abstract class History<T>
 	 
 	public void setState(HistoryParameter<T> t) {
 		state.set(t.clone());
+		readyToStore=true;
 	}
 	
 	public Boolean isUndoEmpty() { 

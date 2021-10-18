@@ -29,9 +29,20 @@ public class Main
 		fakeGui.setParameters(0, 0, floatParameters);
 		floatParameters.clear();
 		
-		fakeGui.undo();                                  
+		fakeGui.undo();    
+		fakeGui.undo();
+		fakeGui.undo();
+		fakeGui.addLayer(2, controlIndexInDataBase);
+		fakeGui.undo();
+		fakeGui.redo();
+		fakeGui.redo();
+		fakeGui.addLayer(1, controlIndexInDataBase);
+		fakeGui.setBypass(1, 0, false);
+		fakeGui.undo();
 		fakeGui.redo();                                  
 	
+		fakeGui.undo();
+		
 		floatParameters.push(1f);
 		floatParameters.push(0.3f);
 		floatParameters.push(1.6f);

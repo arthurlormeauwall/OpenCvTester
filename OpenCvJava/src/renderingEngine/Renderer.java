@@ -19,6 +19,7 @@ public class Renderer extends RendererInterface
 	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
 		Stack<Integer> stackOfControlIndexInDataBase = new Stack<Integer>();
 		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
+		
 		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
 			((MaskedLayer)chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, stackOfControlIndexInDataBase);
 			compute();
@@ -33,18 +34,18 @@ public class Renderer extends RendererInterface
 	}   
 	
 	public void addLayer(Stack<Id> controlId, Stack<Integer> stackOfindexInDataBase){
-		
 		if (addControl(controlId, stackOfindexInDataBase)) {
 			compute();
-		}
-		
-	}   
+		}	
+	}  
+	
+	
 	
 	public void delLayer(Stack<Id> controlId){
-		if (delControl(controlId)){
+		if (delControl(controlId))
+		{
 			compute();
 		}
-		
 	}   
 	
 	public void setAlpha(int layerIndex, Frame alpha){
