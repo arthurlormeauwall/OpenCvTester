@@ -47,8 +47,8 @@ The rendering part is fully working. The GUI does not exist yet.
 
 ## Usage
 
->The main goal of this entire project is to provide en enterractive way of testing Open Cv, therefore I am perfecty aware it can not be achieved without GUI. This project is still work in progress !
-Since the rendering part is operationnal, I decided to share it to other people anyway. This section describes how you can test it as it is now.
+>The main goal of this entire project is to provide an interactive way of testing Open Cv, therefore I am perfecty aware it can not be achieved without GUI. This project is still work in progress !
+Since the rendering part is operational, I decided to share it to other people anyway. This section describes how you can test it as it is now.
 
 ### 1. The FakeGui classe
 
