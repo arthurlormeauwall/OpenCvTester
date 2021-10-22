@@ -8,7 +8,7 @@ import userAlgorithms.MultBgrControl;
 public class Main 
 {
     public static void main(String[] args){	
-		FakeGui fakeGui= new FakeGui("assets/20210717_203824.jpg"); 
+		FakeGui fakeGui= new FakeGui("assets/test.jpg"); 
 		fakeGui.addControlInDataBase(new MultBgrControl());
 		fakeGui.addControlInDataBase(new GrayScaleControl());
     

@@ -3,7 +3,6 @@ package application;
 import renderingEngine.GroupsId;
 import renderingEngine.Renderer;
 
-
 import org.opencv.core.Core;
 
 import algorithmsDataBase.DbControls;
@@ -46,6 +45,7 @@ public class App
 
 		renderer.setSource(source);
 		renderer.setDest(dest);
+		renderer.play();
 		mainWin= new UIImp(renderer);	
 	}
 	
