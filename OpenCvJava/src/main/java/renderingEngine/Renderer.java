@@ -2,17 +2,17 @@ package renderingEngine;
 
 import java.util.Stack;
 
-import algorithmsDataBase.DbControls;
 import application.RendererInterface;
 import baseClasses.Control;
 import baseClasses.Id;
-import baseClasses.adjustControl.AdjustControlFloat;
+import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
+import filtersDataBase.FiltersDataBase;
 
 public class Renderer extends RendererInterface
 {
-	public Renderer (DbControls dbControls, Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+	public Renderer (FiltersDataBase dbControls, Frame background, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(dbControls, background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
@@ -66,7 +66,7 @@ public class Renderer extends RendererInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		if (getNumberOfControl() > layerIndex && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl()  > controlIndex) {
-			AdjustControlFloat adjustControlToSet = (AdjustControlFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex);
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex);
 			adjustControlToSet.setParameter(parameters);
 			compute();
 		}
@@ -77,7 +77,7 @@ public class Renderer extends RendererInterface
 		int controlIndex = ControlId.get()[1];
 	
 		if ( getNumberOfControl()>layerIndex && ((MaskedLayer)chainOfControls.getControl(layerIndex)).getNumberOfControl() > controlIndex) {
-			AdjustControlFloat temp = ((AdjustControlFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex));
+			FilterControlledByFloat temp = ((FilterControlledByFloat)((MaskedLayer)chainOfControls.getControl(layerIndex)).getControl(controlIndex));
 			temp.setBypass(p);
 			compute();
 		}
@@ -165,7 +165,7 @@ public class Renderer extends RendererInterface
 		chainOfControls.store();
 	}
 
-	public void addAlgorithm(AdjustControlFloat algoParameters) {
+	public void addAlgorithm(FilterControlledByFloat algoParameters) {
 		dbControls.addAlgorithm(algoParameters);
 	}
 	

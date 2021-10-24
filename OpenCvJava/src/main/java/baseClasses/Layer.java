@@ -34,8 +34,7 @@ public abstract class Layer extends Control
 		else { 
 			return false;
 		}
-	}
-	
+	}	
 	public Boolean delControl(Stack<Id> id) {
 		if (!isIndexOutOfRange(id)) {
 			return addOrDelete(ChainCommand.DELETE, chainOfControls.getControl(0), id);

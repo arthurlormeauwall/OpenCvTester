@@ -1,13 +1,13 @@
-package baseClasses.adjustControl;
+package baseClasses.filter;
 
 import java.util.Stack;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.ParameterHistory;
 
 
-public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
+public abstract class FilterControlledByFloat extends Filter<Stack<Float>>
 {
-	public AdjustControlFloat() {
+	public FilterControlledByFloat() {
 		history = new ParameterHistory<Stack<Float>>();
 		history.initFactory(new FloatHistoryParameter());
 		history.initState(new FloatHistoryParameter());
@@ -25,7 +25,7 @@ public abstract class AdjustControlFloat extends AdjustControl<Stack<Float>>
 		history.store();
 	}
 	
-	public abstract AdjustControlFloat createNew();
+	public abstract FilterControlledByFloat createNew();
 	public abstract void setParameterFlags();
 
 	public Float getParameter(int index) {

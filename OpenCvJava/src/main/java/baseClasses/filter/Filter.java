@@ -1,27 +1,27 @@
-package baseClasses.adjustControl;
+package baseClasses.filter;
 
 import java.util.Stack;
 
-import algorithmsDataBase.ControlFlags;
 import baseClasses.Control;
 import baseClasses.IoFrame;
 import baseClasses.history.imp.ParameterHistory;
 import baseClasses.openCvFacade.Frame;
+import filtersDataBase.FilterFlags;
 
 
-public abstract class AdjustControl<T> extends Control implements IoFrame 
+public abstract class Filter<T> extends Control implements IoFrame 
 {
 	protected ParameterHistory<T> history;
-	protected ControlFlags<T> flags;
+	protected FilterFlags<T> flags;
 	protected Frame source;
 	protected Frame dest;
 	
-	public AdjustControl() {
+	public Filter() {
 		initAdjsutControl();
 	}
 	
 	private void initAdjsutControl() {
-		flags = new ControlFlags<T>();
+		flags = new FilterFlags<T>();
 		isBypass=true;	
 	}
 
@@ -75,7 +75,7 @@ public abstract class AdjustControl<T> extends Control implements IoFrame
 		setParameter(flags.defaultValues);
 	}
 	
-	public ControlFlags<T> getFlags() {
+	public FilterFlags<T> getFlags() {
 		return flags;
 	}
 	 

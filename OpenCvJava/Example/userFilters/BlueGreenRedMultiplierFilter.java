@@ -1,16 +1,15 @@
-package userAlgorithms;
+package userFilters;
 
 import java.util.Stack;
 
 import org.opencv.core.Mat;
 
+import baseClasses.filter.FilterControlledByFloat;
 
-import baseClasses.adjustControl.AdjustControlFloat;
 
-
-public class MultBgrControl extends AdjustControlFloat 
+public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat 
 {
-	public MultBgrControl() {		
+	public BlueGreenRedMultiplierFilter() {		
 	}
 
 	public void setParameterFlags() {	
@@ -26,8 +25,8 @@ public class MultBgrControl extends AdjustControlFloat
 		setZeroEffectValues(zeroEffectValues);
 	}
 	
-	public MultBgrControl createNew() {	
-		return new MultBgrControl();
+	public BlueGreenRedMultiplierFilter createNew() {	
+		return new BlueGreenRedMultiplierFilter();
 	}
 
 	public void compute() {	

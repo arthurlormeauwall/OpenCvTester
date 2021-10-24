@@ -1,15 +1,16 @@
-package algorithmsDataBase;
+package filtersDataBase;
 
 import org.opencv.core.Mat;
-import baseClasses.adjustControl.AdjustControlFrame;
+
+import baseClasses.filter.FilterControlledByFrame;
 import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.openCvFacade.Frame;
 
-public class AlphaControl extends AdjustControlFrame 
+public class OpacityFilter extends FilterControlledByFrame 
 {
 	protected Frame background;	
 	
-	public AlphaControl() {
+	public OpacityFilter() {
 	}
 	
 	public void init(Frame background) {

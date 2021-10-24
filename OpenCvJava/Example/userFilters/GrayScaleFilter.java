@@ -1,12 +1,13 @@
-package userAlgorithms;
+package userFilters;
 
 import java.util.Stack;
 import org.opencv.core.Mat;
-import baseClasses.adjustControl.AdjustControlFloat;
 
-public class GrayScaleControl extends AdjustControlFloat 
+import baseClasses.filter.FilterControlledByFloat;
+
+public class GrayScaleFilter extends FilterControlledByFloat 
 {
-	public GrayScaleControl() {
+	public GrayScaleFilter() {
 	}
 	
 	public void setParameterFlags() {
@@ -22,8 +23,8 @@ public class GrayScaleControl extends AdjustControlFloat
 		setZeroEffectValues(zeroEffectValues);
 	}
 	
-	public GrayScaleControl createNew() {	
-		return new GrayScaleControl();
+	public GrayScaleFilter createNew() {	
+		return new GrayScaleFilter();
 	}
 
 	public void compute() {

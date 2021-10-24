@@ -2,15 +2,15 @@ package main;
 
 import java.util.Stack;
 import fakeGui.FakeGui;
-import userAlgorithms.GrayScaleControl;
-import userAlgorithms.MultBgrControl;
+import userFilters.GrayScaleFilter;
+import userFilters.BlueGreenRedMultiplierFilter;
 
 public class Main 
 {
     public static void main(String[] args){	
 		FakeGui fakeGui= new FakeGui("assets/test.jpg"); 
-		fakeGui.addControlInDataBase(new MultBgrControl());
-		fakeGui.addControlInDataBase(new GrayScaleControl());
+		fakeGui.addControlInDataBase(new BlueGreenRedMultiplierFilter());
+		fakeGui.addControlInDataBase(new GrayScaleFilter());
     
 		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
 		controlIndexInDataBase.push(0);

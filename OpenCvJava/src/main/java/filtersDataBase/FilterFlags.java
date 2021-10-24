@@ -1,8 +1,8 @@
-package algorithmsDataBase;
+package filtersDataBase;
 
 import java.util.Stack;
 
-public class ControlFlags<T> 
+public class FilterFlags<T> 
 {	
 	public Stack<String> controlNames;
 	public int numberOfParameters;

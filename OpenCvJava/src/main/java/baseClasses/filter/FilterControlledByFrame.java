@@ -1,4 +1,4 @@
-package baseClasses.adjustControl;
+package baseClasses.filter;
 
 
 
@@ -8,9 +8,9 @@ import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.ParameterHistory;
 import baseClasses.openCvFacade.Frame;
 
-public abstract class AdjustControlFrame extends AdjustControl<Frame>
+public abstract class FilterControlledByFrame extends Filter<Frame>
 {
-	public AdjustControlFrame() {
+	public FilterControlledByFrame() {
 		initAdjControlFrame();
 	} 
 	

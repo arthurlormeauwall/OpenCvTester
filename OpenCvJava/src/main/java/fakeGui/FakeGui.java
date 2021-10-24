@@ -7,7 +7,7 @@ import application.App;
 import application.Functionalities;
 import application.Parameters;
 import baseClasses.Id;
-import baseClasses.adjustControl.AdjustControlFloat;
+import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.GroupsId;
 
@@ -234,7 +234,7 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 	}
 	
-	public void addControlInDataBase(AdjustControlFloat newControl) {
+	public void addControlInDataBase(FilterControlledByFloat newControl) {
 		
 		Action action = new Action();
 		action.parameters= new Parameters();

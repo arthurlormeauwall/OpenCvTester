@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import application.UIInterface;
 import baseClasses.Id;
-import baseClasses.adjustControl.AdjustControlFloat;
+import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.Renderer;
  
@@ -66,7 +66,7 @@ public class UIImp extends UIInterface
 	}
 
 	
-	public void addAlgorithm(AdjustControlFloat algorithm) {
+	public void addAlgorithm(FilterControlledByFloat algorithm) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,10 +3,10 @@ package renderingEngine;
 import baseClasses.Layer;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
+import filtersDataBase.FiltersDataBase;
 
 import java.util.Stack;
 
-import algorithmsDataBase.DbControls;
 import baseClasses.Control;
 import baseClasses.Id;
 import baseClasses.IoFrame;
@@ -16,9 +16,9 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 	protected Stack<Frame> frames;
 	protected Frame source;
 	protected Frame dest;
-	protected DbControls dbControls;
+	protected FiltersDataBase dbControls;
 	
-	public FrameLayer(DbControls dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+	public FrameLayer(FiltersDataBase dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		frames = new Stack<Frame>();
 		source = new Frame ();

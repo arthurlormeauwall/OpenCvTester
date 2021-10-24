@@ -2,23 +2,23 @@ package renderingEngine;
 
 import java.util.Stack;
 
-import algorithmsDataBase.AlphaControl;
-import algorithmsDataBase.DbControls;
 import baseClasses.Control;
 import baseClasses.Id;
-import baseClasses.adjustControl.AdjustControlFloat;
+import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.history.imp.UndoHistory;
 import baseClasses.openCvFacade.Frame;
+import filtersDataBase.FiltersDataBase;
+import filtersDataBase.OpacityFilter;
 
 public class MaskedLayer extends FrameLayer
 {
 	protected Frame background;
-	protected AlphaControl alpha;
+	protected OpacityFilter alpha;
 	
-	public MaskedLayer (DbControls dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+	public MaskedLayer (FiltersDataBase dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
 		super(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
-		dbControls = new DbControls();
+		dbControls = new FiltersDataBase();
 		alpha = dbControls.getAlphaControl();
 		alpha.setRenderAtId(this.renderAtIdHistory);
 		alpha.setUndoId(this.undoIdHistory);
@@ -50,7 +50,7 @@ public class MaskedLayer extends FrameLayer
 	}
 	
 	public void setFloatParameters(int controlIndex, Stack<Float> parameters){	
-		((AdjustControlFloat)chainOfControls.getControl(controlIndex)).setParameter(parameters);
+		((FilterControlledByFloat)chainOfControls.getControl(controlIndex)).setParameter(parameters);
 	}
 	
 	public void compute() {	
@@ -108,7 +108,7 @@ public class MaskedLayer extends FrameLayer
 		return newMaskedLayer;
 	}
 
-	public AlphaControl getAlpha(){
+	public OpacityFilter getAlpha(){
 		return alpha;
 	}
 	
