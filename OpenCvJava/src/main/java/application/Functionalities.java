@@ -3,8 +3,8 @@ package application;
 public enum Functionalities 
 {	
 	ADD_FILTER_TO_DATABASE,
-	ADD_CONTROL,
-	DELETE_CONTROL,
+	ADD_FILTER,
+	DELETE_FILTER,
 	ADD_LAYER,
 	DELETE_LAYER,
 	SET_ALPHA_OPACITY,

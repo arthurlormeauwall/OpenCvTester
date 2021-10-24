@@ -18,12 +18,12 @@ public abstract class UIInterface extends Command implements FunctionalitiesInte
 				addAlgorithm(p.parameters.algoParameters);
 				break;
 				
-			case ADD_CONTROL:
+			case ADD_FILTER:
 				renderer.addControlInLayer(p.id,((int)p.parameters.intParameters.get(0)));	
 				addControlInLayer (p.id, ((int)p.parameters.intParameters.get(0)));
 				break;
 	
-			case DELETE_CONTROL :
+			case DELETE_FILTER :
 				renderer.delControlInLayer(p.id);
 				delControlInLayer(p.id);
 				break;

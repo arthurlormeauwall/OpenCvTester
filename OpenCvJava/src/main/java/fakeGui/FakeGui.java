@@ -39,7 +39,7 @@ public class FakeGui
 		
 		action.id=stackOfIds;
 		action.parameters.intParameters.push(controlIndexInDataBase);		
-		action.whatToDo=Functionalities.ADD_CONTROL;
+		action.whatToDo=Functionalities.ADD_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
 		store();
@@ -59,7 +59,7 @@ public class FakeGui
 		
 		action.id=stackOfIds;
 		action.parameters.intParameters.push(null);		
-		action.whatToDo=Functionalities.DELETE_CONTROL;
+		action.whatToDo=Functionalities.DELETE_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
 		store();
