@@ -241,7 +241,7 @@ public class FakeGui
 		
 		action.id=null;	
 		action.parameters.algoParameters=newControl;
-		action.whatToDo=Functionalities.ADD_FILTER_TO_DATABASE;
+		action.whatToDo=Functionalities.ADD_FILTER_IN_DATABASE;
 		
 		myApp.getMainWin().dealOrder(action);
 	}

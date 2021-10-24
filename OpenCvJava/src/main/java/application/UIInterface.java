@@ -13,7 +13,7 @@ public abstract class UIInterface extends Command implements FunctionalitiesInte
 
 	public void dealOrder(Action p) {
 		switch (p.whatToDo) {
-			case ADD_FILTER_TO_DATABASE:
+			case ADD_FILTER_IN_DATABASE:
 				renderer.addAlgorithm(p.parameters.algoParameters);
 				addAlgorithm(p.parameters.algoParameters);
 				break;
