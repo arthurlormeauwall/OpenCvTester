@@ -2,7 +2,7 @@ package application;
 
 public enum Functionalities 
 {	
-	ADD_FILTER,
+	ADD_FILTER_TO_DATABASE,
 	ADD_CONTROL,
 	DELETE_CONTROL,
 	ADD_LAYER,
