@@ -241,7 +241,7 @@ public class FakeGui
 		
 		action.id=null;	
 		action.parameters.algoParameters=newControl;
-		action.whatToDo=Functionalities.ADD_ALGORITHM;
+		action.whatToDo=Functionalities.ADD_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
 	}
