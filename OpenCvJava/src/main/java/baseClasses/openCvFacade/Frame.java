@@ -60,7 +60,6 @@ public class Frame
 	}
 	
 	public Boolean compareTo(Frame p) {
-		Boolean value=false; 
 		
 		int rowsP= p.getFrame().rows();
 		int colsP=p.getFrame().cols();
@@ -72,16 +71,14 @@ public class Frame
 			
 			for (int i=0; i<rows; i++) {
 				for (int j=0; j<cols;j ++) {
-					if (p.getFrame().get(i,j) == frameMat.get(i,j)) {
-						value= true;
-					}
-					else {
-						value = false;
+					if (p.getFrame().get(i,j) != frameMat.get(i,j)) {
+						return false;
 					}
 				}
-			}	
+			}
+			return true ; 
 		}
-		return value;
+		return false;
 	}
 
 	public Mat getFrame(){ 
