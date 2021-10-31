@@ -16,20 +16,20 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		super(dbControls, background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
-	public void addFilterInLayer(Stack<Id> controlId, String controlIndexInDataBase) {
-		Stack<String> stackOfControlIndexInDataBase = new Stack<String>();
-		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
+	public void addFilterInLayer(Stack<Id> filterId, String filterNames) {
+		Stack<String> stackOfFilterNames = new Stack<String>();
+		stackOfFilterNames.push(filterNames);
 		
-		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
-			if (((Layer)chainOfFilters.getCommand(controlId.get(0).get()[0])).addFilter(controlId, stackOfControlIndexInDataBase)) {
+		if ( getNumberOfFilters()> filterId.get(0).get()[0]) {
+			if (((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).addFilter(filterId, stackOfFilterNames)) {
 				execute();
 			}
 		}	
 	}
 	
-	public void delFilterInLayer(Stack<Id> controlId){
-		if (getNumberOfControl()> controlId.get(0).get()[0]) {
-			if(((Layer)chainOfFilters.getCommand(controlId.get(0).get()[0])).delFilter(controlId)) {
+	public void delFilterInLayer(Stack<Id> filterId){
+		if (getNumberOfFilters()> filterId.get(0).get()[0]) {
+			if(((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).delFilter(filterId)) {
 				execute();
 			}
 		}
@@ -41,22 +41,22 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}	
 	}  
 
-	public void delLayer(Stack<Id> controlId){
-		if (delFilter(controlId))
+	public void delLayer(Stack<Id> filterId){
+		if (delFilter(filterId))
 		{
 			execute();
 		}
 	}   
 	
 	public void setAlpha(int layerIndex, Frame alpha){
-		if (getNumberOfControl() > layerIndex) {
+		if (getNumberOfFilters() > layerIndex) {
 			((Layer)chainOfFilters.getCommand(layerIndex)).setAlpha(alpha);
 			execute();
 		}	
 	}   
 	
 	public void setAlpha(int layerIndex, int opacity){
-		if (getNumberOfControl() >layerIndex) {
+		if (getNumberOfFilters() >layerIndex) {
 			((Layer)chainOfFilters.getCommand(layerIndex)).setAlpha(opacity);
 			execute();
 		}
@@ -65,7 +65,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public void setParameters(Id ControlId, Stack<Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		if (getNumberOfControl() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfControl()  > controlIndex) {
+		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(controlIndex);
 			adjustControlToSet.setParameter(parameters);
 			execute();
@@ -76,7 +76,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 	
-		if ( getNumberOfControl()>layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfControl() > controlIndex) {
+		if ( getNumberOfFilters()>layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters() > controlIndex) {
 			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(controlIndex));
 			temp.setBypass(p);
 			execute();
@@ -108,7 +108,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public void execute(){
 		dealFrames();
 		dealBackground();
-		dealFramesInMaskedLayers();
+		dealFramesInLayers();
 		render();	
 	}
 
@@ -123,7 +123,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}	
 	}   
 	
-	public void dealFramesInMaskedLayers(){
+	public void dealFramesInLayers(){
 		for (int i = 0; i < chainOfFilters.getSize(); i++) {
 
 			Layer test = (Layer)getFilter(i);
@@ -165,15 +165,15 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		chainOfFilters.store();
 	}
 
-	public void addFilterInDatabase(String name, FilterControlledByFloat algoParameters) {
-		dbControls.addFilter(name, algoParameters);
+	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
+		dbControls.addFilter(name, filter);
 	}
 	
-	public Command getLastControl(){
+	public Command getLastFilter(){
 		return chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
 	}   
 	
-	public int getNumberOfControl() {
+	public int getNumberOfFilters() {
 		return chainOfFilters.getSize();
 	}
 }

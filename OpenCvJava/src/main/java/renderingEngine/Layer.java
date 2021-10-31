@@ -114,7 +114,7 @@ public class Layer extends CompositeFilters
 		return alphaFilter;
 	}
 	
-	public Command getLastControl() {
+	public Command getLastFilter() {
 		return alphaFilter;
 	}
 	
@@ -130,7 +130,7 @@ public class Layer extends CompositeFilters
 		this.background = background; 
 	}
 	
-	public int getNumberOfControl() {
+	public int getNumberOfFilters() {
 		return chainOfFilters.getSize() + 1;
 	}
 }

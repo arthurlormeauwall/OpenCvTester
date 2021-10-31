@@ -33,8 +33,8 @@ public abstract class CompositeFilters extends Filter
 		
 	}
 	
-	public abstract Command getLastControl();
-	public abstract int getNumberOfControl();
+	public abstract Command getLastFilter();
+	public abstract int getNumberOfFilters();
 	protected abstract Filter createFilter(Stack<Id> ids, Stack<String> filterNamesInDataBase);
 	
 	public Boolean addFilter(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {
@@ -111,7 +111,7 @@ public abstract class CompositeFilters extends Filter
 	
 	protected void updateNumberOfFrames() {
 
-		int numberOfControls = getNumberOfControl();
+		int numberOfControls = getNumberOfFilters();
 		int numberOfFrames = frames.size();
 		int lastFrame = frames.size() - 1;
 
@@ -134,13 +134,13 @@ public abstract class CompositeFilters extends Filter
 	
 	protected void dealFrames() {
 		
-		int numberOfControls = getNumberOfControl();
+		int numberOfControls = getNumberOfFilters();
 		updateNumberOfFrames();
 
 		int lastFrameIndex = frames.size() - 1;
 
 		if (numberOfControls>0) {
-			Command lastControl =  getLastControl();
+			Command lastControl =  getLastFilter();
 
 			if (numberOfControls == 1) {
 				((IoFrame)lastControl).setSource(source);

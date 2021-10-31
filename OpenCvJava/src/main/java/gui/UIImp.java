@@ -65,7 +65,6 @@ public class UIImp extends UIInterface
 	}
 
 	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
-	
 		
 	}
 
