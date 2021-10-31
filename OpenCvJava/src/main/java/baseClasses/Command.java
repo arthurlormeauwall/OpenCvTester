@@ -3,7 +3,7 @@ package baseClasses;
 import baseClasses.history.historyParameters.IdHistoryParameter;
 import baseClasses.history.imp.UndoIdHistory;
 
-public abstract class Command extends Undoable
+public abstract class Command implements Undoable
 {
 	protected Id id;
     protected UndoIdHistory<Id> undoIdHistory;

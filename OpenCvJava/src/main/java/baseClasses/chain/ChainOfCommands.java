@@ -4,12 +4,13 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Id;
+import baseClasses.Undoable;
 import baseClasses.history.historyParameters.ChainHistoryParameter;
 import baseClasses.history.imp.ChainHistory;
 import baseClasses.history.imp.UndoIdHistory;
 
 
-public class ChainOfCommands extends Command
+public class ChainOfCommands extends Command implements Undoable
 {
     protected ChainHistory<ChainAction<Command>> history;
     protected Stack<Command> commands;
@@ -170,9 +171,9 @@ public class ChainOfCommands extends Command
         int currentGroupId = id.getGroupId();
         int groupDeepnessIndex = (currentGroupId - 1) / 2;
         
-        /* if we are in a "masked-layer chain" (groupId at '1') we should get layer index 
-        but if we are in a "control-chain" (groupId at '3')
-        we should get control index */
+        /* if we are in a "layer chain" (groupId at '1') we should get layer index 
+        but if we are in a "filter chain" (groupId at '3')
+        we should get filter index */
         
         return groupDeepnessIndex;
     }

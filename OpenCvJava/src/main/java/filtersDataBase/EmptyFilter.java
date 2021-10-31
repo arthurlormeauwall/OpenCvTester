@@ -18,4 +18,6 @@ public class EmptyFilter extends FilterControlledByFloat {
 	public void setParameterFlags() {
 		setEmptyFlags();	
 	}
+
+
 }

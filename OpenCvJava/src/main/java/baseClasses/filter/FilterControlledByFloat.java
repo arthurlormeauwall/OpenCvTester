@@ -5,7 +5,7 @@ import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.ParametersHistory;
 
 
-public abstract class FilterControlledByFloat extends Filter<Stack<Float>>
+public abstract class FilterControlledByFloat extends FilterControlledBy<Stack<Float>>
 {
 	public FilterControlledByFloat() {
 		history = new ParametersHistory<Stack<Float>>();

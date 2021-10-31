@@ -3,7 +3,7 @@ package application;
 import renderingEngine.ChainOfLayers;
 import baseClasses.Undoable;
 
-public abstract class UIInterface extends Undoable implements FunctionalitiesInterface
+public abstract class UIInterface implements Undoable, FunctionalitiesInterface
 {
 	protected ChainOfLayers renderer;
 	

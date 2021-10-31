@@ -15,11 +15,9 @@ import baseClasses.chain.ChainControl;
 import baseClasses.chain.ChainOfCommands;
 import baseClasses.filter.Filter;
 
-public abstract class CompositeFilters  extends Command implements IoFrame
+public abstract class CompositeFilters extends Filter
 {
 	protected Stack<Frame> frames;
-	protected Frame source;
-	protected Frame dest;
 	protected FiltersDataBase dbControls;
 	protected ChainOfCommands chainOfCommands;
 	
@@ -175,19 +173,4 @@ public abstract class CompositeFilters  extends Command implements IoFrame
 		}	
 	}
 
-	public void setSource(Frame s){
-		  source=s;
-	}
-	
-	public void setDest(Frame d){
-		  dest=d;
-	}
-	
-	public Frame getSource(){
-		  return source;
-	}
-	
-	public Frame getDest(){
-		  return dest;
-	}
 }

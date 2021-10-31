@@ -8,7 +8,7 @@ import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.ParametersHistory;
 import baseClasses.openCvFacade.Frame;
 
-public abstract class FilterControlledByFrame extends Filter<Frame>
+public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 {
 	public FilterControlledByFrame() {
 		initFilterControlledByFrame();
