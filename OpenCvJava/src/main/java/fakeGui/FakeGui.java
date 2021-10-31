@@ -27,8 +27,8 @@ public class FakeGui
 		myApp.init(fileName);		
 	}
 	
-	public void addControlInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase) {
-		Id controlId = createControlId(maskedLayerIndex, controlIndex);
+	public void addFilterInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase) {
+		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(controlId);
@@ -47,8 +47,8 @@ public class FakeGui
 		
 	}
 	
-	public void delControlInLayer(int maskedLayerIndex, int controlIndex)  {
-		Id controlId = createControlId(maskedLayerIndex, controlIndex);
+	public void delFilterInLayer(int maskedLayerIndex, int controlIndex)  {
+		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(controlId);
@@ -68,12 +68,12 @@ public class FakeGui
 	}	
 	
 	public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase) {
-		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
+		Id maskedLayerId = createLayerId(maskedLayerIndex);
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(maskedLayerId);
 
 		for (int i=0; i< stackOfindexInDataBase.size(); i++) {
-			stackOfIds.push(createControlId(maskedLayerIndex, i));
+			stackOfIds.push(createFilterId(maskedLayerIndex, i));
 		}
 			
 		Action action = new Action();
@@ -90,7 +90,7 @@ public class FakeGui
 	}	
 	
 	public void delLayer(int maskedLayerIndex) {
-		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
+		Id maskedLayerId = createLayerId(maskedLayerIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(maskedLayerId);
@@ -109,7 +109,7 @@ public class FakeGui
 	}	
 	
 	public void setAlpha(int maskedLayerIndex, Frame alpha) {
-		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
+		Id maskedLayerId = createLayerId(maskedLayerIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		Stack<Frame> stackOfFrames = new Stack<Frame>();
@@ -130,7 +130,7 @@ public class FakeGui
 	}	
 	
 	public void setAlpha(int maskedLayerIndex, int opacity) {
-		Id maskedLayerId = createMaskedLayerId(maskedLayerIndex);
+		Id maskedLayerId = createLayerId(maskedLayerIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		Stack<Integer> stackOfInteger = new Stack<Integer>();
@@ -151,7 +151,7 @@ public class FakeGui
 	}	
 	
 	public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters){
-		Id controlId = createControlId(maskedLayerIndex, controlIndex);
+		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(controlId);
@@ -170,7 +170,7 @@ public class FakeGui
 	}	
 	
 	public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter) {
-		Id controlId = createControlId(maskedLayerIndex, controlIndex);
+		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
 		
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(controlId);
@@ -234,7 +234,7 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 	}
 	
-	public void addControlInDataBase(FilterControlledByFloat newControl) {
+	public void addFilterInDataBase(FilterControlledByFloat newControl) {
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
@@ -246,13 +246,13 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 	}
 	
-	public Id createMaskedLayerId(int maskedLayerIndex) {	
+	private Id createLayerId(int maskedLayerIndex) {	
 		Id id = new Id();
 		id.set(maskedLayerIndex, 0, GroupsId.MASKED_LAYER.ordinal());
 		return id;
 	}	
 	
-	public Id createControlId(int maskedLayerIndex, int controlIndex) {
+	private Id createFilterId(int maskedLayerIndex, int controlIndex) {
 		Id id = new Id();
 		id.set(maskedLayerIndex, controlIndex, GroupsId.CONTROL.ordinal());
 		return id;

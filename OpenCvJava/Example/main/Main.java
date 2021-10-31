@@ -9,8 +9,8 @@ public class Main
 {
     public static void main(String[] args){	
 		FakeGui fakeGui= new FakeGui("assets/test.jpg"); 
-		fakeGui.addControlInDataBase(new BlueGreenRedMultiplierFilter());
-		fakeGui.addControlInDataBase(new GrayScaleFilter());
+		fakeGui.addFilterInDataBase(new BlueGreenRedMultiplierFilter());
+		fakeGui.addFilterInDataBase(new GrayScaleFilter());
     
 		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
 		controlIndexInDataBase.push(0);
