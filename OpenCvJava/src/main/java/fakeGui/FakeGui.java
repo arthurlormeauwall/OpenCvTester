@@ -67,7 +67,7 @@ public class FakeGui
 		
 	}	
 	
-	public void addLayer(int maskedLayerIndex, Stack<Integer> stackOfindexInDataBase) {
+	public void addLayer(int maskedLayerIndex, Stack<String> stackOfindexInDataBase) {
 		Id maskedLayerId = createLayerId(maskedLayerIndex);
 		Stack<Id> stackOfIds = new Stack<Id>();
 		stackOfIds.push(maskedLayerId);
@@ -80,7 +80,7 @@ public class FakeGui
 		action.parameters= new Parameters();
 				
 		action.id=stackOfIds;
-		action.parameters.intParameters=stackOfindexInDataBase;
+		action.parameters.stringParameters=stackOfindexInDataBase;
 		action.whatToDo=Functionalities.ADD_LAYER;
 		
 		myApp.getMainWin().dealOrder(action);
@@ -234,13 +234,15 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 	}
 	
-	public void addFilterInDataBase(FilterControlledByFloat newControl) {
+	public void addFilterInDataBase(String name, FilterControlledByFloat newControl) {
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
 		action.id=null;	
 		action.parameters.algoParameters=newControl;
+		action.parameters.stringParameters=new Stack<String>();
+		action.parameters.stringParameters.push(name);
 		action.whatToDo=Functionalities.ADD_FILTER_IN_DATABASE;
 		
 		myApp.getMainWin().dealOrder(action);

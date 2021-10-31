@@ -1,5 +1,6 @@
 package filtersDataBase;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import baseClasses.Command;
@@ -7,39 +8,39 @@ import baseClasses.filter.FilterControlledByFloat;
 
 public class FiltersDataBase 
 {
-	protected Stack<FilterControlledByFloat> controls;
+	protected HashMap<String, FilterControlledByFloat> controls;
 	protected OpacityFilter alpha;
 	protected EmptyFilter emptyControl;
 
 	public FiltersDataBase() {
-		controls= new Stack<FilterControlledByFloat>();
+		controls= new HashMap<String, FilterControlledByFloat>();
 		alpha = new OpacityFilter();
 		emptyControl= new EmptyFilter();
 	}
 	
-	public Command getControl(int index){
-		if (controls.size()-1<index) {
+	public Command getControl(String name){
+		if (controls.get(name)== null) {
 			return emptyControl;
 		}
 		else {
-			return controls.get(index).createNew();	
+			return controls.get(name).createNew();	
 		}	
 	}
 	
-	public void addAlgorithm(FilterControlledByFloat control) {
-		controls.push(control);
+	public void addAlgorithm(String name, FilterControlledByFloat control) {
+		controls.put(name, control);
 	}
 	
 	public OpacityFilter getAlphaControl(){
 		return alpha;
 	}
 	
-	public FilterFlags<Stack<Float>> getFlags(int index){
-		if (controls.size()-1<index) {
+	public FilterFlags<Stack<Float>> getFlags(String name){
+		if (controls.get(name)== null) {
 			return emptyControl.getFlags();
 		}
 		else {
-			return controls.get(index).getFlags();
+			return controls.get(name).getFlags();
 		}
 	}
 }

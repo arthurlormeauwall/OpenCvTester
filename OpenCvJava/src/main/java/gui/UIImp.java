@@ -15,7 +15,7 @@ public class UIImp extends UIInterface
 	}
 	
 	
-	public void addControlInLayer(Stack<Id> id, int controlId) {	
+	public void addControlInLayer(Stack<Id> id, String commandName) {	
 	}
 
 	
@@ -23,7 +23,7 @@ public class UIImp extends UIInterface
 	}
 
 	
-	public void addLayer(Stack<Id> id, Stack<Integer> controlIndex) {	
+	public void addLayer(Stack<Id> id, Stack<String> commandNames) {	
 	}
 
 	public void delLayer(Stack<Id> id) {	
@@ -70,4 +70,13 @@ public class UIImp extends UIInterface
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	public void addAlgorithm(String name, FilterControlledByFloat algorithm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 }

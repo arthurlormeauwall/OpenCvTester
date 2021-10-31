@@ -15,8 +15,8 @@ public class Renderer extends RendererInterface
 		super(dbControls, background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
-	public void addControlInLayer(Stack<Id> controlId, int controlIndexInDataBase) {
-		Stack<Integer> stackOfControlIndexInDataBase = new Stack<Integer>();
+	public void addControlInLayer(Stack<Id> controlId, String controlIndexInDataBase) {
+		Stack<String> stackOfControlIndexInDataBase = new Stack<String>();
 		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
 		
 		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
@@ -34,8 +34,8 @@ public class Renderer extends RendererInterface
 		}
 	}   
 	
-	public void addLayer(Stack<Id> controlId, Stack<Integer> stackOfindexInDataBase){
-		if (addControl(controlId, stackOfindexInDataBase)) {
+	public void addLayer(Stack<Id> controlId, Stack<String> stackOfCommandIndexInDataBase){
+		if (addControl(controlId, stackOfCommandIndexInDataBase)) {
 			compute();
 		}	
 	}  
@@ -86,18 +86,18 @@ public class Renderer extends RendererInterface
 		dest.play();
 	}   
 	
-	protected Command createControl(Stack<Id> controlId, Stack<Integer> controlNumber){
+	protected Command createControl(Stack<Id> controlId, Stack<String> controlName){
 		Layer maskedLayer = new Layer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
 		maskedLayer.init(m_background, source, dest);
 		
-		int numberOfControlToAdd = controlNumber.size();
+		int numberOfControlToAdd = controlName.size();
 
 		for (int i = 0; i < numberOfControlToAdd; i++) {
 			Stack<Id> temp=new Stack<Id>();
-			Stack<Integer> temp2=new Stack<Integer>();
+			Stack<String> temp2=new Stack<String>();
 			
 			temp.push(controlId.get(i + 1));
-			temp2.push(controlNumber.get(i));
+			temp2.push(controlName.get(i));
 			
 			maskedLayer.addControl(temp, temp2);
 		}
@@ -164,8 +164,8 @@ public class Renderer extends RendererInterface
 		chainOfControls.store();
 	}
 
-	public void addAlgorithm(FilterControlledByFloat algoParameters) {
-		dbControls.addAlgorithm(algoParameters);
+	public void addAlgorithm(String name, FilterControlledByFloat algoParameters) {
+		dbControls.addAlgorithm(name, algoParameters);
 	}
 	
 	public Command getLastControl(){

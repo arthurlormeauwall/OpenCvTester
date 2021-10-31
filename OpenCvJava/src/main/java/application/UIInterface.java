@@ -14,13 +14,13 @@ public abstract class UIInterface extends Undoable implements FunctionalitiesInt
 	public void dealOrder(Action p) {
 		switch (p.whatToDo) {
 			case ADD_FILTER_IN_DATABASE:
-				renderer.addAlgorithm(p.parameters.algoParameters);
-				addAlgorithm(p.parameters.algoParameters);
+				renderer.addAlgorithm(p.parameters.stringParameters.get(0), p.parameters.algoParameters);
+				addAlgorithm(p.parameters.stringParameters.get(0), p.parameters.algoParameters);
 				break;
 				
 			case ADD_FILTER:
-				renderer.addControlInLayer(p.id,((int)p.parameters.intParameters.get(0)));	
-				addControlInLayer (p.id, ((int)p.parameters.intParameters.get(0)));
+				renderer.addControlInLayer(p.id, p.parameters.stringParameters.get(0));	
+				addControlInLayer (p.id, p.parameters.stringParameters.get(0));
 				break;
 	
 			case DELETE_FILTER :
@@ -29,8 +29,8 @@ public abstract class UIInterface extends Undoable implements FunctionalitiesInt
 				break;
 	
 			case ADD_LAYER:
-				renderer.addLayer(p.id, p.parameters.intParameters);
-				addLayer(p.id, p.parameters.intParameters);
+				renderer.addLayer(p.id, p.parameters.stringParameters);
+				addLayer(p.id,  p.parameters.stringParameters);
 				break;
 	
 			case DELETE_LAYER:

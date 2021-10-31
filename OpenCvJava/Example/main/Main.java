@@ -9,11 +9,11 @@ public class Main
 {
     public static void main(String[] args){	
 		FakeGui fakeGui= new FakeGui("assets/test.jpg"); 
-		fakeGui.addFilterInDataBase(new BlueGreenRedMultiplierFilter());
-		fakeGui.addFilterInDataBase(new GrayScaleFilter());
+		fakeGui.addFilterInDataBase("BgrMult", new BlueGreenRedMultiplierFilter());
+		fakeGui.addFilterInDataBase("GrayScaleFilter", new GrayScaleFilter());
     
-		Stack<Integer> controlIndexInDataBase= new Stack<Integer>();
-		controlIndexInDataBase.push(0);
+		Stack<String> controlIndexInDataBase= new Stack<String>();
+		controlIndexInDataBase.push("BgrMult");
 		
 		fakeGui.addLayer(0, controlIndexInDataBase);
 		fakeGui.setBypass(0, 0, false);
@@ -48,7 +48,7 @@ public class Main
 		floatParameters.clear();
 		
 		controlIndexInDataBase.clear();
-		controlIndexInDataBase.push(0);
+		controlIndexInDataBase.push("BgrMult");
 		fakeGui.addLayer(1, controlIndexInDataBase);
 		fakeGui.setBypass(1, 0, false);
 		

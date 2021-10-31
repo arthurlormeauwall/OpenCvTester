@@ -21,12 +21,12 @@ public abstract class ChainOfCommandsManager extends Command
 	}
 	
 	public abstract void render();
-	protected abstract Command createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
+	protected abstract Command createControl(Stack<Id> ids, Stack<String> stackOfCommandIndexInDataBase);
 	
-	public Boolean addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
+	public Boolean addControl(Stack<Id>  id, Stack<String> stackOfCommandIndexInDataBase) {
 		
 		if (!isIndexOutOfRange(id)) {
-			Command control = createControl(id, stackOfControlIndexInDataBase);
+			Command control = createControl(id, stackOfCommandIndexInDataBase);
 			updateRenderAtId(id.get(0));
 			return addOrDelete(ChainControl.ADD, control, id);	
 		}

@@ -39,8 +39,8 @@ public class Layer extends FramesManager
 		alpha.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
 
-	protected Command createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
-		Command newControl = (Command) dbControls.getControl(stackOfControlIndexInDataBase.get(0));
+	protected Command createControl(Stack<Id> id, Stack<String> stackOfCommandIndexInDataBase){
+		Command newControl = (Command) dbControls.getControl(stackOfCommandIndexInDataBase.get(0));
 		newControl.getId().set(id.get(0));
 
 		newControl.setRenderAtId(renderAtIdHistory);
