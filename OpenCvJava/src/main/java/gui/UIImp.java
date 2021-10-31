@@ -6,16 +6,16 @@ import application.UIInterface;
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.openCvFacade.Frame;
-import renderingEngine.Renderer;
+import renderingEngine.ChainOfLayers;
  
 public class UIImp extends UIInterface 
 {
-	public UIImp(Renderer renderer) {
+	public UIImp(ChainOfLayers renderer) {
 		super(renderer);	
 	}
 	
 	
-	public void addFilterInLayer(Stack<Id> id, String commandName) {	
+	public void addFilterInLayer(Stack<Id> id, String filterName) {	
 	}
 
 	
@@ -23,7 +23,7 @@ public class UIImp extends UIInterface
 	}
 
 	
-	public void addLayer(Stack<Id> id, Stack<String> commandNames) {	
+	public void addLayer(Stack<Id> id, Stack<String> filtersNames) {	
 	}
 
 	public void delLayer(Stack<Id> id) {	
@@ -60,23 +60,13 @@ public class UIImp extends UIInterface
 	}
 
 
-	public void setBypass(Id ControlId, Boolean p) {
-		// TODO Auto-generated method stub
-		
+	public void setBypass(Id filterId, Boolean bypass) {
+
 	}
 
+	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
 	
-	public void addAlgorithm(FilterControlledByFloat algorithm) {
-		// TODO Auto-generated method stub
 		
 	}
-
-
-	public void addFilterInDatabase(String name, FilterControlledByFloat algorithm) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 }

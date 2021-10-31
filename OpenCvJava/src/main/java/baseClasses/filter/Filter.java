@@ -56,7 +56,7 @@ public abstract class Filter<T> extends Command implements IoFrame
 	}
 	
 	public void setNames(Stack<String> names) {
-		flags.controlNames = names;
+		flags.filterNames = names;
 	}
 	
 	public void setNumberOfParamters (int n) {

@@ -1,7 +1,7 @@
 package application;
 
 import renderingEngine.GroupsId;
-import renderingEngine.Renderer;
+import renderingEngine.ChainOfLayers;
 
 import org.opencv.core.Core;
 
@@ -20,7 +20,7 @@ public class App
 	protected Frame background;
 	protected Frame dest;
 	
-	protected Renderer renderer;
+	protected ChainOfLayers renderer;
 	protected UIImp mainWin;
 	
 	public App() {	
@@ -42,7 +42,7 @@ public class App
 		rendererId.initNULL();
 		rendererId.setGroupId(GroupsId.RENDERER.ordinal());
 	
-		renderer = new Renderer(new FiltersDataBase(), background, rendererId, undoIdHistory, renderAtIdHistory);
+		renderer = new ChainOfLayers(new FiltersDataBase(), background, rendererId, undoIdHistory, renderAtIdHistory);
 
 		renderer.setSource(source);
 		renderer.setDest(dest);

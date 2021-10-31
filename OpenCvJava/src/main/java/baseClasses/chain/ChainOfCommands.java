@@ -116,8 +116,7 @@ public class ChainOfCommands extends Command
 	        		 return commands.get(undoControlIndex).undo();
 	        	}  
 	        	return false;
-	        }
-				
+	        }		
     }
     
     public Boolean redo() {
@@ -139,7 +138,6 @@ public class ChainOfCommands extends Command
 	            return commands.get(undoControlIndex).redo();
 	        }      
     	}
-   
 
     public void store() {
     	 int undoGroupId = undoIdHistory.getState().getParameter().getGroupId();

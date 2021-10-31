@@ -13,8 +13,9 @@ import baseClasses.IoFrame;
 import baseClasses.chain.ChainAction;
 import baseClasses.chain.ChainControl;
 import baseClasses.chain.ChainOfCommands;
+import baseClasses.filter.Filter;
 
-public abstract class ChainOfFilters  extends Command implements IoFrame
+public abstract class CompositeFilters  extends Command implements IoFrame
 {
 	protected Stack<Frame> frames;
 	protected Frame source;
@@ -22,7 +23,7 @@ public abstract class ChainOfFilters  extends Command implements IoFrame
 	protected FiltersDataBase dbControls;
 	protected ChainOfCommands chainOfCommands;
 	
-	public ChainOfFilters(FiltersDataBase dbControls, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
+	public CompositeFilters(FiltersDataBase dbControls, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		frames = new Stack<Frame>();
 		source = new Frame ();
@@ -40,7 +41,7 @@ public abstract class ChainOfFilters  extends Command implements IoFrame
 	public abstract int getNumberOfControl();
 	protected abstract Command createFilter(Stack<Id> ids, Stack<String> filterNamesInDataBase);
 	
-	public Boolean addCommand(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {
+	public Boolean addFilter(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {
 		
 		if (!isIndexOutOfRange(id)) {
 			Command command = createFilter(id, commandsNamesInDataBase);
@@ -52,7 +53,7 @@ public abstract class ChainOfFilters  extends Command implements IoFrame
 		}
 	}	
 	
-	public Boolean delCommand(Stack<Id> id) {
+	public Boolean delFilter(Stack<Id> id) {
 		if (!isIndexOutOfRange(id)) {
 			return addOrDelete(ChainControl.DELETE, chainOfCommands.getCommand(0), id);
 		}
@@ -98,7 +99,7 @@ public abstract class ChainOfFilters  extends Command implements IoFrame
 		renderAtIdHistory.setState(tempHistoryParameter);
 	}
 
-	public Command getCommand(int index) {
+	public Command getFilter(int index) {
 		return chainOfCommands.getCommand(index);
 	}
 	

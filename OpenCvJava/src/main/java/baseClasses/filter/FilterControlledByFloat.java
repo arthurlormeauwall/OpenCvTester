@@ -11,11 +11,11 @@ public abstract class FilterControlledByFloat extends Filter<Stack<Float>>
 		history = new ParametersHistory<Stack<Float>>();
 		history.initFactory(new FloatHistoryParameter());
 		history.initState(new FloatHistoryParameter());
-		initAdjControlFloat();
+		initFilterControlledByFloat();
 	} 
 	
-	public void initAdjControlFloat() {
-		flags.controlNames = new Stack<String>();
+	public void initFilterControlledByFloat() {
+		flags.filterNames = new Stack<String>();
 		flags.defaultValues= new Stack<Float>();
 		flags.numberOfParameters=0;
 		
@@ -66,7 +66,7 @@ public abstract class FilterControlledByFloat extends Filter<Stack<Float>>
 	}
 	
 	public void addParameterFlag(String name, Float defaultValue) {
-		flags.controlNames.push(name);
+		flags.filterNames.push(name);
 		flags.defaultValues.push(defaultValue);
 		flags.numberOfParameters ++;
 	}

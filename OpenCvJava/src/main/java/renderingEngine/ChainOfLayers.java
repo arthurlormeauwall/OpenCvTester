@@ -4,14 +4,15 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Id;
+import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.history.imp.UndoIdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 
-public class Renderer extends RendererInterface
+public class ChainOfLayers extends ChainOfLayersInterface
 {
-	public Renderer (FiltersDataBase dbControls, Frame background, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
+	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
 		super(dbControls, background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
@@ -20,7 +21,7 @@ public class Renderer extends RendererInterface
 		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
 		
 		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
-			if (((Layer)chainOfCommands.getCommand(controlId.get(0).get()[0])).addCommand(controlId, stackOfControlIndexInDataBase)) {
+			if (((Layer)chainOfCommands.getCommand(controlId.get(0).get()[0])).addFilter(controlId, stackOfControlIndexInDataBase)) {
 				execute();
 			}
 		}	
@@ -28,20 +29,20 @@ public class Renderer extends RendererInterface
 	
 	public void delFilterInLayer(Stack<Id> controlId){
 		if (getNumberOfControl()> controlId.get(0).get()[0]) {
-			if(((Layer)chainOfCommands.getCommand(controlId.get(0).get()[0])).delCommand(controlId)) {
+			if(((Layer)chainOfCommands.getCommand(controlId.get(0).get()[0])).delFilter(controlId)) {
 				execute();
 			}
 		}
 	}   
 	
 	public void addLayer(Stack<Id> controlId, Stack<String> stackOfCommandIndexInDataBase){
-		if (addCommand(controlId, stackOfCommandIndexInDataBase)) {
+		if (addFilter(controlId, stackOfCommandIndexInDataBase)) {
 			execute();
 		}	
 	}  
 
 	public void delLayer(Stack<Id> controlId){
-		if (delCommand(controlId))
+		if (delFilter(controlId))
 		{
 			execute();
 		}
@@ -65,7 +66,7 @@ public class Renderer extends RendererInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		if (getNumberOfControl() > layerIndex && ((Layer)chainOfCommands.getCommand(layerIndex)).getNumberOfControl()  > controlIndex) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfCommands.getCommand(layerIndex)).getCommand(controlIndex);
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfCommands.getCommand(layerIndex)).getFilter(controlIndex);
 			adjustControlToSet.setParameter(parameters);
 			execute();
 		}
@@ -76,7 +77,7 @@ public class Renderer extends RendererInterface
 		int controlIndex = ControlId.get()[1];
 	
 		if ( getNumberOfControl()>layerIndex && ((Layer)chainOfCommands.getCommand(layerIndex)).getNumberOfControl() > controlIndex) {
-			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfCommands.getCommand(layerIndex)).getCommand(controlIndex));
+			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfCommands.getCommand(layerIndex)).getFilter(controlIndex));
 			temp.setBypass(p);
 			execute();
 		}
@@ -99,7 +100,7 @@ public class Renderer extends RendererInterface
 			temp.push(controlId.get(i + 1));
 			temp2.push(controlName.get(i));
 			
-			maskedLayer.addCommand(temp, temp2);
+			maskedLayer.addFilter(temp, temp2);
 		}
 		return maskedLayer;
 	} 
@@ -125,7 +126,7 @@ public class Renderer extends RendererInterface
 	public void dealFramesInMaskedLayers(){
 		for (int i = 0; i < chainOfCommands.getSize(); i++) {
 
-			Layer test = (Layer)getCommand(i);
+			Layer test = (Layer)getFilter(i);
 			test.dealFrames();
 		}
 	}   

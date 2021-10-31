@@ -8,39 +8,39 @@ import baseClasses.filter.FilterControlledByFloat;
 
 public class FiltersDataBase 
 {
-	protected HashMap<String, FilterControlledByFloat> controls;
-	protected OpacityFilter alpha;
-	protected EmptyFilter emptyControl;
+	protected HashMap<String, FilterControlledByFloat> filters;
+	protected OpacityFilter alphaFilter;
+	protected EmptyFilter emptyFilter;
 
 	public FiltersDataBase() {
-		controls= new HashMap<String, FilterControlledByFloat>();
-		alpha = new OpacityFilter();
-		emptyControl= new EmptyFilter();
+		filters= new HashMap<String, FilterControlledByFloat>();
+		alphaFilter = new OpacityFilter();
+		emptyFilter= new EmptyFilter();
 	}
 	
-	public Command getCommand(String name){
-		if (controls.get(name)== null) {
-			return emptyControl;
+	public Command getFilter(String name){
+		if (filters.get(name)== null) {
+			return emptyFilter;
 		}
 		else {
-			return controls.get(name).createNew();	
+			return filters.get(name).createNew();	
 		}	
 	}
 	
 	public void addFilter(String name, FilterControlledByFloat control) {
-		controls.put(name, control);
+		filters.put(name, control);
 	}
 	
-	public OpacityFilter getAlphaControl(){
-		return alpha;
+	public OpacityFilter getAlphaFilter(){
+		return alphaFilter;
 	}
 	
 	public FilterFlags<Stack<Float>> getFlags(String name){
-		if (controls.get(name)== null) {
-			return emptyControl.getFlags();
+		if (filters.get(name)== null) {
+			return emptyFilter.getFlags();
 		}
 		else {
-			return controls.get(name).getFlags();
+			return filters.get(name).getFlags();
 		}
 	}
 }

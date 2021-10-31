@@ -8,7 +8,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 
 public class Frame 
 {
-	final int NumberOfColorLayer = 3;
+	final int NumberOfColorLayer = 3; 
 	protected FrameSpecs frameSpecs;
 	protected Mat frameMat;
 	
@@ -55,7 +55,7 @@ public class Frame
 	}
 	
 	public void play() {
-		HighGui.imshow("test", frameMat);
+		HighGui.imshow("test", frameMat);  // TODO : replace "test" by name of app, in global static variable
 		HighGui.waitKey();
 	}
 	

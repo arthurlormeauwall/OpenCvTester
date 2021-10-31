@@ -27,18 +27,18 @@ public class FakeGui
 		myApp.init(fileName);		
 	}
 	
-	public void addFilterInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase) {
-		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
+	public void addFilterInLayer(int layerIndex, int filterIndex, String filterNames) {
+		Id filterId = createFilterId(layerIndex, filterIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		stackOfIds.push(controlId);
+		Stack<Id> filtersToAddIds = new Stack<Id>();
+		filtersToAddIds.push(filterId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
-		action.parameters.intParameters=new Stack<Integer>();
+		action.parameters.stringParameters=new Stack<String>();
 		
-		action.id=stackOfIds;
-		action.parameters.intParameters.push(controlIndexInDataBase);		
+		action.id=filtersToAddIds;
+		action.parameters.stringParameters.push(filterNames);		
 		action.whatToDo=Functionalities.ADD_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
@@ -47,40 +47,39 @@ public class FakeGui
 		
 	}
 	
-	public void delFilterInLayer(int maskedLayerIndex, int controlIndex)  {
-		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
+	public void delFilterInLayer(int layerIndex, int filterIndex)  {
+		Id filterId = createFilterId(layerIndex, filterIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		stackOfIds.push(controlId);
+		Stack<Id> filterToDeleteIds = new Stack<Id>();
+		filterToDeleteIds.push(filterId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		action.parameters.intParameters=new Stack<Integer>();
 		
-		action.id=stackOfIds;
+		action.id=filterToDeleteIds;
 		action.parameters.intParameters.push(null);		
 		action.whatToDo=Functionalities.DELETE_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
 		store();
-		play();
-		
+		play();	
 	}	
 	
-	public void addLayer(int maskedLayerIndex, Stack<String> stackOfindexInDataBase) {
-		Id maskedLayerId = createLayerId(maskedLayerIndex);
-		Stack<Id> stackOfIds = new Stack<Id>();
-		stackOfIds.push(maskedLayerId);
+	public void addLayer(int layerIndex, Stack<String> filtersNames) {
+		Id layerId = createLayerId(layerIndex);
+		Stack<Id> filtersToAddIds = new Stack<Id>();
+		filtersToAddIds.push(layerId);
 
-		for (int i=0; i< stackOfindexInDataBase.size(); i++) {
-			stackOfIds.push(createFilterId(maskedLayerIndex, i));
+		for (int i=0; i< filtersNames.size(); i++) {
+			filtersToAddIds.push(createFilterId(layerIndex, i));
 		}
 			
 		Action action = new Action();
 		action.parameters= new Parameters();
 				
-		action.id=stackOfIds;
-		action.parameters.stringParameters=stackOfindexInDataBase;
+		action.id=filtersToAddIds;
+		action.parameters.stringParameters=filtersNames;
 		action.whatToDo=Functionalities.ADD_LAYER;
 		
 		myApp.getMainWin().dealOrder(action);
@@ -89,16 +88,16 @@ public class FakeGui
 		
 	}	
 	
-	public void delLayer(int maskedLayerIndex) {
-		Id maskedLayerId = createLayerId(maskedLayerIndex);
+	public void delLayer(int layerIndex) {
+		Id layerId = createLayerId(layerIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		stackOfIds.push(maskedLayerId);
+		Stack<Id> layersToDeleteIds = new Stack<Id>();
+		layersToDeleteIds.push(layerId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 				
-		action.id=stackOfIds;
+		action.id=layersToDeleteIds;
 		action.parameters.intParameters=null;
 		action.whatToDo=Functionalities.DELETE_LAYER;
 		
@@ -108,19 +107,17 @@ public class FakeGui
 		
 	}	
 	
-	public void setAlpha(int maskedLayerIndex, Frame alpha) {
-		Id maskedLayerId = createLayerId(maskedLayerIndex);
+	public void setAlpha(int layerIndex, Frame alpha) {
+		Id layerId = createLayerId(layerIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		Stack<Frame> stackOfFrames = new Stack<Frame>();
-		stackOfFrames.push(alpha);
-		stackOfIds.push(maskedLayerId);
+		Stack<Id> layersIds = new Stack<Id>();
+		layersIds.push(layerId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
-		action.id=stackOfIds;	
-		action.parameters.frameParameters=stackOfFrames;
+		action.id=layersIds;	
+		action.parameters.frameParameters=alpha;
 		action.whatToDo=Functionalities.SET_ALPHA_FRAME;
 		
 		myApp.getMainWin().dealOrder(action);	
@@ -129,19 +126,19 @@ public class FakeGui
 		
 	}	
 	
-	public void setAlpha(int maskedLayerIndex, int opacity) {
-		Id maskedLayerId = createLayerId(maskedLayerIndex);
+	public void setAlpha(int layerIndex, int opacity) {
+		Id layerId = createLayerId(layerIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		Stack<Integer> stackOfInteger = new Stack<Integer>();
-		stackOfInteger.push(opacity);
-		stackOfIds.push(maskedLayerId);
+		Stack<Id> layersIds = new Stack<Id>();
+		Stack<Integer> opacityParameter = new Stack<Integer>();
+		opacityParameter.push(opacity);
+		layersIds.push(layerId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
-		action.id=stackOfIds;	
-		action.parameters.intParameters=stackOfInteger;
+		action.id=layersIds;	
+		action.parameters.intParameters=opacityParameter;
 		action.whatToDo=Functionalities.SET_ALPHA_OPACITY;
 		
 		myApp.getMainWin().dealOrder(action);
@@ -150,36 +147,35 @@ public class FakeGui
 		
 	}	
 	
-	public void setParameters(int maskedLayerIndex, int controlIndex, Stack<Float> parameters){
-		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
+	public void setParameters(int layerIndex, int filterIndex, Stack<Float> parametersValues){
+		Id filterId = createFilterId(layerIndex, filterIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		stackOfIds.push(controlId);
+		Stack<Id> filtersToAdjustIds = new Stack<Id>();
+		filtersToAdjustIds.push(filterId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
-		action.id=stackOfIds;	
-		action.parameters.floatParameters=parameters;
+		action.id=filtersToAdjustIds;	
+		action.parameters.floatParameters=parametersValues;
 		action.whatToDo=Functionalities.SET_PARAMETERS;
 		
 		myApp.getMainWin().dealOrder(action);	
 		store();
-		play();
-		
+		play();	
 	}	
 	
-	public void setBypass(int maskedLayerIndex, int controlIndex, Boolean parameter) {
-		Id controlId = createFilterId(maskedLayerIndex, controlIndex);
+	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
+		Id filterId = createFilterId(layerIndex, filterIndex);
 		
-		Stack<Id> stackOfIds = new Stack<Id>();
-		stackOfIds.push(controlId);
+		Stack<Id> filtersIds = new Stack<Id>();
+		filtersIds.push(filterId);
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
-		action.id=stackOfIds;	
-		action.parameters.boolParameters=parameter;
+		action.id=filtersIds;	
+		action.parameters.boolParameters=bypass;
 		action.whatToDo=Functionalities.SET_BYPASS;
 		
 		myApp.getMainWin().dealOrder(action);
@@ -234,13 +230,13 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 	}
 	
-	public void addFilterInDataBase(String name, FilterControlledByFloat newControl) {
+	public void addFilterInDataBase(String name, FilterControlledByFloat newfilter) {
 		
 		Action action = new Action();
 		action.parameters= new Parameters();
 		
 		action.id=null;	
-		action.parameters.filterParameters=newControl;
+		action.parameters.filterParameters=newfilter;
 		action.parameters.stringParameters=new Stack<String>();
 		action.parameters.stringParameters.push(name);
 		action.whatToDo=Functionalities.ADD_FILTER_IN_DATABASE;
@@ -248,15 +244,15 @@ public class FakeGui
 		myApp.getMainWin().dealOrder(action);
 	}
 	
-	private Id createLayerId(int maskedLayerIndex) {	
+	private Id createLayerId(int layerIndex) {	
 		Id id = new Id();
-		id.set(maskedLayerIndex, 0, GroupsId.MASKED_LAYER.ordinal());
+		id.set(layerIndex, 0, GroupsId.LAYER.ordinal());
 		return id;
 	}	
 	
-	private Id createFilterId(int maskedLayerIndex, int controlIndex) {
+	private Id createFilterId(int layerIndex, int filterIndex) {
 		Id id = new Id();
-		id.set(maskedLayerIndex, controlIndex, GroupsId.CONTROL.ordinal());
+		id.set(layerIndex, filterIndex, GroupsId.CONTROL.ordinal());
 		return id;
 	}		
 }

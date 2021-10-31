@@ -11,11 +11,11 @@ import baseClasses.openCvFacade.Frame;
 public abstract class FilterControlledByFrame extends Filter<Frame>
 {
 	public FilterControlledByFrame() {
-		initAdjControlFrame();
+		initFilterControlledByFrame();
 	} 
 	
-	public void initAdjControlFrame() {
-		flags.controlNames = new Stack<String>();
+	public void initFilterControlledByFrame() {
+		flags.filterNames = new Stack<String>();
 		flags.defaultValues= new Frame();
 		flags.numberOfParameters=0;
 		history = new ParametersHistory<Frame>();
@@ -37,7 +37,7 @@ public abstract class FilterControlledByFrame extends Filter<Frame>
 	}
 	
 	public void addParameterFlag(String name, Frame defaultValue) {
-		flags.controlNames.push(name);
+		flags.filterNames.push(name);
 		flags.defaultValues = defaultValue;
 		flags.numberOfParameters ++;
 	}

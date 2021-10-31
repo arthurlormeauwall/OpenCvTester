@@ -81,7 +81,7 @@ public abstract class Command extends Undoable
     	return undoIdHistory;
     }
     
-    public void setUndoId(UndoIdHistory<Id> undoIdHistory){
+    public void setUndoIdHistory(UndoIdHistory<Id> undoIdHistory){
     	this.undoIdHistory = undoIdHistory; 
     }
     
@@ -89,7 +89,7 @@ public abstract class Command extends Undoable
     	return renderAtIdHistory; 
     }
     
-    public void setRenderAtId(UndoIdHistory<Id> renderAtIdHistory){
+    public void setRenderAtIdHistory(UndoIdHistory<Id> renderAtIdHistory){
     	this.renderAtIdHistory = renderAtIdHistory;
     }
  

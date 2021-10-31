@@ -6,20 +6,20 @@ import baseClasses.history.HistoryParameter;
 
 public class ChainHistoryParameter<T> implements HistoryParameter<ChainAction<T>> 
 {
-    protected ChainAction<T> itemAndId;
+    protected ChainAction<T> chainAction;
     
 	public ChainHistoryParameter(ChainAction<T> itemAndId) {
-		this.itemAndId=itemAndId;
+		this.chainAction=itemAndId;
 	}
 	 
 	public ChainHistoryParameter() {
-		itemAndId=new ChainAction<T>();
+		chainAction=new ChainAction<T>();
 	}
  
     public void set (ChainAction<T> parameter) {
-    	itemAndId.control= parameter.control;
-    	itemAndId.item= parameter.item;
-    	itemAndId.id= parameter.id;
+    	chainAction.control= parameter.control;
+    	chainAction.item= parameter.item;
+    	chainAction.id= parameter.id;
     }
     
 	public HistoryParameter<ChainAction<T>> getNew() {
@@ -27,22 +27,22 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ChainAction<T>
 	}
 	
 	public void invert() {
-        if (itemAndId.control == ChainControl.ADD) { itemAndId.control = ChainControl.DELETE; }
-        else if (itemAndId.control == ChainControl.DELETE) { itemAndId.control = ChainControl.ADD; }
+        if (chainAction.control == ChainControl.ADD) { chainAction.control = ChainControl.DELETE; }
+        else if (chainAction.control == ChainControl.DELETE) { chainAction.control = ChainControl.ADD; }
 	}
 	
 	public ChainAction<T> getParameter() {
-		return itemAndId;
+		return chainAction;
 	}
 	public ChainAction<T> clone() {
 		ChainAction<T> newItemAndId= new ChainAction<T>();
-		newItemAndId= itemAndId;
+		newItemAndId= chainAction;
 		
 		return newItemAndId;
 	}
 	
 	public Boolean isEmptyObject() {
-		if (itemAndId.id.empty()) {
+		if (chainAction.id.empty()) {
 			return true;
 		}
 		else {
@@ -51,7 +51,7 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ChainAction<T>
 	}
 	
 	public void setToEmptyObject() {
-		itemAndId.id.clear();
+		chainAction.id.clear();
 	}
 	
 }

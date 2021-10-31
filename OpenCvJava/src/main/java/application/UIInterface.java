@@ -1,13 +1,13 @@
 package application;
 
-import renderingEngine.Renderer;
+import renderingEngine.ChainOfLayers;
 import baseClasses.Undoable;
 
 public abstract class UIInterface extends Undoable implements FunctionalitiesInterface
 {
-	protected Renderer renderer;
+	protected ChainOfLayers renderer;
 	
-	public UIInterface(Renderer renderer) {
+	public UIInterface(ChainOfLayers renderer) {
 		this.renderer = renderer;
 	}
 
@@ -44,8 +44,8 @@ public abstract class UIInterface extends Undoable implements FunctionalitiesInt
 				break;
 	
 			case SET_ALPHA_FRAME:
-				renderer.setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters.get(0));
-				setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters.get(0));
+				renderer.setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
+				setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
 				break;
 				
 			case SET_PARAMETERS : 

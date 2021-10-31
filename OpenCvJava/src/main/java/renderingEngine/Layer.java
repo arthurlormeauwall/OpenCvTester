@@ -10,43 +10,44 @@ import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
 
-public class Layer extends ChainOfFilters
+public class Layer extends CompositeFilters
 {
 	protected Frame background;
-	protected OpacityFilter alpha;
+	protected OpacityFilter alphaFilter;
 	
-	public Layer (FiltersDataBase dbControls, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
-		super(dbControls, id, undoIdHistory, renderAtIdHistory);
+	
+	public Layer (FiltersDataBase filtersDatabase, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
+		super(filtersDatabase, id, undoIdHistory, renderAtIdHistory);
 		
-		dbControls = new FiltersDataBase();
-		alpha = dbControls.getAlphaControl();
-		alpha.setRenderAtId(this.renderAtIdHistory);
-		alpha.setUndoId(this.undoIdHistory);
+		filtersDatabase = new FiltersDataBase();
+		alphaFilter = filtersDatabase.getAlphaFilter();
+		alphaFilter.setRenderAtIdHistory(this.renderAtIdHistory);
+		alphaFilter.setUndoIdHistory(this.undoIdHistory);
 	}
 	
 	protected void init(Frame background, Frame source, Frame dest) {
 		setSource(source);
 		setDest(dest);
 
-		alpha.setSource(source);
-		alpha.setDest(dest);
+		alphaFilter.setSource(source);
+		alphaFilter.setDest(dest);
 
 		int whiteValue = background.getSpecs().bitMax;
-		alpha.init(background);
-		alpha.setAlpha(whiteValue);
-		alpha.store();
+		alphaFilter.init(background);
+		alphaFilter.setAlpha(whiteValue);
+		alphaFilter.store();
 		
-		alpha.getId().set(id.get()[0], 1, id.getGroupId() + 1);
+		alphaFilter.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
 
 	protected Command createFilter(Stack<Id> id, Stack<String> commandsInDataBase){
-		Command newControl = (Command) dbControls.getCommand(commandsInDataBase.get(0));
-		newControl.getId().set(id.get(0));
+		Command newFilter = (Command) dbControls.getFilter(commandsInDataBase.get(0));
+		newFilter.getId().set(id.get(0));
 
-		newControl.setRenderAtId(renderAtIdHistory);
-		newControl.setUndoId(undoIdHistory);
+		newFilter.setRenderAtIdHistory(renderAtIdHistory);
+		newFilter.setUndoIdHistory(undoIdHistory);
 
-		return newControl;
+		return newFilter;
 	}
 	
 	public void setFloatParameters(int controlIndex, Stack<Float> parameters){	
@@ -55,7 +56,7 @@ public class Layer extends ChainOfFilters
 	
 	public void execute() {	
 		render();
-		alpha.execute();	
+		alphaFilter.execute();	
 	}
 	
 	public Boolean undo() {
@@ -64,7 +65,7 @@ public class Layer extends ChainOfFilters
 			return chainOfCommands.undo();
 		}
 		if (undoControlId == 1) {
-			return alpha.undo();
+			return alphaFilter.undo();
 		}
 		else {
 			return false;
@@ -77,7 +78,7 @@ public class Layer extends ChainOfFilters
 			return chainOfCommands.redo();
 		}
 		if (undoControlId == 1) {
-			return alpha.redo();
+			return alphaFilter.redo();
 		}
 		else {
 			return false;
@@ -90,7 +91,7 @@ public class Layer extends ChainOfFilters
 			chainOfCommands.store();
 		}
 		if (undoControlId == 1) {
-			alpha.store();
+			alphaFilter.store();
 		}
 	}
 	
@@ -102,26 +103,26 @@ public class Layer extends ChainOfFilters
 		Layer newMaskedLayer= new Layer(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
 		newMaskedLayer.setChain(chainOfCommands.clone());
-		newMaskedLayer.setAlpha(alpha.getAlpha());
+		newMaskedLayer.setAlpha(alphaFilter.getAlpha());
 		newMaskedLayer.setBackGround(background);
 		
 		return newMaskedLayer;
 	}
 
 	public OpacityFilter getAlpha(){
-		return alpha;
+		return alphaFilter;
 	}
 	
 	public Command getLastControl() {
-		return alpha;
+		return alphaFilter;
 	}
 	
 	public void setAlpha(Frame alpha){
-		this.alpha.setAlpha(alpha);
+		this.alphaFilter.setAlpha(alpha);
 	}
 	
 	public void setAlpha(int opacity){
-		alpha.setAlpha(opacity);
+		alphaFilter.setAlpha(opacity);
 	}
 	
 	public void setBackGround(Frame background){
