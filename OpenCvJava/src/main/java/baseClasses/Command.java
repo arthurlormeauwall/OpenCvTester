@@ -50,7 +50,7 @@ public abstract class Command extends Undoable
     	renderAtIdHistory.initState(new IdHistoryParameter());
     }
     
-    public abstract void compute();
+    public abstract void execute();
     
     public void UpdateRender(){
 		IdHistoryParameter tempParameter= new IdHistoryParameter();

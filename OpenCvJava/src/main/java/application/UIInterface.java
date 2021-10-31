@@ -11,45 +11,45 @@ public abstract class UIInterface extends Undoable implements FunctionalitiesInt
 		this.renderer = renderer;
 	}
 
-	public void dealOrder(Action p) {
-		switch (p.whatToDo) {
+	public void dealOrder(Action action) {
+		switch (action.whatToDo) {
 			case ADD_FILTER_IN_DATABASE:
-				renderer.addAlgorithm(p.parameters.stringParameters.get(0), p.parameters.algoParameters);
-				addAlgorithm(p.parameters.stringParameters.get(0), p.parameters.algoParameters);
+				renderer.addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
+				addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
 				break;
 				
 			case ADD_FILTER:
-				renderer.addControlInLayer(p.id, p.parameters.stringParameters.get(0));	
-				addControlInLayer (p.id, p.parameters.stringParameters.get(0));
+				renderer.addFilterInLayer(action.id, action.parameters.stringParameters.get(0));	
+				addFilterInLayer (action.id, action.parameters.stringParameters.get(0));
 				break;
 	
 			case DELETE_FILTER :
-				renderer.delControlInLayer(p.id);
-				delControlInLayer(p.id);
+				renderer.delFilterInLayer(action.id);
+				delFilterInLayer(action.id);
 				break;
 	
 			case ADD_LAYER:
-				renderer.addLayer(p.id, p.parameters.stringParameters);
-				addLayer(p.id,  p.parameters.stringParameters);
+				renderer.addLayer(action.id, action.parameters.stringParameters);
+				addLayer(action.id,  action.parameters.stringParameters);
 				break;
 	
 			case DELETE_LAYER:
-				renderer.delLayer(p.id);
-				delLayer(p.id);
+				renderer.delLayer(action.id);
+				delLayer(action.id);
 				break;
 	
 			case SET_ALPHA_OPACITY:
-				renderer.setAlpha(p.parameters.intParameters.get(0), p.parameters.intParameters.get(1));
-				setAlpha(p.parameters.intParameters.get(0), p.parameters.intParameters.get(1));
+				renderer.setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
+				setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
 				break;
 	
 			case SET_ALPHA_FRAME:
-				renderer.setAlpha(p.parameters.intParameters.get(0), p.parameters.frameParameters.get(0));
-				setAlpha(p.parameters.intParameters.get(0), p.parameters.frameParameters.get(0));
+				renderer.setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters.get(0));
+				setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters.get(0));
 				break;
 				
 			case SET_PARAMETERS : 
-				renderer.setParameters(p.id.get(0), p.parameters.floatParameters);
+				renderer.setParameters(action.id.get(0), action.parameters.floatParameters);
 				break;
 	
 			case UNDO:
@@ -68,7 +68,7 @@ public abstract class UIInterface extends Undoable implements FunctionalitiesInt
 				break;
 				
 			case SET_BYPASS:
-				renderer.setBypass(p.id.get(0), p.parameters.boolParameters);
+				renderer.setBypass(action.id.get(0), action.parameters.boolParameters);
 				break;
 				
 			case REFRESH:

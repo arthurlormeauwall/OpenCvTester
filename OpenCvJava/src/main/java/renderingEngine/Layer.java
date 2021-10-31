@@ -10,7 +10,7 @@ import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
 
-public class Layer extends FramesManager
+public class Layer extends ChainOfFilters
 {
 	protected Frame background;
 	protected OpacityFilter alpha;
@@ -39,8 +39,8 @@ public class Layer extends FramesManager
 		alpha.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
 
-	protected Command createControl(Stack<Id> id, Stack<String> stackOfCommandIndexInDataBase){
-		Command newControl = (Command) dbControls.getControl(stackOfCommandIndexInDataBase.get(0));
+	protected Command createFilter(Stack<Id> id, Stack<String> commandsInDataBase){
+		Command newControl = (Command) dbControls.getCommand(commandsInDataBase.get(0));
 		newControl.getId().set(id.get(0));
 
 		newControl.setRenderAtId(renderAtIdHistory);
@@ -50,18 +50,18 @@ public class Layer extends FramesManager
 	}
 	
 	public void setFloatParameters(int controlIndex, Stack<Float> parameters){	
-		((FilterControlledByFloat)chainOfControls.getControl(controlIndex)).setParameter(parameters);
+		((FilterControlledByFloat)chainOfCommands.getCommand(controlIndex)).setParameter(parameters);
 	}
 	
-	public void compute() {	
+	public void execute() {	
 		render();
-		alpha.compute();	
+		alpha.execute();	
 	}
 	
 	public Boolean undo() {
 		int undoControlId = undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
-			return chainOfControls.undo();
+			return chainOfCommands.undo();
 		}
 		if (undoControlId == 1) {
 			return alpha.undo();
@@ -74,7 +74,7 @@ public class Layer extends FramesManager
 	public Boolean redo() {
 		int undoControlId = undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
-			return chainOfControls.redo();
+			return chainOfCommands.redo();
 		}
 		if (undoControlId == 1) {
 			return alpha.redo();
@@ -87,7 +87,7 @@ public class Layer extends FramesManager
 	public void store(){
 		int undoControlId = undoIdHistory.getState().getParameter().get()[1];
 		if (undoControlId == 0) {
-			chainOfControls.store();
+			chainOfCommands.store();
 		}
 		if (undoControlId == 1) {
 			alpha.store();
@@ -95,13 +95,13 @@ public class Layer extends FramesManager
 	}
 	
 	public void updateId(int groupDeepnessIndex, int newValue){
-		chainOfControls.updateId(groupDeepnessIndex, newValue);
+		chainOfCommands.updateId(groupDeepnessIndex, newValue);
 	}
 
 	public Command clone() {	
 		Layer newMaskedLayer= new Layer(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
-		newMaskedLayer.setChainControl(chainOfControls.clone());
+		newMaskedLayer.setChain(chainOfCommands.clone());
 		newMaskedLayer.setAlpha(alpha.getAlpha());
 		newMaskedLayer.setBackGround(background);
 		
@@ -129,6 +129,6 @@ public class Layer extends FramesManager
 	}
 	
 	public int getNumberOfControl() {
-		return chainOfControls.getSize() + 1;
+		return chainOfCommands.getSize() + 1;
 	}
 }

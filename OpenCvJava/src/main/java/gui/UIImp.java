@@ -15,11 +15,11 @@ public class UIImp extends UIInterface
 	}
 	
 	
-	public void addControlInLayer(Stack<Id> id, String commandName) {	
+	public void addFilterInLayer(Stack<Id> id, String commandName) {	
 	}
 
 	
-	public void delControlInLayer(Stack<Id> id) {
+	public void delFilterInLayer(Stack<Id> id) {
 	}
 
 	
@@ -72,7 +72,7 @@ public class UIImp extends UIInterface
 	}
 
 
-	public void addAlgorithm(String name, FilterControlledByFloat algorithm) {
+	public void addFilterInDatabase(String name, FilterControlledByFloat algorithm) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -3,9 +3,9 @@ package baseClasses.chain;
 import java.util.Stack;
 import baseClasses.Id;
 
-public class ItemAndId<T> 
+public class ChainAction<T> 
 {
  	public T item;
  	public Stack<Id> id;
- 	public ChainControl chainCommand;
+ 	public ChainControl control;
 }

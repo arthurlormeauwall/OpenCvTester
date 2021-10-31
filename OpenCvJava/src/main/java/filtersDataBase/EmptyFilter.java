@@ -7,7 +7,7 @@ public class EmptyFilter extends FilterControlledByFloat {
 	public EmptyFilter() {
 	}
 
-	public void compute() {
+	public void execute() {
 		dest.setFrame(source.getFrame());		
 	}
 	

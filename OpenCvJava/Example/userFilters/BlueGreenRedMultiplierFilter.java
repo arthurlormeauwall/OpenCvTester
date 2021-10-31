@@ -29,7 +29,7 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 		return new BlueGreenRedMultiplierFilter();
 	}
 
-	public void compute() {	
+	public void execute() {	
 		if (isBypass) {
 			source.copyTo(dest);
 		}

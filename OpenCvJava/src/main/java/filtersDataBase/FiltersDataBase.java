@@ -18,7 +18,7 @@ public class FiltersDataBase
 		emptyControl= new EmptyFilter();
 	}
 	
-	public Command getControl(String name){
+	public Command getCommand(String name){
 		if (controls.get(name)== null) {
 			return emptyControl;
 		}
@@ -27,7 +27,7 @@ public class FiltersDataBase
 		}	
 	}
 	
-	public void addAlgorithm(String name, FilterControlledByFloat control) {
+	public void addFilter(String name, FilterControlledByFloat control) {
 		controls.put(name, control);
 	}
 	

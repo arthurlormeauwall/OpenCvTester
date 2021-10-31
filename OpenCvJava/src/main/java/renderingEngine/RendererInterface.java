@@ -6,7 +6,7 @@ import baseClasses.history.imp.UndoIdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 
-public abstract class RendererInterface extends FramesManager implements FunctionalitiesInterface
+public abstract class RendererInterface extends ChainOfFilters implements FunctionalitiesInterface
 {
 	protected Frame m_background;
 	

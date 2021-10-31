@@ -25,7 +25,7 @@ public class OpacityFilter extends FilterControlledByFrame
 	}
 
 	
-	public void compute() {
+	public void execute() {
 		if (isBypass) {
 			source.copyTo(dest);
 		}

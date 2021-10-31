@@ -27,7 +27,7 @@ public class GrayScaleFilter extends FilterControlledByFloat
 		return new GrayScaleFilter();
 	}
 
-	public void compute() {
+	public void execute() {
 		if (isBypass) {
 			source.copyTo(dest);
 		}

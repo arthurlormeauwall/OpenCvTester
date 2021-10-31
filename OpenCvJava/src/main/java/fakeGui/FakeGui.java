@@ -240,7 +240,7 @@ public class FakeGui
 		action.parameters= new Parameters();
 		
 		action.id=null;	
-		action.parameters.algoParameters=newControl;
+		action.parameters.filterParameters=newControl;
 		action.parameters.stringParameters=new Stack<String>();
 		action.parameters.stringParameters.push(name);
 		action.whatToDo=Functionalities.ADD_FILTER_IN_DATABASE;

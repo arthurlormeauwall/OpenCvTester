@@ -15,59 +15,59 @@ public class Renderer extends RendererInterface
 		super(dbControls, background, id, undoIdHistory, renderAtIdHistory);	
 	}
 
-	public void addControlInLayer(Stack<Id> controlId, String controlIndexInDataBase) {
+	public void addFilterInLayer(Stack<Id> controlId, String controlIndexInDataBase) {
 		Stack<String> stackOfControlIndexInDataBase = new Stack<String>();
 		stackOfControlIndexInDataBase.push(controlIndexInDataBase);
 		
 		if ( getNumberOfControl()> controlId.get(0).get()[0]) {
-			if (((Layer)chainOfControls.getControl(controlId.get(0).get()[0])).addControl(controlId, stackOfControlIndexInDataBase)) {
-				compute();
+			if (((Layer)chainOfCommands.getCommand(controlId.get(0).get()[0])).addCommand(controlId, stackOfControlIndexInDataBase)) {
+				execute();
 			}
 		}	
 	}
 	
-	public void delControlInLayer(Stack<Id> controlId){
+	public void delFilterInLayer(Stack<Id> controlId){
 		if (getNumberOfControl()> controlId.get(0).get()[0]) {
-			if(((Layer)chainOfControls.getControl(controlId.get(0).get()[0])).delControl(controlId)) {
-				compute();
+			if(((Layer)chainOfCommands.getCommand(controlId.get(0).get()[0])).delCommand(controlId)) {
+				execute();
 			}
 		}
 	}   
 	
 	public void addLayer(Stack<Id> controlId, Stack<String> stackOfCommandIndexInDataBase){
-		if (addControl(controlId, stackOfCommandIndexInDataBase)) {
-			compute();
+		if (addCommand(controlId, stackOfCommandIndexInDataBase)) {
+			execute();
 		}	
 	}  
 
 	public void delLayer(Stack<Id> controlId){
-		if (delControl(controlId))
+		if (delCommand(controlId))
 		{
-			compute();
+			execute();
 		}
 	}   
 	
 	public void setAlpha(int layerIndex, Frame alpha){
 		if (getNumberOfControl() > layerIndex) {
-			((Layer)chainOfControls.getControl(layerIndex)).setAlpha(alpha);
-			compute();
+			((Layer)chainOfCommands.getCommand(layerIndex)).setAlpha(alpha);
+			execute();
 		}	
 	}   
 	
 	public void setAlpha(int layerIndex, int opacity){
 		if (getNumberOfControl() >layerIndex) {
-			((Layer)chainOfControls.getControl(layerIndex)).setAlpha(opacity);
-			compute();
+			((Layer)chainOfCommands.getCommand(layerIndex)).setAlpha(opacity);
+			execute();
 		}
 	}  
 	
 	public void setParameters(Id ControlId, Stack<Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		if (getNumberOfControl() > layerIndex && ((Layer)chainOfControls.getControl(layerIndex)).getNumberOfControl()  > controlIndex) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfControls.getControl(layerIndex)).getControl(controlIndex);
+		if (getNumberOfControl() > layerIndex && ((Layer)chainOfCommands.getCommand(layerIndex)).getNumberOfControl()  > controlIndex) {
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfCommands.getCommand(layerIndex)).getCommand(controlIndex);
 			adjustControlToSet.setParameter(parameters);
-			compute();
+			execute();
 		}
 	} 
 	
@@ -75,10 +75,10 @@ public class Renderer extends RendererInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 	
-		if ( getNumberOfControl()>layerIndex && ((Layer)chainOfControls.getControl(layerIndex)).getNumberOfControl() > controlIndex) {
-			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfControls.getControl(layerIndex)).getControl(controlIndex));
+		if ( getNumberOfControl()>layerIndex && ((Layer)chainOfCommands.getCommand(layerIndex)).getNumberOfControl() > controlIndex) {
+			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfCommands.getCommand(layerIndex)).getCommand(controlIndex));
 			temp.setBypass(p);
-			compute();
+			execute();
 		}
 	}  
 
@@ -86,7 +86,7 @@ public class Renderer extends RendererInterface
 		dest.play();
 	}   
 	
-	protected Command createControl(Stack<Id> controlId, Stack<String> controlName){
+	protected Command createFilter(Stack<Id> controlId, Stack<String> controlName){
 		Layer maskedLayer = new Layer(dbControls, controlId.get(0), undoIdHistory, renderAtIdHistory);
 		maskedLayer.init(m_background, source, dest);
 		
@@ -99,12 +99,12 @@ public class Renderer extends RendererInterface
 			temp.push(controlId.get(i + 1));
 			temp2.push(controlName.get(i));
 			
-			maskedLayer.addControl(temp, temp2);
+			maskedLayer.addCommand(temp, temp2);
 		}
 		return maskedLayer;
 	} 
 	
-	public void compute(){
+	public void execute(){
 		dealFrames();
 		dealBackground();
 		dealFramesInMaskedLayers();
@@ -112,20 +112,20 @@ public class Renderer extends RendererInterface
 	}
 
 	public void dealBackground(){
-		int numberOfMaskedLayers = chainOfControls.getSize();
+		int numberOfMaskedLayers = chainOfCommands.getSize();
 		
 		if (numberOfMaskedLayers>0) {
-			((Layer)chainOfControls.getControl(0)).setBackGround(m_background);
+			((Layer)chainOfCommands.getCommand(0)).setBackGround(m_background);
 			for (int i = 1; i < numberOfMaskedLayers; i++) {
-				((Layer)chainOfControls.getControl(i)).setBackGround(((Layer)chainOfControls.getControl(i - 1)).getDest());
+				((Layer)chainOfCommands.getCommand(i)).setBackGround(((Layer)chainOfCommands.getCommand(i - 1)).getDest());
 			}
 		}	
 	}   
 	
 	public void dealFramesInMaskedLayers(){
-		for (int i = 0; i < chainOfControls.getSize(); i++) {
+		for (int i = 0; i < chainOfCommands.getSize(); i++) {
 
-			Layer test = (Layer)getControl(i);
+			Layer test = (Layer)getCommand(i);
 			test.dealFrames();
 		}
 	}   
@@ -134,8 +134,8 @@ public class Renderer extends RendererInterface
 		undoIdHistory.undo();
 		renderAtIdHistory.undo();
 
-		if (chainOfControls.undo()) {
-			compute();
+		if (chainOfCommands.undo()) {
+			execute();
 			return true;
 		}
 		else {
@@ -147,9 +147,9 @@ public class Renderer extends RendererInterface
 		undoIdHistory.redo();
 		renderAtIdHistory.redo();
 		
-		if (chainOfControls.redo())
+		if (chainOfCommands.redo())
 		{
-			compute();
+			execute();
 			return true;
 		}
 		else {
@@ -161,18 +161,18 @@ public class Renderer extends RendererInterface
 		undoIdHistory.store();
 		renderAtIdHistory.store();
 
-		chainOfControls.store();
+		chainOfCommands.store();
 	}
 
-	public void addAlgorithm(String name, FilterControlledByFloat algoParameters) {
-		dbControls.addAlgorithm(name, algoParameters);
+	public void addFilterInDatabase(String name, FilterControlledByFloat algoParameters) {
+		dbControls.addFilter(name, algoParameters);
 	}
 	
 	public Command getLastControl(){
-		return chainOfControls.getControl(chainOfControls.getSize() - 1);
+		return chainOfCommands.getCommand(chainOfCommands.getSize() - 1);
 	}   
 	
 	public int getNumberOfControl() {
-		return chainOfControls.getSize();
+		return chainOfCommands.getSize();
 	}
 }

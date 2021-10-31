@@ -1,41 +1,41 @@
 package baseClasses.history.historyParameters;
 
 import baseClasses.chain.ChainControl;
-import baseClasses.chain.ItemAndId;
+import baseClasses.chain.ChainAction;
 import baseClasses.history.HistoryParameter;
 
-public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>> 
+public class ChainHistoryParameter<T> implements HistoryParameter<ChainAction<T>> 
 {
-    protected ItemAndId<T> itemAndId;
+    protected ChainAction<T> itemAndId;
     
-	public ChainHistoryParameter(ItemAndId<T> itemAndId) {
+	public ChainHistoryParameter(ChainAction<T> itemAndId) {
 		this.itemAndId=itemAndId;
 	}
 	 
 	public ChainHistoryParameter() {
-		itemAndId=new ItemAndId<T>();
+		itemAndId=new ChainAction<T>();
 	}
  
-    public void set (ItemAndId<T> parameter) {
-    	itemAndId.chainCommand= parameter.chainCommand;
+    public void set (ChainAction<T> parameter) {
+    	itemAndId.control= parameter.control;
     	itemAndId.item= parameter.item;
     	itemAndId.id= parameter.id;
     }
     
-	public HistoryParameter<ItemAndId<T>> getNew() {
+	public HistoryParameter<ChainAction<T>> getNew() {
 		return new ChainHistoryParameter<T>();
 	}
 	
 	public void invert() {
-        if (itemAndId.chainCommand == ChainControl.ADD) { itemAndId.chainCommand = ChainControl.DELETE; }
-        else if (itemAndId.chainCommand == ChainControl.DELETE) { itemAndId.chainCommand = ChainControl.ADD; }
+        if (itemAndId.control == ChainControl.ADD) { itemAndId.control = ChainControl.DELETE; }
+        else if (itemAndId.control == ChainControl.DELETE) { itemAndId.control = ChainControl.ADD; }
 	}
 	
-	public ItemAndId<T> getParameter() {
+	public ChainAction<T> getParameter() {
 		return itemAndId;
 	}
-	public ItemAndId<T> clone() {
-		ItemAndId<T> newItemAndId= new ItemAndId<T>();
+	public ChainAction<T> clone() {
+		ChainAction<T> newItemAndId= new ChainAction<T>();
 		newItemAndId= itemAndId;
 		
 		return newItemAndId;

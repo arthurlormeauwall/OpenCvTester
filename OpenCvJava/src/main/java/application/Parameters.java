@@ -12,5 +12,5 @@ public class Parameters
 	public Stack<Integer> intParameters;
 	public Stack <Frame> frameParameters;
 	public Boolean boolParameters;
-	public FilterControlledByFloat algoParameters;
+	public FilterControlledByFloat filterParameters;
 }
