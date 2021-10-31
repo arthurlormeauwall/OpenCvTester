@@ -19,25 +19,23 @@ public abstract class CompositeFilters extends Filter
 {
 	protected Stack<Frame> frames;
 	protected FiltersDataBase dbControls;
-	protected ChainOfCommands chainOfCommands;
+	protected ChainOfCommands chainOfFilters;
 	
 	public CompositeFilters(FiltersDataBase dbControls, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		frames = new Stack<Frame>();
-		source = new Frame ();
-		dest   = new Frame ();
 		this.dbControls = dbControls;
 		
 		
 		Id chainId = new Id(this.id.get());
 		chainId.setGroupId(this.id.getGroupId() + 1);
-		chainOfCommands = new ChainOfCommands (chainId, this.undoIdHistory, this.renderAtIdHistory);		
+		chainOfFilters = new ChainOfCommands (chainId, this.undoIdHistory, this.renderAtIdHistory);		
 		
 	}
 	
 	public abstract Command getLastControl();
 	public abstract int getNumberOfControl();
-	protected abstract Command createFilter(Stack<Id> ids, Stack<String> filterNamesInDataBase);
+	protected abstract Filter createFilter(Stack<Id> ids, Stack<String> filterNamesInDataBase);
 	
 	public Boolean addFilter(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {
 		
@@ -53,7 +51,7 @@ public abstract class CompositeFilters extends Filter
 	
 	public Boolean delFilter(Stack<Id> id) {
 		if (!isIndexOutOfRange(id)) {
-			return addOrDelete(ChainControl.DELETE, chainOfCommands.getCommand(0), id);
+			return addOrDelete(ChainControl.DELETE, chainOfFilters.getCommand(0), id);
 		}
 		else {
 			return false;
@@ -66,13 +64,13 @@ public abstract class CompositeFilters extends Filter
 		parameter.item = control;
 		parameter.id = id;
 	
-		return chainOfCommands.addOrDelete(parameter);
+		return chainOfFilters.addOrDelete(parameter);
 	}
 	
 	public Boolean isIndexOutOfRange(Stack<Id> controlId) {
-		int indexOfControlToAddOrDelete= controlId.get(0).get()[chainOfCommands.getDeepnessIndex()];
+		int indexOfControlToAddOrDelete= controlId.get(0).get()[chainOfFilters.getDeepnessIndex()];
 
-		if(chainOfCommands.getSize()>= indexOfControlToAddOrDelete) {
+		if(chainOfFilters.getSize()>= indexOfControlToAddOrDelete) {
 			return false;
 		}
 		else {
@@ -82,31 +80,33 @@ public abstract class CompositeFilters extends Filter
 	
 	public void updateRenderAtId(Id id) {
 		Id tempId= new Id();
-		int tempControlId= id.get()[1]-1;
-		int tempLayerId= id.get()[0];
-		if ( tempControlId < 0) { 
-			tempControlId = 0; 
-			tempLayerId--;
-			if (tempLayerId <0) { tempLayerId=0;}
+		
+		int filterId= id.get()[1]-1;
+		int layerId= id.get()[0];
+		
+		if ( filterId < 0) { 
+			filterId = 0; 
+			layerId--;
+			if (layerId <0) { layerId=0;}
 		}
-		tempId.set(tempLayerId, tempControlId, id.getGroupId());
+		tempId.set(layerId, filterId, id.getGroupId());
 	
-		IdHistoryParameter tempHistoryParameter= new IdHistoryParameter();
-		tempHistoryParameter.set(tempId);
+		IdHistoryParameter idHistoryParameter= new IdHistoryParameter();
+		idHistoryParameter.set(tempId);
 
-		renderAtIdHistory.setState(tempHistoryParameter);
+		renderAtIdHistory.setState(idHistoryParameter);
 	}
 
 	public Command getFilter(int index) {
-		return chainOfCommands.getCommand(index);
+		return chainOfFilters.getCommand(index);
 	}
 	
 	public ChainOfCommands getChain() {
-		return chainOfCommands;
+		return chainOfFilters;
 	}
 	
 	public void setChain(ChainOfCommands chain) {
-		chainOfCommands=chain;
+		chainOfFilters=chain;
 	}	
 	
 	protected void updateNumberOfFrames() {
@@ -148,12 +148,12 @@ public abstract class CompositeFilters extends Filter
 			}
 			else if (numberOfControls >= 2) {
 
-				((IoFrame)chainOfCommands.getCommand(0)).setSource(source);
-				((IoFrame)chainOfCommands.getCommand(0)).setDest(frames.get(0));
+				((IoFrame)chainOfFilters.getCommand(0)).setSource(source);
+				((IoFrame)chainOfFilters.getCommand(0)).setDest(frames.get(0));
 
 				for (int j = 1; j < numberOfControls - 1; j++) {
-					((IoFrame)chainOfCommands.getCommand(j)).setSource(frames.get(j - 1));
-					((IoFrame)chainOfCommands.getCommand(j)).setDest(frames.get(j));
+					((IoFrame)chainOfFilters.getCommand(j)).setSource(frames.get(j - 1));
+					((IoFrame)chainOfFilters.getCommand(j)).setDest(frames.get(j));
 				}
 				((IoFrame)lastControl).setSource(frames.get(lastFrameIndex));
 				((IoFrame)lastControl).setDest(dest);
@@ -165,11 +165,11 @@ public abstract class CompositeFilters extends Filter
 	}
 	
 	public void render() {
-		int size = chainOfCommands.getSize();
-		int firstControl = chainOfCommands.getCommandIndex(renderAtIdHistory);
+		int size = chainOfFilters.getSize();
+		int firstControl = chainOfFilters.getCommandIndex(renderAtIdHistory);
 
 		for (int i = firstControl; i < size; i++) {
-			chainOfCommands.getCommand(i).execute();
+			chainOfFilters.getCommand(i).execute();
 		}	
 	}
 

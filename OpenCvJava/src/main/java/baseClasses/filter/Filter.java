@@ -16,10 +16,14 @@ public abstract class Filter extends Command implements IoFrame
 	protected Frame dest;
 	
 	public Filter() {
+		source = new Frame ();
+		dest   = new Frame ();
 	}
 	
 	public Filter(Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
 		super (id, undoIdHistory, renderAtIdHistory);
+		source = new Frame ();
+		dest   = new Frame ();
 	}
 
 	public Frame getSource()      {
