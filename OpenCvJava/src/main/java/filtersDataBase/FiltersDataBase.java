@@ -2,7 +2,7 @@ package filtersDataBase;
 
 import java.util.Stack;
 
-import baseClasses.Control;
+import baseClasses.Command;
 import baseClasses.filter.FilterControlledByFloat;
 
 public class FiltersDataBase 
@@ -17,7 +17,7 @@ public class FiltersDataBase
 		emptyControl= new EmptyFilter();
 	}
 	
-	public Control getControl(int index){
+	public Command getControl(int index){
 		if (controls.size()-1<index) {
 			return emptyControl;
 		}

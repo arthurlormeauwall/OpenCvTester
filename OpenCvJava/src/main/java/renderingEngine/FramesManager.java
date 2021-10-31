@@ -1,24 +1,24 @@
 package renderingEngine;
 
-import baseClasses.Layer;
-import baseClasses.history.imp.UndoHistory;
+import baseClasses.history.imp.UndoIdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 
 import java.util.Stack;
 
-import baseClasses.Control;
+import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.IoFrame;
+import baseClasses.chain.ChainOfCommandsManager;
 
-public abstract class FrameLayer  extends Layer implements IoFrame
+public abstract class FramesManager  extends ChainOfCommandsManager implements IoFrame
 {
 	protected Stack<Frame> frames;
 	protected Frame source;
 	protected Frame dest;
 	protected FiltersDataBase dbControls;
 	
-	public FrameLayer(FiltersDataBase dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+	public FramesManager(FiltersDataBase dbControls, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
 		super(id, undoIdHistory, renderAtIdHistory);
 		frames = new Stack<Frame>();
 		source = new Frame ();
@@ -26,7 +26,7 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 		this.dbControls = dbControls;
 	}
 	
-	public abstract Control getLastControl();
+	public abstract Command getLastControl();
 	public abstract int getNumberOfControl();
 	
 	protected void updateNumberOfFrames() {
@@ -60,7 +60,7 @@ public abstract class FrameLayer  extends Layer implements IoFrame
 		int lastFrameIndex = frames.size() - 1;
 
 		if (numberOfControls>0) {
-			Control lastControl =  getLastControl();
+			Command lastControl =  getLastControl();
 
 			if (numberOfControls == 1) {
 				((IoFrame)lastControl).setSource(source);

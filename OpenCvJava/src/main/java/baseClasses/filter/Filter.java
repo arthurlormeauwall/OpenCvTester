@@ -2,16 +2,16 @@ package baseClasses.filter;
 
 import java.util.Stack;
 
-import baseClasses.Control;
+import baseClasses.Command;
 import baseClasses.IoFrame;
-import baseClasses.history.imp.ParameterHistory;
+import baseClasses.history.imp.ParametersHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FilterFlags;
 
 
-public abstract class Filter<T> extends Control implements IoFrame 
+public abstract class Filter<T> extends Command implements IoFrame 
 {
-	protected ParameterHistory<T> history;
+	protected ParametersHistory<T> history;
 	protected FilterFlags<T> flags;
 	protected Frame source;
 	protected Frame dest;

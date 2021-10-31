@@ -2,20 +2,20 @@ package renderingEngine;
 
 import java.util.Stack;
 
-import baseClasses.Control;
+import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.history.imp.UndoHistory;
+import baseClasses.history.imp.UndoIdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
 
-public class MaskedLayer extends FrameLayer
+public class Layer extends FramesManager
 {
 	protected Frame background;
 	protected OpacityFilter alpha;
 	
-	public MaskedLayer (FiltersDataBase dbControls, Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id>  renderAtIdHistory) {
+	public Layer (FiltersDataBase dbControls, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
 		super(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
 		dbControls = new FiltersDataBase();
@@ -39,8 +39,8 @@ public class MaskedLayer extends FrameLayer
 		alpha.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
 
-	protected Control createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
-		Control newControl = (Control) dbControls.getControl(stackOfControlIndexInDataBase.get(0));
+	protected Command createControl(Stack<Id> id, Stack<Integer> stackOfControlIndexInDataBase){
+		Command newControl = (Command) dbControls.getControl(stackOfControlIndexInDataBase.get(0));
 		newControl.getId().set(id.get(0));
 
 		newControl.setRenderAtId(renderAtIdHistory);
@@ -98,8 +98,8 @@ public class MaskedLayer extends FrameLayer
 		chainOfControls.updateId(groupDeepnessIndex, newValue);
 	}
 
-	public Control clone() {	
-		MaskedLayer newMaskedLayer= new MaskedLayer(dbControls, id, undoIdHistory, renderAtIdHistory);
+	public Command clone() {	
+		Layer newMaskedLayer= new Layer(dbControls, id, undoIdHistory, renderAtIdHistory);
 		
 		newMaskedLayer.setChainControl(chainOfControls.clone());
 		newMaskedLayer.setAlpha(alpha.getAlpha());
@@ -112,7 +112,7 @@ public class MaskedLayer extends FrameLayer
 		return alpha;
 	}
 	
-	public Control getLastControl() {
+	public Command getLastControl() {
 		return alpha;
 	}
 	

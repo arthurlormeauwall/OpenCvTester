@@ -1,6 +1,6 @@
 package baseClasses.history.historyParameters;
 
-import baseClasses.chain.ChainCommand;
+import baseClasses.chain.ChainControl;
 import baseClasses.chain.ItemAndId;
 import baseClasses.history.HistoryParameter;
 
@@ -27,8 +27,8 @@ public class ChainHistoryParameter<T> implements HistoryParameter<ItemAndId<T>>
 	}
 	
 	public void invert() {
-        if (itemAndId.chainCommand == ChainCommand.ADD) { itemAndId.chainCommand = ChainCommand.DELETE; }
-        else if (itemAndId.chainCommand == ChainCommand.DELETE) { itemAndId.chainCommand = ChainCommand.ADD; }
+        if (itemAndId.chainCommand == ChainControl.ADD) { itemAndId.chainCommand = ChainControl.DELETE; }
+        else if (itemAndId.chainCommand == ChainControl.DELETE) { itemAndId.chainCommand = ChainControl.ADD; }
 	}
 	
 	public ItemAndId<T> getParameter() {

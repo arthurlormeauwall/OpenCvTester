@@ -6,7 +6,7 @@ import renderingEngine.Renderer;
 import org.opencv.core.Core;
 
 import baseClasses.Id;
-import baseClasses.history.imp.UndoHistory;
+import baseClasses.history.imp.UndoIdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import gui.UIImp;
@@ -14,8 +14,8 @@ import gui.UIImp;
 
 public class App 
 {
-	protected UndoHistory<Id> undoIdHistory;
-	protected UndoHistory<Id> renderAtIdHistory;
+	protected UndoIdHistory<Id> undoIdHistory;
+	protected UndoIdHistory<Id> renderAtIdHistory;
 	protected Frame source;
 	protected Frame background;
 	protected Frame dest;
@@ -25,8 +25,8 @@ public class App
 	
 	public App() {	
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		undoIdHistory = new UndoHistory<Id>();
-		renderAtIdHistory = new UndoHistory<Id>();
+		undoIdHistory = new UndoIdHistory<Id>();
+		renderAtIdHistory = new UndoIdHistory<Id>();
 		background = new Frame();
 		dest = new Frame();
 		source = new Frame();	

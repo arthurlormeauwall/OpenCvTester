@@ -1,35 +1,34 @@
-package baseClasses;
+package baseClasses.chain;
 
-import baseClasses.chain.ChainCommand;
-import baseClasses.chain.ChainOfControls;
-import baseClasses.chain.ItemAndId;
+import baseClasses.Command;
+import baseClasses.Id;
 import baseClasses.history.historyParameters.IdHistoryParameter;
-import baseClasses.history.imp.UndoHistory;
+import baseClasses.history.imp.UndoIdHistory;
 
 import java.util.Stack;
 
-public abstract class Layer extends Control
+public abstract class ChainOfCommandsManager extends Command
 {
-	protected ChainOfControls chainOfControls;
+	protected ChainOfCommands chainOfControls;
 	
-	public Layer(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory){
+	public ChainOfCommandsManager(Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id> renderAtIdHistory){
 		
 		super (id, undoIdHistory, renderAtIdHistory);
 		
 		Id chainId = new Id(this.id.get());
 		chainId.setGroupId(this.id.getGroupId() + 1);
-		chainOfControls = new ChainOfControls (chainId, this.undoIdHistory, this.renderAtIdHistory);
+		chainOfControls = new ChainOfCommands (chainId, this.undoIdHistory, this.renderAtIdHistory);
 	}
 	
 	public abstract void render();
-	protected abstract Control createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
+	protected abstract Command createControl(Stack<Id> ids, Stack<Integer> stackOfControlIndexInDataBase);
 	
 	public Boolean addControl(Stack<Id>  id, Stack<Integer> stackOfControlIndexInDataBase) {
 		
 		if (!isIndexOutOfRange(id)) {
-			Control control = createControl(id, stackOfControlIndexInDataBase);
+			Command control = createControl(id, stackOfControlIndexInDataBase);
 			updateRenderAtId(id.get(0));
-			return addOrDelete(ChainCommand.ADD, control, id);	
+			return addOrDelete(ChainControl.ADD, control, id);	
 		}
 		else { 
 			return false;
@@ -37,15 +36,15 @@ public abstract class Layer extends Control
 	}	
 	public Boolean delControl(Stack<Id> id) {
 		if (!isIndexOutOfRange(id)) {
-			return addOrDelete(ChainCommand.DELETE, chainOfControls.getControl(0), id);
+			return addOrDelete(ChainControl.DELETE, chainOfControls.getControl(0), id);
 		}
 		else {
 			return false;
 		}
 	}
 
-	public Boolean addOrDelete (ChainCommand chainCommand, Control control, Stack<Id> id) {
-		ItemAndId<Control> parameter = new ItemAndId<Control>();
+	public Boolean addOrDelete (ChainControl chainCommand, Command control, Stack<Id> id) {
+		ItemAndId<Command> parameter = new ItemAndId<Command>();
 		parameter.chainCommand = chainCommand;
 		parameter.item = control;
 		parameter.id = id;
@@ -81,19 +80,15 @@ public abstract class Layer extends Control
 		renderAtIdHistory.setState(tempHistoryParameter);
 	}
 
-	public Control getControl(int index) {
+	public Command getControl(int index) {
 		return chainOfControls.getControl(index);
 	}
 	
-	public ChainOfControls getChainControl() {
+	public ChainOfCommands getChainControl() {
 		return chainOfControls;
 	}
 	
-	public void setChainControl(ChainOfControls chain) {
+	public void setChainControl(ChainOfCommands chain) {
 		chainOfControls=chain;
-	}
-	
-	
-	
-	
+	}	
 }

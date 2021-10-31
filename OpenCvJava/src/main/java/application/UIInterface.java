@@ -1,9 +1,9 @@
 package application;
 
 import renderingEngine.Renderer;
-import baseClasses.Command;
+import baseClasses.Undoable;
 
-public abstract class UIInterface extends Command implements FunctionalitiesInterface
+public abstract class UIInterface extends Undoable implements FunctionalitiesInterface
 {
 	protected Renderer renderer;
 	

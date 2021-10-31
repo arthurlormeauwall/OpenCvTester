@@ -5,7 +5,7 @@ package baseClasses.filter;
 import java.util.Stack;
 
 import baseClasses.history.historyParameters.FrameHistoryParameter;
-import baseClasses.history.imp.ParameterHistory;
+import baseClasses.history.imp.ParametersHistory;
 import baseClasses.openCvFacade.Frame;
 
 public abstract class FilterControlledByFrame extends Filter<Frame>
@@ -18,7 +18,7 @@ public abstract class FilterControlledByFrame extends Filter<Frame>
 		flags.controlNames = new Stack<String>();
 		flags.defaultValues= new Frame();
 		flags.numberOfParameters=0;
-		history = new ParameterHistory<Frame>();
+		history = new ParametersHistory<Frame>();
 		history.initFactory(new FrameHistoryParameter());
 		history.initState(new FrameHistoryParameter());
 	}

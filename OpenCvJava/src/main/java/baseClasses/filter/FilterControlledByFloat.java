@@ -2,13 +2,13 @@ package baseClasses.filter;
 
 import java.util.Stack;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
-import baseClasses.history.imp.ParameterHistory;
+import baseClasses.history.imp.ParametersHistory;
 
 
 public abstract class FilterControlledByFloat extends Filter<Stack<Float>>
 {
 	public FilterControlledByFloat() {
-		history = new ParameterHistory<Stack<Float>>();
+		history = new ParametersHistory<Stack<Float>>();
 		history.initFactory(new FloatHistoryParameter());
 		history.initState(new FloatHistoryParameter());
 		initAdjControlFloat();

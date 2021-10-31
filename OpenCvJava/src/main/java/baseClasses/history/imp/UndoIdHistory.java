@@ -3,12 +3,12 @@ package baseClasses.history.imp;
 import baseClasses.history.History;
 import baseClasses.history.HistoryParameter;
 
-public class UndoHistory<T> extends History<T> 
+public class UndoIdHistory<T> extends History<T> 
 {
 	protected Boolean firstUndo; 
 	protected Boolean firstRedo;
 	
-	public UndoHistory(){		
+	public UndoIdHistory(){		
 	}
 	
 	public void store() {	

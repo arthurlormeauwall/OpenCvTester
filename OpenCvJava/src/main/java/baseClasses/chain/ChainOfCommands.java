@@ -2,31 +2,31 @@ package baseClasses.chain;
 
 import java.util.Stack;
 
-import baseClasses.Control;
+import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.history.historyParameters.ChainHistoryParameter;
 import baseClasses.history.imp.ChainHistory;
-import baseClasses.history.imp.UndoHistory;
+import baseClasses.history.imp.UndoIdHistory;
 
 
-public class ChainOfControls extends Control
+public class ChainOfCommands extends Command
 {
-    protected ChainHistory<ItemAndId<Control>> history;
-    protected Stack<Control> controls;
+    protected ChainHistory<ItemAndId<Command>> history;
+    protected Stack<Command> controls;
 
-    public ChainOfControls(Id id, UndoHistory<Id> undoIdHistory, UndoHistory<Id> renderAtIdHistory) { 	
+    public ChainOfCommands(Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id> renderAtIdHistory) { 	
     	super (id, undoIdHistory, renderAtIdHistory);
-    	controls = new Stack<Control>();
-        history = new ChainHistory<ItemAndId<Control>>();
-        history.initFactory(new ChainHistoryParameter<Control>());
-        history.initState(new ChainHistoryParameter<Control>());
+    	controls = new Stack<Command>();
+        history = new ChainHistory<ItemAndId<Command>>();
+        history.initFactory(new ChainHistoryParameter<Command>());
+        history.initState(new ChainHistoryParameter<Command>());
     }
     
-    public Boolean addOrDelete(ItemAndId<Control> parameter) {
+    public Boolean addOrDelete(ItemAndId<Command> parameter) {
     	int indexOfControlToAddOrDelete= parameter.id.get(0).get()[getDeepnessIndex()];
 
 		if(getSize()>= indexOfControlToAddOrDelete){
-			history.setState(new ChainHistoryParameter<Control>(parameter));
+			history.setState(new ChainHistoryParameter<Command>(parameter));
 	        UpdateUndo();    
 	        compute();
 	        return true;
@@ -38,18 +38,18 @@ public class ChainOfControls extends Control
      }
 
     public void compute() {
-        if (history.getState().getParameter().chainCommand == ChainCommand.ADD) {
+        if (history.getState().getParameter().chainCommand == ChainControl.ADD) {
             Id id = history.getState().getParameter().id.get(0);
-            Control item = history.getState().getParameter().item;
+            Command item = history.getState().getParameter().item;
             addControl(id, item);
         }
 
-        else if (history.getState().getParameter().chainCommand ==  ChainCommand.DELETE) {
+        else if (history.getState().getParameter().chainCommand ==  ChainControl.DELETE) {
             history.getState().getParameter().item = delControl(history.getState().getParameter().id.get(0));
         }
     }
 
-    private void addControl(Id id, Control control) {
+    private void addControl(Id id, Command control) {
         int index = getControlIndex(id);
 
         int lastControl = controls.size() - 1;
@@ -70,13 +70,13 @@ public class ChainOfControls extends Control
         updateAllId(index);
     }
 
-    private Control delControl(Id id) {
+    private Command delControl(Id id) {
         int index = getControlIndex(id);
         int lastControlIndex= controls.size()-1;
         if (index>lastControlIndex) {
         	index=lastControlIndex;
         }
-        Control erasedControl =controls.remove(index);
+        Command erasedControl =controls.remove(index);
         updateAllId(index);
         return erasedControl;
     }
@@ -162,7 +162,7 @@ public class ChainOfControls extends Control
         return controlIndex;
     }
 
-    public int getControlIndex(UndoHistory<Id> id) {
+    public int getControlIndex(UndoIdHistory<Id> id) {
         int groupDeepnessIndex = getDeepnessIndex();
         int controlIndex = id.getState().getParameter().get()[groupDeepnessIndex];
         return controlIndex;
@@ -179,10 +179,10 @@ public class ChainOfControls extends Control
         return groupDeepnessIndex;
     }
 
-    public ChainOfControls clone() {	
+    public ChainOfCommands clone() {	
     	Id newId= new Id();
     	
-    	ChainOfControls newChainControl = new ChainOfControls(newId, undoIdHistory, renderAtIdHistory);
+    	ChainOfCommands newChainControl = new ChainOfCommands(newId, undoIdHistory, renderAtIdHistory);
     	
     	newChainControl.setId(id);
     	newChainControl.setControlsChain(controls);
@@ -192,23 +192,23 @@ public class ChainOfControls extends Control
     	return newChainControl;
     }
 
-    public Control getControl(int index){	
+    public Command getControl(int index){	
     	return controls.get(index);
     }
 
-    public Stack<Control> getControlsChain() {      
+    public Stack<Command> getControlsChain() {      
     	return controls;
     }
     
-    public void setControlsChain(Stack<Control> controlChain) {   	
+    public void setControlsChain(Stack<Command> controlChain) {   	
     	controls=controlChain;
     }
     
-    public ChainHistory<ItemAndId<Control>> getHistory(){   	
+    public ChainHistory<ItemAndId<Command>> getHistory(){   	
     	return history;
     }
     
-    public void setHistory(ChainHistory<ItemAndId<Control>> history) {  	
+    public void setHistory(ChainHistory<ItemAndId<Command>> history) {  	
     	this.history=history;
     }
 

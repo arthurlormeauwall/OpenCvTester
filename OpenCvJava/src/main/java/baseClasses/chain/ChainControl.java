@@ -1,6 +1,6 @@
 package baseClasses.chain;
 
-public enum ChainCommand 
+public enum ChainControl 
 {
 	ADD,
 	DELETE
