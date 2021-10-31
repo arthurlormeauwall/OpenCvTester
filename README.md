@@ -52,13 +52,13 @@ Since the rendering part is operational, I decided to share it anyway. This sect
 
 ### 1. The FakeGui classe
 
-To use this framework, you have to import `FakeGui` classe from *fakeGui* package. Then you create a FakeGui object, passing the path to the image you want to work with to its constructor.
+To use this framework, you first have to import `FakeGui` classe from *fakeGui* package. Then you create a `FakeGui` object, passing the path to the image you want to work with to its constructor.
 
 `FakeGui` classe provides several methods that can mimic all the messages/events the GUI will be able to send to the system; moreover it shows the final Frame in a window and refresh it each time the frame is changed.
 
 Here are all the methods that you can use :
 
-- `public void addControlInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase)` : add a control in a certain masked layer at a certain index. The third parameter is the index, in the control database, of the control that will be added.
+- `public void addFilterInLayer(int maskedLayerIndex, int controlIndex, int controlIndexInDataBase)` : add a control in a certain masked layer at a certain index. The third parameter is the index, in the control database, of the control that will be added.
 
 - `public void delControlInLayer(int maskedLayerIndex, int controlIndex)` : delete a certain control in a certain masked layer.
 
@@ -81,7 +81,7 @@ Here are all the methods that you can use :
 
 ### 2. How add your own control the the control data base :
 
-In the beginning, your control database is empty. 
+In the beginning, your filter database is empty. 
 To write your own control you have to create a class that extends the `AdjustControlFloat` class.
 
 `AdjustControlFloat` class provide several important things : 
