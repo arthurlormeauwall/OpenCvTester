@@ -17,7 +17,7 @@ public class Main
 		filtersName.push("BgrMult");
 		
 		fakeGui.addLayer(0, filtersName);
-		filtersName.clear();
+		
 		fakeGui.setBypass(0, 0, false);
 
 		
@@ -38,9 +38,9 @@ public class Main
 		fakeGui.setParameters(0, 0, floatParameters);	
 		floatParameters.clear();		
 		
+		filtersName.clear();
 		filtersName.push("GrayScaleFilter");
 		fakeGui.addLayer(1, filtersName);
-		filtersName.clear();
 		fakeGui.setBypass(1, 0, false);		
     }
 }
