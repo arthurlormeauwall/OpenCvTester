@@ -1,6 +1,6 @@
 # Open Cv tester
 
-> This project provides a Java framework to any developer willing to test their own OpenCV based algorithms in a simple GUI and real-time rendering environment.
+> This project provides a Java framework to any developer willing to test their own OpenCV based filters in a simple GUI and real-time rendering environment.
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -14,9 +14,9 @@
 
 ## General Information
 
-When I started to learn OpenCv, one of the first things I did was to access pixels data and change their values ; at that time I really just wanted to have real-time control over algorithms and effects while running the application.
+When I started to learn OpenCv, one of the first things I did was to access pixels data and change their values ; at that time I really just wanted to have real-time control over filters while running the application.
 
-After connecting a slider to one of my algorithm parameters, I thought it would be a good exercise to add undo/redo functionality, and a Photoshop like layer structured rendering system with control over each layer opacity.
+After connecting a slider to one of my filter parameters, I thought it would be a good exercise to add undo/redo functionality, and a Photoshop like layer structured rendering system with control over each layer opacity.
 
 This project is aim to achieve that and its purpose is mostly educational. Moreover, users of this framework are expected to know Java and OpenCv.
 
@@ -28,8 +28,8 @@ This project is aim to achieve that and its purpose is mostly educational. Moreo
 
 
 ## Features
-- Add and delete algorithms. Group them in layers with opacity control over each layer in a Photoshop like style.
-- Tweak parameters and see changes to the resulting image in real-time.
+- Add and delete filters. Group them in layers with opacity control over each layer in a Photoshop like style.
+- Tweak parameters and see changes to the resulting frame in real-time.
 - Undo and redo with no limitation.
 
 
@@ -51,17 +51,17 @@ Since the rendering part is operational, I decided to share it anyway. Usage sec
 
 To use this framework, you first have to import `FakeGui` classe from *fakeGui* package. Then you create a `FakeGui` object, passing the path to the image you want to work with to its constructor.
 
-`FakeGui` classe provides several methods that can mimic all the messages/events the GUI will be able to send to the system; moreover it shows the final Frame in a window and refresh it each time the frame is changed.
+`FakeGui` classe provides several methods that can mimic all the messages/events the GUI will be able to send to the system; moreover it shows the final frame in a window and refresh it each time the frame is changed.
 
-### 1. Filter database :
+### 1. Filters database :
 
 In this framework filters are objects that you create and add to the `FiltersDataBase` object, managed by the `FakeGui` object (so you never have to deal directly with the `FiltersDataBase`).  
-In the beginning, the filter database is empty. 
+In the beginning, the filters database is empty. 
 
 To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import baseClasses.filter.FilterControlledByFloat;`).
 
 `FilterControlledByFloat` class provide several important things : 
-* Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). To get the `Mat` object from a `Frame` object you call the `getFrame()` mehtod.
+* Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). To get the `Mat` object from a `Frame` object you call the `getMat()` mehtod.
 * Several float parameters that will be tweakable in the GUI. You can access them calling `getParameter(String name)` method.
 * Three abstract methods that you have to implement : 
   * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues)` for each parameter. When parameters are set to values specified by zeroEffectValues arguments, bypass is automtically set to true.
