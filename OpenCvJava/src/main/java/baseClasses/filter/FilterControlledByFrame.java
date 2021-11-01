@@ -2,7 +2,9 @@ package baseClasses.filter;
 
 
 
-import java.util.Stack;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.history.imp.ParametersHistory;
@@ -15,33 +17,48 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 	} 
 	
 	public void initFilterControlledByFrame() {
-		flags.filterNames = new Stack<String>();
-		flags.defaultValues= new Frame();
+		flags.filterName = new String();
+		flags.defaultValues= new HashMap<String, Frame>();
+		flags.zeroEffectValues= new HashMap<String, Frame>();
 		flags.numberOfParameters=0;
-		history = new ParametersHistory<Frame>();
+		history = new ParametersHistory<HashMap<String, Frame>>();
 		history.initFactory(new FrameHistoryParameter());
 		history.initState(new FrameHistoryParameter());
 	}
 	    
-	public Frame getParameter() {
+	public HashMap<String, Frame> getParameter() {
 		return history.getState().getParameter();
 	}
 	
-	public void setParameter(Frame frame) {			 
+	public void setParameter(HashMap<String, Frame> frame) {		
+		
+		Boolean framesAreTheSame=true;
 		history.setState(new FrameHistoryParameter(frame));
-		if (frame.compareTo(flags.zeroEffectValues)) {
+		
+		Iterator<Entry<String, Frame>> new_Iterator= frame.entrySet().iterator();
+		
+	    while (new_Iterator.hasNext() && framesAreTheSame == true) {
+	        HashMap.Entry<String, Frame> frameItem= (HashMap.Entry<String, Frame>) new_Iterator.next();
+	        if (frameItem.getValue().compareTo(history.getState().getParameter().get(frameItem.getKey()))) {
+	        	framesAreTheSame=true;
+	        }
+	        else {
+	        	framesAreTheSame=false;
+	        }
+	    }
+		if (framesAreTheSame) {
 			isBypass=true;
 		}
 		UpdateRender();
 		UpdateUndo();
 	}
 	
-	public void addParameterFlag(String name, Frame defaultValue) {
-		flags.filterNames.push(name);
-		flags.defaultValues = defaultValue;
+	public void addParameterFlag(String name, Frame defaultValue, Frame zeroEffectValue) {
+		flags.defaultValues.put(name, defaultValue);
+		flags.zeroEffectValues.put(name, zeroEffectValue);
 		flags.numberOfParameters ++;
 	}
-	public void setZeroEffectValues(Frame parameter) {
+	public void setZeroEffectValues(HashMap<String, Frame> parameter) {
 		flags.zeroEffectValues=parameter;
 	}
 }

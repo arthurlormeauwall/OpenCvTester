@@ -1,19 +1,19 @@
 package baseClasses.history.historyParameters;
 
 
-import java.util.Stack;
+import java.util.HashMap;
 
 import baseClasses.history.HistoryParameter;
 
-public class FloatHistoryParameter implements HistoryParameter<Stack<Float>> 
+public class FloatHistoryParameter implements HistoryParameter<HashMap<String, Float>> 
 {
-	protected Stack<Float> stackOfFloats;
+	protected HashMap<String, Float> floatsParameters;
 	
     public FloatHistoryParameter() {
     }
     
-    public FloatHistoryParameter(Stack<Float> stackOfFloats) {
-		 this.stackOfFloats=stackOfFloats;
+    public FloatHistoryParameter(HashMap<String, Float> parameters) {
+		 this.floatsParameters=parameters;
 	 }
 
 	public FloatHistoryParameter getNew() {
@@ -23,24 +23,21 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 	public void invert() {
 	}
 	
-	public Stack<Float> getParameter() {
-		return stackOfFloats;
+	public HashMap<String, Float> getParameter() {
+		return floatsParameters;
 	}
 
-	public void set(Stack<Float> parameter) {
-		stackOfFloats=parameter;		
+	public void set(HashMap<String, Float> parameter) {
+		floatsParameters=parameter;		
 	}
 	
-	public Stack<Float> clone() {
-		Stack<Float> newStackOfFloats= new Stack<Float>();
-		for (int i = 0; i<stackOfFloats.size();i++) {
-			newStackOfFloats.push(stackOfFloats.get(i));
-		}
-		
+	public HashMap<String, Float> clone() {
+		@SuppressWarnings("unchecked")
+		HashMap<String, Float> newStackOfFloats= (HashMap<String, Float>)floatsParameters.clone();
 		return newStackOfFloats;
 	}
 	public Boolean isEmptyObject() {
-		if (stackOfFloats.empty()) {
+		if (floatsParameters.isEmpty()) {
 			return true;
 		}
 		else {
@@ -48,6 +45,8 @@ public class FloatHistoryParameter implements HistoryParameter<Stack<Float>>
 		}
 	}
 	public void setToEmptyObject() {
-		stackOfFloats.clear();
+		floatsParameters.clear();
 	}
+
+	
 };

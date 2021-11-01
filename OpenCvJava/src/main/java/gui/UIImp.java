@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import application.UIInterface;
@@ -30,7 +31,7 @@ public class UIImp extends UIInterface
 	}
 
 	
-	public void setParameters(Id id, Stack<Float> parameters) {	
+	public void setParameters(Id id, HashMap<String,Float> parameters) {	
 	}
 
 

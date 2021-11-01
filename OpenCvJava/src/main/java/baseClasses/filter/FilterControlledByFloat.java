@@ -1,22 +1,23 @@
 package baseClasses.filter;
 
-import java.util.Stack;
+import java.util.HashMap;
 import baseClasses.history.historyParameters.FloatHistoryParameter;
 import baseClasses.history.imp.ParametersHistory;
 
 
-public abstract class FilterControlledByFloat extends FilterControlledBy<Stack<Float>>
+public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 {
 	public FilterControlledByFloat() {
-		history = new ParametersHistory<Stack<Float>>();
+		history = new ParametersHistory<HashMap<String, Float>>();
 		history.initFactory(new FloatHistoryParameter());
 		history.initState(new FloatHistoryParameter());
 		initFilterControlledByFloat();
 	} 
 	
 	public void initFilterControlledByFloat() {
-		flags.filterNames = new Stack<String>();
-		flags.defaultValues= new Stack<Float>();
+		flags.filterName = new String();
+		flags.defaultValues= new HashMap<String, Float>();
+		flags.zeroEffectValues= new HashMap<String, Float>();
 		flags.numberOfParameters=0;
 		
 		history.initState(new FloatHistoryParameter());
@@ -28,52 +29,27 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Stack<F
 	public abstract FilterControlledByFloat createNew();
 	public abstract void setParameterFlags();
 
-	public Float getParameter(int index) {
-		if (history.getState().getParameter().size()> index) {
-			return history.getState().getParameter().get(index);
-		}
-		else 
-		{
-			return flags.zeroEffectValues.lastElement();
-		}
+	public Float getParameter(String name) {
+		return history.getState().getParameter().get(name);
 	}
 	
-	public void setParameter(Stack<Float> parameter) {
-		Stack<Float> parameterPassedToHistory= new Stack<Float>();
+	public void setParameter(HashMap<String, Float> parameter) {
 		
-		if (parameter.size() > flags.numberOfParameters) {
-			for (int i=0;i<flags.numberOfParameters;i++) {
-				parameterPassedToHistory.set(i, parameter.get(i));
-			}			
-		}
-		else if (parameter.size() < flags.numberOfParameters) {
-			for (int i=parameter.size();i<flags.numberOfParameters;i++) {
-				parameter.push(flags.defaultValues.get(i));
-			}
-			parameterPassedToHistory=parameter;
-		}
-		else {
-			parameterPassedToHistory=parameter;
-		}
-		
-		history.setState(new FloatHistoryParameter(parameterPassedToHistory));
-		
-		if (parameterPassedToHistory==flags.zeroEffectValues) {
+		history.setState(new FloatHistoryParameter(parameter));
+		if (parameter==flags.zeroEffectValues) {
 			isBypass=true;
 		}
 		UpdateRender();
 		UpdateUndo();
 	}
 	
-	public void addParameterFlag(String name, Float defaultValue) {
-		flags.filterNames.push(name);
-		flags.defaultValues.push(defaultValue);
+	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue) {
+	
+		flags.defaultValues.put(name, defaultValue);
+		flags.zeroEffectValues.put(name, zeroEffectValue);
 		flags.numberOfParameters ++;
 	}
 	
-	public void setZeroEffectValues(Stack<Float> parameters) {
-		flags.zeroEffectValues=parameters;
-	}
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
 	}	

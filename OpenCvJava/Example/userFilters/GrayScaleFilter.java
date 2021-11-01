@@ -1,6 +1,5 @@
 package userFilters;
 
-import java.util.Stack;
 import org.opencv.core.Mat;
 
 import baseClasses.filter.FilterControlledByFloat;
@@ -12,15 +11,9 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	
 	public void setParameterFlags() {
 
-		addParameterFlag("BlueMult", 0.1f);
-		addParameterFlag("GreenMult", 0.6f);
-		addParameterFlag("RedMult", 0.3f);
-		
-		Stack<Float> zeroEffectValues= new Stack<Float>();
-		zeroEffectValues.push(-1f);
-		zeroEffectValues.push(-1f);
-		zeroEffectValues.push(-1f);
-		setZeroEffectValues(zeroEffectValues);
+		addParameterFlag("BlueMult", 0.1f, -1f);
+		addParameterFlag("GreenMult", 0.6f, -1f);
+		addParameterFlag("RedMult", 0.3f, -1f);
 	}
 	
 	public GrayScaleFilter createNew() {	
@@ -45,9 +38,9 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	        {
 	            for (int column = 0; column < m_column; column++)
 	            {
-	            	float blueMultiplier = getParameter(0);
-	            	float greenMultiplier = getParameter(1);
-	            	float redMultiplier = getParameter(2);
+	            	float blueMultiplier = getParameter("BlueMult");
+	                float greenMultiplier = getParameter("GreenMult");
+	                float redMultiplier = getParameter("RedMult"); 
 
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];

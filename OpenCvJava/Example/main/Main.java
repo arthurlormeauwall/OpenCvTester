@@ -1,5 +1,6 @@
 package main;
 
+import java.util.HashMap;
 import java.util.Stack;
 import fakeGui.FakeGui;
 import userFilters.GrayScaleFilter;
@@ -19,10 +20,10 @@ public class Main
 		fakeGui.setBypass(0, 0, false);
 
 		
-		Stack<Float> floatParameters=new Stack<Float>();
-		floatParameters.push(0.6f);
-		floatParameters.push(2f);
-		floatParameters.push(0.9f);
+		HashMap<String, Float> floatParameters=new HashMap<String, Float>();
+		floatParameters.put("BlueMult", 0.6f);
+		floatParameters.put("GreenMult", 2f);
+		floatParameters.put("RedMult", 0.9f);
 
 		fakeGui.setParameters(0, 0, floatParameters);
 		floatParameters.clear();
@@ -41,9 +42,9 @@ public class Main
 	
 		fakeGui.undo();
 		
-		floatParameters.push(1f);
-		floatParameters.push(0.3f);
-		floatParameters.push(1.6f);
+		floatParameters.put("BlueMult", 0.6f);
+		floatParameters.put("GreenMult", 2f);
+		floatParameters.put("RedMult", 0.9f);
 		fakeGui.setParameters(0, 0, floatParameters);	
 		floatParameters.clear();
 		
@@ -55,16 +56,16 @@ public class Main
 		fakeGui.undo();                                 
 		fakeGui.redo();
 		
-		floatParameters.push(2f);
-		floatParameters.push(0.3f);
-		floatParameters.push(0f);
+		floatParameters.put("BlueMult", 0.6f);
+		floatParameters.put("GreenMult", 2f);
+		floatParameters.put("RedMult", 0.9f);
 		fakeGui.setParameters(1, 0, floatParameters);    
 		floatParameters.clear();
 		
 		
-		floatParameters.push(1.2f);
-		floatParameters.push(1.6f);
-		floatParameters.push(0.9f);
+		floatParameters.put("BlueMult", 0.6f);
+		floatParameters.put("GreenMult", 2f);
+		floatParameters.put("RedMult", 0.9f);
 		fakeGui.setParameters(0, 0, floatParameters);  
 		floatParameters.clear();
 	

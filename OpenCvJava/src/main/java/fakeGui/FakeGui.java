@@ -1,5 +1,6 @@
 package fakeGui;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import application.Action;
@@ -147,7 +148,7 @@ public class FakeGui
 		
 	}	
 	
-	public void setParameters(int layerIndex, int filterIndex, Stack<Float> parametersValues){
+	public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues){
 		Id filterId = createFilterId(layerIndex, filterIndex);
 		
 		Stack<Id> filtersToAdjustIds = new Stack<Id>();

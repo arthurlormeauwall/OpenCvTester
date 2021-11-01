@@ -1,5 +1,7 @@
 package filtersDataBase;
 
+import java.util.HashMap;
+
 import org.opencv.core.Mat;
 
 import baseClasses.filter.FilterControlledByFrame;
@@ -20,8 +22,8 @@ public class OpacityFilter extends FilterControlledByFrame
 	}
 	
 	private void setFlags() {		
-		addParameterFlag("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
-		setZeroEffectValues( new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));	
+		addParameterFlag("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax), new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
+	
 	}
 
 	
@@ -35,7 +37,7 @@ public class OpacityFilter extends FilterControlledByFrame
 			Mat imgDest = dest.getFrame();
 			Mat background = this.background.getFrame();
 
-			Mat alpha = getParameter().getFrame();
+			Mat alpha = getParameter().get("Opacity").getFrame();
 			int NBITMAX = source.getSpecs().bitMax;
 
 			int m_row = imgDest.rows();
@@ -70,16 +72,20 @@ public class OpacityFilter extends FilterControlledByFrame
 	
 
 	public void setAlpha(Frame alpha){
-		setParameter(alpha);	
+		HashMap<String,Frame> newAlpha= new HashMap<String, Frame>();
+		newAlpha.put("Opacity", alpha);
+		setParameter(newAlpha);	
 	}
 	
 	public void setAlpha(int opacity){
 		Frame alpha = new Frame();
 		alpha.createPlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
-		setParameter(alpha);
+		HashMap<String,Frame> newAlpha= new HashMap<String, Frame>();
+		newAlpha.put("Opacity", alpha);
+		setParameter(newAlpha);
 		
 	}
 	public Frame getAlpha() {
-		return history.getState().getParameter();
+		return history.getState().getParameter().get("Opacity");
 	}
 }

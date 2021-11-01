@@ -1,5 +1,6 @@
 package renderingEngine;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import baseClasses.Command;
@@ -51,7 +52,7 @@ public class Layer extends CompositeFilters
 		return newFilter;
 	}
 	
-	public void setFloatParameters(int controlIndex, Stack<Float> parameters){	
+	public void setFloatParameters(int controlIndex, HashMap<String,Float> parameters){	
 		((FilterControlledByFloat)chainOfFilters.getCommand(controlIndex)).setParameter(parameters);
 	}
 	

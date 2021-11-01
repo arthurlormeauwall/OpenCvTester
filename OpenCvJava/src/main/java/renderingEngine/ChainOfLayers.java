@@ -1,5 +1,6 @@
 package renderingEngine;
 
+import java.util.HashMap;
 import java.util.Stack;
 
 import baseClasses.Command;
@@ -62,7 +63,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}
 	}  
 	
-	public void setParameters(Id ControlId, Stack<Float> parameters){
+	public void setParameters(Id ControlId, HashMap<String,Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
@@ -176,4 +177,6 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public int getNumberOfFilters() {
 		return chainOfFilters.getSize();
 	}
+
+	
 }

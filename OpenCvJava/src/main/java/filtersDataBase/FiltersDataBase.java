@@ -1,7 +1,6 @@
 package filtersDataBase;
 
 import java.util.HashMap;
-import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.filter.FilterControlledByFloat;
@@ -35,7 +34,7 @@ public class FiltersDataBase
 		return alphaFilter;
 	}
 	
-	public FilterFlags<Stack<Float>> getFlags(String name){
+	public FilterFlags<Float> getFlags(String name){
 		if (filters.get(name)== null) {
 			return emptyFilter.getFlags();
 		}

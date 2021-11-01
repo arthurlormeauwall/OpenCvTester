@@ -1,6 +1,5 @@
 package userFilters;
 
-import java.util.Stack;
 
 import org.opencv.core.Mat;
 
@@ -14,15 +13,9 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 
 	public void setParameterFlags() {	
 
-		addParameterFlag("BlueMult", 0.5f);
-		addParameterFlag("GreenMult", 0.5f);
-		addParameterFlag("RedMult", 0.5f);
-		
-		Stack<Float> zeroEffectValues= new Stack<Float>();
-		zeroEffectValues.push(1f);
-		zeroEffectValues.push(1f);
-		zeroEffectValues.push(1f);
-		setZeroEffectValues(zeroEffectValues);
+		addParameterFlag("BlueMult", 0.5f, 1f);
+		addParameterFlag("GreenMult", 0.5f, 1f);
+		addParameterFlag("RedMult", 0.5f, 1f);
 	}
 	
 	public BlueGreenRedMultiplierFilter createNew() {	
@@ -47,9 +40,9 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 	        {
 	            for (int column = 0; column < m_column; column++)
 	            {
-	                float blueMultiplier = getParameter(0);
-	                float greenMultiplier = getParameter(1);
-	                float redMultiplier = getParameter(2);
+	                float blueMultiplier = getParameter("BlueMult");
+	                float greenMultiplier = getParameter("GreenMult");
+	                float redMultiplier = getParameter("RedMult"); 
 
 	                float bluePixel = (float)imgSource.get(row, column)[0];
 	                float greenPixel = (float)imgSource.get(row, column)[1];
