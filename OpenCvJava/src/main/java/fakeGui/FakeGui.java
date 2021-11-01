@@ -28,7 +28,7 @@ public class FakeGui
 		myApp.init(fileName);		
 	}
 	
-	public void addFilterInLayer(int layerIndex, int filterIndex, String filterNames) {
+	public void addFilterInLayer(int layerIndex, int filterIndex, String filterName) {
 		Id filterId = createFilterId(layerIndex, filterIndex);
 		
 		Stack<Id> filtersToAddIds = new Stack<Id>();
@@ -39,7 +39,7 @@ public class FakeGui
 		action.parameters.stringParameters=new Stack<String>();
 		
 		action.id=filtersToAddIds;
-		action.parameters.stringParameters.push(filterNames);		
+		action.parameters.stringParameters.push(filterName);		
 		action.whatToDo=Functionalities.ADD_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
