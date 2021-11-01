@@ -1,48 +1,49 @@
 package baseClasses.filter;
 
-import java.util.Stack;
+import java.util.HashMap;
 
-import baseClasses.history.imp.ParametersHistory;
 import filtersDataBase.FilterFlags;
+
+
 
 public abstract class FilterControlledBy<T> extends Filter
 {
-	protected ParametersHistory<T> history;
 	protected FilterFlags<T> flags;
+	protected HashMap<String, T> parametersState;
 	
-	public FilterControlledBy() {
-		initFilterControlledBy();
+	public FilterControlledBy() {		
+		flags.zeroEffectValues= new HashMap<String, T>();
+		flags.defaultValues= new HashMap<String, T>();
+		parametersState = new HashMap<String, T>();
+		flags.numberOfParameters=0;	
+		setParameterFlags();
+	} 
+	
+	public abstract void setParameterFlags();
+
+	public T getParameter(String name) {
+		return parametersState.get(name);	
 	}
 	
-	private void initFilterControlledBy() {
-		flags = new FilterFlags<T>();
-		isBypass=true;	
+	public void setParameter(String parameterName, T value) {
+		parametersState.put(parameterName, value);
+	}
+	
+	public void addParameterFlag(String name, T defaultValue, T zeroEffectValue) {
+		flags.defaultValues.put(name, defaultValue);
+		flags.zeroEffectValues.put(name, zeroEffectValue);
+		flags.numberOfParameters ++;
+	}
+	
+	public void setEmptyFlags() {
+		flags.numberOfParameters=0;
+	}	
+	
+	public FilterFlags<T> getFlags(){
+		return flags;
 	}
 
-	
-	public abstract void setParameter(T p);
-	
-	public Boolean undo() {
-		if (!history.isUndoEmpty()) {
-			history.undo();
-		    return true;
-		}
-		else {
-			return false;
-		}
-	}
-	 
-	public Boolean redo() {
-		if (!history.isRedoEmpty()) {
-		    history.redo();
-		    return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public void store() {
+}public void store() {
 		history.store();
 	}
 	
