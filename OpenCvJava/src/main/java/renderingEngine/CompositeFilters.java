@@ -160,7 +160,7 @@ public abstract class CompositeFilters extends Filter
 			}
 		}
 		else {
-			dest.setFrame(source.getFrame());
+			dest.setMat(source.getMat());
 		}
 	}
 	

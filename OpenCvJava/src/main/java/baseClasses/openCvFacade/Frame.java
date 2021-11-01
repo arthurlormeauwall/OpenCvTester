@@ -33,7 +33,7 @@ public class Frame
 	}
 
 	public void copyTo(Frame newFrame) {
-		newFrame.setFrame(frameMat.clone());
+		newFrame.setMat(frameMat.clone());
 		newFrame.setSpecs();
 	}
 
@@ -61,8 +61,8 @@ public class Frame
 	
 	public Boolean compareTo(Frame p) {
 		
-		int rowsP= p.getFrame().rows();
-		int colsP=p.getFrame().cols();
+		int rowsP= p.getMat().rows();
+		int colsP=p.getMat().cols();
 		
 		int rows = frameMat.rows();
 		int cols= frameMat.cols();
@@ -71,7 +71,7 @@ public class Frame
 			
 			for (int i=0; i<rows; i++) {
 				for (int j=0; j<cols;j ++) {
-					if (p.getFrame().get(i,j) != frameMat.get(i,j)) {
+					if (p.getMat().get(i,j) != frameMat.get(i,j)) {
 						return false;
 					}
 				}
@@ -81,11 +81,11 @@ public class Frame
 		return false;
 	}
 
-	public Mat getFrame(){ 
+	public Mat getMat(){ 
 		return frameMat; 
 	}
 
-	public void setFrame(Mat frame){
+	public void setMat(Mat frame){
 		frameMat = frame; 
 		setSpecs();
 	}

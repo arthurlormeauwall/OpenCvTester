@@ -35,7 +35,7 @@ public class App
 	public void init(String fileName) {
 		
 		setImage(fileName);
-		background.createPlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), 0);
+		background.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), 0);
 		source.copyTo(dest);
 		
 		Id rendererId = new Id();

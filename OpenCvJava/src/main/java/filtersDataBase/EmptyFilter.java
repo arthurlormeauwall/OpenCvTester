@@ -8,7 +8,7 @@ public class EmptyFilter extends FilterControlledByFloat {
 	}
 
 	public void execute() {
-		dest.setFrame(source.getFrame());		
+		dest.setMat(source.getMat());		
 	}
 	
 	public EmptyFilter createNew() {

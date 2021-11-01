@@ -22,7 +22,7 @@ public class OpacityFilter extends FilterControlledByFrame
 	}
 	
 	private void setFlags() {		
-		addParameterFlag("Opacity",  new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax), new Frame(background.getFrame().rows(), background.getFrame().cols(), background.getSpecs().bitMax));
+		addParameterFlag("Opacity",  new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax), new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax));
 	
 	}
 
@@ -33,11 +33,11 @@ public class OpacityFilter extends FilterControlledByFrame
 		}
 		else if (!isBypass) {
 			
-			Mat imgSource = source.getFrame();
-			Mat imgDest = dest.getFrame();
-			Mat background = this.background.getFrame();
+			Mat imgSource = source.getMat();
+			Mat imgDest = dest.getMat();
+			Mat background = this.background.getMat();
 
-			Mat alpha = getParameter().get("Opacity").getFrame();
+			Mat alpha = getParameter().get("Opacity").getMat();
 			int NBITMAX = source.getSpecs().bitMax;
 
 			int m_row = imgDest.rows();
@@ -61,7 +61,7 @@ public class OpacityFilter extends FilterControlledByFrame
 					imgDest.put(row, column, data);				
 				}				
 			}
-			dest.setFrame(imgDest);
+			dest.setMat(imgDest);
 		}
 	}
 		
@@ -79,7 +79,7 @@ public class OpacityFilter extends FilterControlledByFrame
 	
 	public void setAlpha(int opacity){
 		Frame alpha = new Frame();
-		alpha.createPlainGrayFrame(source.getFrame().rows(), source.getFrame().cols(), opacity);
+		alpha.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), opacity);
 		HashMap<String,Frame> newAlpha= new HashMap<String, Frame>();
 		newAlpha.put("Opacity", alpha);
 		setParameter(newAlpha);

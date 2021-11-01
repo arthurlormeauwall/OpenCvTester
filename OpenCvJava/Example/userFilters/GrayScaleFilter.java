@@ -27,8 +27,8 @@ public class GrayScaleFilter extends FilterControlledByFloat
 
 		if (!isBypass)
 	    {
-	        Mat imgSource = source.getFrame();
-	        Mat imgDest = dest.getFrame();
+	        Mat imgSource = source.getMat();
+	        Mat imgDest = dest.getMat();
 
 	        int m_row = imgSource.rows();
 	        int m_column = imgSource.cols();
@@ -55,7 +55,7 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	                imgDest.put(row, column, temp);
 	            }
 	        }   
-	        dest.setFrame(imgDest);	
+	        dest.setMat(imgDest);	
 	    }	
 	}
 }
