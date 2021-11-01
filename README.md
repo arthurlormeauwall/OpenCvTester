@@ -55,7 +55,7 @@ To use this framework, you first have to import `FakeGui` classe from *fakeGui* 
 
 ### 1. Filters database :
 
-In this framework filters are objects that you create and add to the `FiltersDataBase` object, managed by the `FakeGui` object (so you never have to deal directly with the `FiltersDataBase`).  
+Filters are objects that you create and add to the `FiltersDataBase` object, managed by the `FakeGui` object (so you never have to deal directly with the `FiltersDataBase`).  
 In the beginning, the filters database is empty. 
 
 To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import baseClasses.filter.FilterControlledByFloat;`).
@@ -64,36 +64,36 @@ To write your own filter class you have to create a class that extends the `Filt
 * Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). To get the `Mat` object from a `Frame` object you call the `getMat()` mehtod.
 * Several float parameters that will be tweakable in the GUI. You can access them calling `getParameter(String name)` method.
 * Three abstract methods that you have to implement : 
-  * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues)` for each parameter. When parameters are set to values specified by zeroEffectValues arguments, bypass is automtically set to true.
-  * `public void execute()` : here you write your algorithm. Do not forget to update `dest` variable at the end (you can call `setFrame(Mat frame)`).
+  * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues)` for each parameter. When parameters are set to values specified by zeroEffectValues, bypass is automtically set to true.
+  * `public void execute()` : here you write your algorithm. Do not forget to update `dest` variable at the end (you can call `setMat(Mat frame)`).
   * `public YourType createNew() {	
 		return new YourType();
 	}`
 
 In your code, you create an object of this new class and add it to the filters database calling `addFilterInDatabase(String name, FilterControlledByFloat filter)` method of the `fakeGui` object.
 
-Once that is done, you can call methods of the FakeGui object to mimic the GUI and test your algorithm.
-In the example folder you may find Main.java with example of tests and two filter of my own : MultbgrControl and GrayScaleControl. 
+Once that is done, you can call methods of the FakeGui object to mimic the GUI and test your filter.
+In the example folder you may find Main.java with example of tests and two filter of my own : BlueGreenRedMultiplierFilter and GrayScaleFilter. 
 
 ### 2. The FakeGui classe
 
 Here are all the methods that you can use :
 
-- `public void addFilterInLayer(int layerIndex, int filterIndex, String filterNames)` : add a filter in a certain layer at a certain index. The third parameter is the name in the filter database of the filter to add.
+- `public void addFilterInLayer(int layerIndex, int filterIndex, String filterName)` : add a filter in a certain layer at a certain index. The third parameter is the name in the filter database of the filter to add.
 
 - `void delFilterInLayer(int layerIndex, int filterIndex)` : delete a certain filter in a certain layer.
 
-- `public void addLayer(int layerIndex, Stack<String> filtersNames)` : add a layer. The second parameter is a stack of names, in the filter database, of the new filters of this layer.
+- `public void addLayer(int layerIndex, Stack<String> filtersNames)` : add a layer. The second parameter is a stack of names, in the filter database, of the new filters to add in this new layer.
 
 - `public void delLayer(int layerIndex))` : delete a certain layer.
 
 - `public void setAlpha(int layerIndex, Frame alpha)` 	: set the alpha mask of a certain layer with a `Frame` object.
 
-- `public void setAlpha(int layerIndex, int opacity)` : set the opacity of a certain layer with an integer data.
+- `public void setAlpha(int layerIndex, int opacity)` : set the alpha mask of a certain layer with an opacity value.
 
 - `public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues)` : set parameters of a certain filter.
 
-- `public void setBypass(int layerIndex, int filterIndex, Boolean bypass)` : set bypass state of a certain control. 
+- `public void setBypass(int layerIndex, int filterIndex, Boolean bypass)` : set bypass state of a certain filter. 
 
 - `public void undo()` and  `public void redo()`  : undo/redo the last thing that have been changed in the entire system ; could either be : parameters change (including opacity/alpha), layer added/deleted, filter added/deleted. Change of the bypass state is not including in the undoable things.
 
