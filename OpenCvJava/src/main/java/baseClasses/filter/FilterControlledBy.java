@@ -50,20 +50,20 @@ public abstract class FilterControlledBy<T> extends Filter
 		id.setControlOrLayer(groupDeepnessIndex, newValue);
 	}
 	
-	public void setNames(Stack<String> names) {
-		flags.filterNames = names;
+	public void setNames(String name) {
+		flags.filterName = name;
 	}
 	
 	public void setNumberOfParamters (int n) {
 		flags.numberOfParameters = n;
 	}
 	
-	public void setDefaultParameters(T p) {
-		flags.defaultValues = p;
+	public void setDefaultParameters(String name, T p) {
+		flags.defaultValues.put(name, p);
 	}
 	
-	public void setZeroEffectValues(T p) {
-		flags.zeroEffectValues = p;
+	public void setZeroEffectValues(String name, T p) {
+		flags.zeroEffectValues.put(name, p);
 	}
 	
 	public void reset() {

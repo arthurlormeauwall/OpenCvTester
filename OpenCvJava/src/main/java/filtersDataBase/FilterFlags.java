@@ -1,12 +1,12 @@
 package filtersDataBase;
 
-import java.util.Stack;
+import java.util.HashMap;
 
 public class FilterFlags<T> 
 {	
-	public Stack<String> filterNames;
+	public String filterName;
 	public int numberOfParameters;
-	public T defaultValues;
-	public T zeroEffectValues;
+	public HashMap<String, T> defaultValues;
+	public HashMap<String, T> zeroEffectValues;
 }
 
