@@ -5,7 +5,6 @@ import baseClasses.Id;
 import baseClasses.IoFrame;
 import baseClasses.history.imp.UndoIdHistory;
 import baseClasses.openCvFacade.Frame;
-import filtersDataBase.FiltersDataBase;
 
 
 
