@@ -13,10 +13,11 @@ public class Main
 		fakeGui.addFilterInDataBase("BgrMult", new BlueGreenRedMultiplierFilter());
 		fakeGui.addFilterInDataBase("GrayScaleFilter", new GrayScaleFilter());
     
-		Stack<String> controlIndexInDataBase= new Stack<String>();
-		controlIndexInDataBase.push("BgrMult");
+		Stack<String> filtersName= new Stack<String>();
+		filtersName.push("BgrMult");
 		
-		fakeGui.addLayer(0, controlIndexInDataBase);
+		fakeGui.addLayer(0, filtersName);
+		filtersName.clear();
 		fakeGui.setBypass(0, 0, false);
 
 		
@@ -28,51 +29,18 @@ public class Main
 		fakeGui.setParameters(0, 0, floatParameters);
 		floatParameters.clear();
 		
-		fakeGui.undo();    
-		fakeGui.undo();
-		fakeGui.undo();
-		fakeGui.addLayer(2, controlIndexInDataBase);
-		fakeGui.undo();
+		fakeGui.undo();   
 		fakeGui.redo();
-		fakeGui.redo();
-		fakeGui.addLayer(1, controlIndexInDataBase);
-		fakeGui.setBypass(1, 0, false);
-		fakeGui.undo();
-		fakeGui.redo();                                  
-	
-		fakeGui.undo();
 		
-		floatParameters.put("BlueMult", 0.6f);
-		floatParameters.put("GreenMult", 2f);
-		floatParameters.put("RedMult", 0.9f);
+		floatParameters.put("BlueMult", 1.2f);
+		floatParameters.put("GreenMult", 0.5f);
+		floatParameters.put("RedMult", 2f);
 		fakeGui.setParameters(0, 0, floatParameters);	
-		floatParameters.clear();
+		floatParameters.clear();		
 		
-		controlIndexInDataBase.clear();
-		controlIndexInDataBase.push("BgrMult");
-		fakeGui.addLayer(1, controlIndexInDataBase);
-		fakeGui.setBypass(1, 0, false);
-		
-		fakeGui.undo();                                 
-		fakeGui.redo();
-		
-		floatParameters.put("BlueMult", 0.6f);
-		floatParameters.put("GreenMult", 2f);
-		floatParameters.put("RedMult", 0.9f);
-		fakeGui.setParameters(1, 0, floatParameters);    
-		floatParameters.clear();
-		
-		
-		floatParameters.put("BlueMult", 0.6f);
-		floatParameters.put("GreenMult", 2f);
-		floatParameters.put("RedMult", 0.9f);
-		fakeGui.setParameters(0, 0, floatParameters);  
-		floatParameters.clear();
-	
-		fakeGui.undo();                                 
-		fakeGui.undo();                                  
-		fakeGui.undo();                                  
-		fakeGui.redo();								
-		fakeGui.redo();									 
+		filtersName.push("GrayScaleFilter");
+		fakeGui.addLayer(1, filtersName);
+		filtersName.clear();
+		fakeGui.setBypass(1, 0, false);		
     }
 }
