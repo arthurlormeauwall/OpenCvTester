@@ -20,8 +20,8 @@ public class App
 	protected Frame background;
 	protected Frame dest;
 	
-	protected ChainOfLayers renderer;
-	protected UIImp mainWin;
+	protected ChainOfLayers chainOfLayers;
+	protected UIImp mainWinow;
 	
 	public App() {	
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -42,12 +42,12 @@ public class App
 		rendererId.initNULL();
 		rendererId.setGroupId(GroupsId.RENDERER.ordinal());
 	
-		renderer = new ChainOfLayers(new FiltersDataBase(), background, rendererId, undoIdHistory, renderAtIdHistory);
+		chainOfLayers = new ChainOfLayers(new FiltersDataBase(), background, rendererId, undoIdHistory, renderAtIdHistory);
 
-		renderer.setSource(source);
-		renderer.setDest(dest);
-		renderer.play();
-		mainWin= new UIImp(renderer);	
+		chainOfLayers.setSource(source);
+		chainOfLayers.setDest(dest);
+		chainOfLayers.play();
+		mainWinow= new UIImp(chainOfLayers);	
 	}
 	
 	private void setImage(String fileName) {
@@ -55,6 +55,6 @@ public class App
 	}
 	
 	public UIImp getMainWin() {
-		return mainWin;
+		return mainWinow;
 	}
 }

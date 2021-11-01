@@ -5,70 +5,70 @@ import baseClasses.Undoable;
 
 public abstract class UIInterface implements Undoable, FunctionalitiesInterface
 {
-	protected ChainOfLayers renderer;
+	protected ChainOfLayers chainOfLayers;
 	
-	public UIInterface(ChainOfLayers renderer) {
-		this.renderer = renderer;
+	public UIInterface(ChainOfLayers chainOfLayers) {
+		this.chainOfLayers = chainOfLayers;
 	}
 
 	public void dealOrder(Action action) {
 		switch (action.whatToDo) {
 			case ADD_FILTER_IN_DATABASE:
-				renderer.addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
+				chainOfLayers.addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
 				addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
 				break;
 				
 			case ADD_FILTER:
-				renderer.addFilterInLayer(action.id, action.parameters.stringParameters.get(0));	
+				chainOfLayers.addFilterInLayer(action.id, action.parameters.stringParameters.get(0));	
 				addFilterInLayer (action.id, action.parameters.stringParameters.get(0));
 				break;
 	
 			case DELETE_FILTER :
-				renderer.delFilterInLayer(action.id);
+				chainOfLayers.delFilterInLayer(action.id);
 				delFilterInLayer(action.id);
 				break;
 	
 			case ADD_LAYER:
-				renderer.addLayer(action.id, action.parameters.stringParameters);
+				chainOfLayers.addLayer(action.id, action.parameters.stringParameters);
 				addLayer(action.id,  action.parameters.stringParameters);
 				break;
 	
 			case DELETE_LAYER:
-				renderer.delLayer(action.id);
+				chainOfLayers.delLayer(action.id);
 				delLayer(action.id);
 				break;
 	
 			case SET_ALPHA_OPACITY:
-				renderer.setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
+				chainOfLayers.setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
 				setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
 				break;
 	
 			case SET_ALPHA_FRAME:
-				renderer.setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
+				chainOfLayers.setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
 				setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
 				break;
 				
 			case SET_PARAMETERS : 
-				renderer.setParameters(action.id.get(0), action.parameters.floatParameters);
+				chainOfLayers.setParameters(action.id.get(0), action.parameters.floatParameters);
 				break;
 	
 			case UNDO:
-				renderer.undo();
+				chainOfLayers.undo();
 				undo();
 				break;
 	
 			case REDO:
-				renderer.redo();
+				chainOfLayers.redo();
 				redo();
 				break;
 	
 			case STORE:
-				renderer.store();
+				chainOfLayers.store();
 				store();
 				break;
 				
 			case SET_BYPASS:
-				renderer.setBypass(action.id.get(0), action.parameters.boolParameters);
+				chainOfLayers.setBypass(action.id.get(0), action.parameters.boolParameters);
 				break;
 				
 			case REFRESH:
@@ -77,7 +77,7 @@ public abstract class UIInterface implements Undoable, FunctionalitiesInterface
 	}
 	
 	private void refresh() {
-		renderer.play();
+		chainOfLayers.play();
 		play();
 	}
 }
