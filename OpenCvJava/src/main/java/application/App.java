@@ -6,7 +6,7 @@ import renderingEngine.ChainOfLayers;
 import org.opencv.core.Core;
 
 import baseClasses.Id;
-import baseClasses.history.imp.IdHistory;
+import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import gui.UIImp;

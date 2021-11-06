@@ -7,7 +7,7 @@ import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.history.imp.IdHistory;
+import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;

@@ -6,8 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import baseClasses.history.historyParameters.FrameHistoryParameter;
-import baseClasses.history.imp.ParametersHistory;
+
 import baseClasses.openCvFacade.Frame;
 
 public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>

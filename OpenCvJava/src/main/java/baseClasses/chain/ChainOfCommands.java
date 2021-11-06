@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Id;
-import baseClasses.history.imp.IdHistory;
+import baseClasses.history.IdHistory;
 
 
 public class ChainOfCommands

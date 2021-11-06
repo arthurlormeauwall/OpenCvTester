@@ -3,7 +3,7 @@ package baseClasses.filter;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.IoFrame;
-import baseClasses.history.imp.IdHistory;
+import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 
 

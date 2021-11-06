@@ -1,7 +1,7 @@
 package renderingEngine;
 
 import baseClasses.Id;
-import baseClasses.history.imp.IdHistory;
+import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 

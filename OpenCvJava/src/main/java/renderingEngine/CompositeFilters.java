@@ -1,7 +1,7 @@
 package renderingEngine;
 
-import baseClasses.history.historyParameters.IdHistoryParameter;
-import baseClasses.history.imp.IdHistory;
+import baseClasses.history.IdHistory;
+import baseClasses.history.IdHistoryParameter;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 

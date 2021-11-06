@@ -1,7 +1,4 @@
-package baseClasses.history.imp;
-
-import baseClasses.history.History;
-import baseClasses.history.HistoryParameter;
+package baseClasses.history;
 
 public class IdHistory<T> extends History<T> 
 {

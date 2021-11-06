@@ -1,4 +1,4 @@
-package baseClasses.history;
+package actionsHistory;
 
 import java.util.LinkedList;
 import actions.Action;

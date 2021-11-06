@@ -12,12 +12,12 @@ import actions.SetAlpha;
 import actions.SetBypass;
 import actions.SetOpacity;
 import actions.SetParameters;
+import actionsHistory.ActionsHistory;
 import application.App;
 import application.Functionalities;
 import application.Parameters;
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.history.ActionsHistory;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.GroupsId;
 
