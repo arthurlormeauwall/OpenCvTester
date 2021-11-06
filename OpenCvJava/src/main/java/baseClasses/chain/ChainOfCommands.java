@@ -4,7 +4,6 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Id;
-import baseClasses.filter.Filter;
 import baseClasses.history.imp.IdHistory;
 
 
@@ -20,7 +19,7 @@ public class ChainOfCommands
     
     
 
-    protected void addCommand(Id id, Command filter) {
+    public void addCommand(Id id, Command filter) {
         int index = getCommandIndex(id);
 
         int lastControl = commands.size() - 1;
@@ -41,15 +40,15 @@ public class ChainOfCommands
         updateAllId(index);
     }
 
-    private Command delCommand(Id id) {
+    public Command delCommand(Id id) {
         int index = getCommandIndex(id);
         int lastControlIndex= commands.size()-1;
         if (index>lastControlIndex) {
         	index=lastControlIndex;
         }
-        Command erasedFilter =commands.remove(index);
+        Command erasedCommand =commands.remove(index);
         updateAllId(index);
-        return erasedFilter;
+        return erasedCommand;
     }
     
     public void updateAllId(int index) {
@@ -79,10 +78,21 @@ public class ChainOfCommands
         return controlIndex;
     }
     
+    public int getDeepnessIndex() {
+        int currentGroupId = id.getGroupId();
+        int groupDeepnessIndex = (currentGroupId - 1) / 2;
+        
+        /* if we are in a "layer chain" (groupId at '1') we should get layer index 
+        but if we are in a "filter chain" (groupId at '3')
+        we should get filter index */
+        
+        return groupDeepnessIndex;
+    }
+
 
     public ChainOfCommands clone() {	
     	
-    	ChainOfCommands newChainControl = new ChainOfCommands();
+    	ChainOfCommands newChainControl = new ChainOfCommands(id.clone());
     	newChainControl.setCommandChain(commands);	
     	return newChainControl;
     }

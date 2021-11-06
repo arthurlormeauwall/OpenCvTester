@@ -51,7 +51,7 @@ public class Layer extends CompositeFilters
 	}
 	
 	public void setFloatParameters(int controlIndex, HashMap<String,Float> parameters){	
-		((FilterControlledByFloat)chainOfFilters.getFilter(controlIndex)).setParameter(parameters);
+		((FilterControlledByFloat)chainOfFilters.getCommand(controlIndex)).setParameter(parameters);
 	}
 	
 	public void execute() {	

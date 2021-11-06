@@ -21,7 +21,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		Stack<String> stackOfFilterNames = new Stack<String>();
 		stackOfFilterNames.push(filterNames);
 		
-		Filter newFilter =((Layer)chainOfFilters.getFilter(filterId.get(0).get()[0])).addFilter(filterId, stackOfFilterNames);
+		Filter newFilter =((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).addFilter(filterId, stackOfFilterNames);
 
 		execute();	
 
@@ -30,14 +30,14 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	
 	public Filter addFilterInLayer(Filter filter) {
 		
-		((Layer)chainOfFilters.getFilter(filter.getId().get()[0])).addFilter(filter);
+		((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).addFilter(filter);
 		execute();	
 		return filter;
 	}
 	
 	public Filter delFilterInLayer(Stack<Id> filterId){
 		if (getNumberOfFilters()> filterId.get(0).get()[0]) {
-			Filter newFilter =((Layer)chainOfFilters.getFilter(filterId.get(0).get()[0])).delFilter(filterId);
+			Filter newFilter =((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).delFilter(filterId);
 			execute();
 			return newFilter;
 		}
@@ -71,14 +71,14 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	
 	public void setAlpha(int layerIndex, Frame alpha){
 		if (getNumberOfFilters() > layerIndex) {
-			((Layer)chainOfFilters.getFilter(layerIndex)).setAlpha(alpha);
+			((Layer)chainOfFilters.getCommand(layerIndex)).setAlpha(alpha);
 			execute();
 		}	
 	}   
 	
 	public void setOpacity(int layerIndex, int opacity){
 		if (getNumberOfFilters() >layerIndex) {
-			((Layer)chainOfFilters.getFilter(layerIndex)).setAlpha(opacity);
+			((Layer)chainOfFilters.getCommand(layerIndex)).setAlpha(opacity);
 			execute();
 		}
 	}  
@@ -86,8 +86,8 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public void setParameters(Id ControlId, HashMap<String,Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getFilter(layerIndex)).getNumberOfFilters()  > controlIndex) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getFilter(layerIndex)).getFilter(controlIndex);
+		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(controlIndex);
 			adjustControlToSet.setParameter(parameters);
 			execute();
 		}
@@ -97,8 +97,8 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 	
-		if ( getNumberOfFilters()>layerIndex && ((Layer)chainOfFilters.getFilter(layerIndex)).getNumberOfFilters() > controlIndex) {
-			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfFilters.getFilter(layerIndex)).getFilter(controlIndex));
+		if ( getNumberOfFilters()>layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters() > controlIndex) {
+			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(controlIndex));
 			temp.setBypass(p);
 			execute();
 		}
@@ -137,9 +137,9 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		int numberOfMaskedLayers = chainOfFilters.getSize();
 		
 		if (numberOfMaskedLayers>0) {
-			((Layer)chainOfFilters.getFilter(0)).setBackGround(m_background);
+			((Layer)chainOfFilters.getCommand(0)).setBackGround(m_background);
 			for (int i = 1; i < numberOfMaskedLayers; i++) {
-				((Layer)chainOfFilters.getFilter(i)).setBackGround(((Layer)chainOfFilters.getFilter(i - 1)).getDest());
+				((Layer)chainOfFilters.getCommand(i)).setBackGround(((Layer)chainOfFilters.getCommand(i - 1)).getDest());
 			}
 		}	
 	}   
@@ -152,14 +152,13 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}
 	}   
 
-	
 
 	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
 		dbControls.addFilter(name, filter);
 	}
 	
 	public Command getLastFilter(){
-		return chainOfFilters.getFilter(chainOfFilters.getSize() - 1);
+		return chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
 	}   
 	
 	public int getNumberOfFilters() {
