@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.openCvFacade.Frame;
+import renderingEngine.Layer;
 
 public class Parameters 
 {
@@ -14,4 +15,5 @@ public class Parameters
 	public Frame frameParameters;
 	public Boolean boolParameters;
 	public FilterControlledByFloat filterParameters;
+	public Layer layer;
 }

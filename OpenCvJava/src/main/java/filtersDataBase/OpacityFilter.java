@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.opencv.core.Mat;
 
 import baseClasses.filter.FilterControlledByFrame;
-import baseClasses.history.historyParameters.FrameHistoryParameter;
 import baseClasses.openCvFacade.Frame;
 
 public class OpacityFilter extends FilterControlledByFrame 
@@ -18,7 +17,6 @@ public class OpacityFilter extends FilterControlledByFrame
 	public void init(Frame background) {
 		setBackGround(background);
 		setFlags();
-		history.setState(new FrameHistoryParameter(flags.defaultValues));
 	}
 	
 	private void setFlags() {		
@@ -86,6 +84,6 @@ public class OpacityFilter extends FilterControlledByFrame
 		
 	}
 	public Frame getAlpha() {
-		return history.getState().getParameter().get("Opacity");
+		return state.get("Opacity");
 	}
 }

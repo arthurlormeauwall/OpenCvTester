@@ -3,12 +3,21 @@ package fakeGui;
 import java.util.HashMap;
 import java.util.Stack;
 
-import application.Action;
+import actions.Action;
+import actions.AddFilterInDataBase;
+import actions.AddOrDeleteFilter;
+import actions.AddOrDeleteLayer;
+import actions.Play;
+import actions.SetAlpha;
+import actions.SetBypass;
+import actions.SetOpacity;
+import actions.SetParameters;
 import application.App;
 import application.Functionalities;
 import application.Parameters;
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
+import baseClasses.history.ActionsHistory;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.GroupsId;
 
@@ -17,10 +26,14 @@ public class FakeGui
 
 {
 	private App myApp;
+	private ActionsHistory history;
+	private Boolean readyToStore;
 	
 	public FakeGui(String fileName){	
 		myApp= new App();
-		myApp.init(fileName);		
+		myApp.init(fileName);
+		history=new ActionsHistory();
+		readyToStore=false;
 	}
 	
 	public FakeGui(App app, String fileName){	
@@ -34,7 +47,7 @@ public class FakeGui
 		Stack<Id> filtersToAddIds = new Stack<Id>();
 		filtersToAddIds.push(filterId);
 		
-		Action action = new Action();
+		Action action = new AddOrDeleteFilter(myApp.getMainWin());
 		action.parameters= new Parameters();
 		action.parameters.stringParameters=new Stack<String>();
 		
@@ -43,7 +56,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.ADD_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
-		store();
+		history.setState(action);
+		history.store();
 		play();
 		
 	}
@@ -54,7 +68,7 @@ public class FakeGui
 		Stack<Id> filterToDeleteIds = new Stack<Id>();
 		filterToDeleteIds.push(filterId);
 		
-		Action action = new Action();
+		Action action = new AddOrDeleteFilter(myApp.getMainWin());
 		action.parameters= new Parameters();
 		action.parameters.intParameters=new Stack<Integer>();
 		
@@ -63,7 +77,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.DELETE_FILTER;
 		
 		myApp.getMainWin().dealOrder(action);
-		store();
+		history.setState(action);
+		history.store();
 		play();	
 	}	
 	
@@ -76,7 +91,7 @@ public class FakeGui
 			filtersToAddIds.push(createFilterId(layerIndex, i));
 		}
 			
-		Action action = new Action();
+		Action action = new AddOrDeleteLayer(myApp.getMainWin());
 		action.parameters= new Parameters();
 				
 		action.id=filtersToAddIds;
@@ -84,7 +99,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.ADD_LAYER;
 		
 		myApp.getMainWin().dealOrder(action);
-		store();
+		history.setState(action);
+		history.store();
 		play();
 		
 	}	
@@ -95,7 +111,7 @@ public class FakeGui
 		Stack<Id> layersToDeleteIds = new Stack<Id>();
 		layersToDeleteIds.push(layerId);
 		
-		Action action = new Action();
+		Action action = new AddOrDeleteLayer(myApp.getMainWin());
 		action.parameters= new Parameters();
 				
 		action.id=layersToDeleteIds;
@@ -103,7 +119,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.DELETE_LAYER;
 		
 		myApp.getMainWin().dealOrder(action);
-		store();
+		history.setState(action);
+		history.store();
 		play();
 		
 	}	
@@ -114,7 +131,7 @@ public class FakeGui
 		Stack<Id> layersIds = new Stack<Id>();
 		layersIds.push(layerId);
 		
-		Action action = new Action();
+		Action action = new SetAlpha(myApp.getMainWin());
 		action.parameters= new Parameters();
 		
 		action.id=layersIds;	
@@ -122,12 +139,13 @@ public class FakeGui
 		action.whatToDo=Functionalities.SET_ALPHA_FRAME;
 		
 		myApp.getMainWin().dealOrder(action);	
-		store();
+		history.setState(action);
+		history.store();
 		play();
 		
 	}	
 	
-	public void setAlpha(int layerIndex, int opacity) {
+	public void setOpacity(int layerIndex, int opacity) {
 		Id layerId = createLayerId(layerIndex);
 		
 		Stack<Id> layersIds = new Stack<Id>();
@@ -135,7 +153,7 @@ public class FakeGui
 		opacityParameter.push(opacity);
 		layersIds.push(layerId);
 		
-		Action action = new Action();
+		Action action = new SetOpacity(myApp.getMainWin());
 		action.parameters= new Parameters();
 		
 		action.id=layersIds;	
@@ -143,18 +161,23 @@ public class FakeGui
 		action.whatToDo=Functionalities.SET_ALPHA_OPACITY;
 		
 		myApp.getMainWin().dealOrder(action);
-		store();
+		history.setState(action);
+		history.store();
 		play();
 		
 	}	
 	
 	public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues){
+		if (readyToStore) {
+			history.store();
+			readyToStore=false;
+		}
 		Id filterId = createFilterId(layerIndex, filterIndex);
 		
 		Stack<Id> filtersToAdjustIds = new Stack<Id>();
 		filtersToAdjustIds.push(filterId);
 		
-		Action action = new Action();
+		Action action = new SetParameters(myApp.getMainWin());
 		action.parameters= new Parameters();
 		
 		action.id=filtersToAdjustIds;	
@@ -162,7 +185,8 @@ public class FakeGui
 		action.whatToDo=Functionalities.SET_PARAMETERS;
 		
 		myApp.getMainWin().dealOrder(action);	
-		store();
+		history.setState(action);
+		readyToStore=true;
 		play();	
 	}	
 	
@@ -172,7 +196,7 @@ public class FakeGui
 		Stack<Id> filtersIds = new Stack<Id>();
 		filtersIds.push(filterId);
 		
-		Action action = new Action();
+		Action action = new SetBypass(myApp.getMainWin());
 		action.parameters= new Parameters();
 		
 		action.id=filtersIds;	
@@ -184,44 +208,17 @@ public class FakeGui
 	}
 	
 	public void undo() {
-		Action action = new Action();
-		action.parameters= new Parameters();
-		
-		action.id=null;	
-		action.parameters.boolParameters=null;
-		action.whatToDo=Functionalities.UNDO;
-		
-		myApp.getMainWin().dealOrder(action);
-		play();
+		history.undo();
 		
 	}
 	
 	public void redo() {
-		Action action = new Action();
-		action.parameters= new Parameters();
-		
-		action.id=null;	
-		action.parameters.boolParameters=null;
-		action.whatToDo=Functionalities.REDO;
-		
-		myApp.getMainWin().dealOrder(action);
-		play();
-	}
-	
-	private void store() {
-		Action action = new Action();
-		action.parameters= new Parameters();
-		
-		action.id=null;	
-		action.parameters.boolParameters=null;
-		action.whatToDo=Functionalities.STORE;
-		
-		myApp.getMainWin().dealOrder(action);
+		history.redo();
 	}
 	
 	private void play() {
 	
-		Action action = new Action();
+		Action action = new Play(myApp.getMainWin());
 		action.parameters= new Parameters();
 		
 		action.id=null;	
@@ -233,7 +230,7 @@ public class FakeGui
 	
 	public void addFilterInDataBase(String name, FilterControlledByFloat newfilter) {
 		
-		Action action = new Action();
+		Action action = new AddFilterInDataBase(myApp.getMainWin());
 		action.parameters= new Parameters();
 		
 		action.id=null;	

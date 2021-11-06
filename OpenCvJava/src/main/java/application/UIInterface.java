@@ -1,9 +1,15 @@
 package application;
 
 import renderingEngine.ChainOfLayers;
-import baseClasses.Undoable;
+import renderingEngine.Layer;
 
-public abstract class UIInterface implements Undoable, FunctionalitiesInterface
+import java.util.Stack;
+
+import actions.Action;
+import baseClasses.Id;
+import baseClasses.filter.Filter;
+
+public abstract class UIInterface 
 {
 	protected ChainOfLayers chainOfLayers;
 	
@@ -15,12 +21,12 @@ public abstract class UIInterface implements Undoable, FunctionalitiesInterface
 		switch (action.whatToDo) {
 			case ADD_FILTER_IN_DATABASE:
 				chainOfLayers.addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
-				addFilterInDatabase(action.parameters.stringParameters.get(0), action.parameters.filterParameters);
+				
 				break;
 				
 			case ADD_FILTER:
 				chainOfLayers.addFilterInLayer(action.id, action.parameters.stringParameters.get(0));	
-				addFilterInLayer (action.id, action.parameters.stringParameters.get(0));
+				addFilterInLayer(action.id, action.parameters.stringParameters.get(0));
 				break;
 	
 			case DELETE_FILTER :
@@ -39,34 +45,17 @@ public abstract class UIInterface implements Undoable, FunctionalitiesInterface
 				break;
 	
 			case SET_ALPHA_OPACITY:
-				chainOfLayers.setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
-				setAlpha(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
+				chainOfLayers.setOpacity(action.parameters.intParameters.get(0), action.parameters.intParameters.get(1));
 				break;
 	
 			case SET_ALPHA_FRAME:
 				chainOfLayers.setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
-				setAlpha(action.parameters.intParameters.get(0), action.parameters.frameParameters);
 				break;
 				
 			case SET_PARAMETERS : 
 				chainOfLayers.setParameters(action.id.get(0), action.parameters.floatParameters);
 				break;
-	
-			case UNDO:
-				chainOfLayers.undo();
-				undo();
-				break;
-	
-			case REDO:
-				chainOfLayers.redo();
-				redo();
-				break;
-	
-			case STORE:
-				chainOfLayers.store();
-				store();
-				break;
-				
+
 			case SET_BYPASS:
 				chainOfLayers.setBypass(action.id.get(0), action.parameters.boolParameters);
 				break;
@@ -76,8 +65,16 @@ public abstract class UIInterface implements Undoable, FunctionalitiesInterface
 			}
 	}
 	
+	protected abstract Layer delLayer(Stack<Id> id);
+
+	protected abstract Layer addLayer(Stack<Id> id, Stack<String> stringParameters);
+
+	protected abstract Filter delFilterInLayer(Stack<Id> id);
+
+	protected abstract Filter addFilterInLayer(Stack<Id> id, String string);
+
 	private void refresh() {
 		chainOfLayers.play();
-		play();
 	}
+
 }

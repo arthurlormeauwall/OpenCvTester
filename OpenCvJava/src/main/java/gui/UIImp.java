@@ -5,9 +5,11 @@ import java.util.Stack;
 
 import application.UIInterface;
 import baseClasses.Id;
+import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.openCvFacade.Frame;
 import renderingEngine.ChainOfLayers;
+import renderingEngine.Layer;
  
 public class UIImp extends UIInterface 
 {
@@ -16,18 +18,22 @@ public class UIImp extends UIInterface
 	}
 	
 	
-	public void addFilterInLayer(Stack<Id> id, String filterName) {	
+	public Filter addFilterInLayer(Stack<Id> id, String filterName) {	
+		return null;
 	}
 
 	
-	public void delFilterInLayer(Stack<Id> id) {
+	public Filter delFilterInLayer(Stack<Id> id) {
+		return null;
 	}
 
 	
-	public void addLayer(Stack<Id> id, Stack<String> filtersNames) {	
+	public Layer addLayer(Stack<Id> id, Stack<String> filtersNames) {	
+		return null;
 	}
 
-	public void delLayer(Stack<Id> id) {	
+	public Layer delLayer(Stack<Id> id) {	
+		return null;
 	}
 
 	
@@ -35,38 +41,19 @@ public class UIImp extends UIInterface
 	}
 
 
-	public void setAlpha(int layerIndex, int opacity) {
+	public void setOpacity(int layerIndex, int opacity) {
 	}
 
 	
 	public void setAlpha(int layerIndex, Frame frame) {	
 	}
 
-
-	public Boolean undo() {	
-		return false;
-	}
-
-
-	public Boolean redo() {	
-		return false;
-	}
-
-
-	public void store() {
-	}
-
-	
-	public void play() {	
-	}
-
-
 	public void setBypass(Id filterId, Boolean bypass) {
 
 	}
 
-	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
-		
+	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {	
 	}
+
 
 }

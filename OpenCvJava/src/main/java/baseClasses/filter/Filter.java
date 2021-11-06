@@ -3,7 +3,7 @@ package baseClasses.filter;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.IoFrame;
-import baseClasses.history.imp.UndoIdHistory;
+import baseClasses.history.imp.IdHistory;
 import baseClasses.openCvFacade.Frame;
 
 
@@ -19,8 +19,8 @@ public abstract class Filter extends Command implements IoFrame
 		dest   = new Frame ();
 	}
 	
-	public Filter(Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
-		super (id, undoIdHistory, renderAtIdHistory);
+	public Filter(Id id, IdHistory<Id>  renderAtIdHistory) {
+		super (id, renderAtIdHistory);
 		source = new Frame ();
 		dest   = new Frame ();
 	}

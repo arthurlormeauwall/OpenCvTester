@@ -2,12 +2,11 @@ package baseClasses.filter;
 
 import java.util.HashMap;
 
-import baseClasses.history.imp.ParametersHistory;
 import filtersDataBase.FilterFlags;
 
 public abstract class FilterControlledBy<T> extends Filter
 {
-	protected ParametersHistory<HashMap<String, T>> history;
+	protected HashMap<String, T> state;
 	protected FilterFlags<T> flags;
 	
 	public FilterControlledBy() {
@@ -21,30 +20,6 @@ public abstract class FilterControlledBy<T> extends Filter
 
 	
 	public abstract void setParameter(HashMap<String, T> p);
-	
-	public Boolean undo() {
-		if (!history.isUndoEmpty()) {
-			history.undo();
-		    return true;
-		}
-		else {
-			return false;
-		}
-	}
-	 
-	public Boolean redo() {
-		if (!history.isRedoEmpty()) {
-		    history.redo();
-		    return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public void store() {
-		history.store();
-	}
 	
 	public void updateId(int groupDeepnessIndex, int newValue) {
 		id.setControlOrLayer(groupDeepnessIndex, newValue);

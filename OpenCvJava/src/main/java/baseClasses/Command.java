@@ -1,20 +1,18 @@
 package baseClasses;
 
 import baseClasses.history.historyParameters.IdHistoryParameter;
-import baseClasses.history.imp.UndoIdHistory;
+import baseClasses.history.imp.IdHistory;
 
-public abstract class Command implements Undoable
+public abstract class Command
 {
 	protected Id id;
-    protected UndoIdHistory<Id> undoIdHistory;
-    protected UndoIdHistory<Id> renderAtIdHistory;
+    protected IdHistory<Id> renderAtIdHistory;
     protected Boolean isBypass;
     
 	public Command() {    
 		this.id = new Id ();   
 		this.id.initNULL();
-		undoIdHistory = new UndoIdHistory<Id>();
-		renderAtIdHistory= new UndoIdHistory<Id>();  
+		renderAtIdHistory= new IdHistory<Id>();  
  	
 		initControl();
     } 
@@ -22,20 +20,18 @@ public abstract class Command implements Undoable
     public Command(Id id) {	
     	this.id = new Id();
     	this.id.set(id);
-	    
-	    undoIdHistory = new UndoIdHistory<Id>();
-		renderAtIdHistory= new UndoIdHistory<Id>(); 
+
+		renderAtIdHistory= new IdHistory<Id>(); 
 
 	    isBypass = false;
 	    
 	    initControl();
     } 
     
-    public Command(Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id> renderAtIdHistory) {
+    public Command(Id id, IdHistory<Id> renderAtIdHistory) {
     	this.id = new Id();
     	this.id.set(id);
 	    
-	    this.undoIdHistory = undoIdHistory;
 		this.renderAtIdHistory= renderAtIdHistory;
 	    
 	    isBypass = false;
@@ -44,9 +40,8 @@ public abstract class Command implements Undoable
     }  
     
     private void initControl() { 	
-    	undoIdHistory.initFactory(new IdHistoryParameter());
+    
     	renderAtIdHistory.initFactory(new IdHistoryParameter());
-      	undoIdHistory.initState(new IdHistoryParameter());
     	renderAtIdHistory.initState(new IdHistoryParameter());
     }
     
@@ -61,11 +56,9 @@ public abstract class Command implements Undoable
     public void UpdateUndo(){
 		IdHistoryParameter temparameter= new IdHistoryParameter();
 		temparameter.set(id);
-		undoIdHistory.setState(temparameter);
     }
     
     public void storeIdHistory(){
-		undoIdHistory.store();
 	    renderAtIdHistory.store();	
     }
 
@@ -77,19 +70,11 @@ public abstract class Command implements Undoable
     	this.id=id;
     }
 
-    public UndoIdHistory<Id> getUndoIdHistory(){
-    	return undoIdHistory;
-    }
-    
-    public void setUndoIdHistory(UndoIdHistory<Id> undoIdHistory){
-    	this.undoIdHistory = undoIdHistory; 
-    }
-    
-    public UndoIdHistory<Id> getRenderAtIdHistory(){
+    public IdHistory<Id> getRenderAtIdHistory(){
     	return renderAtIdHistory; 
     }
     
-    public void setRenderAtIdHistory(UndoIdHistory<Id> renderAtIdHistory){
+    public void setRenderAtIdHistory(IdHistory<Id> renderAtIdHistory){
     	this.renderAtIdHistory = renderAtIdHistory;
     }
  

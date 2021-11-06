@@ -1,17 +1,16 @@
 package renderingEngine;
 
-import application.FunctionalitiesInterface;
 import baseClasses.Id;
-import baseClasses.history.imp.UndoIdHistory;
+import baseClasses.history.imp.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 
-public abstract class ChainOfLayersInterface extends CompositeFilters implements FunctionalitiesInterface
+public abstract class ChainOfLayersInterface extends CompositeFilters 
 {
 	protected Frame m_background;
 	
-	public ChainOfLayersInterface (FiltersDataBase dbControls, Frame background, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
-		super(dbControls, id, undoIdHistory, renderAtIdHistory);
+	public ChainOfLayersInterface (FiltersDataBase dbControls, Frame background, Id id, IdHistory<Id>  renderAtIdHistory) {
+		super(dbControls, id, renderAtIdHistory);
 		m_background = background;
 	}		
 }

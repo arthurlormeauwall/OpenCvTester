@@ -11,8 +11,5 @@ public enum Functionalities
 	SET_ALPHA_FRAME,
 	SET_PARAMETERS,
 	SET_BYPASS,
-	UNDO,
-	REDO,
-	STORE,
 	REFRESH
 }

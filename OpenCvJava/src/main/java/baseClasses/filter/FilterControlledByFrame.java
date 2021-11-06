@@ -21,25 +21,23 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 		flags.defaultValues= new HashMap<String, Frame>();
 		flags.zeroEffectValues= new HashMap<String, Frame>();
 		flags.numberOfParameters=0;
-		history = new ParametersHistory<HashMap<String, Frame>>();
-		history.initFactory(new FrameHistoryParameter());
-		history.initState(new FrameHistoryParameter());
+	
 	}
 	    
 	public HashMap<String, Frame> getParameter() {
-		return history.getState().getParameter();
+		return state;
 	}
 	
-	public void setParameter(HashMap<String, Frame> frame) {		
+	public void setParameter(HashMap<String, Frame> frames) {		
 		
 		Boolean framesAreTheSame=true;
-		history.setState(new FrameHistoryParameter(frame));
+		state=frames;
 		
-		Iterator<Entry<String, Frame>> new_Iterator= frame.entrySet().iterator();
+		Iterator<Entry<String, Frame>> new_Iterator= frames.entrySet().iterator();
 		
 	    while (new_Iterator.hasNext() && framesAreTheSame == true) {
 	        HashMap.Entry<String, Frame> frameItem= (HashMap.Entry<String, Frame>) new_Iterator.next();
-	        if (frameItem.getValue().compareTo(history.getState().getParameter().get(frameItem.getKey()))) {
+	        if (frameItem.getValue().compareTo(state.get(frameItem.getKey()))) {
 	        	framesAreTheSame=true;
 	        }
 	        else {
@@ -50,7 +48,6 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 			isBypass=true;
 		}
 		UpdateRender();
-		UpdateUndo();
 	}
 	
 	public void addParameterFlag(String name, Frame defaultValue, Frame zeroEffectValue) {

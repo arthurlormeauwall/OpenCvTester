@@ -7,7 +7,7 @@ import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.history.imp.UndoIdHistory;
+import baseClasses.history.imp.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
@@ -18,13 +18,13 @@ public class Layer extends CompositeFilters
 	protected OpacityFilter alphaFilter;
 	
 	
-	public Layer (FiltersDataBase filtersDatabase, Id id, UndoIdHistory<Id> undoIdHistory, UndoIdHistory<Id>  renderAtIdHistory) {
-		super(filtersDatabase, id, undoIdHistory, renderAtIdHistory);
+	public Layer (FiltersDataBase filtersDatabase, Id id, IdHistory<Id>  renderAtIdHistory) {
+		super(filtersDatabase, id, renderAtIdHistory);
 		
 		filtersDatabase = new FiltersDataBase();
 		alphaFilter = filtersDatabase.getAlphaFilter();
 		alphaFilter.setRenderAtIdHistory(this.renderAtIdHistory);
-		alphaFilter.setUndoIdHistory(this.undoIdHistory);
+
 	}
 	
 	protected void init(Frame background, Frame source, Frame dest) {
@@ -37,7 +37,6 @@ public class Layer extends CompositeFilters
 		int whiteValue = background.getSpecs().bitMax;
 		alphaFilter.init(background);
 		alphaFilter.setAlpha(whiteValue);
-		alphaFilter.store();
 		
 		alphaFilter.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
@@ -47,13 +46,12 @@ public class Layer extends CompositeFilters
 		newFilter.getId().set(id.get(0));
 
 		newFilter.setRenderAtIdHistory(renderAtIdHistory);
-		newFilter.setUndoIdHistory(undoIdHistory);
 
 		return newFilter;
 	}
 	
 	public void setFloatParameters(int controlIndex, HashMap<String,Float> parameters){	
-		((FilterControlledByFloat)chainOfFilters.getCommand(controlIndex)).setParameter(parameters);
+		((FilterControlledByFloat)chainOfFilters.getFilter(controlIndex)).setParameter(parameters);
 	}
 	
 	public void execute() {	
@@ -61,48 +59,13 @@ public class Layer extends CompositeFilters
 		alphaFilter.execute();	
 	}
 	
-	public Boolean undo() {
-		int undoControlId = undoIdHistory.getState().getParameter().get()[1];
-		if (undoControlId == 0) {
-			return chainOfFilters.undo();
-		}
-		if (undoControlId == 1) {
-			return alphaFilter.undo();
-		}
-		else {
-			return false;
-		}	
-	}
-	
-	public Boolean redo() {
-		int undoControlId = undoIdHistory.getState().getParameter().get()[1];
-		if (undoControlId == 0) {
-			return chainOfFilters.redo();
-		}
-		if (undoControlId == 1) {
-			return alphaFilter.redo();
-		}
-		else {
-			return false;
-		}
-	}
-	
-	public void store(){
-		int undoControlId = undoIdHistory.getState().getParameter().get()[1];
-		if (undoControlId == 0) {
-			chainOfFilters.store();
-		}
-		if (undoControlId == 1) {
-			alphaFilter.store();
-		}
-	}
 	
 	public void updateId(int groupDeepnessIndex, int newValue){
 		chainOfFilters.updateId(groupDeepnessIndex, newValue);
 	}
 
 	public Command clone() {	
-		Layer newMaskedLayer= new Layer(dbControls, id, undoIdHistory, renderAtIdHistory);
+		Layer newMaskedLayer= new Layer(dbControls, id, renderAtIdHistory);
 		
 		newMaskedLayer.setChain(chainOfFilters.clone());
 		newMaskedLayer.setAlpha(alphaFilter.getAlpha());
