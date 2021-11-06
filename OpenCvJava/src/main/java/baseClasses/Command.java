@@ -52,12 +52,7 @@ public abstract class Command
 		tempParameter.set(id);
 		renderAtIdHistory.setState(tempParameter);
     }
-    
-    public void UpdateUndo(){
-		IdHistoryParameter temparameter= new IdHistoryParameter();
-		temparameter.set(id);
-    }
-    
+
     public void storeIdHistory(){
 	    renderAtIdHistory.store();	
     }
