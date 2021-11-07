@@ -16,13 +16,13 @@ import baseClasses.filter.Filter;
 public abstract class CompositeFilters extends Filter
 {
 	protected Stack<Frame> frames;
-	protected FiltersDataBase dbControls;
+	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	
-	public CompositeFilters(FiltersDataBase dbControls, Id id, IdHistory<Id>  renderAtIdHistory) {
+	public CompositeFilters(FiltersDataBase filtersDataBase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(id, renderAtIdHistory);
 		frames = new Stack<Frame>();
-		this.dbControls = dbControls;
+		this.filtersDataBase = filtersDataBase;
 		
 		
 		Id chainId = new Id(this.id.get());
@@ -33,12 +33,11 @@ public abstract class CompositeFilters extends Filter
 	
 	public abstract Command getLastFilter();
 	public abstract int getNumberOfFilters();
-	protected abstract Filter createFilter(Stack<Id> ids, Stack<String> filterNamesInDataBase);
+	protected abstract Filter create(Stack<Id> ids, Stack<String> filterNamesInDataBase);
 	
-	public Filter addFilter(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {
-		
+	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id.get(0))) {
-			Filter filter = createFilter(id, commandsNamesInDataBase);
+			Filter filter = create(id, commandsNamesInDataBase);
 			updateRenderAtId(id.get(0));
 			chainOfFilters.addCommand(id.get(0), filter);
 			return filter;
@@ -48,14 +47,11 @@ public abstract class CompositeFilters extends Filter
 		}
 	}	
 	
-public Filter addFilter(Filter filter) {
+	public Filter add(Filter filter) {
 		
-		if (!isIndexOutOfRange(filter.getId())) {
-			
+		if (!isIndexOutOfRange(filter.getId())) {		
 			updateRenderAtId(filter.getId());
-			Stack<Id> id= new Stack<Id>();
-			id.push(filter.getId());
-			chainOfFilters.addCommand(id.get(0), filter);	
+			chainOfFilters.addCommand(filter.getId(), filter);	
 			return filter;
 		}
 		else {
@@ -63,10 +59,10 @@ public Filter addFilter(Filter filter) {
 		}
 	}
 	
-	public Filter delFilter(Stack<Id> id) {
-		if (!isIndexOutOfRange(id.get(0))) {
-			chainOfFilters.delCommand(id.get(0));	
-			return (Filter)chainOfFilters.getCommand(id.get(0).get()[chainOfFilters.getDeepnessIndex()]);
+	public Filter delete(Id id) {
+		if (!isIndexOutOfRange(id)) {
+			chainOfFilters.delCommand(id);	
+			return (Filter)chainOfFilters.getCommand(id.get()[chainOfFilters.getDeepnessIndex()]);
 		}
 		else {
 			return null;
@@ -74,9 +70,9 @@ public Filter addFilter(Filter filter) {
 	}
 	
 	public Boolean isIndexOutOfRange(Id controlId) {
-		int indexOfControlToAddOrDelete= controlId.get()[chainOfFilters.getDeepnessIndex()];
+		int indexOfFilterToAddOrDelete= controlId.get()[chainOfFilters.getDeepnessIndex()];
 
-		if(chainOfFilters.getSize()>= indexOfControlToAddOrDelete) {
+		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
 			return false;
 		}
 		else {
@@ -103,7 +99,7 @@ public Filter addFilter(Filter filter) {
 		renderAtIdHistory.setState(idHistoryParameter);
 	}
 
-	public Command getFilter(int index) {
+	public Command get(int index) {
 		return chainOfFilters.getCommand(index);
 	}
 	
@@ -177,6 +173,10 @@ public Filter addFilter(Filter filter) {
 		for (int i = firstControl; i < size; i++) {
 			chainOfFilters.getCommand(i).execute();
 		}	
+	}
+	
+	public FiltersDataBase getFiltersDataBase() {
+		return filtersDataBase;
 	}
 
 }

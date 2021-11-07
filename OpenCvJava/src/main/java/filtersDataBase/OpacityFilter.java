@@ -9,7 +9,8 @@ import baseClasses.openCvFacade.Frame;
 
 public class OpacityFilter extends FilterControlledByFrame 
 {
-	protected Frame background;	
+	protected Frame background;
+	private int opacity;	
 	
 	public OpacityFilter() {
 	}
@@ -19,9 +20,9 @@ public class OpacityFilter extends FilterControlledByFrame
 		setFlags();
 	}
 	
-	private void setFlags() {		
-		addParameterFlag("Opacity",  new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax), new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax));
-	
+	private void setFlags() {	
+		opacity=background.getSpecs().bitMax;
+		addParameterFlag("Opacity",  new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax), new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax));	
 	}
 
 	
@@ -68,22 +69,19 @@ public class OpacityFilter extends FilterControlledByFrame
 		this.background = background; 
 	}
 	
-
-	public void setAlpha(Frame alpha){
-		HashMap<String,Frame> newAlpha= new HashMap<String, Frame>();
-		newAlpha.put("Opacity", alpha);
-		setParameter(newAlpha);	
-	}
 	
-	public void setAlpha(int opacity){
+	public void setOpacity(int opacity){
+		this.opacity=opacity;
 		Frame alpha = new Frame();
 		alpha.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), opacity);
-		HashMap<String,Frame> newAlpha= new HashMap<String, Frame>();
-		newAlpha.put("Opacity", alpha);
-		setParameter(newAlpha);
+		HashMap<String,Frame> newOpacity= new HashMap<String, Frame>();
+		newOpacity.put("Opacity", alpha);
+		setParameter(newOpacity);
 		
 	}
-	public Frame getAlpha() {
-		return state.get("Opacity");
+	public int getOpacity() {
+		return opacity;
 	}
+	
+	
 }

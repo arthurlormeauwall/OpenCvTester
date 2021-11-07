@@ -27,6 +27,10 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		return state.get(name);
 	}
 	
+	public HashMap<String, Float> getParameters() {
+		return state;
+	}
+	
 	public void setParameter(HashMap<String, Float> parameter) {
 		
 		state=parameter;

@@ -3,6 +3,7 @@ package filtersDataBase;
 import java.util.HashMap;
 
 import baseClasses.Command;
+import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
 
 public class FiltersDataBase 
@@ -17,7 +18,7 @@ public class FiltersDataBase
 		emptyFilter= new EmptyFilter();
 	}
 	
-	public Command getFilter(String name){
+	public Filter getFilter(String name){
 		if (filters.get(name)== null) {
 			return emptyFilter;
 		}

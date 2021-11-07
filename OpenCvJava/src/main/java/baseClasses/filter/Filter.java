@@ -1,5 +1,7 @@
 package baseClasses.filter;
 
+import java.util.HashMap;
+
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.IoFrame;
@@ -40,4 +42,6 @@ public abstract class Filter extends Command implements IoFrame
 	public void setDest(Frame d)  {
 		dest=d;
 	}
+
+
 }

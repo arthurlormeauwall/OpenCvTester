@@ -15,15 +15,15 @@ import filtersDataBase.OpacityFilter;
 public class Layer extends CompositeFilters
 {
 	protected Frame background;
-	protected OpacityFilter alphaFilter;
+	protected OpacityFilter opacityFilter;
 	
 	
 	public Layer (FiltersDataBase filtersDatabase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(filtersDatabase, id, renderAtIdHistory);
 		
 		filtersDatabase = new FiltersDataBase();
-		alphaFilter = filtersDatabase.getAlphaFilter();
-		alphaFilter.setRenderAtIdHistory(this.renderAtIdHistory);
+		opacityFilter = filtersDatabase.getAlphaFilter();
+		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);
 
 	}
 	
@@ -31,22 +31,20 @@ public class Layer extends CompositeFilters
 		setSource(source);
 		setDest(dest);
 
-		alphaFilter.setSource(source);
-		alphaFilter.setDest(dest);
+		opacityFilter.setSource(source);
+		opacityFilter.setDest(dest);
 
 		int whiteValue = background.getSpecs().bitMax;
-		alphaFilter.init(background);
-		alphaFilter.setAlpha(whiteValue);
+		opacityFilter.init(background);
+		opacityFilter.setOpacity(whiteValue);
 		
-		alphaFilter.getId().set(id.get()[0], 1, id.getGroupId() + 1);
+		opacityFilter.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
 
-	protected Filter createFilter(Stack<Id> id, Stack<String> commandsInDataBase){
-		Filter newFilter = (Filter) dbControls.getFilter(commandsInDataBase.get(0));
+	protected Filter create(Stack<Id> id, Stack<String> commandsInDataBase){
+		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase.get(0));
 		newFilter.getId().set(id.get(0));
-
 		newFilter.setRenderAtIdHistory(renderAtIdHistory);
-
 		return newFilter;
 	}
 	
@@ -56,7 +54,7 @@ public class Layer extends CompositeFilters
 	
 	public void execute() {	
 		render();
-		alphaFilter.execute();	
+		opacityFilter.execute();	
 	}
 	
 	
@@ -65,29 +63,25 @@ public class Layer extends CompositeFilters
 	}
 
 	public Command clone() {	
-		Layer newMaskedLayer= new Layer(dbControls, id, renderAtIdHistory);
+		Layer newMaskedLayer= new Layer(filtersDataBase, id, renderAtIdHistory);
 		
 		newMaskedLayer.setChain(chainOfFilters.clone());
-		newMaskedLayer.setAlpha(alphaFilter.getAlpha());
+		newMaskedLayer.setOpacity(opacityFilter.getOpacity());
 		newMaskedLayer.setBackGround(background);
 		
 		return newMaskedLayer;
 	}
 
-	public OpacityFilter getAlpha(){
-		return alphaFilter;
+	public OpacityFilter getOpacityFilter(){
+		return opacityFilter;
 	}
 	
 	public Command getLastFilter() {
-		return alphaFilter;
+		return opacityFilter;
 	}
 	
-	public void setAlpha(Frame alpha){
-		this.alphaFilter.setAlpha(alpha);
-	}
-	
-	public void setAlpha(int opacity){
-		alphaFilter.setAlpha(opacity);
+	public void setOpacity(int opacity){
+		opacityFilter.setOpacity(opacity);
 	}
 	
 	public void setBackGround(Frame background){

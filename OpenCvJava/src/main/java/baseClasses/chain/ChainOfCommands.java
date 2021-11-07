@@ -16,8 +16,6 @@ public class ChainOfCommands
     	this.id=id;
     	commands = new Stack<Command>();
     }
-    
-    
 
     public void addCommand(Id id, Command filter) {
         int index = getCommandIndex(id);

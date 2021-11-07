@@ -2,22 +2,41 @@ package actions;
 
 
 import application.Functionalities;
-import gui.UIImp;
+import gui.ChainOfLayerWidgets;
+import gui.LayerWidget;
+import renderingEngine.ChainOfLayers;
 
-public class AddOrDeleteLayer extends Action {
+public class AddOrDeleteLayer implements Action {
 
-	public AddOrDeleteLayer(UIImp mainWin){
-		super(mainWin);
-	}
+	public Functionalities addOrDelete;
+	private LayerWidget layerWidget;
+	private ChainOfLayers chainOfLayers;
+	private ChainOfLayerWidgets chainOfLayerWidgets;
 	
-	@Override
+	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerWidgets chainOfLayerWidgets, LayerWidget filterWidget){
+		this.layerWidget=filterWidget;
+		this.chainOfLayers=chainOfLayers;
+		this.chainOfLayerWidgets=chainOfLayerWidgets;
+	}
+
 	public void invert() {
-		if (whatToDo== Functionalities.ADD_LAYER) {
-			whatToDo=Functionalities.DELETE_LAYER;
+		if (addOrDelete== Functionalities.ADD_FILTER) {
+			addOrDelete=Functionalities.DELETE_FILTER;
 		}
-		if (whatToDo== Functionalities.DELETE_LAYER) {
-			whatToDo=Functionalities.ADD_LAYER;
+		else if (addOrDelete== Functionalities.DELETE_FILTER) {
+			addOrDelete=Functionalities.ADD_FILTER;
 		}
+	}
+
+	public void execute() {
+		if (addOrDelete== Functionalities.ADD_FILTER) {
+			chainOfLayers.addLayer(layerWidget.getLayer());
+			chainOfLayerWidgets.addLayerWidget(layerWidget);
+		}
+		else if (addOrDelete== Functionalities.DELETE_FILTER) {
+			chainOfLayers.delLayer(layerWidget.getLayer());
+			chainOfLayerWidgets.delLayerWidget(layerWidget);
+		}	
 	}
 
 }

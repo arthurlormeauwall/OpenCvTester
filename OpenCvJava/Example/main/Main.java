@@ -2,14 +2,15 @@ package main;
 
 import java.util.HashMap;
 import java.util.Stack;
-import fakeGui.FakeGui;
+
+import gui.GuiManager;
 import userFilters.GrayScaleFilter;
 import userFilters.BlueGreenRedMultiplierFilter;
 
 public class Main 
 {
     public static void main(String[] args){	
-		FakeGui fakeGui= new FakeGui("assets/test.jpg"); 
+		GuiManager fakeGui= new GuiManager("assets/test.jpg"); 
 		fakeGui.addFilterInDataBase("BgrMult", new BlueGreenRedMultiplierFilter());
 		fakeGui.addFilterInDataBase("GrayScaleFilter", new GrayScaleFilter());
     
