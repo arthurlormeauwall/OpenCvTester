@@ -1,7 +1,6 @@
 package actions;
 
 
-import application.Functionalities;
 import gui.ChainOfLayerWidgets;
 import gui.FilterWidget;
 import renderingEngine.ChainOfLayers;

@@ -1,7 +1,5 @@
 package gui;
 
-import application.OpenCvInit;
-
 public class App
 {
 	private OpenCvInit OpenCvInit;

@@ -1,8 +1,9 @@
 package actions;
 
 
-import application.Functionalities;
 import gui.ChainOfLayerWidgets;
+import gui.FilterWidget;
+import gui.GuiManager;
 import gui.LayerWidget;
 import renderingEngine.ChainOfLayers;
 
