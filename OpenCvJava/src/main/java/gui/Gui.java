@@ -18,6 +18,8 @@ public class Gui extends JFrame
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(new Dimension(400,400));
 		this.guiManager=guiManager;
+		this.setVisible(true);
+	
 	}
 
 	public void addFilterWidgetInLayerWidget(FilterWidget filterWidget) {
