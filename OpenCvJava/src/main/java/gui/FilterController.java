@@ -3,13 +3,15 @@ package gui;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
+import gui.widget.FilterWidget;
 
-public class FilterWidget extends Command {
+public class FilterController extends Command {
 	
 	protected Filter filter;
 	protected Id id;
+	protected FilterWidget filterWidget;
 	
-	public FilterWidget(Filter filter){
+	public FilterController(Filter filter){
 		this.filter=filter;
 	}
 	
@@ -24,10 +26,6 @@ public class FilterWidget extends Command {
 
 	public Filter getFilter() {
 		return filter;
-	}
-
-	
-	public void execute() {
 	}
 
 }

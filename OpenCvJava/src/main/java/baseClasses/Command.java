@@ -44,8 +44,7 @@ public abstract class Command
     	renderAtIdHistory.initFactory(new IdHistoryParameter());
     	renderAtIdHistory.initState(new IdHistoryParameter());
     }
-    
-    public abstract void execute();
+
     
     public void UpdateRender(){
 		IdHistoryParameter tempParameter= new IdHistoryParameter();

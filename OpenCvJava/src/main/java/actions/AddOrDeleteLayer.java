@@ -2,19 +2,19 @@ package actions;
 
 
 import gui.ChainOfLayerWidgets;
-import gui.FilterWidget;
+import gui.FilterController;
 import gui.GuiManager;
-import gui.LayerWidget;
+import gui.LayerController;
 import renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteLayer implements Action {
 
 	public Functionalities addOrDelete;
-	private LayerWidget layerWidget;
+	private LayerController layerWidget;
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerWidgets chainOfLayerWidgets;
 	
-	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerWidgets chainOfLayerWidgets, LayerWidget filterWidget){
+	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerWidgets chainOfLayerWidgets, LayerController filterWidget){
 		this.layerWidget=filterWidget;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

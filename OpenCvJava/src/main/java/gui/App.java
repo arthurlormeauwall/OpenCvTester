@@ -8,12 +8,7 @@ public class App
 	
 	public App(String fileName) {
 		OpenCvInit= new OpenCvInit();
-		OpenCvInit.init(fileName);
-		guiManager= new GuiManager(OpenCvInit.getChainOfLayers(), this);
+		guiManager= new GuiManager(OpenCvInit.init(fileName), this);
 		Gui mainWindow = new Gui(guiManager);
 	}
-	
-	private void play() {
-		OpenCvInit.getChainOfLayers().play();
-	}	
 }

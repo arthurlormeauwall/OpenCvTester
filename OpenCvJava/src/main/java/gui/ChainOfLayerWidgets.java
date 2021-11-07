@@ -12,21 +12,21 @@ public class ChainOfLayerWidgets {
 		this.gui=gui;
 	}
 	
-	public void addFilterWigetInLayerWiget(FilterWidget filterWidget) {
+	public void addFilterWigetInLayerWiget(FilterController filterWidget) {
 		chainOfLayersWidget.addCommand(filterWidget.getId(), filterWidget);
 		gui.addFilterWidgetInLayerWidget(filterWidget);
 	}
-	public void deFilterWidgetInLayerWidget(FilterWidget filterWidget) {
+	public void deFilterWidgetInLayerWidget(FilterController filterWidget) {
 		chainOfLayersWidget.delCommand(filterWidget.getId());
 		gui.delFilterWidgetInLayerWidget(filterWidget);
 	}
 
-	public void addLayerWidget(LayerWidget layerWidget) {
+	public void addLayerWidget(LayerController layerWidget) {
 		chainOfLayersWidget.addCommand(layerWidget.getId(), layerWidget);	
 		gui.addLayerWidget(layerWidget);
 	}
 
-	public void delLayerWidget(LayerWidget layerWidget) {
+	public void delLayerWidget(LayerController layerWidget) {
 		chainOfLayersWidget.delCommand(layerWidget.getId());	
 		gui.delLayerWidget(layerWidget);
 	}

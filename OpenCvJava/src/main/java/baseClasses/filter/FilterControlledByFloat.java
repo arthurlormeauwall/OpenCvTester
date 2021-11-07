@@ -10,13 +10,16 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		initFilterControlledByFloat();
 	} 
 	
+	@SuppressWarnings("unchecked")
 	public void initFilterControlledByFloat() {
 		flags.filterName = new String();
 		flags.defaultValues= new HashMap<String, Float>();
 		flags.zeroEffectValues= new HashMap<String, Float>();
 		flags.numberOfParameters=0;
+		state= new HashMap<String, Float>();
 	
 		setParameterFlags();
+		state=(HashMap<String, Float>)flags.defaultValues.clone();
 
 	}
 	

@@ -29,7 +29,7 @@ public class OpenCvInit
 		
 	}
 	
-	public void init(String fileName) {
+	public ChainOfLayers init(String fileName) {
 		
 		setImage(fileName);
 		background.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), 0);
@@ -44,6 +44,7 @@ public class OpenCvInit
 		chainOfLayers.setSource(source);
 		chainOfLayers.setDest(dest);
 		chainOfLayers.play();
+		return chainOfLayers;
 		
 	}
 	

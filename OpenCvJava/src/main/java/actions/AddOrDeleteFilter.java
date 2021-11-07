@@ -2,17 +2,17 @@ package actions;
 
 
 import gui.ChainOfLayerWidgets;
-import gui.FilterWidget;
+import gui.FilterController;
 import renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteFilter implements Action {
 
 	public Functionalities addOrDelete;
-	private FilterWidget filterWidget;
+	private FilterController filterWidget;
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerWidgets chainOfLayerWidgets;
 	
-	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayerWidgets chainOfLayerWidgets, FilterWidget filterWidget){
+	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayerWidgets chainOfLayerWidgets, FilterController filterWidget){
 		this.filterWidget=filterWidget;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

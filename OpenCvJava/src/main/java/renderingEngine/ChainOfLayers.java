@@ -169,8 +169,9 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	}   
 
 
-	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
-		filtersDataBase.addFilter(name, filter);
+	
+	public FiltersDataBase getFilterDataBase() {
+		return filtersDataBase;
 	}
 	
 	public Command getLastFilter(){

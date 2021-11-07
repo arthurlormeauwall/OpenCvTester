@@ -8,6 +8,7 @@ import filtersDataBase.FiltersDataBase;
 import java.util.Stack;
 
 import baseClasses.Command;
+import baseClasses.Executable;
 import baseClasses.Id;
 import baseClasses.IoFrame;
 import baseClasses.chain.ChainOfCommands;
@@ -171,7 +172,7 @@ public abstract class CompositeFilters extends Filter
 		int firstControl = chainOfFilters.getCommandIndex(renderAtIdHistory);
 
 		for (int i = firstControl; i < size; i++) {
-			chainOfFilters.getCommand(i).execute();
+			((Executable)chainOfFilters.getCommand(i)).execute();
 		}	
 	}
 	

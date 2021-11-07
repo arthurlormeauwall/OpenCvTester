@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Stack;
 import actionsHistory.ActionsHistory;
 import baseClasses.Id;
+import baseClasses.filter.FilterControlledByFloat;
 import renderingEngine.ChainOfLayers;
 import renderingEngine.GroupsId;
 
@@ -14,11 +15,11 @@ public class GuiManager
 	
 	private ActionsHistory history;
 	private ChainOfLayers chainOfLayers;
-	private App gui;
+	private App app;
 	
-	public GuiManager(ChainOfLayers chainOfLayers, App gui){
+	public GuiManager(ChainOfLayers chainOfLayers, App app){
 		this.chainOfLayers=chainOfLayers;
-		this.gui=gui;
+		this.app=app;
 		history=new ActionsHistory();
 	}
 	private Id createLayerId(int layerIndex) {	
@@ -31,7 +32,12 @@ public class GuiManager
 		Id id = new Id();
 		id.set(layerIndex, filterIndex, GroupsId.CONTROL.ordinal());
 		return id;
-	}	
+	}
+	
+	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
+		chainOfLayers.getFiltersDataBase().addFilter(name, filter);
+	}
+	
 	
 	
 	public void createAndAddLayer (int layerIndex, int filterIndex, Stack<String> filterNames) {	
@@ -40,10 +46,10 @@ public class GuiManager
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
 	}
 	
-	public void delFilterInLayer(FilterWidget filterWidgetToDel)  {		
+	public void delFilterInLayer(FilterController filterWidgetToDel)  {		
 	}
 	
-	public void delLayer(LayerWidget layerWidget) {
+	public void delLayer(LayerController layerWidget) {
 	}
 
 	public void setOpacity(int layerIndex, int opacity) {	
