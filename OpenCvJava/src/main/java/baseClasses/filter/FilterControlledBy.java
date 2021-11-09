@@ -1,12 +1,12 @@
 package baseClasses.filter;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import filtersDataBase.FilterFlags;
 
 public abstract class FilterControlledBy<T> extends Filter
 {
-	protected HashMap<String, T> state;
+	protected LinkedHashMap<String, T> state;
 	protected FilterFlags<T> flags;
 	
 	public FilterControlledBy() {
@@ -15,11 +15,11 @@ public abstract class FilterControlledBy<T> extends Filter
 	
 	private void initFilterControlledBy() {
 		flags = new FilterFlags<T>();
-		isBypass=true;	
+		isBypass=false;	
 	}
 
 	
-	public abstract void setParameter(HashMap<String, T> p);
+	public abstract void setParameter(LinkedHashMap<String, T> p);
 	
 	public void updateId(int groupDeepnessIndex, int newValue) {
 		id.setControlOrLayer(groupDeepnessIndex, newValue);

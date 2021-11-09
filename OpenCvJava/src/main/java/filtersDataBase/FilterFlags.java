@@ -1,12 +1,12 @@
 package filtersDataBase;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class FilterFlags<T> 
 {	
 	public String filterName;
 	public int numberOfParameters;
-	public HashMap<String, T> defaultValues;
-	public HashMap<String, T> zeroEffectValues;
+	public LinkedHashMap<String, T> defaultValues;
+	public LinkedHashMap<String, T> zeroEffectValues;
 }
 

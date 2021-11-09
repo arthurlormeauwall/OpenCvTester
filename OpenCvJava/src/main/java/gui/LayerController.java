@@ -5,30 +5,29 @@ import baseClasses.Id;
 import baseClasses.chain.ChainOfCommands;
 import filtersDataBase.FiltersDataBase;
 import gui.widget.LayerWidget;
+import gui.widget.LayerWindow;
 import renderingEngine.Layer;
 
 
 public class LayerController extends Command
 {
-	protected ChainOfCommands chainOfFiltersWidget;
+	protected ChainOfCommands chainOfFilterControllers;
 	protected Layer layer;
 	protected LayerWidget layerWidget;
+	protected LayerWindow layerWindow;
 	
 	public FilterController deleteFilterWidget(Id id) {
-		return (FilterController)chainOfFiltersWidget.delCommand(id);
+		return (FilterController)chainOfFilterControllers.delCommand(id);
 	}
 
-	public FilterController addFilterWidget(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
-		FilterController filterWidget = new FilterController(filterDataBase.getFilter(filterName));	
-		chainOfFiltersWidget.addCommand(filterWidget.getId(), filterWidget);
-		return filterWidget;
+	public FilterController addFilterController(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
+		FilterController filterController = new FilterController(filterDataBase.getFilter(filterName));	
+		chainOfFilterControllers.addCommand(filterController.getId(), filterController);
+		return filterController;
 	}
 
 
 	public Layer getLayer() {
 		return layer;
 	}
-	
-	
-
 }

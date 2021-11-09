@@ -1,6 +1,7 @@
 package baseClasses.filter;
 
-import java.util.HashMap;
+
+import java.util.LinkedHashMap;
 
 
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
@@ -13,14 +14,13 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	@SuppressWarnings("unchecked")
 	public void initFilterControlledByFloat() {
 		flags.filterName = new String();
-		flags.defaultValues= new HashMap<String, Float>();
-		flags.zeroEffectValues= new HashMap<String, Float>();
+		flags.defaultValues= new LinkedHashMap<String, Float>();
+		flags.zeroEffectValues= new LinkedHashMap<String, Float>();
 		flags.numberOfParameters=0;
-		state= new HashMap<String, Float>();
+		state= new LinkedHashMap<String, Float>();
 	
 		setParameterFlags();
-		state=(HashMap<String, Float>)flags.defaultValues.clone();
-
+		state=(LinkedHashMap<String, Float>)flags.defaultValues.clone();
 	}
 	
 	public abstract FilterControlledByFloat createNew();
@@ -30,11 +30,11 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		return state.get(name);
 	}
 	
-	public HashMap<String, Float> getParameters() {
+	public LinkedHashMap<String, Float> getParameters() {
 		return state;
 	}
 	
-	public void setParameter(HashMap<String, Float> parameter) {
+	public void setParameter(LinkedHashMap<String, Float> parameter) {
 		
 		state=parameter;
 		
@@ -44,6 +44,15 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		UpdateRender();
 	}
 	
+	public void setParameter(String name, Float parameterValue) {
+		state.put(name, parameterValue);
+	}
+	
+	public void setParameter(String name, Integer value) {
+		state.put(name, value.floatValue());
+		
+	}	
+	
 	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue) {
 	
 		flags.defaultValues.put(name, defaultValue);
@@ -51,7 +60,17 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		flags.numberOfParameters ++;
 	}
 	
+	public void setFilterName(String name) {
+		flags.filterName=name;
+	}
+	
+	public String getFilterName() {
+		return flags.filterName;
+	}
+	
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
-	}	
+	}
+
+	
 }

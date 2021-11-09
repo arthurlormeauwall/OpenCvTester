@@ -1,13 +1,12 @@
 package filtersDataBase;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.opencv.core.Mat;
 
-import baseClasses.filter.FilterControlledByFrame;
+import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.openCvFacade.Frame;
 
-public class OpacityFilter extends FilterControlledByFrame 
+public class OpacityFilter extends FilterControlledByFloat 
 {
 	protected Frame background;
 	private int opacity;	
@@ -17,12 +16,12 @@ public class OpacityFilter extends FilterControlledByFrame
 	
 	public void init(Frame background) {
 		setBackGround(background);
-		setFlags();
+		setParameterFlags();
 	}
 	
-	private void setFlags() {	
-		opacity=background.getSpecs().bitMax;
-		addParameterFlag("Opacity",  new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax), new Frame(background.getMat().rows(), background.getMat().cols(), background.getSpecs().bitMax));	
+	public void setParameterFlags() {	
+		opacity=255; //TODO: replace this
+		addParameterFlag("Opacity", Float.intBitsToFloat(255), Float.intBitsToFloat(255)); // TODO : replace this
 	}
 
 	
@@ -36,7 +35,8 @@ public class OpacityFilter extends FilterControlledByFrame
 			Mat imgDest = dest.getMat();
 			Mat background = this.background.getMat();
 
-			Mat alpha = getParameter().get("Opacity").getMat();
+			Float opacity = getParameter("Opacity");
+			
 			int NBITMAX = source.getSpecs().bitMax;
 
 			int m_row = imgDest.rows();
@@ -48,7 +48,7 @@ public class OpacityFilter extends FilterControlledByFrame
 				{
 					double[] data= new double[3];
 					for (int i = 0; i < 3; i++) {
-						float alpha_pixel = (float)(alpha.get(row, column)[0]);
+						float alpha_pixel = opacity;
 						float background_pixel = (float)(background.get(row, column)[i]);
 						float source_pixel = (float)(imgSource.get(row, column)[i]);
 
@@ -70,18 +70,24 @@ public class OpacityFilter extends FilterControlledByFrame
 	}
 	
 	
-	public void setOpacity(int opacity){
+	public void setOpacity(Integer opacity){
 		this.opacity=opacity;
-		Frame alpha = new Frame();
-		alpha.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), opacity);
-		HashMap<String,Frame> newOpacity= new HashMap<String, Frame>();
-		newOpacity.put("Opacity", alpha);
+	
+		LinkedHashMap<String,Float> newOpacity= new LinkedHashMap<String, Float>();
+		newOpacity.put("Opacity", opacity.floatValue());
 		setParameter(newOpacity);
 		
 	}
 	public int getOpacity() {
 		return opacity;
 	}
+
+	public FilterControlledByFloat createNew() {
+		
+		return new OpacityFilter();
+	}
+
+
 	
 	
 }

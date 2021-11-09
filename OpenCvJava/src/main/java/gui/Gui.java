@@ -1,43 +1,37 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.LayoutManager;
-import java.util.HashMap;
 
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
+
+import java.util.Stack;
+
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
 
 import baseClasses.filter.Filter;
-import baseClasses.filter.FilterControlledByFloat;
 import gui.widget.FilterWidget;
-import gui.widget.LabelledSlider;
+import gui.widget.LayerWidget;
+import gui.widget.LayerWindow;
+import renderingEngine.Layer;
 import userFilters.BlueGreenRedMultiplierFilter;
+
 
 public class Gui extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected ChainOfLayerWidgets chainOfLayerWidgets;
+	protected ChainOfLayerControllers chainOfLayerWidgets;
 	protected GuiManager guiManager;
 	
 	public Gui(GuiManager guiManager) {
 		super("OpenCV tester");
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.guiManager=guiManager;		
 		
-		this.guiManager=guiManager;
+		Stack<String> names= new Stack<String>();
+		names.push("BGR Multiplier");
+		Layer layer= guiManager.createAndAddLayer(0, 0, names);
 		
-		guiManager.addFilterInDatabase("BGRMult", new BlueGreenRedMultiplierFilter());
-		
-		FilterControlledByFloat testFilter=  new BlueGreenRedMultiplierFilter(); 
-
-		FilterWidget test= new FilterWidget(testFilter);
-		add(test);
-        this.setVisible(true);
+		LayerWindow test = new LayerWindow(layer, guiManager);
+		test.setVisible(true);
 	}
 
 	public void addFilterWidgetInLayerWidget(FilterController filterWidget) {

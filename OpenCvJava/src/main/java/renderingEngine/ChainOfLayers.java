@@ -1,6 +1,8 @@
 package renderingEngine;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Stack;
 
 import baseClasses.Command;
@@ -99,7 +101,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}
 	}  
 	
-	public void setParameters(Id ControlId, HashMap<String,Float> parameters){
+	public void setParameters(Id ControlId, LinkedHashMap<String,Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
@@ -108,6 +110,18 @@ public class ChainOfLayers extends ChainOfLayersInterface
 			execute();
 		}
 	} 
+	
+	public void setParameters(Id id, String name, Float value) {
+		int layerIndex = id.get()[0];
+		int controlIndex = id.get()[1];
+		
+		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
+			adjustControlToSet.setParameter(name, value);
+			execute();
+		}
+		
+	}
 	
 	public void setBypass(Id ControlId, Boolean p){
 		int layerIndex = ControlId.get()[0];
@@ -120,7 +134,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}
 	}  
 
-	public void play(){
+	public void play() throws IOException{
 		dest.play();
 	}   
 	
@@ -181,4 +195,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public int getNumberOfFilters() {
 		return chainOfFilters.getSize();
 	}
+
+
+	
 }

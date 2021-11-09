@@ -29,7 +29,6 @@ public abstract class CompositeFilters extends Filter
 		Id chainId = new Id(this.id.get());
 		chainId.setGroupId(this.id.getGroupId() + 1);
 		chainOfFilters = new ChainOfCommands (chainId);		
-		
 	}
 	
 	public abstract Command getLastFilter();

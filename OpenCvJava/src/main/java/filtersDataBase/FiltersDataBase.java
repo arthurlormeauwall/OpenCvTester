@@ -18,7 +18,7 @@ public class FiltersDataBase
 		emptyFilter= new EmptyFilter();
 	}
 	
-	public Filter getFilter(String name){
+	public FilterControlledByFloat getFilter(String name){
 		if (filters.get(name)== null) {
 			return emptyFilter;
 		}

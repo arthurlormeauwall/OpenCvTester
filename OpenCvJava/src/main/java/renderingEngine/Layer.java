@@ -1,6 +1,7 @@
 package renderingEngine;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Stack;
 
 import baseClasses.Command;
@@ -21,7 +22,7 @@ public class Layer extends CompositeFilters
 	public Layer (FiltersDataBase filtersDatabase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(filtersDatabase, id, renderAtIdHistory);
 		
-		filtersDatabase = new FiltersDataBase();
+		// filtersDatabase = new FiltersDataBase();
 		opacityFilter = filtersDatabase.getAlphaFilter();
 		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);
 
@@ -48,7 +49,7 @@ public class Layer extends CompositeFilters
 		return newFilter;
 	}
 	
-	public void setFloatParameters(int controlIndex, HashMap<String,Float> parameters){	
+	public void setFloatParameters(int controlIndex, LinkedHashMap<String,Float> parameters){	
 		((FilterControlledByFloat)chainOfFilters.getCommand(controlIndex)).setParameter(parameters);
 	}
 	

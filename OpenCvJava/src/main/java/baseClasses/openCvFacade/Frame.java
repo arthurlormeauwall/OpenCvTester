@@ -1,8 +1,18 @@
 package baseClasses.openCvFacade;
 
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 
@@ -55,8 +65,9 @@ public class Frame
 	}
 	
 	public void play() {
-		HighGui.imshow("test", frameMat);  // TODO : replace "test" by name of app, in global static variable
-		HighGui.waitKey();
+
+		//HighGui.imshow("test", frameMat);  // TODO : replace "test" by name of app, in global static variable
+		//HighGui.waitKey();
 	}
 	
 	public Boolean compareTo(Frame p) {

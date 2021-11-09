@@ -14,6 +14,8 @@ public class GrayScaleFilter extends FilterControlledByFloat
 		addParameterFlag("BlueMult", 0.1f, -1f);
 		addParameterFlag("GreenMult", 0.6f, -1f);
 		addParameterFlag("RedMult", 0.3f, -1f);
+		
+		setFilterName("GrayScaleFilter");
 	}
 	
 	public GrayScaleFilter createNew() {	

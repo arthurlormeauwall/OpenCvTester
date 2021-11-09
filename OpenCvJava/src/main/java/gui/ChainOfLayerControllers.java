@@ -3,31 +3,31 @@ package gui;
 import baseClasses.chain.ChainOfCommands;
 import baseClasses.filter.Filter;
 
-public class ChainOfLayerWidgets {
+public class ChainOfLayerControllers {
 	
-	private ChainOfCommands chainOfLayersWidget;
+	private ChainOfCommands chainOfLayersControllers;
 	private Gui gui;
 	
-	public ChainOfLayerWidgets (Gui gui){
+	public ChainOfLayerControllers (Gui gui){
 		this.gui=gui;
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterController filterWidget) {
-		chainOfLayersWidget.addCommand(filterWidget.getId(), filterWidget);
+		chainOfLayersControllers.addCommand(filterWidget.getId(), filterWidget);
 		gui.addFilterWidgetInLayerWidget(filterWidget);
 	}
 	public void deFilterWidgetInLayerWidget(FilterController filterWidget) {
-		chainOfLayersWidget.delCommand(filterWidget.getId());
+		chainOfLayersControllers.delCommand(filterWidget.getId());
 		gui.delFilterWidgetInLayerWidget(filterWidget);
 	}
 
 	public void addLayerWidget(LayerController layerWidget) {
-		chainOfLayersWidget.addCommand(layerWidget.getId(), layerWidget);	
+		chainOfLayersControllers.addCommand(layerWidget.getId(), layerWidget);	
 		gui.addLayerWidget(layerWidget);
 	}
 
 	public void delLayerWidget(LayerController layerWidget) {
-		chainOfLayersWidget.delCommand(layerWidget.getId());	
+		chainOfLayersControllers.delCommand(layerWidget.getId());	
 		gui.delLayerWidget(layerWidget);
 	}
 

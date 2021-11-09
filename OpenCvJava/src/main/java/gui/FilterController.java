@@ -3,6 +3,7 @@ package gui;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
+import baseClasses.filter.FilterControlledByFloat;
 import gui.widget.FilterWidget;
 
 public class FilterController extends Command {
@@ -11,8 +12,9 @@ public class FilterController extends Command {
 	protected Id id;
 	protected FilterWidget filterWidget;
 	
-	public FilterController(Filter filter){
+	public FilterController(FilterControlledByFloat filter){
 		this.filter=filter;
+	
 	}
 	
 

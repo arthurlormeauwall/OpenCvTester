@@ -3,6 +3,8 @@ package gui;
 import renderingEngine.GroupsId;
 import renderingEngine.ChainOfLayers;
 
+import java.io.IOException;
+
 import org.opencv.core.Core;
 
 import baseClasses.Id;
@@ -29,7 +31,7 @@ public class OpenCvInit
 		
 	}
 	
-	public ChainOfLayers init(String fileName) {
+	public ChainOfLayers init(String fileName) throws IOException {
 		
 		setImage(fileName);
 		background.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), 0);
@@ -43,7 +45,7 @@ public class OpenCvInit
 
 		chainOfLayers.setSource(source);
 		chainOfLayers.setDest(dest);
-		chainOfLayers.play();
+		//chainOfLayers.play();
 		return chainOfLayers;
 		
 	}

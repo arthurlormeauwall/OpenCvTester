@@ -16,6 +16,8 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 		addParameterFlag("BlueMult", 0.5f, 1f);
 		addParameterFlag("GreenMult", 0.5f, 1f);
 		addParameterFlag("RedMult", 0.5f, 1f);
+		
+		setFilterName("BGR Multiplier");
 	}
 	
 	public BlueGreenRedMultiplierFilter createNew() {	
@@ -64,7 +66,9 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 	                imgDest.put(row, column, temp);
 	            }
 	        }
+	        
 	        dest.setMat(imgDest);
+
 	    }	
 	}
 }
