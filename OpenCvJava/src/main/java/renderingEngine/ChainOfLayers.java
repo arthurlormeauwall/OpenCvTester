@@ -85,11 +85,11 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		}	
 	} 
 
-	public Filter createAndAddFilterInLayer(Stack<Id> filterId, String filterNames) {
+	public FilterControlledByFloat createAndAddFilterInLayer(Stack<Id> filterId, String filterNames) {
 		Stack<String> stackOfFilterNames = new Stack<String>();
 		stackOfFilterNames.push(filterNames);
 		
-		Filter newFilter =((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).createAndAdd(filterId, stackOfFilterNames);
+		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).createAndAdd(filterId, stackOfFilterNames);
 		execute();	
 		return newFilter;
 	}
@@ -160,9 +160,10 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	} 
 	
 	public void execute(){
-		dealFrames();
+		dealFrames();	
+		dealFramesInLayers();	
 		dealBackground();
-		dealFramesInLayers();
+		
 		render();	
 	}
 
@@ -180,8 +181,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public void dealFramesInLayers(){
 		for (int i = 0; i < chainOfFilters.getSize(); i++) {
 
-			Layer test = (Layer)get(i);
-			test.dealFrames();
+			 ((Layer)get(i)).dealFrames();	
 		}
 	}   
 

@@ -1,7 +1,7 @@
 package actions;
 
 import filtersDataBase.OpacityFilter;
-import gui.ChainOfLayerControllers;
+import guiController.ChainOfLayerControllers;
 import renderingEngine.ChainOfLayers;
 
 public class SetOpacity implements Action {

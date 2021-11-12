@@ -1,8 +1,8 @@
 package actions;
 
 
-import gui.ChainOfLayerControllers;
-import gui.FilterController;
+import guiController.ChainOfLayerControllers;
+import guiController.FilterController;
 import renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteFilter implements Action {

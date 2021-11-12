@@ -3,7 +3,7 @@ package actions;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
 import filtersDataBase.OpacityFilter;
-import gui.ChainOfLayerControllers;
+import guiController.ChainOfLayerControllers;
 import renderingEngine.ChainOfLayers;
 
 public class SetParameters implements Action {

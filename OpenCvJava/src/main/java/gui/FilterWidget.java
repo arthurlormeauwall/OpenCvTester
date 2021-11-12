@@ -1,4 +1,4 @@
-package gui.widget;
+package gui;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,7 +16,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 
 import baseClasses.filter.FilterControlledByFloat;
-import gui.GuiManager;
+import guiController.GuiManager;
 
 public class FilterWidget extends JPanel
 {

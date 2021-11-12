@@ -2,7 +2,7 @@ package main;
 
 import java.io.IOException;
 
-import gui.App;
+import guiController.App;
 import userFilters.BlueGreenRedMultiplierFilter;
 import userFilters.GrayScaleFilter;
 
@@ -12,6 +12,5 @@ public class Main
 		App app= new App("assets/test.jpg"); 
 		app.addFilterInDataBase("BGR Multiplier", new BlueGreenRedMultiplierFilter());
 		app.addFilterInDataBase("GrayScale", new GrayScaleFilter());
-		app.execute();	
     }
 }

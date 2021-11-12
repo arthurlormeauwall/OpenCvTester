@@ -13,9 +13,13 @@ import javax.swing.JPanel;
 
 
 import baseClasses.filter.Filter;
+import guiController.ChainOfLayerControllers;
+import guiController.FilterController;
+import guiController.GuiManager;
+import guiController.LayerController;
 
 
-public class Gui extends JFrame
+public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +27,7 @@ public class Gui extends JFrame
 	protected GuiManager guiManager;
 	protected JPanel layerPanel;
 	
-	public Gui(GuiManager guiManager) {
+	public MainWindow(GuiManager guiManager) {
 		super("OpenCV tester");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.guiManager=guiManager;	
@@ -60,27 +64,27 @@ public class Gui extends JFrame
 		    });
 		 addButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	Gui.this.guiManager.createAndAddLayer(chainOfLayerController.getNumberOfLayer(), null);
+		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerController.getNumberOfLayer(), null);
 		      }
 		    });
 		 delButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	  Gui.this.guiManager.deleteLayerController(chainOfLayerController.getLayerController(chainOfLayerController.getNumberOfLayer()-1));	    	
+		    	  MainWindow.this.guiManager.deleteLayerController(chainOfLayerController.getLayerController(chainOfLayerController.getNumberOfLayer()-1));	    	
 		      }
 		    });
-		
+		this.pack();
 		this.setVisible(true);
 	}
 
-	public void addFilterWidgetInLayerWidget(FilterController filterWidget) {
-		chainOfLayerController.addFilterWigetInLayerWiget(filterWidget);
+	public void addFilterWidgetInLayerWidget(FilterController filterController) {
+		chainOfLayerController.addFilterWigetInLayerWiget(filterController);
 		updateGui();
 	}
 
 	
 
-	public void delFilterWidgetInLayerWidget(FilterController filterWidget) {
-		// TODO Auto-generated method stub
+	public void delFilterWidgetInLayerWidget(FilterController filterController) {
+		chainOfLayerController.deFilterWidgetInLayerWidget(filterController);
 		
 	}
 
@@ -119,7 +123,13 @@ public class Gui extends JFrame
 			
 			layerPanel.add(chainOfLayerController.getLayerController(i).getLayerWidget());
 		}
+		this.pack();
 	}
+
+	public GuiManager getGuiManager() {
+		return guiManager;
+	}
+	
 
 	
 }

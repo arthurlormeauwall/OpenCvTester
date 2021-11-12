@@ -1,19 +1,20 @@
-package gui;
+package guiController;
 
 import java.io.IOException;
 
 import baseClasses.filter.FilterControlledByFloat;
+import gui.MainWindow;
 
 public class App
 {
 	private OpenCvInit OpenCvInit;
 	private GuiManager guiManager;
-	private Gui mainWindow;
+	private MainWindow mainWindow;
 	
 	public App(String fileName) throws IOException{
 		OpenCvInit= new OpenCvInit();
 		guiManager= new GuiManager(OpenCvInit.init(fileName), this);
-		mainWindow = new Gui(guiManager);
+		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
 	}
 	
@@ -21,11 +22,8 @@ public class App
 		guiManager.addFilterInDatabase(name, filter);
 	}
 	
-	public void execute() {
-		
-	}
 	
-	public Gui getGui() {
+	public MainWindow getGui() {
 		return mainWindow;
 	}
 }

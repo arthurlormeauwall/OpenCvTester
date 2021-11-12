@@ -1,4 +1,4 @@
-package gui;
+package guiController;
 
 import renderingEngine.GroupsId;
 import renderingEngine.ChainOfLayers;

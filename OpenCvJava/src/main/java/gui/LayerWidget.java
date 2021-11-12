@@ -1,45 +1,42 @@
-package gui.widget;
+package gui;
 
 import java.awt.Color;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import baseClasses.filter.FilterControlledByFloat;
-import gui.GuiManager;
-import renderingEngine.Layer;
+import guiController.GuiManager;
+import guiController.LayerController;
 
 public class LayerWidget extends JPanel 
 {
+	LayerController layerController;
+	
 	private static final long serialVersionUID = 1L;
 	
-	public LayerWidget (Layer layer, GuiManager guiManager){
+	public LayerWidget (LayerController layerController, GuiManager guiManager){
+		this.layerController=layerController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel titlePanel= new JPanel();
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
 		
 		
-		JButton filterName= new JButton("Layer");
+		JButton layerButton= new JButton("Layer");
 		
-		titlePanel.add(filterName);
+		titlePanel.add(layerButton);
 		add(titlePanel);
 		
 		JPanel insidePanel = new JPanel();
 		insidePanel.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
 
-        LabelledSlider  opacitySlider= new LabelledSlider("Opacity", 1f, layer.getOpacityFilter(), guiManager);
+        OpacitySlider  opacitySlider= new OpacitySlider("Opacity", 1f, layerController.getLayer().getOpacityFilter(), guiManager);
       
         insidePanel.add(opacitySlider);      
 	     
@@ -48,6 +45,12 @@ public class LayerWidget extends JPanel
 	    
 	    Border blackline = BorderFactory.createLineBorder(Color.black);
 	    setBorder(blackline); 
+	    
+	    layerButton.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event)   {
+		    	  LayerWidget.this.layerController.getLayerWindow().setVisible(true);    	
+		      }
+		    });
 	    
 	    
 	 

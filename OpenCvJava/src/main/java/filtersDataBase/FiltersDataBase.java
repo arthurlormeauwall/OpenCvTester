@@ -1,10 +1,12 @@
 package filtersDataBase;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Stack;
+import java.util.Map.Entry;
 
-import baseClasses.Command;
-import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
+import baseClasses.openCvFacade.Frame;
 
 public class FiltersDataBase 
 {
@@ -14,7 +16,6 @@ public class FiltersDataBase
 
 	public FiltersDataBase() {
 		filters= new HashMap<String, FilterControlledByFloat>();
-		alphaFilter = new OpacityFilter();
 		emptyFilter= new EmptyFilter();
 	}
 	
@@ -32,7 +33,7 @@ public class FiltersDataBase
 	}
 	
 	public OpacityFilter getAlphaFilter(){
-		return alphaFilter;
+		return new OpacityFilter();
 	}
 	
 	public FilterFlags<Float> getFlags(String name){
@@ -42,5 +43,17 @@ public class FiltersDataBase
 		else {
 			return filters.get(name).getFlags();
 		}
+	}
+
+	public Stack<String> getFiltersName() {
+		Stack<String> filtersName= new Stack<String>();
+		Iterator<Entry<String, FilterControlledByFloat>> new_Iterator= filters.entrySet().iterator();
+		
+	    while (new_Iterator.hasNext()) {
+	    	HashMap.Entry<String, FilterControlledByFloat> filterItem= (HashMap.Entry<String, FilterControlledByFloat>) new_Iterator.next();
+	    	filtersName.push(filterItem.getKey());
+	    }
+	    
+	    return filtersName;
 	}
 }

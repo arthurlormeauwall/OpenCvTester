@@ -1,10 +1,10 @@
 package actions;
 
 
-import gui.ChainOfLayerControllers;
-import gui.FilterController;
-import gui.GuiManager;
-import gui.LayerController;
+import guiController.ChainOfLayerControllers;
+import guiController.FilterController;
+import guiController.GuiManager;
+import guiController.LayerController;
 import renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteLayer implements Action {

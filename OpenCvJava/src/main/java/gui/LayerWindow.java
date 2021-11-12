@@ -1,4 +1,4 @@
-package gui.widget;
+package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,11 +6,15 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import baseClasses.filter.FilterControlledByFloat;
-import gui.GuiManager;
-import gui.LayerController;
+import guiController.FilterController;
+import guiController.GuiManager;
+import guiController.LayerController;
 import renderingEngine.Layer;
 
 public class LayerWindow  extends JFrame 
@@ -18,7 +22,8 @@ public class LayerWindow  extends JFrame
 	private static final long serialVersionUID = 1L;
 	private LayerController layerController;
 	private JPanel filterPanel;
-	GuiManager guiManager;
+	private GuiManager guiManager;
+	private JList<String> filtersList;
 	
 	public LayerWindow (LayerController layerController, GuiManager guiManager){
 		super("Layer");
@@ -46,6 +51,12 @@ public class LayerWindow  extends JFrame
 		buttonPanel.add(undoButton);
 		buttonPanel.add(redoButton);
 		
+		filtersList=new JList<String>(guiManager.getFiltersName());
+		filtersList.setVisible(false);
+		filtersList.clearSelection();
+		buttonPanel.add(filtersList);
+		
+		
 		undoButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	
@@ -58,17 +69,37 @@ public class LayerWindow  extends JFrame
 		    });
 		 addButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	
+		    	LayerWindow.this.filtersList.setVisible(true);
+		    	LayerWindow.this.pack();
 		      }
 		    });
 		 delButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	
+		    	  int indexOfFitlerToDel= LayerWindow.this.layerController.getLayer().getNumberOfFilters()-2;
+		    	  FilterController filterToDel= LayerWindow.this.layerController.getFilterController(indexOfFitlerToDel);
+		    	  filterToDel.getFilterWidget().setVisible(false);
+		    	  LayerWindow.this.pack();
+		    	  LayerWindow.this.guiManager.delFilterInLayer(filterToDel);
 		      }
+		    });
+		 filtersList.addListSelectionListener (new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent listSelectionEvent) {
+
+					 if ( !listSelectionEvent.getValueIsAdjusting()) {
+						 int thisLayerIndex = LayerWindow.this.layerController.getLayer().getId().get()[0];
+					    	int newFilterIndex=LayerWindow.this.layerController.getLayer().getNumberOfFilters()-1;
+					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
+					    	LayerWindow.this.guiManager.createAndAddFilterInLayer(thisLayerIndex, newFilterIndex, nameOfNewFilter);
+					    	LayerWindow.this.filtersList.setVisible(false);
+					    	LayerWindow.this.pack();
+					 }
+			    		
+		
+				}
 		    });
 		
 		
-		
+		 this.pack();
 		updateGui();
 		
 		this.setVisible(true);
@@ -81,6 +112,8 @@ public class LayerWindow  extends JFrame
 		for (int i=0;i<numberOfFiltersToAdd;i++) {
 			filterPanel.add(layerController.getFilterController(i).getFilterWidget());
 		}
+		
+		this.pack();
 		
 	}
 

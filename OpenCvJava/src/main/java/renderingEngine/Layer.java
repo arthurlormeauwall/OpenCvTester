@@ -25,7 +25,6 @@ public class Layer extends CompositeFilters
 		// filtersDatabase = new FiltersDataBase();
 		opacityFilter = filtersDatabase.getAlphaFilter();
 		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);
-
 	}
 	
 	protected void init(Frame background, Frame source, Frame dest) {
@@ -35,9 +34,8 @@ public class Layer extends CompositeFilters
 		opacityFilter.setSource(source);
 		opacityFilter.setDest(dest);
 
-		Float whiteValue = ((Integer)(background.getSpecs().bitMax)).floatValue();
 		opacityFilter.init(background);
-		opacityFilter.setOpacity(whiteValue);
+	
 		
 		opacityFilter.getId().set(id.get()[0], 1, id.getGroupId() + 1);
 	}
@@ -86,7 +84,8 @@ public class Layer extends CompositeFilters
 	}
 	
 	public void setBackGround(Frame background){
-		this.background = background; 
+		this.background = background;
+		opacityFilter.setBackGround(background);
 	}
 	
 	public int getNumberOfFilters() {

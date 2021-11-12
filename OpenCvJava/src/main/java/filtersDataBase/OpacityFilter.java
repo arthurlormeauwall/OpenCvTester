@@ -17,11 +17,12 @@ public class OpacityFilter extends FilterControlledByFloat
 	public void init(Frame background) {
 		setBackGround(background);
 		setParameterFlags();
+		setOpacity(flags.defaultValues.get("Opacity"));
 	}
 	
 	public void setParameterFlags() {	
-		opacity=255f; //TODO: replace this
-		addParameterFlag("Opacity", Float.intBitsToFloat(255), Float.intBitsToFloat(255)); // TODO : replace this
+		opacity=1f; 
+		addParameterFlag("Opacity", 1f,1f); // TODO : replace this
 	}
 
 	

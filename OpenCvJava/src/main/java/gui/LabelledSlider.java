@@ -1,4 +1,4 @@
-package gui.widget;
+package gui;
 
 import java.io.IOException;
 
@@ -10,23 +10,23 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
-import gui.GuiManager;
+import guiController.GuiManager;
 
 public class LabelledSlider extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
-	private JSlider slider;
+	protected JSlider slider;
 	private JLabel  nameWidget;
-	private String name;
 	private FilterControlledByFloat widgetToUpdate;
 	private JLabel value;
+	protected Boolean emitSignal;
 
 	private GuiManager guiManager;
 	
 	public LabelledSlider (final String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager guiManager){
+		emitSignal=true;
 		this.widgetToUpdate=widgetToUpdate;
-		this.name=name;
 		this.guiManager=guiManager;
 		slider = new JSlider ();
 		slider.setValue(Math.round(defaultValue*100));
@@ -40,17 +40,25 @@ public class LabelledSlider extends JPanel
 		add(slider);
 		add(value);
 		
-		 slider.addChangeListener(new ChangeListener() {
-		      public void stateChanged(ChangeEvent event)   {
-		    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
-		    	  try {
-					LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), name, slider.getValue()*0.01f);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		      }
-		    });
+		if (emitSignal) {
+			 slider.addChangeListener(new ChangeListener() {
+			      public void stateChanged(ChangeEvent event)   {
+			    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
+			    	  try {
+						LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), name, slider.getValue()*0.01f);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+			      }
+			    });
+		}		
 	}
+	
+	public void setEmitSignal(Boolean emitSignal) {
+		this.emitSignal=emitSignal;
+	}
+	
+	
 	
 
 }

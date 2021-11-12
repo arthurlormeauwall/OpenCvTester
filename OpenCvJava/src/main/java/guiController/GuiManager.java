@@ -1,4 +1,4 @@
-package gui;
+package guiController;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.ListModel;
 
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
@@ -18,6 +19,7 @@ import org.opencv.imgcodecs.Imgcodecs;
 import actionsHistory.ActionsHistory;
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
+import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
 import renderingEngine.GroupsId;
 import renderingEngine.Layer;
@@ -29,7 +31,7 @@ public class GuiManager
 	private ActionsHistory history;
 	private ChainOfLayers chainOfLayers;
 	private App app;
-	private Gui gui;
+	private MainWindow gui;
 	private JFrame frameWindow;
 	
 	public GuiManager(ChainOfLayers chainOfLayers, App app){
@@ -62,7 +64,7 @@ public class GuiManager
 		   frameWindow.setVisible(true);
 	}
 	
-	public void setGui(Gui gui) {
+	public void setGui(MainWindow gui) {
 		this.gui=gui;
 	}
 	private Id createLayerId(int layerIndex) {	
@@ -92,19 +94,32 @@ public class GuiManager
 		}
 		
 		Layer newLayer= chainOfLayers.addLayer(id, filterNames);
-		gui.addLayerController(new LayerController(newLayer, this));
+		LayerController newLayerController= new LayerController(newLayer, this);
+		newLayerController.getLayerWindow().setVisible(false);
+		gui.addLayerController(newLayerController);
 		refresh();
 		return newLayer;
 	}
 	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
-	}
-	
-	public void delFilterInLayer(FilterController filterWidgetToDel)  {		
-	}
-	
-	public void deleteLayerController(LayerController layerController) {
+		Stack<Id> id= new Stack<Id>();
+		id.push(createFilterId(layerIndex, filterIndex));
+		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
+		FilterController newLayerController = new FilterController(newFilter, this);
 		
+		gui.addFilterWidgetInLayerWidget(newLayerController);	
+		refresh();
+	}
+	
+	public void delFilterInLayer(FilterController filterControllerToDel)  {		
+		if (filterControllerToDel!=null) {
+			chainOfLayers.delFilterInLayer(filterControllerToDel.getFilter());
+			gui.delFilterWidgetInLayerWidget(filterControllerToDel);
+			refresh();
+		}
+	}
+	
+	public void deleteLayerController(LayerController layerController) {		
 		if (layerController!=null) {
 			chainOfLayers.delLayer(layerController.getId());
 			gui.deleteLayerController(layerController);	
@@ -168,10 +183,10 @@ public class GuiManager
 	
 	public void store() {	
 	}
-	
-	public void play() {
-		chainOfLayers.getDest().play();
-		 /* */
+
+	public Stack<String> getFiltersName() {
+		return chainOfLayers.getFilterDataBase().getFiltersName();
+		
 	}
 	
 }
