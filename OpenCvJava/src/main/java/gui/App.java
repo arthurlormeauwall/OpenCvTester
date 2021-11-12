@@ -13,7 +13,8 @@ public class App
 	public App(String fileName) throws IOException{
 		OpenCvInit= new OpenCvInit();
 		guiManager= new GuiManager(OpenCvInit.init(fileName), this);
-		
+		mainWindow = new Gui(guiManager);
+		guiManager.setGui(mainWindow);
 	}
 	
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
@@ -21,7 +22,7 @@ public class App
 	}
 	
 	public void execute() {
-		Gui mainWindow = new Gui(guiManager);
+		
 	}
 	
 	public Gui getGui() {

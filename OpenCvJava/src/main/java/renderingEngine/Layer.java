@@ -35,7 +35,7 @@ public class Layer extends CompositeFilters
 		opacityFilter.setSource(source);
 		opacityFilter.setDest(dest);
 
-		int whiteValue = background.getSpecs().bitMax;
+		Float whiteValue = ((Integer)(background.getSpecs().bitMax)).floatValue();
 		opacityFilter.init(background);
 		opacityFilter.setOpacity(whiteValue);
 		
@@ -81,7 +81,7 @@ public class Layer extends CompositeFilters
 		return opacityFilter;
 	}
 	
-	public void setOpacity(int opacity){
+	public void setOpacity(Float opacity){
 		opacityFilter.setOpacity(opacity);
 	}
 	
@@ -91,5 +91,9 @@ public class Layer extends CompositeFilters
 	
 	public int getNumberOfFilters() {
 		return chainOfFilters.getSize() + 1;
+	}
+
+	public FilterControlledByFloat getFilter(int i) {
+		return (FilterControlledByFloat)chainOfFilters.getCommand(i);
 	}
 }

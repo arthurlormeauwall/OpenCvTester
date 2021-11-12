@@ -9,7 +9,7 @@ import baseClasses.openCvFacade.Frame;
 public class OpacityFilter extends FilterControlledByFloat 
 {
 	protected Frame background;
-	private int opacity;	
+	private Float opacity;	
 	
 	public OpacityFilter() {
 	}
@@ -20,7 +20,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	}
 	
 	public void setParameterFlags() {	
-		opacity=255; //TODO: replace this
+		opacity=255f; //TODO: replace this
 		addParameterFlag("Opacity", Float.intBitsToFloat(255), Float.intBitsToFloat(255)); // TODO : replace this
 	}
 
@@ -52,7 +52,7 @@ public class OpacityFilter extends FilterControlledByFloat
 						float background_pixel = (float)(background.get(row, column)[i]);
 						float source_pixel = (float)(imgSource.get(row, column)[i]);
 
-						int after = (int)((1 - (alpha_pixel / (float)(NBITMAX))) * background_pixel + alpha_pixel / (float)(NBITMAX) * source_pixel);
+						int after = (int)   (background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel);
 						if (after > NBITMAX) { after = NBITMAX; }
 						
 						data[i] = after;
@@ -70,15 +70,14 @@ public class OpacityFilter extends FilterControlledByFloat
 	}
 	
 	
-	public void setOpacity(Integer opacity){
+	public void setOpacity(Float opacity){
 		this.opacity=opacity;
 	
 		LinkedHashMap<String,Float> newOpacity= new LinkedHashMap<String, Float>();
-		newOpacity.put("Opacity", opacity.floatValue());
-		setParameter(newOpacity);
-		
+		newOpacity.put("Opacity", opacity);
+		setParameter(newOpacity);	
 	}
-	public int getOpacity() {
+	public Float getOpacity() {
 		return opacity;
 	}
 

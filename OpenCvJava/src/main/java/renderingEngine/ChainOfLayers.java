@@ -94,7 +94,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		return newFilter;
 	}
 
-	public void setOpacity(int layerIndex, int opacity){
+	public void setOpacity(int layerIndex, Float opacity){
 		if (getNumberOfFilters() >layerIndex) {
 			((Layer)chainOfFilters.getCommand(layerIndex)).setOpacity(opacity);
 			execute();
@@ -142,17 +142,20 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		Layer maskedLayer = new Layer(filtersDataBase, controlId.get(0), renderAtIdHistory);
 		maskedLayer.init(m_background, source, dest);
 		
-		int numberOfControlToAdd = controlName.size();
+		if (controlName!=null) {
+			int numberOfControlToAdd = controlName.size();
 
-		for (int i = 0; i < numberOfControlToAdd; i++) {
-			Stack<Id> temp=new Stack<Id>();
-			Stack<String> temp2=new Stack<String>();
-			
-			temp.push(controlId.get(i + 1));
-			temp2.push(controlName.get(i));
-			
-			maskedLayer.createAndAdd(temp, temp2);
+			for (int i = 0; i < numberOfControlToAdd; i++) {
+				Stack<Id> temp=new Stack<Id>();
+				Stack<String> temp2=new Stack<String>();
+				
+				temp.push(controlId.get(i + 1));
+				temp2.push(controlName.get(i));
+				
+				maskedLayer.createAndAdd(temp, temp2);
+			}
 		}
+		
 		return maskedLayer;
 	} 
 	

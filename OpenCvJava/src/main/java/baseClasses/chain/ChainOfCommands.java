@@ -21,21 +21,24 @@ public class ChainOfCommands
         int index = getCommandIndex(id);
 
         int lastControl = commands.size() - 1;
-        if (index > lastControl + 1) {
-            index = lastControl + 1;
-            if (index < 0) {
-                index = 0;
-            }
-        }
+        
 
         if (commands.size() == 0) {
         	commands.push(filter);
         }
 
         else {
+        	if (index > lastControl + 1) {
+                index = lastControl + 1;
+                if (index < 0) {
+                    index = 0;
+                }
+                
+            }
         	commands.add(index, filter);     
+        	 updateAllId(index);
         }
-        updateAllId(index);
+       
     }
 
     public Command delCommand(Id id) {
@@ -95,8 +98,13 @@ public class ChainOfCommands
     	return newChainControl;
     }
 
-    public Command getCommand(int index){	
-    	return commands.get(index);
+    public Command getCommand(int index){
+    	if (index>=0 && index < commands.size()) {
+    		return commands.get(index);
+    	}
+    	else {
+    		return null;
+    	}
     }
 
     public Stack<Command> getCommandChain() {      

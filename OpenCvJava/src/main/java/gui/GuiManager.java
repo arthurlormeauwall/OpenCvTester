@@ -29,12 +29,15 @@ public class GuiManager
 	private ActionsHistory history;
 	private ChainOfLayers chainOfLayers;
 	private App app;
+	private Gui gui;
 	private JFrame frameWindow;
 	
 	public GuiManager(ChainOfLayers chainOfLayers, App app){
 		this.chainOfLayers=chainOfLayers;
 		this.app=app;
 		history=new ActionsHistory();
+		gui=app.getGui();
+		
 		frameWindow= new JFrame("Image");
 		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//Encoding the image
@@ -58,6 +61,10 @@ public class GuiManager
 		   frameWindow.pack();
 		   frameWindow.setVisible(true);
 	}
+	
+	public void setGui(Gui gui) {
+		this.gui=gui;
+	}
 	private Id createLayerId(int layerIndex) {	
 		Id id = new Id();
 		id.set(layerIndex, 0, GroupsId.LAYER.ordinal());
@@ -66,7 +73,7 @@ public class GuiManager
 	
 	private Id createFilterId(int layerIndex, int filterIndex) {
 		Id id = new Id();
-		id.set(layerIndex, filterIndex, GroupsId.CONTROL.ordinal());
+		id.set(layerIndex, filterIndex, GroupsId.FILTER.ordinal());
 		return id;
 	}
 	
@@ -74,12 +81,20 @@ public class GuiManager
 		chainOfLayers.getFiltersDataBase().addFilter(name, filter);
 	}
 	
-	public Layer createAndAddLayer (int layerIndex, int filterIndex, Stack<String> filterNames) {	
+	public Layer createAndAddLayer (int layerIndex, Stack<String> filterNames) {	
 		Stack<Id> id= new Stack<Id>();
 		id.push(createLayerId(layerIndex));
-		id.push(createFilterId(layerIndex, filterIndex));
 		
-		return chainOfLayers.addLayer(id, filterNames);
+		if (filterNames!=null) {
+			for (int i=0; i< filterNames.size(); i++) {
+				id.push(createFilterId(layerIndex, i));
+			}
+		}
+		
+		Layer newLayer= chainOfLayers.addLayer(id, filterNames);
+		gui.addLayerController(new LayerController(newLayer, this));
+	
+		return newLayer;
 	}
 	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
@@ -88,17 +103,31 @@ public class GuiManager
 	public void delFilterInLayer(FilterController filterWidgetToDel)  {		
 	}
 	
-	public void delLayer(LayerController layerWidget) {
+	public void deleteLayerController(LayerController layerController) {
+		
+		if (layerController!=null) {
+			chainOfLayers.delLayer(layerController.getId());
+			gui.deleteLayerController(layerController);	
+		}
+
 	}
 
-	public void setOpacity(int layerIndex, int opacity) {	
+	public void setOpacity(int layerIndex, Float opacity) {	
+		chainOfLayers.setOpacity(layerIndex, opacity);
+		refresh();
 	}	
 	
 	public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues){
 	}	
 	public void setParameters(Id id, String name, Float value) throws IOException {
-		chainOfLayers.setParameters(id, name, value);	
-		refresh();
+		if (id.getGroupId()==GroupsId.FILTER_CHAIN.ordinal()) {
+			setOpacity(id.get()[0], value);
+		}
+		else if (id.getGroupId()==GroupsId.FILTER.ordinal()) {
+			chainOfLayers.setParameters(id, name, value);	
+			refresh();
+		}
+		
 	}
 	
 	private void refresh() {

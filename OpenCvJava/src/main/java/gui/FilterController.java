@@ -29,5 +29,9 @@ public class FilterController extends Command {
 	public Filter getFilter() {
 		return filter;
 	}
+	
+	public FilterWidget getFilterWidget() {
+		return filterWidget;
+	}
 
 }

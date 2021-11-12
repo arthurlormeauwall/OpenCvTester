@@ -1,16 +1,20 @@
 package gui.widget;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
 import gui.GuiManager;
@@ -27,7 +31,7 @@ public class LayerWidget extends JPanel
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
 		
 		
-		JLabel filterName= new JLabel("Layer");
+		JButton filterName= new JButton("Layer");
 		
 		titlePanel.add(filterName);
 		add(titlePanel);
@@ -35,7 +39,8 @@ public class LayerWidget extends JPanel
 		JPanel insidePanel = new JPanel();
 		insidePanel.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
 
-        LabelledSlider opacitySlider= new LabelledSlider("Opacity", 1f, layer.getOpacityFilter(), guiManager);
+        LabelledSlider  opacitySlider= new LabelledSlider("Opacity", 1f, layer.getOpacityFilter(), guiManager);
+      
         insidePanel.add(opacitySlider);      
 	     
 	
@@ -43,6 +48,11 @@ public class LayerWidget extends JPanel
 	    
 	    Border blackline = BorderFactory.createLineBorder(Color.black);
 	    setBorder(blackline); 
+	    
+	    
+	 
 	}
+
+
 
 }

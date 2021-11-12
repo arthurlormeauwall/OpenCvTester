@@ -10,12 +10,12 @@ import renderingEngine.ChainOfLayers;
 public class AddOrDeleteLayer implements Action {
 
 	public Functionalities addOrDelete;
-	private LayerController layerWidget;
+	private LayerController layerController;
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerControllers chainOfLayerWidgets;
 	
-	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerControllers chainOfLayerWidgets, LayerController filterWidget){
-		this.layerWidget=filterWidget;
+	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerControllers chainOfLayerWidgets, LayerController layerController){
+		this.layerController=layerController;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;
 	}
@@ -31,12 +31,12 @@ public class AddOrDeleteLayer implements Action {
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD_FILTER) {
-			chainOfLayers.addLayer(layerWidget.getLayer());
-			chainOfLayerWidgets.addLayerWidget(layerWidget);
+			chainOfLayers.addLayer(layerController.getLayer());
+			chainOfLayerWidgets.addLayerController(layerController);
 		}
 		else if (addOrDelete== Functionalities.DELETE_FILTER) {
-			chainOfLayers.delLayer(layerWidget.getLayer());
-			chainOfLayerWidgets.delLayerWidget(layerWidget);
+			chainOfLayers.delLayer(layerController.getLayer());
+			chainOfLayerWidgets.deleteLayerController(layerController);
 		}	
 	}
 

@@ -61,8 +61,7 @@ public abstract class CompositeFilters extends Filter
 	
 	public Filter delete(Id id) {
 		if (!isIndexOutOfRange(id)) {
-			chainOfFilters.delCommand(id);	
-			return (Filter)chainOfFilters.getCommand(id.get()[chainOfFilters.getDeepnessIndex()]);
+			return (Filter)chainOfFilters.delCommand(id);	
 		}
 		else {
 			return null;
