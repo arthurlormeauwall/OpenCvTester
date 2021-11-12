@@ -93,7 +93,7 @@ public class GuiManager
 		
 		Layer newLayer= chainOfLayers.addLayer(id, filterNames);
 		gui.addLayerController(new LayerController(newLayer, this));
-	
+		refresh();
 		return newLayer;
 	}
 	
@@ -108,6 +108,7 @@ public class GuiManager
 		if (layerController!=null) {
 			chainOfLayers.delLayer(layerController.getId());
 			gui.deleteLayerController(layerController);	
+			refresh();
 		}
 
 	}
