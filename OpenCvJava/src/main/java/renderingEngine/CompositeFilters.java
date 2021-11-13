@@ -4,6 +4,7 @@ import baseClasses.history.IdHistory;
 import baseClasses.history.IdHistoryParameter;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
+import renderingEngine.renderer.Renderer;
 
 import java.util.Stack;
 
@@ -19,6 +20,7 @@ public abstract class CompositeFilters extends Filter
 	protected Stack<Frame> frames;
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
+	protected Renderer renderer;
 	
 	public CompositeFilters(FiltersDataBase filtersDataBase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(id, renderAtIdHistory);
@@ -31,9 +33,8 @@ public abstract class CompositeFilters extends Filter
 		chainOfFilters = new ChainOfCommands (chainId);		
 	}
 	
-	public abstract Command getLastFilter();
-	public abstract int getNumberOfFilters();
 	protected abstract Filter create(Stack<Id> ids, Stack<String> filterNamesInDataBase);
+	public abstract int groupDeepnessIndex() ;
 	
 	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id.get(0))) {
@@ -110,72 +111,10 @@ public abstract class CompositeFilters extends Filter
 		chainOfFilters=chain;
 	}	
 	
-	protected void updateNumberOfFrames() {
-
-		int numberOfControls = getNumberOfFilters();
-		int numberOfFrames = frames.size();
-		int lastFrame = frames.size() - 1;
-
-		if (numberOfControls >= 1) {
-			if (numberOfFrames < numberOfControls - 1) {
-				for (int i = numberOfFrames; i < numberOfControls - 1; i++)
-				{
-					frames.push(new Frame());
-					source.copyTo(frames.get(i));
-				}
-			}
-			else if (numberOfFrames > numberOfControls - 1) {
-				for (int i = lastFrame; i >= numberOfControls - 1; i--)
-				{
-					frames.pop();
-				}
-			}
-		}
-	}
-	
-	protected void dealFrames() {
-		
-		int numberOfControls = getNumberOfFilters();
-		updateNumberOfFrames();
-
-		int lastFrameIndex = frames.size() - 1;
-
-		if (numberOfControls>0) {
-			Command lastControl =  getLastFilter();
-
-			if (numberOfControls == 1) {
-				((IoFrame)lastControl).setSource(source);
-				((IoFrame)lastControl).setDest(dest);
-			}
-			else if (numberOfControls >= 2) {
-
-				((IoFrame)chainOfFilters.getCommand(0)).setSource(source);
-				((IoFrame)chainOfFilters.getCommand(0)).setDest(frames.get(0));
-
-				for (int j = 1; j < numberOfControls - 1; j++) {
-					((IoFrame)chainOfFilters.getCommand(j)).setSource(frames.get(j - 1));
-					((IoFrame)chainOfFilters.getCommand(j)).setDest(frames.get(j));
-				}
-				((IoFrame)lastControl).setSource(frames.get(lastFrameIndex));
-				((IoFrame)lastControl).setDest(dest);
-			}
-		}
-		else {
-			dest.setMat(source.getMat());
-		}
-	}
-	
-	public void render() {
-		int size = chainOfFilters.getSize();
-		int firstControl = chainOfFilters.getCommandIndex(renderAtIdHistory);
-
-		for (int i = firstControl; i < size; i++) {
-			((Executable)chainOfFilters.getCommand(i)).execute();
-		}	
-	}
-	
 	public FiltersDataBase getFiltersDataBase() {
 		return filtersDataBase;
 	}
+
+	
 
 }

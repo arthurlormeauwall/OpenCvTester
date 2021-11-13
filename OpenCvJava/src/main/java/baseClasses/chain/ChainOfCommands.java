@@ -4,6 +4,7 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Id;
+import baseClasses.filter.Filter;
 import baseClasses.history.IdHistory;
 
 
@@ -22,7 +23,6 @@ public class ChainOfCommands
 
         int lastControl = commands.size() - 1;
         
-
         if (commands.size() == 0) {
         	commands.push(filter);
         }
@@ -32,8 +32,7 @@ public class ChainOfCommands
                 index = lastControl + 1;
                 if (index < 0) {
                     index = 0;
-                }
-                
+                }              
             }
         	commands.add(index, filter);     
         	 updateAllId(index);
@@ -118,5 +117,9 @@ public class ChainOfCommands
 
     public int getSize() {
         return commands.size();
-    } 
+    }
+
+	public Stack<Command> getChain() {
+		return commands;
+	} 
 }

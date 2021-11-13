@@ -1,7 +1,6 @@
 package renderingEngine;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
@@ -12,11 +11,16 @@ import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
+import renderingEngine.renderer.ChainOfLayersRenderer;
 
-public class ChainOfLayers extends ChainOfLayersInterface
+public class ChainOfLayers extends CompositeFilters
 {
+	protected Frame background;
+	
 	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id, IdHistory<Id>  renderAtIdHistory) {
-		super(dbControls, background, id, renderAtIdHistory);	
+		super(dbControls, id, renderAtIdHistory);	
+		this.background = background;
+		renderer=new ChainOfLayersRenderer(this, background);
 	}
 	
 	
@@ -64,7 +68,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	}
 	
 	public Filter delFilterInLayer(Id filterId){
-		if (getNumberOfFilters()> filterId.get()[0]) {
+		if (getNumberOfLayers()> filterId.get()[0]) {
 			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filterId.get()[0])).delete(filterId);
 			execute();
 			return erasedFilter;
@@ -75,7 +79,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	}  
 	
 	public Filter delFilterInLayer(Filter filter){
-		if (getNumberOfFilters()> filter.getId().get()[0]) {
+		if (getNumberOfLayers()> filter.getId().get()[0]) {
 			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).delete(filter.getId());
 			execute();
 			return erasedFilter;
@@ -95,7 +99,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	}
 
 	public void setOpacity(int layerIndex, Float opacity){
-		if (getNumberOfFilters() >layerIndex) {
+		if (getNumberOfLayers() >layerIndex) {
 			((Layer)chainOfFilters.getCommand(layerIndex)).setOpacity(opacity);
 			execute();
 		}
@@ -104,7 +108,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	public void setParameters(Id ControlId, LinkedHashMap<String,Float> parameters){
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
-		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
+		if (getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
 			adjustControlToSet.setParameter(parameters);
 			execute();
@@ -115,7 +119,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		int layerIndex = id.get()[0];
 		int controlIndex = id.get()[1];
 		
-		if (getNumberOfFilters() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
+		if (getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
 			adjustControlToSet.setParameter(name, value);
 			execute();
@@ -127,7 +131,7 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		int layerIndex = ControlId.get()[0];
 		int controlIndex = ControlId.get()[1];
 	
-		if ( getNumberOfFilters()>layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters() > controlIndex) {
+		if ( getNumberOfLayers()>layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters() > controlIndex) {
 			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex));
 			temp.setBypass(p);
 			execute();
@@ -139,8 +143,8 @@ public class ChainOfLayers extends ChainOfLayersInterface
 	}   
 	
 	protected Filter create(Stack<Id> controlId, Stack<String> controlName){
-		Layer maskedLayer = new Layer(filtersDataBase, controlId.get(0), renderAtIdHistory);
-		maskedLayer.init(m_background, source, dest);
+		Layer layer = new Layer(filtersDataBase, controlId.get(0), renderAtIdHistory);
+		layer.init(background, source, dest);
 		
 		if (controlName!=null) {
 			int numberOfControlToAdd = controlName.size();
@@ -152,41 +156,18 @@ public class ChainOfLayers extends ChainOfLayersInterface
 				temp.push(controlId.get(i + 1));
 				temp2.push(controlName.get(i));
 				
-				maskedLayer.createAndAdd(temp, temp2);
+				layer.createAndAdd(temp, temp2);
 			}
 		}
 		
-		return maskedLayer;
+		return layer;
 	} 
 	
-	public void execute(){
-		dealFrames();	
-		dealFramesInLayers();	
-		dealBackground();
-		
-		render();	
+	public void execute() {
+		renderer.execute(chainOfFilters.getChain());
 	}
 
-	public void dealBackground(){
-		int numberOfMaskedLayers = chainOfFilters.getSize();
-		
-		if (numberOfMaskedLayers>0) {
-			((Layer)chainOfFilters.getCommand(0)).setBackGround(m_background);
-			for (int i = 1; i < numberOfMaskedLayers; i++) {
-				((Layer)chainOfFilters.getCommand(i)).setBackGround(((Layer)chainOfFilters.getCommand(i - 1)).getDest());
-			}
-		}	
-	}   
-	
-	public void dealFramesInLayers(){
-		for (int i = 0; i < chainOfFilters.getSize(); i++) {
 
-			 ((Layer)get(i)).dealFrames();	
-		}
-	}   
-
-
-	
 	public FiltersDataBase getFilterDataBase() {
 		return filtersDataBase;
 	}
@@ -195,8 +176,14 @@ public class ChainOfLayers extends ChainOfLayersInterface
 		return chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
 	}   
 	
-	public int getNumberOfFilters() {
+	public int getNumberOfLayers() {
 		return chainOfFilters.getSize();
+	}
+	
+
+
+	public int groupDeepnessIndex() {
+		return 0;
 	}
 
 

@@ -50,8 +50,7 @@ public class LayerController extends Command
 	}
 
 	public void updateGui() {
-		layerWindow.updateGui();
-		
+		layerWindow.updateGui();	
 	}
 
 	public LayerWidget getLayerWidget() {

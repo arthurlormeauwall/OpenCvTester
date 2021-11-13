@@ -40,6 +40,11 @@ public class GuiManager
 		history=new ActionsHistory();
 		gui=app.getGui();
 		
+		createFrameWindow();
+		
+	}
+	
+	private void createFrameWindow() {
 		frameWindow= new JFrame("Image");
 		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//Encoding the image
@@ -61,9 +66,9 @@ public class GuiManager
 		  //Set Content to the JFrame
 		   frameWindow.getContentPane().add(new JLabel(new ImageIcon(bufImage)));
 		   frameWindow.pack();
-		   frameWindow.setVisible(true);
+		   frameWindow.setVisible(true);	
 	}
-	
+
 	public void setGui(MainWindow gui) {
 		this.gui=gui;
 	}

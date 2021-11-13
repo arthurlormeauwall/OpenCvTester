@@ -1,6 +1,5 @@
 package renderingEngine;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
@@ -12,19 +11,20 @@ import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
+import renderingEngine.renderer.LayerRenderer;
 
 public class Layer extends CompositeFilters
 {
 	protected Frame background;
-	protected OpacityFilter opacityFilter;
-	
+	protected OpacityFilter opacityFilter;	
 	
 	public Layer (FiltersDataBase filtersDatabase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(filtersDatabase, id, renderAtIdHistory);
 		
-		// filtersDatabase = new FiltersDataBase();
 		opacityFilter = filtersDatabase.getAlphaFilter();
 		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);
+		
+		renderer= new LayerRenderer(this);
 	}
 	
 	protected void init(Frame background, Frame source, Frame dest) {
@@ -52,8 +52,7 @@ public class Layer extends CompositeFilters
 	}
 	
 	public void execute() {	
-		render();
-		opacityFilter.execute();	
+		renderer.execute(chainOfFilters.getChain());
 	}
 	
 	
@@ -75,10 +74,6 @@ public class Layer extends CompositeFilters
 		return opacityFilter;
 	}
 	
-	public Command getLastFilter() {
-		return opacityFilter;
-	}
-	
 	public void setOpacity(Float opacity){
 		opacityFilter.setOpacity(opacity);
 	}
@@ -94,5 +89,15 @@ public class Layer extends CompositeFilters
 
 	public FilterControlledByFloat getFilter(int i) {
 		return (FilterControlledByFloat)chainOfFilters.getCommand(i);
+	}
+
+	@Override
+	public int groupDeepnessIndex() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	public void dealFrames() {
+		renderer.dealFrames(chainOfFilters.getChain());		
 	}
 }
