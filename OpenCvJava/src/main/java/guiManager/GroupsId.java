@@ -1,4 +1,4 @@
-package renderingEngine;
+package guiManager;
 
 public enum GroupsId 
 {

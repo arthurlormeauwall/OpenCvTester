@@ -10,8 +10,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
-import guiController.GuiManager;
-import renderingEngine.GroupsId;
+import guiManager.GroupsId;
+import guiManager.ActionHistoryManager;
 
 public class LabelledSlider extends JPanel
 {
@@ -23,9 +23,9 @@ public class LabelledSlider extends JPanel
 	protected JLabel value;
 	protected Boolean emitSignal;
 
-	protected GuiManager guiManager;
+	protected ActionHistoryManager guiManager;
 	
-	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager guiManager){
+	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, ActionHistoryManager guiManager){
 		emitSignal=true;
 		this.widgetToUpdate=widgetToUpdate;
 		this.guiManager=guiManager;

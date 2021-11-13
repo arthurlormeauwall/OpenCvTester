@@ -11,21 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import baseClasses.filter.FilterControlledByFloat;
-import guiController.FilterController;
-import guiController.GuiManager;
-import guiController.LayerController;
-import renderingEngine.Layer;
+import guiManager.FilterManager;
+import guiManager.ActionHistoryManager;
+import guiManager.LayerManager;
 
 public class LayerWindow  extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	private LayerController layerController;
+	private LayerManager layerController;
 	private JPanel filterPanel;
-	private GuiManager guiManager;
+	private ActionHistoryManager guiManager;
 	private JList<String> filtersList;
 	
-	public LayerWindow (LayerController layerController, GuiManager guiManager){
+	public LayerWindow (LayerManager layerController, ActionHistoryManager guiManager){
 		super("Layer");
 		this.guiManager=guiManager;
 		this.layerController=layerController;
@@ -76,12 +74,13 @@ public class LayerWindow  extends JFrame
 		 delButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	  int indexOfFitlerToDel= LayerWindow.this.layerController.getLayer().getNumberOfFilters()-2;
-		    	  FilterController filterToDel= LayerWindow.this.layerController.getFilterController(indexOfFitlerToDel);
+		    	  FilterManager filterToDel= LayerWindow.this.layerController.getFilterController(indexOfFitlerToDel);
 		    	  filterToDel.getFilterWidget().setVisible(false);
 		    	  LayerWindow.this.pack();
 		    	  LayerWindow.this.guiManager.delFilterInLayer(filterToDel);
 		      }
 		    });
+		 
 		 filtersList.addListSelectionListener (new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent listSelectionEvent) {
 

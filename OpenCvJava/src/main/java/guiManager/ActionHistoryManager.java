@@ -1,4 +1,4 @@
-package guiController;
+package guiManager;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -21,54 +21,27 @@ import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
 import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
-import renderingEngine.GroupsId;
 import renderingEngine.Layer;
 
 
 
-public class GuiManager 
+public class ActionHistoryManager 
 {
 	private ActionsHistory history;
 	private ChainOfLayers chainOfLayers;
 	private App app;
 	private MainWindow gui;
-	private JFrame frameWindow;
+	private FrameWindowManager frameWindowManager;
 	
-	public GuiManager(ChainOfLayers chainOfLayers, App app){
+	public ActionHistoryManager(ChainOfLayers chainOfLayers, App app){
 		this.chainOfLayers=chainOfLayers;
 		this.app=app;
 		history=new ActionsHistory();
 		gui=app.getGui();
 		
-		createFrameWindow();
-		
+		frameWindowManager=new FrameWindowManager(chainOfLayers.getDest().getMat());		
 	}
 	
-	private void createFrameWindow() {
-		frameWindow= new JFrame("Image");
-		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//Encoding the image
-		  MatOfByte matOfByte = new MatOfByte();
-		  Imgcodecs.imencode(".jpg", chainOfLayers.getDest().getMat(), matOfByte);
-		  //Storing the encoded Mat in a byte array
-		  byte[] byteArray = matOfByte.toArray();
-		  //Preparing the Buffered Image
-		  InputStream in = new ByteArrayInputStream(byteArray);
-		  BufferedImage bufImage = null;
-			try {
-				bufImage = ImageIO.read(in);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		  //Instantiate JFrame
-		 
-		  //Set Content to the JFrame
-		   frameWindow.getContentPane().add(new JLabel(new ImageIcon(bufImage)));
-		   frameWindow.pack();
-		   frameWindow.setVisible(true);	
-	}
-
 	public void setGui(MainWindow gui) {
 		this.gui=gui;
 	}
@@ -99,10 +72,10 @@ public class GuiManager
 		}
 		
 		Layer newLayer= chainOfLayers.addLayer(id, filterNames);
-		LayerController newLayerController= new LayerController(newLayer, this);
+		LayerManager newLayerController= new LayerManager(newLayer, this);
 		newLayerController.getLayerWindow().setVisible(false);
 		gui.addLayerController(newLayerController);
-		refresh();
+		frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		return newLayer;
 	}
 	
@@ -110,32 +83,32 @@ public class GuiManager
 		Stack<Id> id= new Stack<Id>();
 		id.push(createFilterId(layerIndex, filterIndex));
 		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
-		FilterController newLayerController = new FilterController(newFilter, this);
+		FilterManager newLayerController = new FilterManager(newFilter, this);
 		
 		gui.addFilterWidgetInLayerWidget(newLayerController);	
-		refresh();
+		frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 	}
 	
-	public void delFilterInLayer(FilterController filterControllerToDel)  {		
+	public void delFilterInLayer(FilterManager filterControllerToDel)  {		
 		if (filterControllerToDel!=null) {
 			chainOfLayers.delFilterInLayer(filterControllerToDel.getFilter());
 			gui.delFilterWidgetInLayerWidget(filterControllerToDel);
-			refresh();
+			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		}
 	}
 	
-	public void deleteLayerController(LayerController layerController) {		
+	public void deleteLayerController(LayerManager layerController) {		
 		if (layerController!=null) {
 			chainOfLayers.delLayer(layerController.getId());
 			gui.deleteLayerController(layerController);	
-			refresh();
+			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		}
 
 	}
 
 	public void setOpacity(int layerIndex, Float opacity) {	
 		chainOfLayers.setOpacity(layerIndex, opacity);
-		refresh();
+		frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 	}	
 	
 	public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues){
@@ -144,38 +117,15 @@ public class GuiManager
 	public void setParameters(Id id, String name, Float value, GroupsId groupId) throws IOException {
 		if (groupId==GroupsId.LAYER) {
 			setOpacity(id.get()[0], value);
+			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		}
 		else if (groupId==GroupsId.FILTER) {
 			chainOfLayers.setParameters(id, name, value);	
-			refresh();
+			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		}
 		
 	}
 	
-	private void refresh() {
-		//Encoding the image
-		  MatOfByte matOfByte = new MatOfByte();
-		  Imgcodecs.imencode(".jpg", chainOfLayers.getDest().getMat(), matOfByte);
-		  //Storing the encoded Mat in a byte array
-		  byte[] byteArray = matOfByte.toArray();
-		  //Preparing the Buffered Image
-		  InputStream in = new ByteArrayInputStream(byteArray);
-		  BufferedImage bufImage = null;
-			try {
-				bufImage = ImageIO.read(in);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		  //Instantiate JFrame
-		 
-		  //Set Content to the JFrame
-		   frameWindow.getContentPane().removeAll();
-		   frameWindow.getContentPane().add(new JLabel(new ImageIcon(bufImage)));
-		   frameWindow.pack();
-		   frameWindow.setVisible(true);
-		
-	}
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
 	}
 	
@@ -194,5 +144,8 @@ public class GuiManager
 		return chainOfLayers.getFilterDataBase().getFiltersName();
 		
 	}
+	
+	
+	
 	
 }

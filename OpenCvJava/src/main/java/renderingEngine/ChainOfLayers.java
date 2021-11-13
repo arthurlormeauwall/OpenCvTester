@@ -1,6 +1,5 @@
 package renderingEngine;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
@@ -136,11 +135,7 @@ public class ChainOfLayers extends CompositeFilters
 			temp.setBypass(p);
 			execute();
 		}
-	}  
-
-	public void play() throws IOException{
-		dest.play();
-	}   
+	}    
 	
 	protected Filter create(Stack<Id> controlId, Stack<String> controlName){
 		Layer layer = new Layer(filtersDataBase, controlId.get(0), renderAtIdHistory);

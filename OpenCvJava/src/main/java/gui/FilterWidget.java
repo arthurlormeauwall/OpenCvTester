@@ -10,13 +10,11 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import java.awt.Color;
 
 import baseClasses.filter.FilterControlledByFloat;
-import guiController.GuiManager;
+import guiManager.ActionHistoryManager;
 
 public class FilterWidget extends JPanel
 {
@@ -25,7 +23,7 @@ public class FilterWidget extends JPanel
 	
 	private static final long serialVersionUID = 1L;
 	
-	public FilterWidget (FilterControlledByFloat sourceFilter, GuiManager guiManager){
+	public FilterWidget (FilterControlledByFloat sourceFilter, ActionHistoryManager guiManager){
 		this.sourceFilter= sourceFilter;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		

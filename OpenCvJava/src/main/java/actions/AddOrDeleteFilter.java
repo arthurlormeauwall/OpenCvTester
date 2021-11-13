@@ -1,18 +1,18 @@
 package actions;
 
 
-import guiController.ChainOfLayerControllers;
-import guiController.FilterController;
+import guiManager.ChainOfLayersManager;
+import guiManager.FilterManager;
 import renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteFilter implements Action {
 
 	public Functionalities addOrDelete;
-	private FilterController filterWidget;
+	private FilterManager filterWidget;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerControllers chainOfLayerWidgets;
+	private ChainOfLayersManager chainOfLayerWidgets;
 	
-	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayerControllers chainOfLayerWidgets, FilterController filterWidget){
+	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayersManager chainOfLayerWidgets, FilterManager filterWidget){
 		this.filterWidget=filterWidget;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

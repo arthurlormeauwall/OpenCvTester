@@ -1,4 +1,4 @@
-package guiController;
+package guiManager;
 
 import java.io.IOException;
 
@@ -8,12 +8,12 @@ import gui.MainWindow;
 public class App
 {
 	private OpenCvInit OpenCvInit;
-	private GuiManager guiManager;
+	private ActionHistoryManager guiManager;
 	private MainWindow mainWindow;
 	
 	public App(String fileName) throws IOException{
 		OpenCvInit= new OpenCvInit();
-		guiManager= new GuiManager(OpenCvInit.init(fileName), this);
+		guiManager= new ActionHistoryManager(OpenCvInit.init(fileName), this);
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
 	}

@@ -3,16 +3,16 @@ package actions;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
 import filtersDataBase.OpacityFilter;
-import guiController.ChainOfLayerControllers;
+import guiManager.ChainOfLayersManager;
 import renderingEngine.ChainOfLayers;
 
 public class SetParameters implements Action {
 
 	public Filter filter;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerControllers chainOfLayerWidgets;
+	private ChainOfLayersManager chainOfLayerWidgets;
 	
-	public SetParameters(ChainOfLayers chainOfLayers, ChainOfLayerControllers chainOfLayerWidgets, Filter filter){
+	public SetParameters(ChainOfLayers chainOfLayers, ChainOfLayersManager chainOfLayerWidgets, Filter filter){
 		this.filter=filter;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

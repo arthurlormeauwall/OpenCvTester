@@ -1,4 +1,4 @@
-package guiController;
+package guiManager;
 
 import renderingEngine.ChainOfLayers;
 

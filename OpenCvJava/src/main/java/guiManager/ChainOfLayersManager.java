@@ -1,17 +1,16 @@
-package guiController;
+package guiManager;
 
 import baseClasses.Id;
 import baseClasses.chain.ChainOfCommands;
 import baseClasses.filter.Filter;
 import gui.MainWindow;
-import gui.LayerWidget;
 
-public class ChainOfLayerControllers {
+public class ChainOfLayersManager {
 	
 	private ChainOfCommands chainOfLayersControllers;
 	private MainWindow gui;
 	
-	public ChainOfLayerControllers (MainWindow gui){
+	public ChainOfLayersManager (MainWindow gui){
 		
 		Id chainId = new Id();
 		chainId.set(0,0);
@@ -19,22 +18,22 @@ public class ChainOfLayerControllers {
 		this.gui=gui;
 	}
 	
-	public void addFilterWigetInLayerWiget(FilterController filterController) {
-		((LayerController)chainOfLayersControllers.getCommand(filterController.getId().get()[0])).addFilterController(filterController);
+	public void addFilterWigetInLayerWiget(FilterManager filterController) {
+		((LayerManager)chainOfLayersControllers.getCommand(filterController.getId().get()[0])).addFilterController(filterController);
 		gui.updateGui();
 	}
 	
-	public void deFilterWidgetInLayerWidget(FilterController filterWidget) {
+	public void deFilterWidgetInLayerWidget(FilterManager filterWidget) {
 		chainOfLayersControllers.delCommand(filterWidget.getId(),groupDeepnessIndes());
 		gui.updateGui();
 	}
 
-	public void addLayerController(LayerController layerController) {
+	public void addLayerController(LayerManager layerController) {
 		chainOfLayersControllers.addCommand(layerController.getId(), layerController, groupDeepnessIndes());	
 		gui.updateGui();
 	}
 
-	public void deleteLayerController(LayerController layerWidget) {
+	public void deleteLayerController(LayerManager layerWidget) {
 		chainOfLayersControllers.delCommand(layerWidget.getId(), groupDeepnessIndes());	
 		gui.updateGui();
 	}
@@ -55,15 +54,15 @@ public class ChainOfLayerControllers {
 
 	public void updateGui() {
 		for (int i=0;i<getNumberOfLayer();i++) {
-			((LayerController)chainOfLayersControllers.getCommand(i)).updateGui();
+			((LayerManager)chainOfLayersControllers.getCommand(i)).updateGui();
 		}
 		
 	}
 
 	
-	public LayerController getLayerController (int i) {
+	public LayerManager getLayerController (int i) {
 		
-		return (LayerController)chainOfLayersControllers.getCommand(i);
+		return (LayerManager)chainOfLayersControllers.getCommand(i);
 	}
 	
 	public int groupDeepnessIndes() {

@@ -1,16 +1,16 @@
 package actions;
 
 import filtersDataBase.OpacityFilter;
-import guiController.ChainOfLayerControllers;
+import guiManager.ChainOfLayersManager;
 import renderingEngine.ChainOfLayers;
 
 public class SetOpacity implements Action {
 
 	public OpacityFilter opacityFilter;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerControllers chainOfLayerWidgets;
+	private ChainOfLayersManager chainOfLayerWidgets;
 	
-	public SetOpacity(ChainOfLayers chainOfLayers, ChainOfLayerControllers chainOfLayerWidgets, OpacityFilter opacityFilter){
+	public SetOpacity(ChainOfLayers chainOfLayers, ChainOfLayersManager chainOfLayerWidgets, OpacityFilter opacityFilter){
 		this.opacityFilter=opacityFilter;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

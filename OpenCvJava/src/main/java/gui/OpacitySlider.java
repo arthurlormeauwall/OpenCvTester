@@ -6,14 +6,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
-import guiController.GuiManager;
-import renderingEngine.GroupsId;
+import guiManager.GroupsId;
+import guiManager.ActionHistoryManager;
 
 public class OpacitySlider extends LabelledSlider {
 
 	private static final long serialVersionUID = 1L;
 
-	public OpacitySlider(String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager guiManager) {
+	public OpacitySlider(String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, ActionHistoryManager guiManager) {
 		super(name, defaultValue, widgetToUpdate, guiManager);
 		slider.setMaximum(100);
 	}

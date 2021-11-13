@@ -13,25 +13,25 @@ import javax.swing.JPanel;
 
 
 import baseClasses.filter.Filter;
-import guiController.ChainOfLayerControllers;
-import guiController.FilterController;
-import guiController.GuiManager;
-import guiController.LayerController;
+import guiManager.ChainOfLayersManager;
+import guiManager.FilterManager;
+import guiManager.ActionHistoryManager;
+import guiManager.LayerManager;
 
 
 public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected ChainOfLayerControllers chainOfLayerController;
-	protected GuiManager guiManager;
+	protected ChainOfLayersManager chainOfLayerController;
+	protected ActionHistoryManager guiManager;
 	protected JPanel layerPanel;
 	
-	public MainWindow(GuiManager guiManager) {
+	public MainWindow(ActionHistoryManager guiManager) {
 		super("OpenCV tester");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.guiManager=guiManager;	
-		chainOfLayerController= new ChainOfLayerControllers(this);
+		chainOfLayerController= new ChainOfLayersManager(this);
 		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -76,29 +76,29 @@ public class MainWindow extends JFrame
 		this.setVisible(true);
 	}
 
-	public void addFilterWidgetInLayerWidget(FilterController filterController) {
+	public void addFilterWidgetInLayerWidget(FilterManager filterController) {
 		chainOfLayerController.addFilterWigetInLayerWiget(filterController);
 		updateGui();
 	}
 
 	
 
-	public void delFilterWidgetInLayerWidget(FilterController filterController) {
+	public void delFilterWidgetInLayerWidget(FilterManager filterController) {
 		chainOfLayerController.deFilterWidgetInLayerWidget(filterController);
 		
 	}
 
-	public void addLayerController(LayerController layerController) {
+	public void addLayerController(LayerManager layerController) {
 		chainOfLayerController.addLayerController(layerController);	
 	}
 	
-	public void deleteLayerController(LayerController layerController) {
+	public void deleteLayerController(LayerManager layerController) {
 		layerController.getLayerWindow().setVisible(false);
 		chainOfLayerController.deleteLayerController(layerController);	
 		
 	}
 
-	public void delLayerWidget(LayerController layerWidget) {
+	public void delLayerWidget(LayerManager layerWidget) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -126,7 +126,7 @@ public class MainWindow extends JFrame
 		this.pack();
 	}
 
-	public GuiManager getGuiManager() {
+	public ActionHistoryManager getGuiManager() {
 		return guiManager;
 	}
 	

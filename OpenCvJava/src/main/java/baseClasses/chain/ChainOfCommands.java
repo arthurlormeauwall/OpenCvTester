@@ -4,7 +4,6 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Id;
-import baseClasses.filter.Filter;
 import baseClasses.history.IdHistory;
 
 
@@ -52,8 +51,6 @@ public class ChainOfCommands
     }
     
     public void updateAllId(int index, int groupDeepnessIndex) {
-        //int groupDeepnessIndex = getDeepnessIndex();
-
         for (int i = index; i < commands.size(); i++) {
         	commands.get(i).updateId(groupDeepnessIndex, i);
         }
@@ -76,18 +73,6 @@ public class ChainOfCommands
 
         int controlIndex = id.getState().getParameter().get()[groupDeepnessIndex];
         return controlIndex;
-    }
-    
-    public int getdeepnessIndex() {
-        //int currentGroupId = id.getGroupId();
-       // int groupDeepnessIndex = (currentGroupId - 1) / 2;
-        
-        /* if we are in a "layer chain" (groupId at '1') we should get layer index 
-        but if we are in a "filter chain" (groupId at '3')
-        we should get filter index */
-        
-      // return groupDeepnessIndex;
-    	return 0;
     }
 
 

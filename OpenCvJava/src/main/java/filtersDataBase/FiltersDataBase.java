@@ -6,7 +6,6 @@ import java.util.Stack;
 import java.util.Map.Entry;
 
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.openCvFacade.Frame;
 
 public class FiltersDataBase 
 {

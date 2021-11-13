@@ -11,16 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import guiController.GuiManager;
-import guiController.LayerController;
+import guiManager.ActionHistoryManager;
+import guiManager.LayerManager;
 
 public class LayerWidget extends JPanel 
 {
-	LayerController layerController;
+	LayerManager layerController;
 	
 	private static final long serialVersionUID = 1L;
 	
-	public LayerWidget (LayerController layerController, GuiManager guiManager){
+	public LayerWidget (LayerManager layerController, ActionHistoryManager guiManager){
 		this.layerController=layerController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
