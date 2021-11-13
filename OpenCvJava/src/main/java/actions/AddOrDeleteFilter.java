@@ -19,20 +19,20 @@ public class AddOrDeleteFilter implements Action {
 	}
 
 	public void invert() {
-		if (addOrDelete== Functionalities.ADD_FILTER) {
-			addOrDelete=Functionalities.DELETE_FILTER;
+		if (addOrDelete== Functionalities.ADD) {
+			addOrDelete=Functionalities.DELETE;
 		}
-		else if (addOrDelete== Functionalities.DELETE_FILTER) {
-			addOrDelete=Functionalities.ADD_FILTER;
+		else if (addOrDelete== Functionalities.DELETE) {
+			addOrDelete=Functionalities.ADD;
 		}
 	}
 
 	public void execute() {
-		if (addOrDelete== Functionalities.ADD_FILTER) {
+		if (addOrDelete== Functionalities.ADD) {
 			chainOfLayers.addFilterInLayer(filterWidget.getFilter());
 			chainOfLayerWidgets.addFilterWigetInLayerWiget(filterWidget);
 		}
-		else if (addOrDelete== Functionalities.DELETE_FILTER) {
+		else if (addOrDelete== Functionalities.DELETE) {
 			chainOfLayers.delFilterInLayer(filterWidget.getFilter());
 			chainOfLayerWidgets.deFilterWidgetInLayerWidget(filterWidget);
 		}	

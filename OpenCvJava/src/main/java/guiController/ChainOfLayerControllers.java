@@ -14,7 +14,7 @@ public class ChainOfLayerControllers {
 	public ChainOfLayerControllers (MainWindow gui){
 		
 		Id chainId = new Id();
-		chainId.set(0,0,1);
+		chainId.set(0,0);
 		chainOfLayersControllers= new ChainOfCommands(chainId);
 		this.gui=gui;
 	}
@@ -25,17 +25,17 @@ public class ChainOfLayerControllers {
 	}
 	
 	public void deFilterWidgetInLayerWidget(FilterController filterWidget) {
-		chainOfLayersControllers.delCommand(filterWidget.getId());
+		chainOfLayersControllers.delCommand(filterWidget.getId(),groupDeepnessIndes());
 		gui.updateGui();
 	}
 
 	public void addLayerController(LayerController layerController) {
-		chainOfLayersControllers.addCommand(layerController.getId(), layerController);	
+		chainOfLayersControllers.addCommand(layerController.getId(), layerController, groupDeepnessIndes());	
 		gui.updateGui();
 	}
 
 	public void deleteLayerController(LayerController layerWidget) {
-		chainOfLayersControllers.delCommand(layerWidget.getId());	
+		chainOfLayersControllers.delCommand(layerWidget.getId(), groupDeepnessIndes());	
 		gui.updateGui();
 	}
 
@@ -64,6 +64,10 @@ public class ChainOfLayerControllers {
 	public LayerController getLayerController (int i) {
 		
 		return (LayerController)chainOfLayersControllers.getCommand(i);
+	}
+	
+	public int groupDeepnessIndes() {
+		return 0;
 	}
 
 }

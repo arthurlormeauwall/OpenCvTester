@@ -9,9 +9,7 @@ import renderingEngine.renderer.Renderer;
 import java.util.Stack;
 
 import baseClasses.Command;
-import baseClasses.Executable;
 import baseClasses.Id;
-import baseClasses.IoFrame;
 import baseClasses.chain.ChainOfCommands;
 import baseClasses.filter.Filter;
 
@@ -29,7 +27,7 @@ public abstract class CompositeFilters extends Filter
 		
 		
 		Id chainId = new Id(this.id.get());
-		chainId.setGroupId(this.id.getGroupId() + 1);
+		
 		chainOfFilters = new ChainOfCommands (chainId);		
 	}
 	
@@ -40,7 +38,7 @@ public abstract class CompositeFilters extends Filter
 		if (!isIndexOutOfRange(id.get(0))) {
 			Filter filter = create(id, commandsNamesInDataBase);
 			updateRenderAtId(id.get(0));
-			chainOfFilters.addCommand(id.get(0), filter);
+			chainOfFilters.addCommand(id.get(0), filter, groupDeepnessIndex());
 			return filter;
 		}
 		else {
@@ -52,7 +50,7 @@ public abstract class CompositeFilters extends Filter
 		
 		if (!isIndexOutOfRange(filter.getId())) {		
 			updateRenderAtId(filter.getId());
-			chainOfFilters.addCommand(filter.getId(), filter);	
+			chainOfFilters.addCommand(filter.getId(), filter, groupDeepnessIndex());	
 			return filter;
 		}
 		else {
@@ -62,7 +60,7 @@ public abstract class CompositeFilters extends Filter
 	
 	public Filter delete(Id id) {
 		if (!isIndexOutOfRange(id)) {
-			return (Filter)chainOfFilters.delCommand(id);	
+			return (Filter)chainOfFilters.delCommand(id,groupDeepnessIndex());	
 		}
 		else {
 			return null;
@@ -70,7 +68,7 @@ public abstract class CompositeFilters extends Filter
 	}
 	
 	public Boolean isIndexOutOfRange(Id controlId) {
-		int indexOfFilterToAddOrDelete= controlId.get()[chainOfFilters.getDeepnessIndex()];
+		int indexOfFilterToAddOrDelete= controlId.get()[groupDeepnessIndex()];
 
 		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
 			return false;
@@ -91,7 +89,7 @@ public abstract class CompositeFilters extends Filter
 			layerId--;
 			if (layerId <0) { layerId=0;}
 		}
-		tempId.set(layerId, filterId, id.getGroupId());
+		tempId.set(layerId, filterId);
 	
 		IdHistoryParameter idHistoryParameter= new IdHistoryParameter();
 		idHistoryParameter.set(tempId);
@@ -114,7 +112,5 @@ public abstract class CompositeFilters extends Filter
 	public FiltersDataBase getFiltersDataBase() {
 		return filtersDataBase;
 	}
-
-	
 
 }

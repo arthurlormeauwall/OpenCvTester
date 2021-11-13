@@ -37,7 +37,7 @@ public class Layer extends CompositeFilters
 		opacityFilter.init(background);
 	
 		
-		opacityFilter.getId().set(id.get()[0], 1, id.getGroupId() + 1);
+		opacityFilter.getId().set(id.get()[0], 1);
 	}
 
 	protected Filter create(Stack<Id> id, Stack<String> commandsInDataBase){

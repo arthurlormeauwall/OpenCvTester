@@ -74,13 +74,13 @@ public class GuiManager
 	}
 	private Id createLayerId(int layerIndex) {	
 		Id id = new Id();
-		id.set(layerIndex, 0, GroupsId.LAYER.ordinal());
+		id.set(layerIndex, 0);
 		return id;
 	}	
 	
 	private Id createFilterId(int layerIndex, int filterIndex) {
 		Id id = new Id();
-		id.set(layerIndex, filterIndex, GroupsId.FILTER.ordinal());
+		id.set(layerIndex, filterIndex);
 		return id;
 	}
 	
@@ -140,11 +140,12 @@ public class GuiManager
 	
 	public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues){
 	}	
-	public void setParameters(Id id, String name, Float value) throws IOException {
-		if (id.getGroupId()==GroupsId.FILTER_CHAIN.ordinal()) {
+	
+	public void setParameters(Id id, String name, Float value, GroupsId groupId) throws IOException {
+		if (groupId==GroupsId.LAYER) {
 			setOpacity(id.get()[0], value);
 		}
-		else if (id.getGroupId()==GroupsId.FILTER.ordinal()) {
+		else if (groupId==GroupsId.FILTER) {
 			chainOfLayers.setParameters(id, name, value);	
 			refresh();
 		}

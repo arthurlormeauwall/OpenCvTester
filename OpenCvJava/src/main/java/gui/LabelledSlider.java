@@ -11,20 +11,21 @@ import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
 import guiController.GuiManager;
+import renderingEngine.GroupsId;
 
 public class LabelledSlider extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
 	protected JSlider slider;
-	private JLabel  nameWidget;
-	private FilterControlledByFloat widgetToUpdate;
-	private JLabel value;
+	protected JLabel  nameWidget;
+	protected FilterControlledByFloat widgetToUpdate;
+	protected JLabel value;
 	protected Boolean emitSignal;
 
-	private GuiManager guiManager;
+	protected GuiManager guiManager;
 	
-	public LabelledSlider (final String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager guiManager){
+	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager guiManager){
 		emitSignal=true;
 		this.widgetToUpdate=widgetToUpdate;
 		this.guiManager=guiManager;
@@ -40,20 +41,26 @@ public class LabelledSlider extends JPanel
 		add(slider);
 		add(value);
 		
+		addListener();
+
+	}
+	
+	protected void addListener() {
 		if (emitSignal) {
 			 slider.addChangeListener(new ChangeListener() {
 			      public void stateChanged(ChangeEvent event)   {
 			    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
 			    	  try {
-						LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), name, slider.getValue()*0.01f);
+						LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), slider.getValue()*0.01f, GroupsId.FILTER);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 			      }
 			    });
 		}		
+		
 	}
-	
+
 	public void setEmitSignal(Boolean emitSignal) {
 		this.emitSignal=emitSignal;
 	}

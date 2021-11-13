@@ -18,8 +18,8 @@ public class ChainOfCommands
     	commands = new Stack<Command>();
     }
 
-    public void addCommand(Id id, Command filter) {
-        int index = getCommandIndex(id);
+    public void addCommand(Id id, Command filter, int groupDeepnessIndex) {
+        int index = getCommandIndex(id, groupDeepnessIndex);
 
         int lastControl = commands.size() - 1;
         
@@ -35,24 +35,24 @@ public class ChainOfCommands
                 }              
             }
         	commands.add(index, filter);     
-        	 updateAllId(index);
+        	 updateAllId(index, groupDeepnessIndex);
         }
        
     }
 
-    public Command delCommand(Id id) {
-        int index = getCommandIndex(id);
+    public Command delCommand(Id id, int groupDeepnessIndex) {
+        int index = getCommandIndex(id, groupDeepnessIndex);
         int lastControlIndex= commands.size()-1;
         if (index>lastControlIndex) {
         	index=lastControlIndex;
         }
         Command erasedCommand =commands.remove(index);
-        updateAllId(index);
+        updateAllId(index, groupDeepnessIndex);
         return erasedCommand;
     }
     
-    public void updateAllId(int index) {
-        int groupDeepnessIndex = getDeepnessIndex();
+    public void updateAllId(int index, int groupDeepnessIndex) {
+        //int groupDeepnessIndex = getDeepnessIndex();
 
         for (int i = index; i < commands.size(); i++) {
         	commands.get(i).updateId(groupDeepnessIndex, i);
@@ -65,28 +65,29 @@ public class ChainOfCommands
         }
     }
     
-    public int getCommandIndex(Id id) {
-        int groupDeepnessIndex = getDeepnessIndex();
+    public int getCommandIndex(Id id,  int groupDeepnessIndex) {
+
 
         int controlIndex = id.get()[groupDeepnessIndex];
         return controlIndex;
     }
 
-    public int getCommandIndex(IdHistory<Id> id) {
-        int groupDeepnessIndex = getDeepnessIndex();
+    public int getCommandIndex(IdHistory<Id> id, int groupDeepnessIndex) {
+
         int controlIndex = id.getState().getParameter().get()[groupDeepnessIndex];
         return controlIndex;
     }
     
-    public int getDeepnessIndex() {
-        int currentGroupId = id.getGroupId();
-        int groupDeepnessIndex = (currentGroupId - 1) / 2;
+    public int getdeepnessIndex() {
+        //int currentGroupId = id.getGroupId();
+       // int groupDeepnessIndex = (currentGroupId - 1) / 2;
         
         /* if we are in a "layer chain" (groupId at '1') we should get layer index 
         but if we are in a "filter chain" (groupId at '3')
         we should get filter index */
         
-        return groupDeepnessIndex;
+      // return groupDeepnessIndex;
+    	return 0;
     }
 
 

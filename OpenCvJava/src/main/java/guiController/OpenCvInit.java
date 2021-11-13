@@ -1,6 +1,5 @@
 package guiController;
 
-import renderingEngine.GroupsId;
 import renderingEngine.ChainOfLayers;
 
 import java.io.IOException;
@@ -39,8 +38,7 @@ public class OpenCvInit
 		
 		Id chainOfLayersId = new Id();
 		chainOfLayersId.initNULL();
-		chainOfLayersId.setGroupId(GroupsId.RENDERER.ordinal());
-	
+		
 		chainOfLayers = new ChainOfLayers(new FiltersDataBase(), background, chainOfLayersId, renderAtIdHistory);
 
 		chainOfLayers.setSource(source);

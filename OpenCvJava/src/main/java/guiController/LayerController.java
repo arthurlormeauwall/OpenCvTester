@@ -31,16 +31,16 @@ public class LayerController extends Command
 		return  (FilterController)chainOfFilterControllers.getCommand(index);
 	}
 	public FilterController deleteFilterWidget(Id id) {
-		return (FilterController)chainOfFilterControllers.delCommand(id);
+		return (FilterController)chainOfFilterControllers.delCommand(id,groupDeepnessIndes());
 	}
 
 	public FilterController addFilterController(FilterController newFilterController) {
-		chainOfFilterControllers.addCommand(newFilterController.getId(), newFilterController);
+		chainOfFilterControllers.addCommand(newFilterController.getId(), newFilterController,groupDeepnessIndes());
 		return newFilterController;
 	}
 	public FilterController addFilterController(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
 		FilterController filterController = new FilterController(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterControllers.addCommand(filterController.getId(), filterController);
+		chainOfFilterControllers.addCommand(filterController.getId(), filterController,groupDeepnessIndes());
 		return filterController;
 	}
 
@@ -59,5 +59,9 @@ public class LayerController extends Command
 	
 	public LayerWindow getLayerWindow() {
 		return layerWindow;
+	}
+	
+	public int groupDeepnessIndes() {
+		return 1;
 	}
 }
