@@ -23,7 +23,7 @@ public class FilterWidget extends JPanel
 	
 	private static final long serialVersionUID = 1L;
 	
-	public FilterWidget (FilterControlledByFloat sourceFilter, ActionHistoryManager guiManager){
+	public FilterWidget (FilterControlledByFloat sourceFilter, ActionHistoryManager actionHistoryManager){
 		this.sourceFilter= sourceFilter;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -41,7 +41,7 @@ public class FilterWidget extends JPanel
 	        HashMap.Entry<String, Float> parameterEntry= (HashMap.Entry<String, Float>) parametersIterator.next();
 	        String parameterName= parameterEntry.getKey();
 	        Float parameterValue= parameterEntry.getValue();
-	        LabelledSlider sliderToAdd= new LabelledSlider(parameterName, parameterValue, this.getFilter(), guiManager); 
+	        LabelledSlider sliderToAdd= new LabelledSlider(parameterName, parameterValue, this.getFilter(), actionHistoryManager); 
 	        insidePanel.add(sliderToAdd);      
 	    } 
 	  

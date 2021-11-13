@@ -23,15 +23,15 @@ public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected ChainOfLayersManager chainOfLayerController;
-	protected ActionHistoryManager guiManager;
+	protected ChainOfLayersManager chainOfLayerManager;
+	protected ActionHistoryManager actionHistoryManager;
 	protected JPanel layerPanel;
 	
-	public MainWindow(ActionHistoryManager guiManager) {
+	public MainWindow(ActionHistoryManager actionHistoryManager) {
 		super("OpenCV tester");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.guiManager=guiManager;	
-		chainOfLayerController= new ChainOfLayersManager(this);
+		this.actionHistoryManager=actionHistoryManager;	
+		chainOfLayerManager= new ChainOfLayersManager(this);
 		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -57,44 +57,45 @@ public class MainWindow extends JFrame
 		    	
 		      }
 		    });
+		 
 		 redoButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	
 		      }
 		    });
+		 
 		 addButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerController.getNumberOfLayer(), null);
+		    	MainWindow.this.actionHistoryManager.createAndAddLayer(chainOfLayerManager.getNumberOfLayer(), null);
 		      }
 		    });
+		 
 		 delButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	  MainWindow.this.guiManager.deleteLayerController(chainOfLayerController.getLayerController(chainOfLayerController.getNumberOfLayer()-1));	    	
+		    	  MainWindow.this.actionHistoryManager.deleteLayerManager(chainOfLayerManager.getLayerController(chainOfLayerManager.getNumberOfLayer()-1));	    	
 		      }
 		    });
+		 
 		this.pack();
 		this.setVisible(true);
 	}
 
 	public void addFilterWidgetInLayerWidget(FilterManager filterController) {
-		chainOfLayerController.addFilterWigetInLayerWiget(filterController);
+		chainOfLayerManager.addFilterWigetInLayerWiget(filterController);
 		updateGui();
 	}
 
-	
-
 	public void delFilterWidgetInLayerWidget(FilterManager filterController) {
-		chainOfLayerController.deFilterWidgetInLayerWidget(filterController);
-		
+		chainOfLayerManager.deFilterWidgetInLayerWidget(filterController);	
 	}
 
-	public void addLayerController(LayerManager layerController) {
-		chainOfLayerController.addLayerController(layerController);	
+	public void addLayerManager(LayerManager layerManager) {
+		chainOfLayerManager.addLayerManager(layerManager);	
 	}
 	
-	public void deleteLayerController(LayerManager layerController) {
-		layerController.getLayerWindow().setVisible(false);
-		chainOfLayerController.deleteLayerController(layerController);	
+	public void deleteLayerManager(LayerManager layerManager) {
+		layerManager.getLayerWindow().setVisible(false);
+		chainOfLayerManager.deleteLayerManager(layerManager);	
 		
 	}
 
@@ -114,20 +115,20 @@ public class MainWindow extends JFrame
 	}
 	
 	public void updateGui() {
-		chainOfLayerController.updateGui();		
+		chainOfLayerManager.updateGui();		
 		
 		layerPanel.removeAll();
 		
-		int numberOfFiltersToAdd = chainOfLayerController.getNumberOfLayer();
+		int numberOfFiltersToAdd = chainOfLayerManager.getNumberOfLayer();
 		for (int i=0;i<numberOfFiltersToAdd;i++) {
 			
-			layerPanel.add(chainOfLayerController.getLayerController(i).getLayerWidget());
+			layerPanel.add(chainOfLayerManager.getLayerController(i).getLayerWidget());
 		}
 		this.pack();
 	}
 
 	public ActionHistoryManager getGuiManager() {
-		return guiManager;
+		return actionHistoryManager;
 	}
 	
 

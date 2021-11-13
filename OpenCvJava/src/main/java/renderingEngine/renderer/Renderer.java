@@ -83,10 +83,22 @@ public abstract class Renderer {
 	}
 	
 	public void render() {
+		Boolean checkIfActivate=true;
+		
 		int size = chainOfFilters.size();
-		int firstControl= compositeFilters.getRenderAtIdHistory().getState().getParameter().get()[compositeFilters.groupDeepnessIndex()];
-		for (int i = firstControl; i < size; i++) {
-			((Executable)chainOfFilters.get(i)).execute();
+		
+		for (int i =0; i < size; i++) {
+			if (checkIfActivate) {
+				if (chainOfFilters.get(i).isActivate())
+				{
+					((Executable)chainOfFilters.get(i)).execute();	
+					chainOfFilters.get(i).desactivate();
+					checkIfActivate=false;
+				}
+			}
+			else {
+				((Executable)chainOfFilters.get(i)).execute();	
+			}		
 		}	
 	}
 	

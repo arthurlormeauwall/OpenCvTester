@@ -47,6 +47,7 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 			isBypass=true;
 		}
 		UpdateRender();
+		activate();
 	}
 	
 	public void addParameterFlag(String name, Frame defaultValue, Frame zeroEffectValue) {

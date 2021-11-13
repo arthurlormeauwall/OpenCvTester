@@ -31,24 +31,44 @@ public class ChainOfLayers extends CompositeFilters
 	public Layer addLayer(Stack<Id> FilterId, Stack<String> filterNames){
 		
 		Layer newLayer = (Layer)createAndAdd(FilterId, filterNames);
+		newLayer.activate();
 		execute();
 		return newLayer;
 	}
 	
 	public Layer addLayer(Layer layer) {
 		add(layer);
+		layer.activate();
 		execute();
 		return layer;
 	}
 
 	public Layer delLayer(Id layerId){
+		
+		
 		Layer newLayer = (Layer)delete(layerId);
+		if (getNumberOfLayers()==1) {
+			((Filter)chainOfFilters.getCommand(0)).activate();		
+		}
+		else if (getNumberOfLayers()>1) {
+			((Filter)chainOfFilters.getCommand(layerId.get()[0]-1)).activate();
+		}
 		execute();
 		return newLayer;		
 	}  
 	
 	public Layer delLayer(Layer layer){
-		Layer newLayer = (Layer)delete(layer.getId());
+		
+		Id layerId=layer.getId();
+		Layer newLayer = (Layer)delete(layerId);
+		
+		if (getNumberOfLayers()==1) {
+			((Filter)chainOfFilters.getCommand(0)).activate();		
+		}
+		else if (getNumberOfLayers()>1) {
+			((Filter)chainOfFilters.getCommand(layerId.get()[0]-1)).activate();
+		}
+		
 		execute();
 		return newLayer;		
 	}  
@@ -61,6 +81,8 @@ public class ChainOfLayers extends CompositeFilters
 	
 	public Filter addFilterInLayer(Filter filter) {
 		
+		filter.activate();
+		((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
 		((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).add(filter);
 		execute();	
 		return filter;
@@ -69,6 +91,16 @@ public class ChainOfLayers extends CompositeFilters
 	public Filter delFilterInLayer(Id filterId){
 		if (getNumberOfLayers()> filterId.get()[0]) {
 			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filterId.get()[0])).delete(filterId);
+			
+			if (((Layer)chainOfFilters.getCommand(filterId.get()[0])).getNumberOfFilters()<2) {
+				((Layer)chainOfFilters.getCommand(filterId.get()[0])).activate();
+				((Layer)chainOfFilters.getCommand(filterId.get()[0])).getFilter(0).activate();		
+			}
+			else {
+				((Layer)chainOfFilters.getCommand(filterId.get()[0])).activate();
+				((Layer)chainOfFilters.getCommand(filterId.get()[0])).getFilter(filterId.get()[1]-1).activate();
+			}
+			
 			execute();
 			return erasedFilter;
 		}
@@ -79,6 +111,20 @@ public class ChainOfLayers extends CompositeFilters
 	
 	public Filter delFilterInLayer(Filter filter){
 		if (getNumberOfLayers()> filter.getId().get()[0]) {
+			
+			
+			if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==0) {
+				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();	
+			}
+			if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==1) {
+				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
+				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getFilter(0).activate();		
+			}
+			else {
+				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
+				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getFilter(filter.getId().get()[1]-1).activate();
+			}
+			
 			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).delete(filter.getId());
 			execute();
 			return erasedFilter;
@@ -99,6 +145,7 @@ public class ChainOfLayers extends CompositeFilters
 
 	public void setOpacity(int layerIndex, Float opacity){
 		if (getNumberOfLayers() >layerIndex) {
+			((Layer)chainOfFilters.getCommand(layerIndex)).activate();
 			((Layer)chainOfFilters.getCommand(layerIndex)).setOpacity(opacity);
 			execute();
 		}
@@ -121,6 +168,7 @@ public class ChainOfLayers extends CompositeFilters
 		if (getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
 			adjustControlToSet.setParameter(name, value);
+			((Filter)chainOfFilters.getCommand(layerIndex)).activate();
 			execute();
 		}
 		

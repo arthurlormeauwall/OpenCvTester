@@ -41,11 +41,15 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		if (parameter==flags.zeroEffectValues) {
 			isBypass=true;
 		}
+		
+		activate=true;
+		
 		UpdateRender();
 	}
 	
-	public void setParameter(String name, Float parameterValue) {
+	public void setParameter(String name, Float parameterValue) {		
 		state.put(name, parameterValue);
+		activate();	
 	}
 	
 	public void setParameter(String name, Integer value) {

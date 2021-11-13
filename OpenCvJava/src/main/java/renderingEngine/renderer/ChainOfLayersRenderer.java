@@ -17,8 +17,8 @@ public class ChainOfLayersRenderer extends Renderer {
 
 	public void execute(Stack<Command> chainOfFilters) {
 		dealFrames(chainOfFilters);	
-		dealFramesInLayers();	
 		dealBackground();	
+		dealFramesInLayers();	
 		render();	
 	}
 

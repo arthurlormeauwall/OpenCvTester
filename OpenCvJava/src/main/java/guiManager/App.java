@@ -13,17 +13,12 @@ public class App
 	
 	public App(String fileName) throws IOException{
 		OpenCvInit= new OpenCvInit();
-		guiManager= new ActionHistoryManager(OpenCvInit.init(fileName), this);
+		guiManager= new ActionHistoryManager(OpenCvInit.init(fileName), mainWindow);
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
 	}
 	
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
 		guiManager.addFilterInDatabase(name, filter);
-	}
-	
-	
-	public MainWindow getGui() {
-		return mainWindow;
 	}
 }

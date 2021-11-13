@@ -30,11 +30,11 @@ public class AddOrDeleteLayer implements Action {
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
 			chainOfLayers.addLayer(layerController.getLayer());
-			chainOfLayerWidgets.addLayerController(layerController);
+			chainOfLayerWidgets.addLayerManager(layerController);
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
 			chainOfLayers.delLayer(layerController.getLayer());
-			chainOfLayerWidgets.deleteLayerController(layerController);
+			chainOfLayerWidgets.deleteLayerManager(layerController);
 		}	
 	}
 

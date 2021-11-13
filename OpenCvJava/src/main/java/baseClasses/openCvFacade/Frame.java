@@ -79,7 +79,7 @@ public class Frame
 	}
 
 	public void setMat(Mat frame){
-		frameMat = frame; 
+		frameMat = frame.clone(); 
 		setSpecs();
 	}
 

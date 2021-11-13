@@ -20,7 +20,7 @@ public class LayerWidget extends JPanel
 	
 	private static final long serialVersionUID = 1L;
 	
-	public LayerWidget (LayerManager layerController, ActionHistoryManager guiManager){
+	public LayerWidget (LayerManager layerController, ActionHistoryManager actionHistoryManager){
 		this.layerController=layerController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -36,7 +36,7 @@ public class LayerWidget extends JPanel
 		JPanel insidePanel = new JPanel();
 		insidePanel.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
 
-        OpacitySlider  opacitySlider= new OpacitySlider("Opacity", 1f, layerController.getLayer().getOpacityFilter(), guiManager);
+        OpacitySlider  opacitySlider= new OpacitySlider("Opacity", 1f, layerController.getLayer().getOpacityFilter(), actionHistoryManager);
       
         insidePanel.add(opacitySlider);      
 	     

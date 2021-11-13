@@ -7,34 +7,34 @@ import gui.MainWindow;
 
 public class ChainOfLayersManager {
 	
-	private ChainOfCommands chainOfLayersControllers;
+	private ChainOfCommands chainOfLayersManager;
 	private MainWindow gui;
 	
 	public ChainOfLayersManager (MainWindow gui){
 		
 		Id chainId = new Id();
 		chainId.set(0,0);
-		chainOfLayersControllers= new ChainOfCommands(chainId);
+		chainOfLayersManager= new ChainOfCommands(chainId);
 		this.gui=gui;
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
-		((LayerManager)chainOfLayersControllers.getCommand(filterController.getId().get()[0])).addFilterController(filterController);
+		((LayerManager)chainOfLayersManager.getCommand(filterController.getId().get()[0])).addFilterController(filterController);
 		gui.updateGui();
 	}
 	
-	public void deFilterWidgetInLayerWidget(FilterManager filterWidget) {
-		chainOfLayersControllers.delCommand(filterWidget.getId(),groupDeepnessIndes());
+	public void deFilterWidgetInLayerWidget(FilterManager filterManager) {
+		((LayerManager)chainOfLayersManager.getCommand(filterManager.getId().get()[0])).deleteFilterWidget(filterManager.getId());
 		gui.updateGui();
 	}
 
-	public void addLayerController(LayerManager layerController) {
-		chainOfLayersControllers.addCommand(layerController.getId(), layerController, groupDeepnessIndes());	
+	public void addLayerManager(LayerManager layerController) {
+		chainOfLayersManager.addCommand(layerController.getId(), layerController, groupDeepnessIndes());	
 		gui.updateGui();
 	}
 
-	public void deleteLayerController(LayerManager layerWidget) {
-		chainOfLayersControllers.delCommand(layerWidget.getId(), groupDeepnessIndes());	
+	public void deleteLayerManager(LayerManager layerWidget) {
+		chainOfLayersManager.delCommand(layerWidget.getId(), groupDeepnessIndes());	
 		gui.updateGui();
 	}
 
@@ -49,12 +49,12 @@ public class ChainOfLayersManager {
 	}
 	
 	public int getNumberOfLayer(){
-		return chainOfLayersControllers.getSize();
+		return chainOfLayersManager.getSize();
 	}
 
 	public void updateGui() {
 		for (int i=0;i<getNumberOfLayer();i++) {
-			((LayerManager)chainOfLayersControllers.getCommand(i)).updateGui();
+			((LayerManager)chainOfLayersManager.getCommand(i)).updateGui();
 		}
 		
 	}
@@ -62,7 +62,7 @@ public class ChainOfLayersManager {
 	
 	public LayerManager getLayerController (int i) {
 		
-		return (LayerManager)chainOfLayersControllers.getCommand(i);
+		return (LayerManager)chainOfLayersManager.getCommand(i);
 	}
 	
 	public int groupDeepnessIndes() {

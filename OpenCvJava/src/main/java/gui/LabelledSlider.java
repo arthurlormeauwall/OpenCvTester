@@ -23,12 +23,12 @@ public class LabelledSlider extends JPanel
 	protected JLabel value;
 	protected Boolean emitSignal;
 
-	protected ActionHistoryManager guiManager;
+	protected ActionHistoryManager actionHistoryManager;
 	
-	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, ActionHistoryManager guiManager){
+	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, ActionHistoryManager actionHistoryManager){
 		emitSignal=true;
 		this.widgetToUpdate=widgetToUpdate;
-		this.guiManager=guiManager;
+		this.actionHistoryManager=actionHistoryManager;
 		slider = new JSlider ();
 		slider.setValue(Math.round(defaultValue*100));
 		slider.setMaximum(200);
@@ -51,7 +51,7 @@ public class LabelledSlider extends JPanel
 			      public void stateChanged(ChangeEvent event)   {
 			    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
 			    	  try {
-						LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), slider.getValue()*0.01f, GroupsId.FILTER);
+						LabelledSlider.this.actionHistoryManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), slider.getValue()*0.01f);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

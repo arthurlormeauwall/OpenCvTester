@@ -1,20 +1,9 @@
 package guiManager;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Stack;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.ListModel;
-
-import org.opencv.core.MatOfByte;
-import org.opencv.imgcodecs.Imgcodecs;
 
 import actionsHistory.ActionsHistory;
 import baseClasses.Id;
@@ -29,22 +18,21 @@ public class ActionHistoryManager
 {
 	private ActionsHistory history;
 	private ChainOfLayers chainOfLayers;
-	private App app;
-	private MainWindow gui;
+	private MainWindow mainWindow;
 	private FrameWindowManager frameWindowManager;
 	
-	public ActionHistoryManager(ChainOfLayers chainOfLayers, App app){
+	public ActionHistoryManager(ChainOfLayers chainOfLayers, MainWindow mainWindow){
 		this.chainOfLayers=chainOfLayers;
-		this.app=app;
 		history=new ActionsHistory();
-		gui=app.getGui();
+		this.mainWindow=mainWindow;
 		
 		frameWindowManager=new FrameWindowManager(chainOfLayers.getDest().getMat());		
 	}
 	
-	public void setGui(MainWindow gui) {
-		this.gui=gui;
+	public void setGui(MainWindow mainWindow) {
+		this.mainWindow=mainWindow;
 	}
+	
 	private Id createLayerId(int layerIndex) {	
 		Id id = new Id();
 		id.set(layerIndex, 0);
@@ -72,12 +60,14 @@ public class ActionHistoryManager
 		}
 		
 		Layer newLayer= chainOfLayers.addLayer(id, filterNames);
-		LayerManager newLayerController= new LayerManager(newLayer, this);
-		newLayerController.getLayerWindow().setVisible(false);
-		gui.addLayerController(newLayerController);
+		
+		LayerManager newLayerManager= new LayerManager(newLayer, this);
+		newLayerManager.getLayerWindow().setVisible(false);
+		mainWindow.addLayerManager(newLayerManager);
 		frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		return newLayer;
 	}
+	
 	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
 		Stack<Id> id= new Stack<Id>();
@@ -85,22 +75,22 @@ public class ActionHistoryManager
 		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
 		FilterManager newLayerController = new FilterManager(newFilter, this);
 		
-		gui.addFilterWidgetInLayerWidget(newLayerController);	
+		mainWindow.addFilterWidgetInLayerWidget(newLayerController);	
 		frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 	}
 	
-	public void delFilterInLayer(FilterManager filterControllerToDel)  {		
-		if (filterControllerToDel!=null) {
-			chainOfLayers.delFilterInLayer(filterControllerToDel.getFilter());
-			gui.delFilterWidgetInLayerWidget(filterControllerToDel);
+	public void delFilterInLayer(FilterManager filterManagerToDel)  {		
+		if (filterManagerToDel!=null) {
+			chainOfLayers.delFilterInLayer(filterManagerToDel.getFilter());
+			mainWindow.delFilterWidgetInLayerWidget(filterManagerToDel);
 			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		}
 	}
 	
-	public void deleteLayerController(LayerManager layerController) {		
+	public void deleteLayerManager(LayerManager layerController) {		
 		if (layerController!=null) {
 			chainOfLayers.delLayer(layerController.getId());
-			gui.deleteLayerController(layerController);	
+			mainWindow.deleteLayerManager(layerController);	
 			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 		}
 
@@ -110,20 +100,10 @@ public class ActionHistoryManager
 		chainOfLayers.setOpacity(layerIndex, opacity);
 		frameWindowManager.refresh(chainOfLayers.getDest().getMat());
 	}	
-	
-	public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues){
-	}	
-	
-	public void setParameters(Id id, String name, Float value, GroupsId groupId) throws IOException {
-		if (groupId==GroupsId.LAYER) {
-			setOpacity(id.get()[0], value);
-			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
-		}
-		else if (groupId==GroupsId.FILTER) {
+
+	public void setParameters(Id id, String name, Float value) throws IOException {
 			chainOfLayers.setParameters(id, name, value);	
-			frameWindowManager.refresh(chainOfLayers.getDest().getMat());
-		}
-		
+			frameWindowManager.refresh(chainOfLayers.getDest().getMat());	
 	}
 	
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {

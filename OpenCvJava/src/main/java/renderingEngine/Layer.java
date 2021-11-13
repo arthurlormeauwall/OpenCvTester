@@ -22,8 +22,7 @@ public class Layer extends CompositeFilters
 		super(filtersDatabase, id, renderAtIdHistory);
 		
 		opacityFilter = filtersDatabase.getAlphaFilter();
-		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);
-		
+		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);	
 		renderer= new LayerRenderer(this);
 	}
 	
