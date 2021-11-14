@@ -16,10 +16,8 @@ public class FilterManager extends Command {
 		this.filter=filter;
 		this.id=filter.getId();
 		filterWidget=new FilterWidget(filter, guiManager);
-	
 	}
 	
-
 	public void setId(Id id) {
 		this.id=id;
 	}

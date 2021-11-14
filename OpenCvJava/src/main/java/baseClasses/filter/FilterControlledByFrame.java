@@ -46,7 +46,6 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 		if (framesAreTheSame) {
 			isBypass=true;
 		}
-		UpdateRender();
 		activate();
 	}
 	

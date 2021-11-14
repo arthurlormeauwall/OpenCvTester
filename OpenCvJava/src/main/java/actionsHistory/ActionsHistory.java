@@ -3,7 +3,6 @@ package actionsHistory;
 import java.util.LinkedList;
 import actions.Action;
 
-
 public class ActionsHistory 
 { 
 	protected LinkedList<Action> actions;
@@ -11,7 +10,6 @@ public class ActionsHistory
 	
 	
 	public ActionsHistory(){
-	
 		currentIndex=0;
 	}
 		
@@ -25,7 +23,6 @@ public class ActionsHistory
 		currentIndex--;
 		actions.get(currentIndex).execute();
 		actions.get(currentIndex).invert();
-
 	} 
 	
 	public void redo(){		
@@ -54,8 +51,7 @@ public class ActionsHistory
 		}
 		else {
 			return true;
-		}
-		
+		}	
 	}
 	
 	protected void clearUndoHistory() {

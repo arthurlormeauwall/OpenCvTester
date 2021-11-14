@@ -7,31 +7,24 @@ import java.io.IOException;
 import org.opencv.core.Core;
 
 import baseClasses.Id;
-import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 
 public class OpenCvInit 
 {
-	protected IdHistory<Id> renderAtIdHistory;
 	protected Frame source;
 	protected Frame background;
 	protected Frame dest;
-	
-	protected ChainOfLayers chainOfLayers;
-	
+	protected ChainOfLayers chainOfLayers;	
 	
 	public OpenCvInit() {	
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		renderAtIdHistory = new IdHistory<Id>();
 		background = new Frame();
 		dest = new Frame();
-		source = new Frame();	
-		
+		source = new Frame();		
 	}
 	
-	public ChainOfLayers init(String fileName) throws IOException {
-		
+	public ChainOfLayers init(String fileName) throws IOException {	
 		setImage(fileName);
 		background.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), 0);
 		source.copyTo(dest);
@@ -39,13 +32,11 @@ public class OpenCvInit
 		Id chainOfLayersId = new Id();
 		chainOfLayersId.initNULL();
 		
-		chainOfLayers = new ChainOfLayers(new FiltersDataBase(), background, chainOfLayersId, renderAtIdHistory);
-
+		chainOfLayers = new ChainOfLayers(new FiltersDataBase(), background, chainOfLayersId);
 		chainOfLayers.setSource(source);
 		chainOfLayers.setDest(dest);
-		//chainOfLayers.play();
-		return chainOfLayers;
 		
+		return chainOfLayers;	
 	}
 	
 	private void setImage(String fileName) {

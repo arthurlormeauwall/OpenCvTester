@@ -7,23 +7,21 @@ import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
 import guiManager.GroupsId;
 import renderingEngine.renderer.LayerRenderer;
 
-public class Layer extends CompositeFilters
+public class Layer extends CompositeFilter
 {
 	protected Frame background;
 	protected OpacityFilter opacityFilter;	
 	
-	public Layer (FiltersDataBase filtersDatabase, Id id, IdHistory<Id>  renderAtIdHistory) {
-		super(filtersDatabase, id, renderAtIdHistory);
+	public Layer (FiltersDataBase filtersDatabase, Id id) {
+		super(filtersDatabase, id);
 		groupID=GroupsId.FILTER;
 		opacityFilter = filtersDatabase.getAlphaFilter();
-		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);	
 		renderer= new LayerRenderer(this);
 	}
 	
@@ -40,7 +38,6 @@ public class Layer extends CompositeFilters
 	protected Filter create(Stack<Id> id, Stack<String> commandsInDataBase){
 		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase.get(0));
 		newFilter.getId().set(id.get(0));
-		newFilter.setRenderAtIdHistory(renderAtIdHistory);
 		return newFilter;
 	}
 	
@@ -82,7 +79,7 @@ public class Layer extends CompositeFilters
 	}
 	
 	public Command clone() {	
-		Layer newMaskedLayer= new Layer(filtersDataBase, id, renderAtIdHistory);
+		Layer newMaskedLayer= new Layer(filtersDataBase, id);
 		
 		newMaskedLayer.setChain(chainOfFilters.clone());
 		newMaskedLayer.setOpacity(opacityFilter.getOpacity());

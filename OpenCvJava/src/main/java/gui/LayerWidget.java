@@ -26,21 +26,15 @@ public class LayerWidget extends JPanel
 		
 		JPanel titlePanel= new JPanel();
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
-		
-		
 		JButton layerButton= new JButton("Layer");
-		
 		titlePanel.add(layerButton);
 		add(titlePanel);
 		
 		JPanel insidePanel = new JPanel();
 		insidePanel.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
-
         OpacitySlider  opacitySlider= new OpacitySlider("Opacity", 1f, layerController.getLayer().getOpacityFilter(), actionHistoryManager);
-      
         insidePanel.add(opacitySlider);      
-	     
-	
+
 	    add(insidePanel);
 	    
 	    Border blackline = BorderFactory.createLineBorder(Color.black);

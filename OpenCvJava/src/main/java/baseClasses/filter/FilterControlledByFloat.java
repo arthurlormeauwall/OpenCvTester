@@ -43,8 +43,6 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		}
 		
 		activate=true;
-		
-		UpdateRender();
 	}
 	
 	public void setParameter(String name, Float parameterValue) {		
@@ -54,7 +52,7 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	
 	public void setParameter(String name, Integer value) {
 		state.put(name, value.floatValue());
-		
+		activate();
 	}	
 	
 	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue) {

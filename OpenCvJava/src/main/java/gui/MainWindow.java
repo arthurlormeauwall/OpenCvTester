@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 
 import baseClasses.filter.Filter;
-import guiManager.ChainOfLayersManager;
+import guiManager.ChainOfLayerManagers;
 import guiManager.FilterManager;
 import guiManager.ActionHistoryManager;
 import guiManager.LayerManager;
@@ -23,7 +23,7 @@ public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected ChainOfLayersManager chainOfLayerManager;
+	protected ChainOfLayerManagers chainOfLayerManager;
 	protected ActionHistoryManager actionHistoryManager;
 	protected JPanel layerPanel;
 	
@@ -31,7 +31,7 @@ public class MainWindow extends JFrame
 		super("OpenCV tester");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.actionHistoryManager=actionHistoryManager;	
-		chainOfLayerManager= new ChainOfLayersManager(this);
+		chainOfLayerManager= new ChainOfLayerManagers(this);
 		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -95,23 +95,14 @@ public class MainWindow extends JFrame
 	
 	public void deleteLayerManager(LayerManager layerManager) {
 		layerManager.getLayerWindow().setVisible(false);
-		chainOfLayerManager.deleteLayerManager(layerManager);	
-		
+		chainOfLayerManager.deleteLayerManager(layerManager);		
 	}
 
-	public void delLayerWidget(LayerManager layerWidget) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public void updateOpacityValue(int layerIndex, Float opacity) {
-		// TODO Auto-generated method stub
-		
 	}
 
-	public void updateParametersValues(Filter filter) {
-		// TODO Auto-generated method stub
-		
+	public void updateParametersValues(Filter filter) {	
 	}
 	
 	public void updateGui() {
@@ -129,10 +120,7 @@ public class MainWindow extends JFrame
 
 	public ActionHistoryManager getGuiManager() {
 		return actionHistoryManager;
-	}
-	
-
-	
+	}	
 }
 
 

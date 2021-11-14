@@ -1,8 +1,8 @@
 package guiManager;
 
+import baseClasses.ChainOfCommands;
 import baseClasses.Command;
 import baseClasses.Id;
-import baseClasses.chain.ChainOfCommands;
 import filtersDataBase.FiltersDataBase;
 import gui.LayerWidget;
 import gui.LayerWindow;
@@ -25,8 +25,7 @@ public class LayerManager extends Command
 		this.id.set(layer.getId());
 		chainOfFilterControllers=new ChainOfCommands(layer.getId());
 		layerWidget=new LayerWidget(this, this.guiManager);
-		layerWindow=new LayerWindow(this, this.guiManager);
-		
+		layerWindow=new LayerWindow(this, this.guiManager);		
 	}
 	
 	public FilterManager getFilterController(int index) {
@@ -46,7 +45,6 @@ public class LayerManager extends Command
 		return filterController;
 	}
 
-
 	public Layer getLayer() {
 		return layer;
 	}
@@ -65,7 +63,5 @@ public class LayerManager extends Command
 	
 	public int indexType() {
 		return groupID.ordinal();
-	}
-	
-	
+	}	
 }

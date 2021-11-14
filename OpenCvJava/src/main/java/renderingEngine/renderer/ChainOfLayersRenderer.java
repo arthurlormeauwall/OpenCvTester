@@ -4,13 +4,13 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.openCvFacade.Frame;
-import renderingEngine.CompositeFilters;
+import renderingEngine.CompositeFilter;
 import renderingEngine.Layer;
 
 public class ChainOfLayersRenderer extends Renderer {
 
 	private Frame background;
-	public ChainOfLayersRenderer(CompositeFilters compositeFilters, Frame background) {
+	public ChainOfLayersRenderer(CompositeFilter compositeFilters, Frame background) {
 		super(compositeFilters);
 		this.background=background;
 	}

@@ -7,15 +7,15 @@ import baseClasses.Executable;
 import baseClasses.IoFrame;
 import baseClasses.filter.Filter;
 import baseClasses.openCvFacade.Frame;
-import renderingEngine.CompositeFilters;
+import renderingEngine.CompositeFilter;
 
 public abstract class Renderer {
 	
 	protected Stack<Frame> frames;
 	protected Stack<Filter> chainOfFilters;
-	protected CompositeFilters compositeFilters;
+	protected CompositeFilter compositeFilters;
 	
-	public Renderer(CompositeFilters compositeFilters) {
+	public Renderer(CompositeFilter compositeFilters) {
 		this.compositeFilters=compositeFilters;	
 		chainOfFilters=new Stack<Filter>();
 		frames= new Stack<Frame>();
@@ -45,16 +45,18 @@ public abstract class Renderer {
 			}
 		}
 		else if (numberOfFrames > numberOfFilters - 1) {
-			while(!frames.empty()) {
+			
 				for (int i = lastFrame; i >= numberOfFilters-1; i--)
 				{
-					frames.pop();
+					if(!frames.empty()) {
+						frames.pop();
+					}
 				}
 			}
 			
 		}
 		
-	}
+
 	
 	public void dealFrames(Stack<Command> chainOfFilters) {
 		

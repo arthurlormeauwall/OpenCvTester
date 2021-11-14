@@ -1,7 +1,5 @@
 package renderingEngine;
 
-import baseClasses.history.IdHistory;
-import baseClasses.history.IdHistoryParameter;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import guiManager.GroupsId;
@@ -9,12 +7,12 @@ import renderingEngine.renderer.Renderer;
 
 import java.util.Stack;
 
+import baseClasses.ChainOfCommands;
 import baseClasses.Command;
 import baseClasses.Id;
-import baseClasses.chain.ChainOfCommands;
 import baseClasses.filter.Filter;
 
-public abstract class CompositeFilters extends Filter
+public abstract class CompositeFilter extends Filter
 {
 	protected Stack<Frame> frames;
 	protected FiltersDataBase filtersDataBase;
@@ -22,11 +20,10 @@ public abstract class CompositeFilters extends Filter
 	protected Renderer renderer;
 	protected GroupsId groupID;
 	
-	public CompositeFilters(FiltersDataBase filtersDataBase, Id id, IdHistory<Id>  renderAtIdHistory) {
-		super(id, renderAtIdHistory);
+	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
+		super(id);
 		frames = new Stack<Frame>();
-		this.filtersDataBase = filtersDataBase;
-		
+		this.filtersDataBase = filtersDataBase;	
 		
 		Id chainId = new Id(this.id.get());
 		
@@ -38,7 +35,6 @@ public abstract class CompositeFilters extends Filter
 	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id.get(0))) {
 			Filter filter = create(id, commandsNamesInDataBase);
-			updateRenderAtId(id.get(0));
 			chainOfFilters.addCommand(id.get(0), filter, indexType());
 			return filter;
 		}
@@ -50,7 +46,6 @@ public abstract class CompositeFilters extends Filter
 	public Filter add(Filter filter) {
 		
 		if (!isIndexOutOfRange(filter.getId())) {		
-			updateRenderAtId(filter.getId());
 			chainOfFilters.addCommand(filter.getId(), filter, indexType());	
 			return filter;
 		}
@@ -77,25 +72,6 @@ public abstract class CompositeFilters extends Filter
 		else {
 			return true;
 		}
-	}
-	
-	public void updateRenderAtId(Id id) {
-		Id tempId= new Id();
-		
-		int filterId= id.get()[1]-1;
-		int layerId= id.get()[0];
-		
-		if ( filterId < 0) { 
-			filterId = 0; 
-			layerId--;
-			if (layerId <0) { layerId=0;}
-		}
-		tempId.set(layerId, filterId);
-	
-		IdHistoryParameter idHistoryParameter= new IdHistoryParameter();
-		idHistoryParameter.set(tempId);
-
-		renderAtIdHistory.setState(idHistoryParameter);
 	}
 
 	public Command get(int index) {

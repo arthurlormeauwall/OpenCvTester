@@ -1,7 +1,7 @@
 package actions;
 
 
-import guiManager.ChainOfLayersManager;
+import guiManager.ChainOfLayerManagers;
 import guiManager.LayerManager;
 import renderingEngine.ChainOfLayers;
 
@@ -10,9 +10,9 @@ public class AddOrDeleteLayer implements Action {
 	public Functionalities addOrDelete;
 	private LayerManager layerController;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayersManager chainOfLayerWidgets;
+	private ChainOfLayerManagers chainOfLayerWidgets;
 	
-	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayersManager chainOfLayerWidgets, LayerManager layerController){
+	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerWidgets, LayerManager layerController){
 		this.layerController=layerController;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

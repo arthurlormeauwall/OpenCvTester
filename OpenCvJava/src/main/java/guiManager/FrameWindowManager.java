@@ -22,9 +22,9 @@ public class FrameWindowManager {
 		frameWindow= new JFrame("Image");
 		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//Encoding the image
-		  MatOfByte matOfByte = new MatOfByte();
-		  Imgcodecs.imencode(".jpg", mat, matOfByte);
-		  //Storing the encoded Mat in a byte array
+		MatOfByte matOfByte = new MatOfByte();
+		 Imgcodecs.imencode(".jpg", mat, matOfByte);
+		 //Storing the encoded Mat in a byte array
 		  byte[] byteArray = matOfByte.toArray();
 		  //Preparing the Buffered Image
 		  InputStream in = new ByteArrayInputStream(byteArray);
@@ -52,12 +52,12 @@ public class FrameWindowManager {
 		  //Preparing the Buffered Image
 		  InputStream in = new ByteArrayInputStream(byteArray);
 		  BufferedImage bufImage = null;
-			try {
-				bufImage = ImageIO.read(in);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		  try {
+			  bufImage = ImageIO.read(in);
+		  } catch (IOException e) {
+			  // TODO Auto-generated catch block
+			  e.printStackTrace();
+		  }
 		  //Instantiate JFrame
 		 
 		  //Set Content to the JFrame

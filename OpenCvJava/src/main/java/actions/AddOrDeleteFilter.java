@@ -1,7 +1,7 @@
 package actions;
 
 
-import guiManager.ChainOfLayersManager;
+import guiManager.ChainOfLayerManagers;
 import guiManager.FilterManager;
 import renderingEngine.ChainOfLayers;
 
@@ -10,9 +10,9 @@ public class AddOrDeleteFilter implements Action {
 	public Functionalities addOrDelete;
 	private FilterManager filterWidget;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayersManager chainOfLayerWidgets;
+	private ChainOfLayerManagers chainOfLayerWidgets;
 	
-	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayersManager chainOfLayerWidgets, FilterManager filterWidget){
+	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerWidgets, FilterManager filterWidget){
 		this.filterWidget=filterWidget;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

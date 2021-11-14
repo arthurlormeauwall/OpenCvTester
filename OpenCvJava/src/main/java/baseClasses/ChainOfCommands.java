@@ -1,10 +1,6 @@
-package baseClasses.chain;
+package baseClasses;
 
 import java.util.Stack;
-
-import baseClasses.Command;
-import baseClasses.Id;
-import baseClasses.history.IdHistory;
 
 
 public class ChainOfCommands
@@ -35,8 +31,7 @@ public class ChainOfCommands
             }
         	commands.add(index, filter);     
         	 updateAllId(index, groupDeepnessIndex);
-        }
-       
+        }      
     }
 
     public Command delCommand(Id id, int groupDeepnessIndex) {
@@ -69,15 +64,7 @@ public class ChainOfCommands
         return controlIndex;
     }
 
-    public int getCommandIndex(IdHistory<Id> id, int groupDeepnessIndex) {
-
-        int controlIndex = id.getState().getParameter().get()[groupDeepnessIndex];
-        return controlIndex;
-    }
-
-
-    public ChainOfCommands clone() {	
-    	
+    public ChainOfCommands clone() {		
     	ChainOfCommands newChainControl = new ChainOfCommands(id.clone());
     	newChainControl.setCommandChain(commands);	
     	return newChainControl;

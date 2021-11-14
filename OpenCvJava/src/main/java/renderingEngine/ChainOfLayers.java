@@ -7,19 +7,17 @@ import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import guiManager.GroupsId;
 import renderingEngine.renderer.ChainOfLayersRenderer;
 
-public class ChainOfLayers extends CompositeFilters
+public class ChainOfLayers extends CompositeFilter
 {
 	protected Frame background;
-	
-	
-	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id, IdHistory<Id>  renderAtIdHistory) {
-		super(dbControls, id, renderAtIdHistory);
+		
+	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id) {
+		super(dbControls, id);
 		groupID=GroupsId.LAYER;
 		this.background = background;
 		renderer=new ChainOfLayersRenderer(this, background);
@@ -189,7 +187,7 @@ public class ChainOfLayers extends CompositeFilters
 	}    
 	
 	protected Filter create(Stack<Id> controlId, Stack<String> controlName){
-		Layer layer = new Layer(filtersDataBase, controlId.get(0), renderAtIdHistory);
+		Layer layer = new Layer(filtersDataBase, controlId.get(0));
 		layer.init(background, source, dest);
 		
 		if (controlName!=null) {
@@ -213,7 +211,6 @@ public class ChainOfLayers extends CompositeFilters
 		renderer.execute(chainOfFilters.getChain());
 	}
 
-
 	public FiltersDataBase getFilterDataBase() {
 		return filtersDataBase;
 	}
@@ -224,13 +221,5 @@ public class ChainOfLayers extends CompositeFilters
 	
 	public int getNumberOfLayers() {
 		return chainOfFilters.getSize();
-	}
-
-
-	
-
-
-
-
-	
+	}	
 }

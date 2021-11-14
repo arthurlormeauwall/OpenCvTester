@@ -17,7 +17,6 @@ public abstract class FilterControlledBy<T> extends Filter
 		flags = new FilterFlags<T>();
 		isBypass=false;	
 	}
-
 	
 	public abstract void setParameter(LinkedHashMap<String, T> p);
 	

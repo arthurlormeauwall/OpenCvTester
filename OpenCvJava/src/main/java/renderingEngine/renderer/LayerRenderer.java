@@ -3,12 +3,12 @@ package renderingEngine.renderer;
 import java.util.Stack;
 
 import baseClasses.Command;
-import renderingEngine.CompositeFilters;
+import renderingEngine.CompositeFilter;
 import renderingEngine.Layer;
 
 public class LayerRenderer extends Renderer {
 
-	public LayerRenderer(CompositeFilters compositeFilters) {
+	public LayerRenderer(CompositeFilter compositeFilters) {
 		super(compositeFilters);
 	}
 

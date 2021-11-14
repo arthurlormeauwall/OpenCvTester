@@ -22,9 +22,9 @@ public class ActionHistoryManager
 	
 	public ActionHistoryManager(ChainOfLayers chainOfLayers, MainWindow mainWindow){
 		this.chainOfLayers=chainOfLayers;
-		history=new ActionsHistory();
 		this.mainWindow=mainWindow;
 		
+		history=new ActionsHistory();
 		frameWindowManager=new FrameWindowManager(chainOfLayers.getDest().getMat());		
 	}
 	

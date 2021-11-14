@@ -2,16 +2,16 @@ package actions;
 
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import guiManager.ChainOfLayersManager;
+import guiManager.ChainOfLayerManagers;
 import renderingEngine.ChainOfLayers;
 
 public class SetParameters implements Action {
 
 	public Filter filter;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayersManager chainOfLayerWidgets;
+	private ChainOfLayerManagers chainOfLayerWidgets;
 	
-	public SetParameters(ChainOfLayers chainOfLayers, ChainOfLayersManager chainOfLayerWidgets, Filter filter){
+	public SetParameters(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerWidgets, Filter filter){
 		this.filter=filter;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerWidgets=chainOfLayerWidgets;

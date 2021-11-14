@@ -5,14 +5,12 @@ import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.Id;
 import baseClasses.IoFrame;
-import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 
 
 
 public abstract class Filter extends Command implements IoFrame, Executable
 {
-	
 	protected Frame source;
 	protected Frame dest;
 	protected Boolean activate;
@@ -23,8 +21,8 @@ public abstract class Filter extends Command implements IoFrame, Executable
 		dest   = new Frame ();
 	}
 	
-	public Filter(Id id, IdHistory<Id>  renderAtIdHistory) {
-		super (id, renderAtIdHistory);
+	public Filter(Id id) {
+		super (id);
 		activate= false;
 		source = new Frame ();
 		dest   = new Frame ();
