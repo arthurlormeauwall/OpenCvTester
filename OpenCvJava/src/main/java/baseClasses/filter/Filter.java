@@ -40,8 +40,7 @@ public abstract class Filter extends Command implements IoFrame, Executable
 		return dest;
 	}
 	
-	public void setDest(Frame dest)  {
-		
+	public void setDest(Frame dest)  {	
 		this.dest=dest;
 	}
 
@@ -54,9 +53,6 @@ public abstract class Filter extends Command implements IoFrame, Executable
 	}
 
 	public void activate() {
-		activate=true;
-		
+		activate=true;		
 	}
-
-
 }

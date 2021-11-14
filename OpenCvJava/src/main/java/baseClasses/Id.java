@@ -13,7 +13,6 @@ public class Id
 	public Id(int[] ids) {
 		id=new int[2];
 		set(ids);
-	
 	}
 	
 	public Id(int[] indexs, int group) {
@@ -33,7 +32,6 @@ public class Id
 	public void set(Id id){
 		this.id[0]=id.get()[0];
 		this.id[1]=id.get()[1];
-	
 	}
 	
 	public void set(int[] id){
@@ -46,8 +44,8 @@ public class Id
 	
 	}
 	
-	public void setControlOrLayer(int groupDeepnessIndex, int newValue){
-		id[groupDeepnessIndex]=newValue;
+	public void setControlOrLayer(int indexType, int newValue){
+		id[indexType]=newValue;
 	}
 
 	public Id clone() {

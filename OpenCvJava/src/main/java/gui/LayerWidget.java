@@ -45,9 +45,6 @@ public class LayerWidget extends JPanel
 		    	  LayerWidget.this.layerController.getLayerWindow().setVisible(true);    	
 		      }
 		    });
-	    
-	    
-	 
 	}
 
 
