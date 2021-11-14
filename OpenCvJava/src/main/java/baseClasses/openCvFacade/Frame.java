@@ -2,9 +2,10 @@ package baseClasses.openCvFacade;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
-public class Frame 
+public class Frame implements FrameInterface
 {
 	final int NumberOfColorLayer = 3; 
 	protected FrameSpecs frameSpecs;
@@ -12,7 +13,7 @@ public class Frame
 	
 	public Frame() { 
 		frameMat = new Mat(0,0, CvType.CV_8UC3);
-		frameSpecs= new FrameSpecs();
+		frameSpecs= new FrameSpecs();	
 	}
 	
 	public Frame(String fileName) { 
@@ -91,5 +92,22 @@ public class Frame
 		frameSpecs.cols = frameMat.cols();
 		frameSpecs.rows = frameMat.rows();
 		frameSpecs.bitMax = 255; //TODO change and read actual maxbitValue of image	
-	}		
+	}
+	
+	public byte[] toByteArray() {
+		  //Encoding the image
+		  MatOfByte matOfByte = new MatOfByte();
+		  Imgcodecs.imencode(".jpg", frameMat, matOfByte);
+		  //Storing the encoded Mat in a byte array
+		  byte[] byteArray = matOfByte.toArray();
+		  return byteArray;		
+	}
+
+	public double[] getPixelAt(int row, int col) {		
+		return frameMat.get(row, col);
+	}
+
+	public void setPixelAt(int row, int col, double[] data) {	
+		frameMat.put(row, col, data);
+	}
 }

@@ -1,8 +1,5 @@
 package userFilters;
 
-
-import org.opencv.core.Mat;
-
 import baseClasses.filter.FilterControlledByFloat;
 
 
@@ -31,24 +28,21 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 
 		if (!isBypass)
 	    {
-	        Mat imgSource = source.getMat();
-	        Mat imgDest = dest.getMat();
-
-	        int m_row = imgSource.rows();
-	        int m_column = imgSource.cols();
+	        int row = source.getSpecs().rows;
+	        int column = source.getSpecs().cols;
 	        int bitMax = source.getSpecs().bitMax;
 
-	        for (int row = 0; row < m_row; row++)
+	        for (int rowCount = 0; rowCount < row; rowCount++)
 	        {
-	            for (int column = 0; column < m_column; column++)
+	            for (int columnCount = 0; columnCount < column; columnCount++)
 	            {
 	                float blueMultiplier = getParameter("BlueMult");
 	                float greenMultiplier = getParameter("GreenMult");
 	                float redMultiplier = getParameter("RedMult"); 
 
-	                float bluePixel = (float)imgSource.get(row, column)[0];
-	                float greenPixel = (float)imgSource.get(row, column)[1];
-	                float redPixel = (float)imgSource.get(row, column)[2];
+	                float bluePixel = (float)source.getPixelAt(rowCount, columnCount)[0];
+	                float greenPixel = (float)source.getPixelAt(rowCount, columnCount)[1];
+	                float redPixel = (float)source.getPixelAt(rowCount, columnCount)[2];
 
 	                float afterBlue = blueMultiplier * bluePixel;
 	                float afterGreen = greenMultiplier * greenPixel;
@@ -63,12 +57,9 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 	                temp[1]=afterGreen;
 	                temp[2]=afterRed;
 	                
-	                imgDest.put(row, column, temp);
+	                dest.setPixelAt(rowCount, columnCount, temp);
 	            }
 	        }
-	        
-	        dest.setMat(imgDest);
-
 	    }	
 	}
 }
