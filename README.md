@@ -42,20 +42,16 @@ https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-
 
 ## Project Status
 This project is still work in progress.
-The rendering part is fully working. The GUI does not exist yet.
->The main goal of this entire project is to provide an interactive way of testing Open Cv, therefore I am perfecty aware it can not be achieved without GUI. 
-Since the rendering part is operational, I decided to share it anyway. Usage section describes how you can test it as it is now.
+What is currently missing :
+* undo/redo functionalities
+* bypass filter
 
 
 ## Usage
 
-To use this framework, you first have to import `FakeGui` classe from *fakeGui* package. Then you create a `FakeGui` object, passing the path to the image you want to work with to its constructor.
+To use this framework, you first have to import `App` classe from *guiManager* package. Then you create an `App` object, passing the path to the image you want to work with to its constructor.
 
-`FakeGui` classe provides several methods that can mimic all the messages/events the GUI will be able to send to the system; moreover it shows the final frame in a window and refresh it each time the frame is changed.
-
-### 1. Filters database :
-
-Filters are objects that you create and add to the `FiltersDataBase` object, managed by the `FakeGui` object (so you never have to deal directly with the `FiltersDataBase`).  
+Filters are objects that you create and add to the `FiltersDataBase` object, managed by the `App` object (so you never have to deal directly with the `FiltersDataBase`).  
 In the beginning, the filters database is empty. 
 
 To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import baseClasses.filter.FilterControlledByFloat;`).
@@ -70,35 +66,11 @@ To write your own filter class you have to create a class that extends the `Filt
 		return new YourType();
 	}`
 
-In your code, you create an object of this new class and add it to the filters database calling `addFilterInDatabase(String name, FilterControlledByFloat filter)` method of the `fakeGui` object.
+In the main method you create an object of this new class and add it to the filters database calling `addFilterInDatabase(String name, FilterControlledByFloat filter)` method of the `App` object.
 
-Once that is done, you can call methods of the FakeGui object to mimic the GUI and test your filter.
-In the example folder you may find Main.java with example of tests and two filter of my own : BlueGreenRedMultiplierFilter and GrayScaleFilter. 
+Once that is done, you can run the programm. 
 
-### 2. The FakeGui classe
-
-Here are all the methods that you can use :
-
-- `public void addFilterInLayer(int layerIndex, int filterIndex, String filterName)` : add a filter in a certain layer at a certain index. The third parameter is the name in the filter database of the filter to add.
-
-- `void delFilterInLayer(int layerIndex, int filterIndex)` : delete a certain filter in a certain layer.
-
-- `public void addLayer(int layerIndex, Stack<String> filtersNames)` : add a layer. The second parameter is a stack of names, in the filter database, of the new filters to add in this new layer.
-
-- `public void delLayer(int layerIndex))` : delete a certain layer.
-
-- `public void setAlpha(int layerIndex, Frame alpha)` 	: set the alpha mask of a certain layer with a `Frame` object.
-
-- `public void setAlpha(int layerIndex, int opacity)` : set the alpha mask of a certain layer with an opacity value.
-
-- `public void setParameters(int layerIndex, int filterIndex, HashMap<String,Float> parametersValues)` : set parameters of a certain filter.
-
-- `public void setBypass(int layerIndex, int filterIndex, Boolean bypass)` : set bypass state of a certain filter. 
-
-- `public void undo()` and  `public void redo()`  : undo/redo the last thing that have been changed in the entire system ; could either be : parameters change (including opacity/alpha), layer added/deleted, filter added/deleted. Change of the bypass state is not including in the undoable things.
-
-- `public void addFilterInDataBase(String name, FilterControlledByFloat newfilter)` : add your own filter to the database.
-
+In the example folder you may find Main.java and two filter of my own : BlueGreenRedMultiplierFilter and GrayScaleFilter. 
 
 ## Contact
 Created by [@arthurlormeauwall](https://github.com/arthurlormeauwall) - feel free to contact me!
