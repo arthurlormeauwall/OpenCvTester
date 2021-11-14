@@ -10,14 +10,17 @@ import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
+import guiManager.GroupsId;
 import renderingEngine.renderer.ChainOfLayersRenderer;
 
 public class ChainOfLayers extends CompositeFilters
 {
 	protected Frame background;
 	
+	
 	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id, IdHistory<Id>  renderAtIdHistory) {
-		super(dbControls, id, renderAtIdHistory);	
+		super(dbControls, id, renderAtIdHistory);
+		groupID=GroupsId.LAYER;
 		this.background = background;
 		renderer=new ChainOfLayersRenderer(this, background);
 	}
@@ -222,12 +225,11 @@ public class ChainOfLayers extends CompositeFilters
 	public int getNumberOfLayers() {
 		return chainOfFilters.getSize();
 	}
+
+
 	
 
 
-	public int groupDeepnessIndex() {
-		return 0;
-	}
 
 
 	

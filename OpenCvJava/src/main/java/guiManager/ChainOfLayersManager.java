@@ -9,6 +9,7 @@ public class ChainOfLayersManager {
 	
 	private ChainOfCommands chainOfLayersManager;
 	private MainWindow gui;
+	protected GroupsId groupID;
 	
 	public ChainOfLayersManager (MainWindow gui){
 		
@@ -16,6 +17,7 @@ public class ChainOfLayersManager {
 		chainId.set(0,0);
 		chainOfLayersManager= new ChainOfCommands(chainId);
 		this.gui=gui;
+		groupID=GroupsId.LAYER;
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
@@ -29,12 +31,12 @@ public class ChainOfLayersManager {
 	}
 
 	public void addLayerManager(LayerManager layerController) {
-		chainOfLayersManager.addCommand(layerController.getId(), layerController, groupDeepnessIndes());	
+		chainOfLayersManager.addCommand(layerController.getId(), layerController, indexType());	
 		gui.updateGui();
 	}
 
 	public void deleteLayerManager(LayerManager layerWidget) {
-		chainOfLayersManager.delCommand(layerWidget.getId(), groupDeepnessIndes());	
+		chainOfLayersManager.delCommand(layerWidget.getId(), indexType());	
 		gui.updateGui();
 	}
 
@@ -65,8 +67,8 @@ public class ChainOfLayersManager {
 		return (LayerManager)chainOfLayersManager.getCommand(i);
 	}
 	
-	public int groupDeepnessIndes() {
-		return 0;
+	public int indexType() {
+		return groupID.ordinal();
 	}
 
 }

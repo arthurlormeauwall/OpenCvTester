@@ -4,6 +4,7 @@ import baseClasses.history.IdHistory;
 import baseClasses.history.IdHistoryParameter;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
+import guiManager.GroupsId;
 import renderingEngine.renderer.Renderer;
 
 import java.util.Stack;
@@ -19,6 +20,7 @@ public abstract class CompositeFilters extends Filter
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
+	protected GroupsId groupID;
 	
 	public CompositeFilters(FiltersDataBase filtersDataBase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(id, renderAtIdHistory);
@@ -32,13 +34,12 @@ public abstract class CompositeFilters extends Filter
 	}
 	
 	protected abstract Filter create(Stack<Id> ids, Stack<String> filterNamesInDataBase);
-	public abstract int groupDeepnessIndex() ;
 	
 	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id.get(0))) {
 			Filter filter = create(id, commandsNamesInDataBase);
 			updateRenderAtId(id.get(0));
-			chainOfFilters.addCommand(id.get(0), filter, groupDeepnessIndex());
+			chainOfFilters.addCommand(id.get(0), filter, indexType());
 			return filter;
 		}
 		else {
@@ -50,7 +51,7 @@ public abstract class CompositeFilters extends Filter
 		
 		if (!isIndexOutOfRange(filter.getId())) {		
 			updateRenderAtId(filter.getId());
-			chainOfFilters.addCommand(filter.getId(), filter, groupDeepnessIndex());	
+			chainOfFilters.addCommand(filter.getId(), filter, indexType());	
 			return filter;
 		}
 		else {
@@ -60,7 +61,7 @@ public abstract class CompositeFilters extends Filter
 	
 	public Filter delete(Id id) {
 		if (!isIndexOutOfRange(id)) {
-			return (Filter)chainOfFilters.delCommand(id,groupDeepnessIndex());	
+			return (Filter)chainOfFilters.delCommand(id,indexType());	
 		}
 		else {
 			return null;
@@ -68,7 +69,7 @@ public abstract class CompositeFilters extends Filter
 	}
 	
 	public Boolean isIndexOutOfRange(Id controlId) {
-		int indexOfFilterToAddOrDelete= controlId.get()[groupDeepnessIndex()];
+		int indexOfFilterToAddOrDelete= controlId.get()[indexType()];
 
 		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
 			return false;
@@ -111,6 +112,10 @@ public abstract class CompositeFilters extends Filter
 	
 	public FiltersDataBase getFiltersDataBase() {
 		return filtersDataBase;
+	}
+	
+	public int indexType() {
+		return groupID.ordinal();
 	}
 
 }

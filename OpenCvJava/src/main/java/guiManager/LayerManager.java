@@ -16,8 +16,10 @@ public class LayerManager extends Command
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
 	protected ActionHistoryManager guiManager;
+	protected GroupsId groupID;
 	
 	public LayerManager(Layer layer, ActionHistoryManager guiManager) {
+		groupID=GroupsId.FILTER;
 		this.layer=layer;
 		this.guiManager=guiManager;
 		this.id.set(layer.getId());
@@ -31,16 +33,16 @@ public class LayerManager extends Command
 		return  (FilterManager)chainOfFilterControllers.getCommand(index);
 	}
 	public FilterManager deleteFilterWidget(Id id) {
-		return (FilterManager)chainOfFilterControllers.delCommand(id,groupDeepnessIndes());
+		return (FilterManager)chainOfFilterControllers.delCommand(id,indexType());
 	}
 
 	public FilterManager addFilterController(FilterManager newFilterController) {
-		chainOfFilterControllers.addCommand(newFilterController.getId(), newFilterController,groupDeepnessIndes());
+		chainOfFilterControllers.addCommand(newFilterController.getId(), newFilterController,indexType());
 		return newFilterController;
 	}
 	public FilterManager addFilterController(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
 		FilterManager filterController = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterControllers.addCommand(filterController.getId(), filterController,groupDeepnessIndes());
+		chainOfFilterControllers.addCommand(filterController.getId(), filterController,indexType());
 		return filterController;
 	}
 
@@ -61,7 +63,9 @@ public class LayerManager extends Command
 		return layerWindow;
 	}
 	
-	public int groupDeepnessIndes() {
-		return 1;
+	public int indexType() {
+		return groupID.ordinal();
 	}
+	
+	
 }

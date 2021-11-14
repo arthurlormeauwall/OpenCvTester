@@ -31,27 +31,29 @@ public abstract class Renderer {
 		int numberOfFrames = frames.size();
 		int lastFrame = frames.size() - 1;
 
-		if (numberOfFilters >= 1) {
-			if (numberOfFrames < numberOfFilters - 1) {
-				for (int i = numberOfFrames; i < numberOfFilters - 1; i++)
-				{
-					frames.push(new Frame());
-					if (i==0) {		
-						compositeFilters.getDest().copyTo(frames.get(i));
-					}
-					else {
-						frames.get(i-1).copyTo(frames.get(i));
-					}
-					
+		if (numberOfFrames < numberOfFilters - 1) {
+			for (int i = numberOfFrames; i < numberOfFilters - 1; i++)
+			{
+				frames.push(new Frame());
+				if (i==0) {		
+					compositeFilters.getDest().copyTo(frames.get(i));
 				}
+				else {
+					frames.get(i-1).copyTo(frames.get(i));
+				}
+				
 			}
-			else if (numberOfFrames > numberOfFilters - 1) {
-				for (int i = lastFrame; i >= numberOfFilters - 1; i--)
+		}
+		else if (numberOfFrames > numberOfFilters - 1) {
+			while(!frames.empty()) {
+				for (int i = lastFrame; i >= numberOfFilters-1; i--)
 				{
 					frames.pop();
 				}
 			}
+			
 		}
+		
 	}
 	
 	public void dealFrames(Stack<Command> chainOfFilters) {

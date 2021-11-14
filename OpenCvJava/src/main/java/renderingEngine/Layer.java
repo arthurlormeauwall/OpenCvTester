@@ -11,6 +11,7 @@ import baseClasses.history.IdHistory;
 import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
+import guiManager.GroupsId;
 import renderingEngine.renderer.LayerRenderer;
 
 public class Layer extends CompositeFilters
@@ -20,7 +21,7 @@ public class Layer extends CompositeFilters
 	
 	public Layer (FiltersDataBase filtersDatabase, Id id, IdHistory<Id>  renderAtIdHistory) {
 		super(filtersDatabase, id, renderAtIdHistory);
-		
+		groupID=GroupsId.FILTER;
 		opacityFilter = filtersDatabase.getAlphaFilter();
 		opacityFilter.setRenderAtIdHistory(this.renderAtIdHistory);	
 		renderer= new LayerRenderer(this);
@@ -32,10 +33,7 @@ public class Layer extends CompositeFilters
 
 		opacityFilter.setSource(source);
 		opacityFilter.setDest(dest);
-
 		opacityFilter.init(background);
-	
-		
 		opacityFilter.getId().set(id.get()[0], 1);
 	}
 
@@ -54,19 +52,8 @@ public class Layer extends CompositeFilters
 		renderer.execute(chainOfFilters.getChain());
 	}
 	
-	
-	public void updateId(int groupDeepnessIndex, int newValue){
-		chainOfFilters.updateId(groupDeepnessIndex, newValue);
-	}
-
-	public Command clone() {	
-		Layer newMaskedLayer= new Layer(filtersDataBase, id, renderAtIdHistory);
-		
-		newMaskedLayer.setChain(chainOfFilters.clone());
-		newMaskedLayer.setOpacity(opacityFilter.getOpacity());
-		newMaskedLayer.setBackGround(background);
-		
-		return newMaskedLayer;
+	public void updateId(int indexType, int newValue){
+		chainOfFilters.updateId(indexType, newValue);
 	}
 
 	public OpacityFilter getOpacityFilter(){
@@ -86,17 +73,21 @@ public class Layer extends CompositeFilters
 		return chainOfFilters.getSize() + 1;
 	}
 
-	public FilterControlledByFloat getFilter(int i) {
-		return (FilterControlledByFloat)chainOfFilters.getCommand(i);
-	}
-
-	@Override
-	public int groupDeepnessIndex() {
-		// TODO Auto-generated method stub
-		return 1;
+	public FilterControlledByFloat getFilter(int index) {
+		return (FilterControlledByFloat)chainOfFilters.getCommand(index);
 	}
 
 	public void dealFrames() {
 		renderer.dealFrames(chainOfFilters.getChain());		
+	}
+	
+	public Command clone() {	
+		Layer newMaskedLayer= new Layer(filtersDataBase, id, renderAtIdHistory);
+		
+		newMaskedLayer.setChain(chainOfFilters.clone());
+		newMaskedLayer.setOpacity(opacityFilter.getOpacity());
+		newMaskedLayer.setBackGround(background);
+		
+		return newMaskedLayer;
 	}
 }
