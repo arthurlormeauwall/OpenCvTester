@@ -5,42 +5,42 @@ import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.Id;
 import baseClasses.IoFrame;
-import baseClasses.openCvFacade.Frame;
+import baseClasses.frame.FrameCv;
 
 
 
 public abstract class Filter extends Command implements IoFrame, Executable
 {
-	protected Frame source;
-	protected Frame dest;
+	protected FrameCv source;
+	protected FrameCv dest;
 	protected Boolean activate;
 	
 	public Filter() {
 		activate= false;
-		source = new Frame ();
-		dest   = new Frame ();
+		source = new FrameCv ();
+		dest   = new FrameCv ();
 	}
 	
 	public Filter(Id id) {
 		super (id);
 		activate= false;
-		source = new Frame ();
-		dest   = new Frame ();
+		source = new FrameCv ();
+		dest   = new FrameCv ();
 	}
 
-	public Frame getSource(){
+	public FrameCv getSource(){
 		return source;
 	}
 	
-	public void setSource(Frame source){
+	public void setSource(FrameCv source){
 		this.source=source;
 	}
 	
-	public Frame getDest()        {
+	public FrameCv getDest()        {
 		return dest;
 	}
 	
-	public void setDest(Frame dest)  {	
+	public void setDest(FrameCv dest)  {	
 		this.dest=dest;
 	}
 

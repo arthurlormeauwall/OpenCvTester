@@ -1,15 +1,15 @@
-package baseClasses.openCvFacade;
+package baseClasses.frame;
 
 
-public interface FrameInterface {
+public interface Frame {
 	
 	public void readFromFile(final String fileName) ;
 
-	public void copyTo(Frame newFrame) ;
+	public void copyTo(FrameCv newFrame) ;
 
 	public void createPlainGrayFrame(int rows, int cols, int data);
 	
-	public Boolean compareTo(Frame p) ;
+	public Boolean compareTo(FrameCv p) ;
 
 	public FrameSpecs getSpecs();
 	

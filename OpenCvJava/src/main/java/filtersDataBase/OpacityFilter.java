@@ -4,17 +4,17 @@ import java.util.LinkedHashMap;
 import org.opencv.core.Mat;
 
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.openCvFacade.Frame;
+import baseClasses.frame.FrameCv;
 
 public class OpacityFilter extends FilterControlledByFloat 
 {
-	protected Frame background;
+	protected FrameCv background;
 	private Float opacity;	
 	
 	public OpacityFilter() {
 	}
 	
-	public void init(Frame background) {
+	public void init(FrameCv background) {
 		setBackGround(background);
 		setParameterFlags();
 		setOpacity(flags.defaultValues.get("Opacity"));
@@ -66,7 +66,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	}
 		
 	
-	public void setBackGround(Frame background){	
+	public void setBackGround(FrameCv background){	
 		this.background = background; 
 	}
 	

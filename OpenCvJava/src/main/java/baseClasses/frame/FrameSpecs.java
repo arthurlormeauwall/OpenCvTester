@@ -1,4 +1,4 @@
-package baseClasses.openCvFacade;
+package baseClasses.frame;
 
 public class FrameSpecs 
 {

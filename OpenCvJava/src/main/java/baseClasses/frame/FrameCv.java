@@ -1,27 +1,27 @@
-package baseClasses.openCvFacade;
+package baseClasses.frame;
 
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
-public class Frame implements FrameInterface
+public class FrameCv implements Frame
 {
 	final int NumberOfColorLayer = 3; 
 	protected FrameSpecs frameSpecs;
 	protected Mat frameMat;
 	
-	public Frame() { 
+	public FrameCv() { 
 		frameMat = new Mat(0,0, CvType.CV_8UC3);
 		frameSpecs= new FrameSpecs();	
 	}
 	
-	public Frame(String fileName) { 
+	public FrameCv(String fileName) { 
 		frameSpecs= new FrameSpecs();
 		readFromFile(fileName);
 	}
 	
-	public Frame(int rows, int cols, int data) { 
+	public FrameCv(int rows, int cols, int data) { 
 		frameSpecs= new FrameSpecs();
 		createPlainGrayFrame(rows, cols, data);
 	}
@@ -31,7 +31,7 @@ public class Frame implements FrameInterface
 		setSpecs();	
 	}
 
-	public void copyTo(Frame newFrame) {
+	public void copyTo(FrameCv newFrame) {
 		newFrame.setMat(frameMat.clone());
 		newFrame.setSpecs();
 	}
@@ -53,7 +53,7 @@ public class Frame implements FrameInterface
 		setSpecs();
 	}
 	
-	public Boolean compareTo(Frame p) {
+	public Boolean compareTo(FrameCv p) {
 		
 		int rowsP= p.getMat().rows();
 		int colsP=p.getMat().cols();

@@ -1,6 +1,5 @@
 package renderingEngine;
 
-import baseClasses.openCvFacade.Frame;
 import filtersDataBase.FiltersDataBase;
 import guiManager.GroupsId;
 import renderingEngine.renderer.Renderer;
@@ -11,10 +10,11 @@ import baseClasses.ChainOfCommands;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
+import baseClasses.frame.FrameCv;
 
 public abstract class CompositeFilter extends Filter
 {
-	protected Stack<Frame> frames;
+	protected Stack<FrameCv> frames;
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
@@ -22,7 +22,7 @@ public abstract class CompositeFilter extends Filter
 	
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
-		frames = new Stack<Frame>();
+		frames = new Stack<FrameCv>();
 		this.filtersDataBase = filtersDataBase;	
 		
 		Id chainId = new Id(this.id.get());
