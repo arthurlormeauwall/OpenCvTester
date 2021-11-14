@@ -10,7 +10,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
-import guiManager.GroupsId;
 import guiManager.ActionHistoryManager;
 
 public class LabelledSlider extends JPanel

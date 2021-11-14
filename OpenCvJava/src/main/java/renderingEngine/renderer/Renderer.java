@@ -27,20 +27,26 @@ public abstract class Renderer {
 	
 	protected void updateNumberOfFrames() {
 
-		int numberOfControls = getNumberOfFilters();
+		int numberOfFilters = getNumberOfFilters();
 		int numberOfFrames = frames.size();
 		int lastFrame = frames.size() - 1;
 
-		if (numberOfControls >= 1) {
-			if (numberOfFrames < numberOfControls - 1) {
-				for (int i = numberOfFrames; i < numberOfControls - 1; i++)
+		if (numberOfFilters >= 1) {
+			if (numberOfFrames < numberOfFilters - 1) {
+				for (int i = numberOfFrames; i < numberOfFilters - 1; i++)
 				{
 					frames.push(new Frame());
-					compositeFilters.getSource().copyTo(frames.get(i));
+					if (i==0) {		
+						compositeFilters.getDest().copyTo(frames.get(i));
+					}
+					else {
+						frames.get(i-1).copyTo(frames.get(i));
+					}
+					
 				}
 			}
-			else if (numberOfFrames > numberOfControls - 1) {
-				for (int i = lastFrame; i >= numberOfControls - 1; i--)
+			else if (numberOfFrames > numberOfFilters - 1) {
+				for (int i = lastFrame; i >= numberOfFilters - 1; i--)
 				{
 					frames.pop();
 				}

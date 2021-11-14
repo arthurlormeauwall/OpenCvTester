@@ -22,8 +22,6 @@ public class ChainOfLayersRenderer extends Renderer {
 		render();	
 	}
 
-	
-
 	public void dealBackground(){
 		int numberOfMaskedLayers = chainOfFilters.size();
 		

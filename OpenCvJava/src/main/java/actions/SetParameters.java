@@ -2,7 +2,6 @@ package actions;
 
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import filtersDataBase.OpacityFilter;
 import guiManager.ChainOfLayersManager;
 import renderingEngine.ChainOfLayers;
 
