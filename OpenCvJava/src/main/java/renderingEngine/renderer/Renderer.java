@@ -6,6 +6,7 @@ import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.IoFrame;
 import baseClasses.filter.Filter;
+import baseClasses.frame.CvFrame;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 import renderingEngine.CompositeFilter;

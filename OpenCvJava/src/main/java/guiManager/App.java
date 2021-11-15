@@ -2,6 +2,7 @@ package guiManager;
 
 import java.io.IOException;
 
+
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.frame.Frame;
