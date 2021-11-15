@@ -13,8 +13,6 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 		addParameterFlag("BlueMult", 1f, 1f);
 		addParameterFlag("GreenMult", 1f, 1f);
 		addParameterFlag("RedMult", 1f, 1f);
-		
-		setFilterName("BGR Multiplier");
 	}
 	
 	public BlueGreenRedMultiplierFilter createNew() {	

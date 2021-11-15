@@ -11,11 +11,9 @@ public class FiltersDataBase
 {
 	protected HashMap<String, FilterControlledByFloat> filters;
 	protected OpacityFilter alphaFilter;
-	//protected EmptyFilter emptyFilter;
 
 	public FiltersDataBase() {
 		filters= new HashMap<String, FilterControlledByFloat>();
-		//emptyFilter= new EmptyFilter();
 	}
 	
 	public FilterControlledByFloat getFilter(String name){
