@@ -9,6 +9,7 @@ import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 import filtersDataBase.FiltersDataBase;
 import gui.MainWindow;
+import openCvAdapter.CvFrame;
 import renderingEngine.ChainOfLayers;
 
 public class App
@@ -60,6 +61,11 @@ public class App
 		chainOfLayers.setDest(dest);
 		
 		return chainOfLayers;	
+	}
+	
+	public void initOpenCv() {
+		addFrameType("OpenCv", new CvFrame());
+		setFrameType("OpenCv");
 	}
 
 	

@@ -11,8 +11,13 @@ public class Main
 {
     public static void main(String[] args) throws IOException{	
 		App app= new App(); 
-		app.addFrameType("OpenCv", new CvFrame());
-		app.setFrameType("OpenCv");
+		
+		
+		/*add this to use open cv
+		
+		app.initOpenCv();
+		
+		*/
 		app.initialize("assets/test.jpg");
 		
 		app.addFilterInDataBase("BGR Multiplier", new BlueGreenRedMultiplierFilter());

@@ -8,14 +8,14 @@ import renderingEngine.ChainOfLayers;
 public class AddOrDeleteLayer implements Action {
 
 	public Functionalities addOrDelete;
-	private LayerManager layerController;
+	private LayerManager layerManager;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerManagers chainOfLayerWidgets;
+	private ChainOfLayerManagers chainOfLayerManager;
 	
-	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerWidgets, LayerManager layerController){
-		this.layerController=layerController;
+	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, LayerManager layerManager){
+		this.layerManager=layerManager;
 		this.chainOfLayers=chainOfLayers;
-		this.chainOfLayerWidgets=chainOfLayerWidgets;
+		this.chainOfLayerManager=chainOfLayerManager;
 	}
 
 	public void invert() {
@@ -29,12 +29,12 @@ public class AddOrDeleteLayer implements Action {
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
-			chainOfLayers.addLayer(layerController.getLayer());
-			chainOfLayerWidgets.addLayerManager(layerController);
+			chainOfLayers.addLayer(layerManager.getLayer());
+			chainOfLayerManager.addLayerManager(layerManager);
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			chainOfLayers.delLayer(layerController.getLayer());
-			chainOfLayerWidgets.deleteLayerManager(layerController);
+			chainOfLayers.delLayer(layerManager.getLayer());
+			chainOfLayerManager.deleteLayerManager(layerManager);
 		}	
 	}
 

@@ -9,12 +9,12 @@ public class SetParameters implements Action {
 
 	public Filter filter;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerManagers chainOfLayerWidgets;
+	private ChainOfLayerManagers chainOfLayerManager;
 	
-	public SetParameters(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerWidgets, Filter filter){
+	public SetParameters(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, Filter filter){
 		this.filter=filter;
 		this.chainOfLayers=chainOfLayers;
-		this.chainOfLayerWidgets=chainOfLayerWidgets;
+		this.chainOfLayerManager=chainOfLayerManager;
 
 	}
 	
@@ -23,7 +23,7 @@ public class SetParameters implements Action {
 	
 	public void execute() {	
 		chainOfLayers.setParameters(filter.getId(), ((FilterControlledByFloat)filter).getParameters());
-		chainOfLayerWidgets.setParameters(filter);
+		chainOfLayerManager.setParameters(filter);
 	}
 
 }

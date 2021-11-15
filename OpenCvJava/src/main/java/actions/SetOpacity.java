@@ -8,12 +8,12 @@ public class SetOpacity implements Action {
 
 	public OpacityFilter opacityFilter;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerManagers chainOfLayerWidgets;
+	private ChainOfLayerManagers chainOfLayerManager;
 	
-	public SetOpacity(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerWidgets, OpacityFilter opacityFilter){
+	public SetOpacity(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, OpacityFilter opacityFilter){
 		this.opacityFilter=opacityFilter;
 		this.chainOfLayers=chainOfLayers;
-		this.chainOfLayerWidgets=chainOfLayerWidgets;
+		this.chainOfLayerManager=chainOfLayerManager;
 
 	}
 	
@@ -22,7 +22,7 @@ public class SetOpacity implements Action {
 	
 	public void execute() {	
 		chainOfLayers.setOpacity(opacityFilter.getId().get()[0], opacityFilter.getOpacity());
-		chainOfLayerWidgets.setOpacity(opacityFilter.getId().get()[0], opacityFilter.getOpacity());
+		chainOfLayerManager.setOpacity(opacityFilter.getId().get()[0], opacityFilter.getOpacity());
 	}
 
 }
