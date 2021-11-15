@@ -69,6 +69,7 @@ public abstract class Renderer {
 		if (numberOfFilters>0) {
 			Command lastFilter =  getLastFilter();
 
+
 			if (numberOfFilters == 1) {
 				((Filter)lastFilter).setSource(compositeFilters.getSource());
 				((Filter)lastFilter).setDest(compositeFilters.getDest());

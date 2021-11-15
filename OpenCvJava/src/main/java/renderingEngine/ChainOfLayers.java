@@ -170,6 +170,12 @@ public class ChainOfLayers extends CompositeFilter
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
 			adjustControlToSet.setParameter(name, value);
 			((Filter)chainOfFilters.getCommand(layerIndex)).activate();
+			
+			if (((Layer)chainOfFilters.getCommand(layerIndex+1))!=null) {
+				if  (((Layer)chainOfFilters.getCommand(layerIndex+1)).getNumberOfFilters()>0) {
+					((Layer)chainOfFilters.getCommand(layerIndex+1)).getFilter(0).activate();
+				}
+			}
 			execute();
 		}
 		

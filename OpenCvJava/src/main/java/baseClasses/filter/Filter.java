@@ -58,4 +58,8 @@ public abstract class Filter extends Command implements Executable
 	public void activate() {
 		activate=true;		
 	}
+
+	public void desactivateFull() {
+	
+	}
 }
