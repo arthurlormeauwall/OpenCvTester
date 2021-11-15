@@ -26,6 +26,13 @@ public class App
 		frameFactory = new FrameFactory();
 	}
 	
+	public App (Library libraryOption) throws IOException{		
+		frameFactory = new FrameFactory();
+		if (libraryOption == Library.OPENCV) {
+			initOpenCv();
+		}
+	}
+	
 	public void initialize(String fileName) throws IOException {
 		guiManager= new ActionHistoryManager(chainOfLayersInitializer(fileName), mainWindow);
 		mainWindow = new MainWindow(guiManager);
@@ -66,7 +73,5 @@ public class App
 	public void initOpenCv() {
 		addFrameType("OpenCv", new CvFrame());
 		setFrameType("OpenCv");
-	}
-
-	
+	}	
 }

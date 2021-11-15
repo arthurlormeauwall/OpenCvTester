@@ -30,10 +30,6 @@ public class DefaultFrame implements Frame {
           }
 		setSpecs();   
 	}
-	
-	public BufferedImage getBufferedImage(){ 
-		return bufferedImage; 
-	}
 
 	public void copyTo(Frame newFrame) {
 		((DefaultFrame)newFrame).setBufferedImage(deepCopy(bufferedImage));
@@ -110,7 +106,7 @@ public class DefaultFrame implements Frame {
 		bufferedImage.setRGB(row, col, color.getRGB());
 	}
 
-	public BufferedImage toBufferedImage() {
+	public BufferedImage getBufferedImage() {
 		return bufferedImage;
 	}
 	

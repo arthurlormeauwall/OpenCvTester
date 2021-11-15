@@ -26,7 +26,7 @@ public class ActionHistoryManager
 		
 		history=new ActionsHistory();
 		frameWindowManager=new FrameWindowManager();
-		frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());	
+		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
 	}
 	
 	public void setGui(MainWindow mainWindow) {
@@ -64,7 +64,7 @@ public class ActionHistoryManager
 		LayerManager newLayerManager= new LayerManager(newLayer, this);
 		newLayerManager.getLayerWindow().setVisible(false);
 		mainWindow.addLayerManager(newLayerManager);
-		frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
+		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
 		return newLayer;
 	}
 	
@@ -76,14 +76,14 @@ public class ActionHistoryManager
 		
 		FilterManager newLayerController = new FilterManager(newFilter, this);
 		mainWindow.addFilterWidgetInLayerWidget(newLayerController);	
-		frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
+		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
 	}
 	
 	public void delFilterInLayer(FilterManager filterManagerToDel)  {		
 		if (filterManagerToDel!=null) {
 			chainOfLayers.delFilterInLayer(filterManagerToDel.getFilter());
 			mainWindow.delFilterWidgetInLayerWidget(filterManagerToDel);
-			frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
+			frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
 		}
 	}
 	
@@ -91,18 +91,18 @@ public class ActionHistoryManager
 		if (layerController!=null) {
 			chainOfLayers.delLayer(layerController.getId());
 			mainWindow.deleteLayerManager(layerController);	
-			frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
+			frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
 		}
 	}
 
 	public void setOpacity(int layerIndex, Float opacity) {	
 		chainOfLayers.setOpacity(layerIndex, opacity);
-		frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
+		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
 	}	
 
 	public void setParameters(Id id, String name, Float value) throws IOException {
 			chainOfLayers.setParameters(id, name, value);	
-			frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());	
+			frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
 	}
 	
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
