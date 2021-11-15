@@ -2,7 +2,6 @@ package renderingEngine;
 
 import filtersDataBase.FiltersDataBase;
 import guiManager.GroupsId;
-import openCvAdapter.CvFrame;
 import renderingEngine.renderer.Renderer;
 
 import java.util.Stack;
@@ -11,10 +10,11 @@ import baseClasses.ChainOfCommands;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
+import baseClasses.frame.Frame;
 
 public abstract class CompositeFilter extends Filter
 {
-	protected Stack<CvFrame> frames;
+	protected Stack<Frame> frames;
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
@@ -22,7 +22,7 @@ public abstract class CompositeFilter extends Filter
 	
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
-		frames = new Stack<CvFrame>();
+		frames = new Stack<Frame>();
 		this.filtersDataBase = filtersDataBase;	
 		
 		Id chainId = new Id(this.id.get());

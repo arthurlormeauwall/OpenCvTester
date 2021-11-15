@@ -63,8 +63,4 @@ public class LabelledSlider extends JPanel
 	public void setEmitSignal(Boolean emitSignal) {
 		this.emitSignal=emitSignal;
 	}
-	
-	
-	
-
 }
