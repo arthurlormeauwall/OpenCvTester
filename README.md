@@ -20,7 +20,7 @@ This project is aim to achieve that and its purpose is mostly educational.
 
 Moreover, users of this framework are expected to know Java and OpenCv.
 
-This frameWork can also be used without Open Cv.
+> This frameWork can also be used without Open Cv.
 
 
 ## Technologies Used
@@ -53,26 +53,27 @@ What is currently missing :
 
 To use this framework, you first have to import `App` classe from *guiManager* package. Then you create an `App` object.
 
-If you want to use open Cv you call `app.initOpenCv();`
+If you want to use open Cv, you must then call `app.initOpenCv();`
 
 Then you call `initialize(String fileName)` passing the path to the image you want to work with.
 
+### Filters
 Filters are objects that you create and add to the `FiltersDataBase` object, managed by the `App` object (so you never have to deal directly with the `FiltersDataBase`).  
 In the beginning, the filters database is empty. 
 
 To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import baseClasses.filter.FilterControlledByFloat;`).
 
 `FilterControlledByFloat` class provide several important things : 
-* Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). You can use these 2 methods do access and set pixels at certain row and column : 
-	* `public double[] getPixelAt(int row, int col);`
-	* `public void setPixelAt(int row, int col, double[] data);`
+* Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). Important methods of `Frame` class : 
+	* `double[] getPixelAt(int row, int col);`
+	* `void setPixelAt(int row, int col, double[] data);`
 	*   When using open cv you can call `getMat()` mehtod to get `Mat` object. 
-	*   If you are not using open cv you can call `public BufferedImage getBufferedImage()`.
+	*   If you are not using open cv you can call `BufferedImage getBufferedImage()`.
 * Several float parameters that will be tweakable in the GUI. You can access them calling `getParameter(String name)` method.
 * Three abstract methods that you have to implement : 
   * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues)` for each parameter. When parameters are set to values specified by zeroEffectValues, bypass is automtically set to true.
-  * `public void execute()` : here you write your algorithm. 
-  * `public YourType createNew() {	
+  * `void execute()` : here you write your algorithm. 
+  * `YourType createNew() {	
 		return new YourType();
 	}`
 
