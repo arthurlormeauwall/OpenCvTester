@@ -1,12 +1,12 @@
 package baseClasses;
 
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.Frame;
 
 
 public interface IoFrame 
 {
-    public void setSource(FrameCv s);
-    public void setDest(FrameCv d) ;
-    public FrameCv getSource();
-    public FrameCv getDest();
+    public void setSource(Frame s);
+    public void setDest(Frame d) ;
+    public Frame getSource();
+    public Frame getDest();
 }

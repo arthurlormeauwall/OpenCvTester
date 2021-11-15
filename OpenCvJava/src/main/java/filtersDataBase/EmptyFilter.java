@@ -8,7 +8,7 @@ public class EmptyFilter extends FilterControlledByFloat {
 	}
 
 	public void execute() {
-		dest.setMat(source.getMat());		
+		source.copyTo(dest);
 	}
 	
 	public EmptyFilter createNew() {
@@ -18,6 +18,4 @@ public class EmptyFilter extends FilterControlledByFloat {
 	public void setParameterFlags() {
 		setEmptyFlags();	
 	}
-
-
 }

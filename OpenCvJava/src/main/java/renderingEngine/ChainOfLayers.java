@@ -7,16 +7,16 @@ import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.Frame;
 import filtersDataBase.FiltersDataBase;
 import guiManager.GroupsId;
 import renderingEngine.renderer.ChainOfLayersRenderer;
 
 public class ChainOfLayers extends CompositeFilter
 {
-	protected FrameCv background;
+	protected Frame background;
 		
-	public ChainOfLayers (FiltersDataBase dbControls, FrameCv background, Id id) {
+	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id) {
 		super(dbControls, id);
 		groupID=GroupsId.LAYER;
 		this.background = background;

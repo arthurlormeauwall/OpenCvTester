@@ -7,7 +7,7 @@ import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.Frame;
 import filtersDataBase.FiltersDataBase;
 import filtersDataBase.OpacityFilter;
 import guiManager.GroupsId;
@@ -15,7 +15,7 @@ import renderingEngine.renderer.LayerRenderer;
 
 public class Layer extends CompositeFilter
 {
-	protected FrameCv background;
+	protected Frame background;
 	protected OpacityFilter opacityFilter;	
 	
 	public Layer (FiltersDataBase filtersDatabase, Id id) {
@@ -25,7 +25,7 @@ public class Layer extends CompositeFilter
 		renderer= new LayerRenderer(this);
 	}
 	
-	protected void init(FrameCv background, FrameCv source, FrameCv dest) {
+	protected void init(Frame background, Frame source, Frame dest) {
 		setSource(source);
 		setDest(dest);
 
@@ -61,7 +61,7 @@ public class Layer extends CompositeFilter
 		opacityFilter.setOpacity(opacity);
 	}
 	
-	public void setBackGround(FrameCv background){
+	public void setBackGround(Frame background){
 		this.background = background;
 		opacityFilter.setBackGround(background);
 	}

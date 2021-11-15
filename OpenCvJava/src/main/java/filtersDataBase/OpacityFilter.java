@@ -1,20 +1,18 @@
 package filtersDataBase;
 import java.util.LinkedHashMap;
 
-import org.opencv.core.Mat;
-
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.Frame;
 
 public class OpacityFilter extends FilterControlledByFloat 
 {
-	protected FrameCv background;
+	protected Frame background;
 	private Float opacity;	
 	
 	public OpacityFilter() {
 	}
 	
-	public void init(FrameCv background) {
+	public void init(Frame background) {
 		setBackGround(background);
 		setParameterFlags();
 		setOpacity(flags.defaultValues.get("Opacity"));
@@ -32,41 +30,36 @@ public class OpacityFilter extends FilterControlledByFloat
 		}
 		else if (!isBypass) {
 			
-			Mat imgSource = source.getMat();
-			Mat imgDest = dest.getMat();
-			Mat background = this.background.getMat();
-
 			Float opacity = getParameter("Opacity");
 			
 			int NBITMAX = source.getSpecs().bitMax;
 
-			int m_row = imgDest.rows();
-			int m_column = imgDest.cols();
+			int row = dest.getSpecs().rows;
+			int column =dest.getSpecs().cols;
 
-			for (int row = 0; row < m_row; row++)
+			for (int rowCount = 0; rowCount < row; rowCount++)
 			{
-				for (int column = 0; column < m_column; column++)
+				for (int colCount = 0; colCount < column; colCount++)
 				{
 					double[] data= new double[3];
 					for (int i = 0; i < 3; i++) {
 						float alpha_pixel = opacity;
-						float background_pixel = (float)(background.get(row, column)[i]);
-						float source_pixel = (float)(imgSource.get(row, column)[i]);
+						float background_pixel = (float)(background.getPixelAt(rowCount, colCount)[i]);
+						float source_pixel = (float)(source.getPixelAt(rowCount, colCount)[i]);
 
 						int after = (int)   (background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel);
 						if (after > NBITMAX) { after = NBITMAX; }
 						
 						data[i] = after;
 					}
-					imgDest.put(row, column, data);				
+					dest.setPixelAt(row, column, data);				
 				}				
 			}
-			dest.setMat(imgDest);
 		}
 	}
 		
 	
-	public void setBackGround(FrameCv background){	
+	public void setBackGround(Frame background){	
 		this.background = background; 
 	}
 	

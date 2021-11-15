@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 {
 	public FilterControlledByFloat() {
-
 		initFilterControlledByFloat();
 	} 
 	

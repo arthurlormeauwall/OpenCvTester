@@ -7,9 +7,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.CvFrame;
 
-public abstract class FilterControlledByFrame extends FilterControlledBy<FrameCv>
+public abstract class FilterControlledByFrame extends FilterControlledBy<CvFrame>
 {
 	public FilterControlledByFrame() {
 		initFilterControlledByFrame();
@@ -17,24 +17,24 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameCv
 	
 	public void initFilterControlledByFrame() {
 		flags.filterName = new String();
-		flags.defaultValues= new LinkedHashMap<String, FrameCv>();
-		flags.zeroEffectValues= new LinkedHashMap<String, FrameCv>();
+		flags.defaultValues= new LinkedHashMap<String, CvFrame>();
+		flags.zeroEffectValues= new LinkedHashMap<String, CvFrame>();
 		flags.numberOfParameters=0;	
 	}
 	    
-	public LinkedHashMap<String, FrameCv> getParameter() {
+	public LinkedHashMap<String, CvFrame> getParameter() {
 		return state;
 	}
 	
-	public void setParameter(LinkedHashMap<String, FrameCv> frames) {		
+	public void setParameter(LinkedHashMap<String, CvFrame> frames) {		
 		
 		Boolean framesAreTheSame=true;
 		state=frames;
 		
-		Iterator<Entry<String, FrameCv>> new_Iterator= frames.entrySet().iterator();
+		Iterator<Entry<String, CvFrame>> new_Iterator= frames.entrySet().iterator();
 		
 	    while (new_Iterator.hasNext() && framesAreTheSame == true) {
-	    	HashMap.Entry<String, FrameCv> frameItem= (HashMap.Entry<String, FrameCv>) new_Iterator.next();
+	    	HashMap.Entry<String, CvFrame> frameItem= (HashMap.Entry<String, CvFrame>) new_Iterator.next();
 	        if (frameItem.getValue().compareTo(state.get(frameItem.getKey()))) {
 	        	framesAreTheSame=true;
 	        }
@@ -48,12 +48,12 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameCv
 		activate();
 	}
 	
-	public void addParameterFlag(String name, FrameCv defaultValue, FrameCv zeroEffectValue) {
+	public void addParameterFlag(String name, CvFrame defaultValue, CvFrame zeroEffectValue) {
 		flags.defaultValues.put(name, defaultValue);
 		flags.zeroEffectValues.put(name, zeroEffectValue);
 		flags.numberOfParameters ++;
 	}
-	public void setZeroEffectValues(LinkedHashMap<String, FrameCv> parameter) {
+	public void setZeroEffectValues(LinkedHashMap<String, CvFrame> parameter) {
 		flags.zeroEffectValues=parameter;
 	}
 }

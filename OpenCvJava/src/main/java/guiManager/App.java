@@ -2,11 +2,11 @@ package guiManager;
 
 import java.io.IOException;
 
-import org.opencv.core.Core;
-
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.Frame;
+import baseClasses.frame.FrameFactory;
+import baseClasses.frame.LibraryOption;
 import filtersDataBase.FiltersDataBase;
 import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
@@ -15,19 +15,17 @@ public class App
 {
 	private ActionHistoryManager guiManager;
 	private MainWindow mainWindow;
-	protected FrameCv source;
-	protected FrameCv background;
-	protected FrameCv dest;
+	protected Frame source;
+	protected Frame background;
+	protected Frame dest;
+	private FrameFactory frameFactory;
+
 	
-	public App(String fileName) throws IOException{
-		openCvInit();
+	public App(String fileName, LibraryOption libraryOption) throws IOException{
+		frameFactory = new FrameFactory(libraryOption);
 		guiManager= new ActionHistoryManager(chainOfLayersInitializer(fileName), mainWindow);
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
-	}
-	
-	private void openCvInit() {
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);			
 	}
 
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
@@ -35,12 +33,12 @@ public class App
 	}
 	
 	public ChainOfLayers chainOfLayersInitializer(String fileName) throws IOException {	
-		background = new FrameCv();
-		dest = new FrameCv();
-		source = new FrameCv();	
+		background = frameFactory.create();
+		dest =  frameFactory.create();
+		source =  frameFactory.create();	
 		
 		source.readFromFile(fileName);
-		background.createPlainGrayFrame(source.getMat().rows(), source.getMat().cols(), 0);
+		background.createPlainGrayFrame(source.getSpecs().rows, source.getSpecs().cols, 0);
 		source.copyTo(dest);
 		
 		Id chainOfLayersId = new Id();

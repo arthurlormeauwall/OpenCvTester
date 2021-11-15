@@ -10,11 +10,11 @@ import baseClasses.ChainOfCommands;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.CvFrame;
 
 public abstract class CompositeFilter extends Filter
 {
-	protected Stack<FrameCv> frames;
+	protected Stack<CvFrame> frames;
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
@@ -22,7 +22,7 @@ public abstract class CompositeFilter extends Filter
 	
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
-		frames = new Stack<FrameCv>();
+		frames = new Stack<CvFrame>();
 		this.filtersDataBase = filtersDataBase;	
 		
 		Id chainId = new Id(this.id.get());

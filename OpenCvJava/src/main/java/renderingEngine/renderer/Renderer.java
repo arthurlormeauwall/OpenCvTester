@@ -6,19 +6,22 @@ import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.IoFrame;
 import baseClasses.filter.Filter;
-import baseClasses.frame.FrameCv;
+import baseClasses.frame.Frame;
+import baseClasses.frame.FrameFactory;
 import renderingEngine.CompositeFilter;
 
 public abstract class Renderer {
 	
-	protected Stack<FrameCv> frames;
+	protected Stack<Frame> frames;
 	protected Stack<Filter> chainOfFilters;
 	protected CompositeFilter compositeFilters;
+	private FrameFactory frameFactory;
 	
 	public Renderer(CompositeFilter compositeFilters) {
+		frameFactory= new FrameFactory();
 		this.compositeFilters=compositeFilters;	
 		chainOfFilters=new Stack<Filter>();
-		frames= new Stack<FrameCv>();
+		frames= new Stack<Frame>();
 	}
 	
 	public abstract void execute(Stack<Command> chainOfFilters);
@@ -34,14 +37,13 @@ public abstract class Renderer {
 		if (numberOfFrames < numberOfFilters - 1) {
 			for (int i = numberOfFrames; i < numberOfFilters - 1; i++)
 			{
-				frames.push(new FrameCv());
+				frames.push(frameFactory.create());
 				if (i==0) {		
 					compositeFilters.getDest().copyTo(frames.get(i));
 				}
 				else {
 					frames.get(i-1).copyTo(frames.get(i));
-				}
-				
+				}	
 			}
 		}
 		else if (numberOfFrames > numberOfFilters - 1) {
@@ -52,11 +54,8 @@ public abstract class Renderer {
 						frames.pop();
 					}
 				}
-			}
-			
+			}		
 		}
-		
-
 	
 	public void dealFrames(Stack<Command> chainOfFilters) {
 		
@@ -88,7 +87,7 @@ public abstract class Renderer {
 			}
 		}
 		else {
-			compositeFilters.getDest().setMat(compositeFilters.getSource().getMat());
+			compositeFilters.getSource().copyTo(compositeFilters.getDest());
 		}
 	}
 	
