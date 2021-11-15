@@ -8,6 +8,7 @@ import baseClasses.filter.Filter;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 import renderingEngine.CompositeFilter;
+import renderingEngine.Layer;
 
 public abstract class Renderer {
 	
@@ -59,34 +60,33 @@ public abstract class Renderer {
 
 	
 	public void dealFrames(Stack<Command> chainOfFilters) {
-		
 		setChain(chainOfFilters);
 		
-		int numberOfControls = getNumberOfFilters();
+		int numberOfFilters = getNumberOfFilters();
 		updateNumberOfFrames();
 
 		int lastFrameIndex = frames.size() - 1;
 
-		if (numberOfControls>0) {
-			Command lastControl =  getLastFilter();
+		if (numberOfFilters>0) {
+			Command lastFilter =  getLastFilter();
 
-			if (numberOfControls == 1) {
-				
-				((Filter)compositeFilters).setSource(((Filter)lastControl).getSource());
-				((Filter)compositeFilters).setDest(((Filter)lastControl).getDest());
+			if (numberOfFilters == 1) {
+				((Filter)lastFilter).setSource(compositeFilters.getSource());
+				((Filter)lastFilter).setDest(compositeFilters.getDest());
 			}
-			else if (numberOfControls >= 2) {
+			else if (numberOfFilters >= 2) {
 
-				((Filter)compositeFilters).setSource(((Filter)chainOfFilters.get(0)).getSource());
+				((Filter)chainOfFilters.get(0)).setSource(compositeFilters.getSource());
 				((Filter)chainOfFilters.get(0)).setDest(frames.get(0));
 
-				for (int j = 1; j < numberOfControls - 1; j++) {
+				for (int j = 1; j < numberOfFilters - 1; j++) {
 					((Filter)chainOfFilters.get(j)).setSource(frames.get(j - 1));
 					((Filter)chainOfFilters.get(j)).setDest(frames.get(j));
 				}
-				((Filter)lastControl).setSource(frames.get(lastFrameIndex));
-				
+				((Filter)lastFilter).setSource(frames.get(lastFrameIndex));
+				((Filter)lastFilter).setDest(compositeFilters.getDest());
 			}
+			compositeFilters.setDest(((Filter)lastFilter).getDest());
 		}
 		else {
 			compositeFilters.getSource().copyTo(compositeFilters.getDest());

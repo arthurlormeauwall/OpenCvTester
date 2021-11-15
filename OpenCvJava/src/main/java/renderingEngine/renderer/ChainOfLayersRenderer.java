@@ -22,23 +22,29 @@ public class ChainOfLayersRenderer extends Renderer {
 		dealFrames(chainOfFilters);	
 		dealBackground();	
 		dealFramesInLayers();
-		BlueGreenRedMultiplierFilter f=new BlueGreenRedMultiplierFilter();
-		int indexOfLastLayer= getNumberOfFilters()-1;
+		render();	
+		
+		/*int indexOfLastLayer= getNumberOfFilters()-1;
 		int indexOfLastFilterInLastLayer=((Layer)chainOfFilters.get(indexOfLastLayer)).getNumberOfFilters()-2;
 		if (indexOfLastFilterInLastLayer>=0) {
 			compositeFilters.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
+			
+			
 			//f.setSource(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getSource());
 			//f.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
 			//f.execute();
 			
 			//((Layer)compositeFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).execute();
 			
+		}*/
+		int indexOfLastLayer= getNumberOfFilters()-1;
+		int indexOfLastFilterInLastLayer=((Layer)chainOfFilters.get(indexOfLastLayer)).getNumberOfFilters()-2;
+		if (indexOfLastFilterInLastLayer>=0) {
+			if (getNumberOfFilters()!=0) {
+				compositeFilters.setDest( ((Layer)getLastFilter()).getOpacityFilter().getDest());
+			}
 		}
-		
-		render();	
-		
-		
-	
+
 	}
 
 	public void dealBackground(){
