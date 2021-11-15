@@ -27,13 +27,15 @@ public class ChainOfLayersRenderer extends Renderer {
 		int indexOfLastFilterInLastLayer=((Layer)chainOfFilters.get(indexOfLastLayer)).getNumberOfFilters()-2;
 		if (indexOfLastFilterInLastLayer>=0) {
 			compositeFilters.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
-			f.setSource(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
-			f.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
-			f.execute();
+			//f.setSource(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getSource());
+			//f.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
+			//f.execute();
+			
+			//((Layer)compositeFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).execute();
 			
 		}
 		
-		//render();	
+		render();	
 		
 		
 	
