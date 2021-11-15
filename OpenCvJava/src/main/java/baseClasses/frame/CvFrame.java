@@ -1,4 +1,4 @@
-package openCvAdapter;
+package baseClasses.frame;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -12,9 +12,6 @@ import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
-
-import baseClasses.frame.Frame;
-import baseClasses.frame.FrameSpecs;
 
 public class CvFrame implements Frame
 {

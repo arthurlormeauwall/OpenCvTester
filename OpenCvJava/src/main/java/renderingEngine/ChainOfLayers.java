@@ -164,21 +164,29 @@ public class ChainOfLayers extends CompositeFilter
 	
 	public void setParameters(Id id, String name, Float value) {
 		int layerIndex = id.get()[0];
-		int controlIndex = id.get()[1];
+		int filterIndex = id.get()[1];
 		
-		if (getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
+		if (areIndexOutOfRange(layerIndex, filterIndex)) {
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(filterIndex);
 			adjustControlToSet.setParameter(name, value);
 			((Filter)chainOfFilters.getCommand(layerIndex)).activate();
-			
-			if (((Layer)chainOfFilters.getCommand(layerIndex+1))!=null) {
-				if  (((Layer)chainOfFilters.getCommand(layerIndex+1)).getNumberOfFilters()>0) {
-					((Layer)chainOfFilters.getCommand(layerIndex+1)).getFilter(0).activate();
-				}
-			}
+
+			activateNextFilterInNextLayer(layerIndex);
 			execute();
 		}
 		
+	}
+	
+	public Boolean areIndexOutOfRange(int layerIndex, int filterIndex) {
+		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > filterIndex;
+	}
+	
+	public void activateNextFilterInNextLayer(int layerIndex) {
+		if (((Layer)chainOfFilters.getCommand(layerIndex+1))!=null) {
+			if  (((Layer)chainOfFilters.getCommand(layerIndex+1)).getNumberOfFilters()>0) {
+				((Layer)chainOfFilters.getCommand(layerIndex+1)).getFilter(0).activate();
+			}
+		}
 	}
 	
 	public void setBypass(Id ControlId, Boolean p){

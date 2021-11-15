@@ -5,11 +5,11 @@ import java.io.IOException;
 
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
+import baseClasses.frame.CvFrame;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 import filtersDataBase.FiltersDataBase;
 import gui.MainWindow;
-import openCvAdapter.CvFrame;
 import renderingEngine.ChainOfLayers;
 
 public class App

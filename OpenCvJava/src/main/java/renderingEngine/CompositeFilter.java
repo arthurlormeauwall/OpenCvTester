@@ -92,5 +92,14 @@ public abstract class CompositeFilter extends Filter
 	public int indexType() {
 		return groupID.ordinal();
 	}
+	
+	public Filter getFirstFilter() {
+		if (chainOfFilters.getSize()==0) {
+			return this;
+		}
+		else{
+			return (Filter)chainOfFilters.getCommand(0);
+		}
+	}
 
 }

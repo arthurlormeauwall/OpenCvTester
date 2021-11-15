@@ -2,8 +2,8 @@ package main;
 
 import java.io.IOException;
 
+import baseClasses.frame.CvFrame;
 import guiManager.App;
-import openCvAdapter.CvFrame;
 import userFilters.BlueGreenRedMultiplierFilter;
 import userFilters.GrayScaleFilter;
 
