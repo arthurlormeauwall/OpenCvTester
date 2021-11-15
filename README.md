@@ -53,7 +53,7 @@ What is currently missing :
 
 To use this framework, you first have to import `App` classe from *guiManager* package. Then you create an `App` object.
 
-If you want to use open Cv, you must then call `app.initOpenCv();`
+If you want to use open Cv, you must pass `Library.OPENCV` to App constructor. 
 
 Then you call `initialize(String fileName)` passing the path to the image you want to work with.
 
