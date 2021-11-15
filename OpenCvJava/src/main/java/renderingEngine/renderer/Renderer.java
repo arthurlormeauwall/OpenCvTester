@@ -6,7 +6,6 @@ import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.IoFrame;
 import baseClasses.filter.Filter;
-import baseClasses.frame.CvFrame;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 import renderingEngine.CompositeFilter;
@@ -19,10 +18,10 @@ public abstract class Renderer {
 	private FrameFactory frameFactory;
 	
 	public Renderer(CompositeFilter compositeFilters) {
-		frameFactory= new FrameFactory();
 		this.compositeFilters=compositeFilters;	
 		chainOfFilters=new Stack<Filter>();
 		frames= new Stack<Frame>();
+		frameFactory=new FrameFactory();
 	}
 	
 	public abstract void execute(Stack<Command> chainOfFilters);
@@ -44,7 +43,8 @@ public abstract class Renderer {
 				}
 				else {
 					frames.get(i-1).copyTo(frames.get(i));
-				}	
+				}
+				
 			}
 		}
 		else if (numberOfFrames > numberOfFilters - 1) {
@@ -55,8 +55,11 @@ public abstract class Renderer {
 						frames.pop();
 					}
 				}
-			}		
+			}
+			
 		}
+		
+
 	
 	public void dealFrames(Stack<Command> chainOfFilters) {
 		
