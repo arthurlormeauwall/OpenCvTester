@@ -21,4 +21,6 @@ public interface Frame {
 	public void setPixelAt(int row, int col, double[] data);
 	
 	public BufferedImage toBufferedImage();
+	
+	public Frame create();
 }

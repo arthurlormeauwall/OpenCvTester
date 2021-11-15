@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import baseClasses.frame.CvFrame;
+import openCvAdapter.CvFrame;
 
 public abstract class FilterControlledByFrame extends FilterControlledBy<CvFrame>
 {

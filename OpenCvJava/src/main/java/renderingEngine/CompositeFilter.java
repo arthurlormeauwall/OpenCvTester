@@ -2,6 +2,7 @@ package renderingEngine;
 
 import filtersDataBase.FiltersDataBase;
 import guiManager.GroupsId;
+import openCvAdapter.CvFrame;
 import renderingEngine.renderer.Renderer;
 
 import java.util.Stack;
@@ -10,7 +11,6 @@ import baseClasses.ChainOfCommands;
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
-import baseClasses.frame.CvFrame;
 
 public abstract class CompositeFilter extends Filter
 {

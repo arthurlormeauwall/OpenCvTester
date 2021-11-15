@@ -11,20 +11,15 @@ public class FiltersDataBase
 {
 	protected HashMap<String, FilterControlledByFloat> filters;
 	protected OpacityFilter alphaFilter;
-	protected EmptyFilter emptyFilter;
+	//protected EmptyFilter emptyFilter;
 
 	public FiltersDataBase() {
 		filters= new HashMap<String, FilterControlledByFloat>();
-		emptyFilter= new EmptyFilter();
+		//emptyFilter= new EmptyFilter();
 	}
 	
 	public FilterControlledByFloat getFilter(String name){
-		if (filters.get(name)== null) {
-			return emptyFilter;
-		}
-		else {
-			return filters.get(name).createNew();	
-		}	
+		return filters.get(name).createNew();	
 	}
 	
 	public void addFilter(String name, FilterControlledByFloat control) {
@@ -36,12 +31,7 @@ public class FiltersDataBase
 	}
 	
 	public FilterFlags<Float> getFlags(String name){
-		if (filters.get(name)== null) {
-			return emptyFilter.getFlags();
-		}
-		else {
 			return filters.get(name).getFlags();
-		}
 	}
 
 	public Stack<String> getFiltersName() {

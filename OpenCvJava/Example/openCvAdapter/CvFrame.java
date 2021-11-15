@@ -1,4 +1,4 @@
-package baseClasses.frame;
+package openCvAdapter;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -7,18 +7,27 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import baseClasses.frame.Frame;
+import baseClasses.frame.FrameSpecs;
+
 public class CvFrame implements Frame
 {
+	static Boolean isInitialized=false;
 	final int NumberOfColorLayer = 3; 
 	protected FrameSpecs frameSpecs;
 	protected Mat frameMat;
 	
 	public CvFrame() { 
+		if (!isInitialized) {
+			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+			isInitialized=true;
+		}
 		frameMat = new Mat(0,0, CvType.CV_8UC3);
 		frameSpecs= new FrameSpecs();	
 	}
@@ -115,4 +124,10 @@ public class CvFrame implements Frame
 	public void setPixelAt(int row, int col, double[] data) {	
 		frameMat.put(row, col, data);
 	}
+	
+	
+	public Frame create() {
+		return new CvFrame();
+	}
+
 }

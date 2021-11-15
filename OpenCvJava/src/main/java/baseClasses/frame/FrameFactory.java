@@ -1,44 +1,37 @@
 package baseClasses.frame;
 
-import org.opencv.core.Core;
+import java.util.HashMap;
 
 public class FrameFactory {
-	static LibraryOption libraryOption;
-	static Boolean isInitialized = false;
+	static String libraryOption;
+	static HashMap <String, Frame> frameType=new HashMap <String, Frame>();
+	static Boolean hasBeenInit=false;
+	
+	public FrameFactory(){
+		frameType.put("Default", new DefaultFrame());
+	}
+	
 	
 	@SuppressWarnings("static-access")
-	public FrameFactory(){
-		if (!isInitialized) {
-			this.libraryOption=libraryOption.DEFAULT;
-			initializeLibrary();
-		}	
+	public void setFrameType(String libraryOption) {
+		if (!hasBeenInit) {
+			this.libraryOption=libraryOption;
+			hasBeenInit=true;
+		}
 	}
 	
 	@SuppressWarnings("static-access")
-	public FrameFactory(LibraryOption libraryOption){
-		if (!isInitialized) {
-			this.libraryOption=libraryOption;
-			initializeLibrary();
-		}	
+	public void putNewFrameType(String libraryOption, Frame newType) {
+		FrameFactory.frameType.put(libraryOption, newType);
 	}
 
 	public Frame create() {
-		switch (libraryOption) {
-		case DEFAULT : 	
-			return new DefaultFrame();
-		case OPENCV:
-			return new CvFrame();	
+		if (libraryOption==null) {
+			return FrameFactory.frameType.get("Default").create();
 		}
-		return null;
-	}
+		else {
+			return FrameFactory.frameType.get(libraryOption).create();
+		}
 	
-	@SuppressWarnings("incomplete-switch")
-	private void initializeLibrary() {
-		switch (libraryOption) {	
-		case OPENCV:
-			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-			isInitialized=true;
-		}
 	}
-
 }

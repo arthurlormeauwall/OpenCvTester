@@ -82,7 +82,6 @@ public class DefaultFrame implements Frame {
 			}
 			return false;
 		}
-	
 
 	public FrameSpecs getSpecs() {
 		
@@ -113,6 +112,10 @@ public class DefaultFrame implements Frame {
 
 	public BufferedImage toBufferedImage() {
 		return bufferedImage;
+	}
+	
+	public Frame create() {
+		return new DefaultFrame();
 	}
 
 }

@@ -7,7 +7,6 @@ import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
-import baseClasses.frame.LibraryOption;
 import filtersDataBase.FiltersDataBase;
 import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
@@ -22,11 +21,22 @@ public class App
 	private FrameFactory frameFactory;
 
 	
-	public App(String fileName, LibraryOption libraryOption) throws IOException{
-		frameFactory = new FrameFactory(libraryOption);
+	public App () throws IOException{
+		frameFactory = new FrameFactory();
+	}
+	
+	public void initialize(String fileName) throws IOException {
 		guiManager= new ActionHistoryManager(chainOfLayersInitializer(fileName), mainWindow);
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
+	}
+	
+	public void addFrameType(String name, Frame frameType) {
+		frameFactory.putNewFrameType(name, frameType);
+	}
+	
+	public void setFrameType(String frameType) {
+		frameFactory.setFrameType(frameType);	
 	}
 
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
@@ -51,4 +61,6 @@ public class App
 		
 		return chainOfLayers;	
 	}
+
+	
 }
