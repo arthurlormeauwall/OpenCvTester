@@ -22,17 +22,7 @@ public class CvFrame implements Frame
 		frameMat = new Mat(0,0, CvType.CV_8UC3);
 		frameSpecs= new FrameSpecs();	
 	}
-	
-	public CvFrame(String fileName) { 
-		frameSpecs= new FrameSpecs();
-		readFromFile(fileName);
-	}
-	
-	public CvFrame(int rows, int cols, int data) { 
-		frameSpecs= new FrameSpecs();
-		createPlainGrayFrame(rows, cols, data);
-	}
-	
+
 	public void readFromFile(final String fileName) {
 		frameMat = Imgcodecs.imread(fileName, Imgcodecs.CV_LOAD_IMAGE_COLOR);
 		setSpecs();	
@@ -60,19 +50,18 @@ public class CvFrame implements Frame
 		setSpecs();
 	}
 	
-	public Boolean compareTo(Frame frame) {
-
-		int rowsP= ((CvFrame)frame).getMat().rows();
-		int colsP=((CvFrame)frame).getMat().cols();
+	public Boolean compareTo(Frame frame)  {
+		int rowsP= frame.getSpecs().rows;
+		int colsP=frame.getSpecs().cols;
 		
-		int rows = frameMat.rows();
-		int cols= frameMat.cols();
+		int rows =getSpecs().rows;
+		int cols= getSpecs().cols;
 		
 		if (rowsP == rows && colsP == cols){
 			
 			for (int i=0; i<rows; i++) {
 				for (int j=0; j<cols;j ++) {
-					if (((CvFrame)frame).getMat().get(i,j) != frameMat.get(i,j)) {
+					if (frame.getPixelAt(i,j) != getPixelAt(i,j)) {
 						return false;
 					}
 				}

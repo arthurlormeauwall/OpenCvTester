@@ -4,7 +4,6 @@ package baseClasses.filter;
 import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.Id;
-import baseClasses.frame.CvFrame;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 
@@ -26,9 +25,10 @@ public abstract class Filter extends Command implements Executable
 	
 	public Filter(Id id) {
 		super (id);
+		frameFactory=new FrameFactory();
 		activate= false;
-		source = new CvFrame ();
-		dest   = new CvFrame ();
+		source = frameFactory.create ();
+		dest   = frameFactory.create ();
 	}
 
 	public Frame getSource(){

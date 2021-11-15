@@ -10,7 +10,7 @@ import userFilters.GrayScaleFilter;
 public class Main 
 {
     public static void main(String[] args) throws IOException{	
-		App app= new App("assets/test.jpg", LibraryOption.OPENCV); 
+		App app= new App("assets/test.jpg", LibraryOption.DEFAULT); 
 		app.addFilterInDataBase("BGR Multiplier", new BlueGreenRedMultiplierFilter());
 		app.addFilterInDataBase("GrayScale", new GrayScaleFilter());
     }

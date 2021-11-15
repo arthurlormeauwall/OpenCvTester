@@ -25,7 +25,7 @@ public class FrameFactory {
 	public Frame create() {
 		switch (libraryOption) {
 		case DEFAULT : 	
-			return new defaultFrame();
+			return new DefaultFrame();
 		case OPENCV:
 			return new CvFrame();	
 		}

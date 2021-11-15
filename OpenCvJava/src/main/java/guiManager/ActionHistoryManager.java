@@ -93,7 +93,6 @@ public class ActionHistoryManager
 			mainWindow.deleteLayerManager(layerController);	
 			frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
 		}
-
 	}
 
 	public void setOpacity(int layerIndex, Float opacity) {	
