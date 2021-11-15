@@ -1,8 +1,10 @@
 package filtersDataBase;
 import java.util.LinkedHashMap;
 
+
 import baseClasses.filter.FilterControlledByFloat;
 import baseClasses.frame.Frame;
+
 
 public class OpacityFilter extends FilterControlledByFloat 
 {
@@ -34,18 +36,18 @@ public class OpacityFilter extends FilterControlledByFloat
 			
 			int NBITMAX = source.getSpecs().bitMax;
 
-			int row = dest.getSpecs().rows;
-			int column =dest.getSpecs().cols;
+			int m_row = dest.getSpecs().rows;
+			int m_column = dest.getSpecs().cols;
 
-			for (int rowCount = 0; rowCount < row; rowCount++)
+			for (int row = 0; row < m_row; row++)
 			{
-				for (int colCount = 0; colCount < column; colCount++)
+				for (int column = 0; column < m_column; column++)
 				{
 					double[] data= new double[3];
 					for (int i = 0; i < 3; i++) {
 						float alpha_pixel = opacity;
-						float background_pixel = (float)(background.getPixelAt(rowCount, colCount)[i]);
-						float source_pixel = (float)(source.getPixelAt(rowCount, colCount)[i]);
+						float background_pixel = (float)(background.getPixelAt(row, column)[i]);
+						float source_pixel = (float)(source.getPixelAt(row, column)[i]);
 
 						int after = (int)   (background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel);
 						if (after > NBITMAX) { after = NBITMAX; }
@@ -79,8 +81,4 @@ public class OpacityFilter extends FilterControlledByFloat
 		
 		return new OpacityFilter();
 	}
-
-
-	
-	
 }

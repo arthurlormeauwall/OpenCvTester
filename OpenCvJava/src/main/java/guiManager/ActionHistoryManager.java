@@ -10,7 +10,6 @@ import baseClasses.filter.FilterControlledByFloat;
 import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
 import renderingEngine.Layer;
-import userFilters.BlueGreenRedMultiplierFilter;
 
 
 
@@ -74,8 +73,8 @@ public class ActionHistoryManager
 		Stack<Id> id= new Stack<Id>();
 		id.push(createFilterId(layerIndex, filterIndex));
 		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
-		FilterManager newLayerController = new FilterManager(newFilter, this);
 		
+		FilterManager newLayerController = new FilterManager(newFilter, this);
 		mainWindow.addFilterWidgetInLayerWidget(newLayerController);	
 		frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());
 	}

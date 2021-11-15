@@ -74,11 +74,13 @@ public class LayerWindow  extends JFrame
 		    });
 		 delButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	  int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-2;
-		    	  FilterManager filterToDel= LayerWindow.this.layerManager.getFilterController(indexOfFitlerToDel);
-		    	  filterToDel.getFilterWidget().setVisible(false);
-		    	  LayerWindow.this.pack();
-		    	  LayerWindow.this.actionHistoryManager.delFilterInLayer(filterToDel);
+			    	int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-2;
+					if(indexOfFitlerToDel>=0) {
+						FilterManager filterToDel= LayerWindow.this.layerManager.getFilterController(indexOfFitlerToDel);
+						filterToDel.getFilterWidget().setVisible(false);
+						 LayerWindow.this.pack();
+						 LayerWindow.this.actionHistoryManager.delFilterInLayer(filterToDel);
+					}	 
 		      }
 		    });
 		 

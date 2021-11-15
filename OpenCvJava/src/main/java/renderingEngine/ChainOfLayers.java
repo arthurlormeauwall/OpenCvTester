@@ -140,6 +140,8 @@ public class ChainOfLayers extends CompositeFilter
 		stackOfFilterNames.push(filterNames);
 		
 		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).createAndAdd(filterId, stackOfFilterNames);
+		newFilter.activate();
+		((Filter)chainOfFilters.getCommand(filterId.get(0).get()[0])).activate();
 		execute();	
 		return newFilter;
 	}
