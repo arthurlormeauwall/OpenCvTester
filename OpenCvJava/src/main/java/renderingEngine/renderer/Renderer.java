@@ -71,12 +71,13 @@ public abstract class Renderer {
 			Command lastControl =  getLastFilter();
 
 			if (numberOfControls == 1) {
-				((Filter)lastControl).setSource(compositeFilters.getSource());
-				((Filter)lastControl).setDest(compositeFilters.getDest());
+				
+				((Filter)compositeFilters).setSource(((Filter)lastControl).getSource());
+				((Filter)compositeFilters).setDest(((Filter)lastControl).getDest());
 			}
 			else if (numberOfControls >= 2) {
 
-				((Filter)chainOfFilters.get(0)).setSource(compositeFilters.getSource());
+				((Filter)compositeFilters).setSource(((Filter)chainOfFilters.get(0)).getSource());
 				((Filter)chainOfFilters.get(0)).setDest(frames.get(0));
 
 				for (int j = 1; j < numberOfControls - 1; j++) {
@@ -84,6 +85,7 @@ public abstract class Renderer {
 					((Filter)chainOfFilters.get(j)).setDest(frames.get(j));
 				}
 				((Filter)lastControl).setSource(frames.get(lastFrameIndex));
+				
 			}
 		}
 		else {
