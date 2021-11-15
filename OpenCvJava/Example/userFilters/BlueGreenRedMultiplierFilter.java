@@ -10,9 +10,9 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 
 	public void setParameterFlags() {	
 
-		addParameterFlag("BlueMult", 1f, 1f);
-		addParameterFlag("GreenMult", 1f, 1f);
-		addParameterFlag("RedMult", 1f, 1f);
+		addParameterFlag("BlueMult", 0.5f, 1f);
+		addParameterFlag("GreenMult", 0.5f, 1f);
+		addParameterFlag("RedMult", 0.5f, 1f);
 		
 		setFilterName("BGR Multiplier");
 	}
@@ -31,7 +31,7 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 	        int row = source.getSpecs().rows;
 	        int column = source.getSpecs().cols;
 	        int bitMax = source.getSpecs().bitMax;
-
+	        
 	        for (int rowCount = 0; rowCount < row; rowCount++)
 	        {
 	            for (int columnCount = 0; columnCount < column; columnCount++)
@@ -57,7 +57,7 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 	                temp[1]=afterGreen;
 	                temp[2]=afterRed;
 	                
-	                dest.setPixelAt(rowCount, columnCount, temp);
+	               dest.setPixelAt(rowCount, columnCount, temp);   
 	            }
 	        }
 	    }	

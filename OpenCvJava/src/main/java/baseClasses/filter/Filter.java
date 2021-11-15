@@ -4,14 +4,13 @@ package baseClasses.filter;
 import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.Id;
-import baseClasses.IoFrame;
 import baseClasses.frame.CvFrame;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 
 
 
-public abstract class Filter extends Command implements IoFrame, Executable
+public abstract class Filter extends Command implements Executable
 {
 	protected Frame source;
 	protected Frame dest;

@@ -2,14 +2,17 @@ package renderingEngine.renderer;
 
 import java.util.Stack;
 
+import baseClasses.filter.Filter;
 import baseClasses.Command;
 import baseClasses.frame.Frame;
 import renderingEngine.CompositeFilter;
 import renderingEngine.Layer;
+import userFilters.BlueGreenRedMultiplierFilter;
 
 public class ChainOfLayersRenderer extends Renderer {
 
 	private Frame background;
+	
 	public ChainOfLayersRenderer(CompositeFilter compositeFilters, Frame background) {
 		super(compositeFilters);
 		this.background=background;
@@ -18,8 +21,22 @@ public class ChainOfLayersRenderer extends Renderer {
 	public void execute(Stack<Command> chainOfFilters) {
 		dealFrames(chainOfFilters);	
 		dealBackground();	
-		dealFramesInLayers();	
-		render();	
+		dealFramesInLayers();
+		BlueGreenRedMultiplierFilter f=new BlueGreenRedMultiplierFilter();
+		int indexOfLastLayer= getNumberOfFilters()-1;
+		int indexOfLastFilterInLastLayer=((Layer)chainOfFilters.get(indexOfLastLayer)).getNumberOfFilters()-2;
+		if (indexOfLastFilterInLastLayer>=0) {
+			compositeFilters.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
+			f.setSource(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
+			f.setDest(((Layer)chainOfFilters.get(indexOfLastLayer)).getFilter(indexOfLastFilterInLastLayer).getDest());
+			f.execute();
+			
+		}
+		
+		//render();	
+		
+		
+	
 	}
 
 	public void dealBackground(){

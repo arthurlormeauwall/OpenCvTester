@@ -4,7 +4,6 @@ import java.util.Stack;
 
 import baseClasses.Command;
 import baseClasses.Executable;
-import baseClasses.IoFrame;
 import baseClasses.filter.Filter;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
@@ -43,8 +42,7 @@ public abstract class Renderer {
 				}
 				else {
 					frames.get(i-1).copyTo(frames.get(i));
-				}
-				
+				}	
 			}
 		}
 		else if (numberOfFrames > numberOfFilters - 1) {
@@ -55,8 +53,7 @@ public abstract class Renderer {
 						frames.pop();
 					}
 				}
-			}
-			
+			}		
 		}
 		
 
@@ -74,20 +71,19 @@ public abstract class Renderer {
 			Command lastControl =  getLastFilter();
 
 			if (numberOfControls == 1) {
-				((IoFrame)lastControl).setSource(compositeFilters.getSource());
-				((IoFrame)lastControl).setDest(compositeFilters.getDest());
+				((Filter)lastControl).setSource(compositeFilters.getSource());
+				((Filter)lastControl).setDest(compositeFilters.getDest());
 			}
 			else if (numberOfControls >= 2) {
 
-				((IoFrame)chainOfFilters.get(0)).setSource(compositeFilters.getSource());
-				((IoFrame)chainOfFilters.get(0)).setDest(frames.get(0));
+				((Filter)chainOfFilters.get(0)).setSource(compositeFilters.getSource());
+				((Filter)chainOfFilters.get(0)).setDest(frames.get(0));
 
 				for (int j = 1; j < numberOfControls - 1; j++) {
-					((IoFrame)chainOfFilters.get(j)).setSource(frames.get(j - 1));
-					((IoFrame)chainOfFilters.get(j)).setDest(frames.get(j));
+					((Filter)chainOfFilters.get(j)).setSource(frames.get(j - 1));
+					((Filter)chainOfFilters.get(j)).setDest(frames.get(j));
 				}
-				((IoFrame)lastControl).setSource(frames.get(lastFrameIndex));
-				((IoFrame)lastControl).setDest(compositeFilters.getDest());
+				((Filter)lastControl).setSource(frames.get(lastFrameIndex));
 			}
 		}
 		else {

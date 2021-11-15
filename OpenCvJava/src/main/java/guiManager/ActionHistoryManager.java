@@ -10,6 +10,7 @@ import baseClasses.filter.FilterControlledByFloat;
 import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
 import renderingEngine.Layer;
+import userFilters.BlueGreenRedMultiplierFilter;
 
 
 
@@ -25,7 +26,7 @@ public class ActionHistoryManager
 		this.mainWindow=mainWindow;
 		
 		history=new ActionsHistory();
-		frameWindowManager=new FrameWindowManager();	
+		frameWindowManager=new FrameWindowManager();
 		frameWindowManager.refresh(chainOfLayers.getDest().toBufferedImage());	
 	}
 	
