@@ -1,13 +1,10 @@
 package renderingEngine.renderer;
 
 import java.util.Stack;
-
-import baseClasses.filter.Filter;
 import baseClasses.Command;
 import baseClasses.frame.Frame;
 import renderingEngine.CompositeFilter;
 import renderingEngine.Layer;
-import userFilters.BlueGreenRedMultiplierFilter;
 
 public class ChainOfLayersRenderer extends Renderer {
 

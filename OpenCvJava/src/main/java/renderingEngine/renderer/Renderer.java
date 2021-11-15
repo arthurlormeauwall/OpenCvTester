@@ -8,7 +8,6 @@ import baseClasses.filter.Filter;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
 import renderingEngine.CompositeFilter;
-import renderingEngine.Layer;
 
 public abstract class Renderer {
 	

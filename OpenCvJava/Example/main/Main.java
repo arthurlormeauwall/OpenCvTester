@@ -16,8 +16,6 @@ public class Main
 		app.initialize("assets/test.jpg");
 		
 		app.addFilterInDataBase("BGR Multiplier", new BlueGreenRedMultiplierFilter());
-		app.addFilterInDataBase("GrayScale", new GrayScaleFilter());
-		
-		
+		app.addFilterInDataBase("GrayScale", new GrayScaleFilter());	
     }
 }

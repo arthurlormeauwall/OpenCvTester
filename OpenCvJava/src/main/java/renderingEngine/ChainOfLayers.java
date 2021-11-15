@@ -45,8 +45,6 @@ public class ChainOfLayers extends CompositeFilter
 	}
 
 	public Layer delLayer(Id layerId){
-		
-		
 		Layer newLayer = (Layer)delete(layerId);
 		if (getNumberOfLayers()==1) {
 			((Filter)chainOfFilters.getCommand(0)).activate();		
@@ -117,7 +115,7 @@ public class ChainOfLayers extends CompositeFilter
 			if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==0) {
 				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();	
 			}
-			if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==1) {
+			else if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==1) {
 				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
 				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getFilter(0).activate();		
 			}
