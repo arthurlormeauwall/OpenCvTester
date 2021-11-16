@@ -15,9 +15,11 @@ import renderingEngine.renderer.ChainOfLayersRenderer;
 public class ChainOfLayers extends CompositeFilter
 {
 	protected Frame background;
+	protected LayersFactory layersFactory;
 		
 	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id) {
 		super(dbControls, id);
+		layersFactory=new LayersFactory(background, source, dest, filtersDataBase);
 		groupID=GroupsId.LAYER;
 		this.background = background;
 		renderer=new ChainOfLayersRenderer(this, background);
@@ -25,7 +27,7 @@ public class ChainOfLayers extends CompositeFilter
 	
 	
 	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {
-		Layer newLayer = (Layer)create(filterId, filterNames);
+		Layer newLayer = (Layer)createLayer(filterId, filterNames);
 		return newLayer;
 	}
 	
@@ -128,9 +130,7 @@ public class ChainOfLayers extends CompositeFilter
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
 			
 			adjustControlToSet.setParameter(parameters);
-			
 			activateFilter(id);
-			
 			execute();
 		}
 	} 
@@ -140,9 +140,7 @@ public class ChainOfLayers extends CompositeFilter
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
 		
 			adjustControlToSet.setParameters(name, value);
-			
 			activateFilter(id);
-			
 			execute();
 		}
 		
@@ -150,13 +148,12 @@ public class ChainOfLayers extends CompositeFilter
 	
 	public void setBypass(Id id, Boolean bypass){
 		
-		if ( getNumberOfLayers()>id.layerIndex() && ((Layer)chainOfFilters.getCommand(id.layerIndex())).getNumberOfFilters() > id.filterIndex()) {
+		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
+	
 			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex()));
 			
 			filterToBypass.bypass(bypass);
-			
-			checkAndActivateLayer(new Id(id.layerIndex(), id.filterIndex()));
-			
+			checkAndActivateLayer(new Id(id.layerIndex(), id.filterIndex()));			
 			execute();
 		}
 	}    
@@ -203,33 +200,10 @@ public class ChainOfLayers extends CompositeFilter
 				activateFilter(new Id(id.layerIndex(),id.filterIndex()));	
 			}
 		}
-	}
-	
+	}	
 	
 	protected Filter create(Stack<Id> filterId, Stack<String> filterName){
-		Layer layer = new Layer(filtersDataBase, filterId.get(0));
-		layer.init(background, source, dest);
-		
-		if (filterName!=null) {
-			int numberOfFilterToAdd = filterName.size();
-
-			for (int i = 0; i < numberOfFilterToAdd; i++) {		
-				layer.createAndAdd(filterIds(filterId, i), filterNames(filterName,i));
-			}
-		}
-		
-		return layer;
-	}
-	
-	public Stack<Id> filterIds(Stack<Id> id, int index){
-		Stack<Id> temp=new Stack<Id>();
-		temp.push(id.get(index + 1));
-		return temp;
-	}
-	public Stack<String> filterNames(Stack<String> names, int index){
-		Stack<String> temp=new Stack<String>();
-		temp.push(names.get(index));
-		return temp;
+		return layersFactory.createLayer(filterId, filterName);	
 	}
 	
 	public void execute() {
