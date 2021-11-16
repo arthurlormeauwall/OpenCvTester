@@ -91,4 +91,13 @@ public class Layer extends CompositeFilter
 	public Filter getLastFilter() {
 		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-2);
 	}
+
+	public Boolean hasFilter() {
+		if (getNumberOfFilters()==0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }

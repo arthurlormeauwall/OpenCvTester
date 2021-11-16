@@ -24,6 +24,10 @@ public abstract class FilterControlledBy<T> extends Filter
 		id.setControlOrLayer(groupDeepnessIndex, newValue);
 	}
 	
+	public void bypass(Boolean bypass){
+		setBypass(bypass);
+	}
+	
 	public void setNames(String name) {
 		flags.filterName = name;
 	}

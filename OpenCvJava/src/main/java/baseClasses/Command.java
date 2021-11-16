@@ -30,7 +30,7 @@ public abstract class Command
     	id.setControlOrLayer(groupDeepnessIndex, newValue);
     }
     
-    public Boolean getBypassState () {
+    public Boolean isbypass () {
     	return isBypass;
     }
     

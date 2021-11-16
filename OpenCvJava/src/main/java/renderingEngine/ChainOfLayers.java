@@ -32,26 +32,21 @@ public class ChainOfLayers extends CompositeFilter
 	public Layer addLayer(Stack<Id> FilterId, Stack<String> filterNames){
 		
 		Layer newLayer = (Layer)createAndAdd(FilterId, filterNames);
-		newLayer.activate();
+		checkAndActivateLayer(newLayer.getId());
 		execute();
 		return newLayer;
 	}
 	
 	public Layer addLayer(Layer layer) {
 		add(layer);
-		layer.activate();
+		checkAndActivateLayer(layer.getId());
 		execute();
 		return layer;
 	}
 
 	public Layer delLayer(Id layerId){
 		Layer newLayer = (Layer)delete(layerId);
-		if (getNumberOfLayers()==1) {
-			((Filter)chainOfFilters.getCommand(0)).activate();		
-		}
-		else if (getNumberOfLayers()>1) {
-			((Filter)chainOfFilters.getCommand(layerId.get()[0]-1)).activate();
-		}
+		checkAndActivateLayer(new Id(layerId.layerIndex()-1, 0));
 		execute();
 		return newLayer;		
 	}  
@@ -61,12 +56,7 @@ public class ChainOfLayers extends CompositeFilter
 		Id layerId=layer.getId();
 		Layer newLayer = (Layer)delete(layerId);
 		
-		if (getNumberOfLayers()==1) {
-			((Filter)chainOfFilters.getCommand(0)).activate();		
-		}
-		else if (getNumberOfLayers()>1) {
-			((Filter)chainOfFilters.getCommand(layerId.get()[0]-1)).activate();
-		}
+		checkAndActivateLayer(new Id(layer.getId().layerIndex()-1, 0));
 		
 		execute();
 		return newLayer;		
@@ -79,27 +69,18 @@ public class ChainOfLayers extends CompositeFilter
 	}
 	
 	public Filter addFilterInLayer(Filter filter) {
-		
-		filter.activate();
-		((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
 		((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).add(filter);
+		activateFilter(filter.getId());
 		execute();	
 		return filter;
 	}
 	
 	public Filter delFilterInLayer(Id filterId){
-		if (getNumberOfLayers()> filterId.get()[0]) {
+		if (getNumberOfLayers()> filterId.layerIndex()) {
 			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filterId.get()[0])).delete(filterId);
 			
-			if (((Layer)chainOfFilters.getCommand(filterId.get()[0])).getNumberOfFilters()<2) {
-				((Layer)chainOfFilters.getCommand(filterId.get()[0])).activate();
-				((Layer)chainOfFilters.getCommand(filterId.get()[0])).getFilter(0).activate();		
-			}
-			else {
-				((Layer)chainOfFilters.getCommand(filterId.get()[0])).activate();
-				((Layer)chainOfFilters.getCommand(filterId.get()[0])).getFilter(filterId.get()[1]-1).activate();
-			}
-			
+			checkAndActivateLayer(new Id(filterId.layerIndex(), filterId.filterIndex()-1));
+	
 			execute();
 			return erasedFilter;
 		}
@@ -112,19 +93,8 @@ public class ChainOfLayers extends CompositeFilter
 		if (getNumberOfLayers()> filter.getId().get()[0]) {
 			
 			
-			if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==0) {
-				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();	
-			}
-			else if (((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getNumberOfFilters()-1==1) {
-				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
-				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getFilter(0).activate();		
-			}
-			else {
-				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).activate();
-				((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).getFilter(filter.getId().get()[1]-1).activate();
-			}
-			
 			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).delete(filter.getId());
+			checkAndActivateLayer(new Id(filter.getId().layerIndex(), filter.getId().filterIndex()-1));
 			execute();
 			return erasedFilter;
 		}
@@ -138,67 +108,104 @@ public class ChainOfLayers extends CompositeFilter
 		stackOfFilterNames.push(filterNames);
 		
 		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).createAndAdd(filterId, stackOfFilterNames);
-		newFilter.activate();
-		((Filter)chainOfFilters.getCommand(filterId.get(0).get()[0])).activate();
+		
+		activateFilter(filterId.get(0));
+
 		execute();	
 		return newFilter;
 	}
 
 	public void setOpacity(int layerIndex, Float opacity){
 		if (getNumberOfLayers() >layerIndex) {
-			((Layer)chainOfFilters.getCommand(layerIndex)).activate();
 			((Layer)chainOfFilters.getCommand(layerIndex)).setOpacity(opacity);
+			checkAndActivateLayer(new Id(layerIndex, 0));
 			execute();
 		}
 	}  
 	
-	public void setParameters(Id ControlId, LinkedHashMap<String,Float> parameters){
-		int layerIndex = ControlId.get()[0];
-		int controlIndex = ControlId.get()[1];
-		if (getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > controlIndex) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex);
+	public void setParameters(Id id, LinkedHashMap<String,Float> parameters){
+		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
+			
 			adjustControlToSet.setParameter(parameters);
+			
+			activateFilter(id);
+			
 			execute();
 		}
 	} 
 	
 	public void setParameters(Id id, String name, Float value) {
-		int layerIndex = id.get()[0];
-		int filterIndex = id.get()[1];
+		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
+			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
 		
-		if (areIndexOutOfRange(layerIndex, filterIndex)) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(filterIndex);
 			adjustControlToSet.setParameter(name, value);
-			((Filter)chainOfFilters.getCommand(layerIndex)).activate();
-
-			activateNextFilterInNextLayer(layerIndex);
+			
+			activateFilter(id);
+			
 			execute();
 		}
 		
 	}
 	
-	public Boolean areIndexOutOfRange(int layerIndex, int filterIndex) {
+	public void setBypass(Id id, Boolean bypass){
+		
+		if ( getNumberOfLayers()>id.layerIndex() && ((Layer)chainOfFilters.getCommand(id.layerIndex())).getNumberOfFilters() > id.filterIndex()) {
+			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex()));
+			
+			filterToBypass.bypass(bypass);
+			
+			activateFilter(id);
+			
+			execute();
+		}
+	}    
+	
+	
+	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
 		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > filterIndex;
 	}
 	
-	public void activateNextFilterInNextLayer(int layerIndex) {
-		if (((Layer)chainOfFilters.getCommand(layerIndex+1))!=null) {
-			if  (((Layer)chainOfFilters.getCommand(layerIndex+1)).getNumberOfFilters()>0) {
-				((Layer)chainOfFilters.getCommand(layerIndex+1)).getFilter(0).activate();
+	public void activateFilter(Id id) {
+		((Layer)chainOfFilters.getCommand(id.layerIndex())).activate();
+		
+		if (((Layer)chainOfFilters.getCommand(id.layerIndex())).getFilter(id.filterIndex())!=null) {
+			((Layer)chainOfFilters.getCommand(id.layerIndex())).getFilter(id.filterIndex()).activate();
+		}
+
+		if (((Layer)chainOfFilters.getCommand(id.layerIndex()+1))!=null) {
+			if  (((Layer)chainOfFilters.getCommand(id.layerIndex()+1)).getNumberOfFilters()>0) {
+				((Layer)chainOfFilters.getCommand(id.layerIndex()+1)).getFilter(0).activate();
 			}
 		}
 	}
 	
-	public void setBypass(Id ControlId, Boolean p){
-		int layerIndex = ControlId.get()[0];
-		int controlIndex = ControlId.get()[1];
-	
-		if ( getNumberOfLayers()>layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters() > controlIndex) {
-			FilterControlledByFloat temp = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).get(controlIndex));
-			temp.setBypass(p);
-			execute();
+	public void checkAndActivateLayer (Id id) {	
+		if(getNumberOfLayers()!=0) {
+			if (id.layerIndex()<=0){
+				activateLayer(new Id(0,0));
+			}
+			else {
+				activateLayer(id);
+			}
 		}
-	}    
+	}
+	
+	public void activateLayer(Id id) {
+		Layer layerToActivate=((Layer)chainOfFilters.getCommand(id.layerIndex()));
+		
+		layerToActivate.activate();
+		
+		if (layerToActivate.hasFilter()) {
+			if (layerToActivate.getNumberOfFilters()<2) {
+				activateFilter(new Id(id.layerIndex(),0));	
+			}
+			else if (layerToActivate.getNumberOfFilters()>=2){
+				activateFilter(new Id(id.layerIndex(),id.filterIndex()));	
+			}
+		}
+	}
+	
 	
 	protected Filter create(Stack<Id> filterId, Stack<String> filterName){
 		Layer layer = new Layer(filtersDataBase, filterId.get(0));

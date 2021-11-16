@@ -104,6 +104,8 @@ public class ActionHistoryManager
 	}
 	
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
+		chainOfLayers.setBypass(createFilterId(layerIndex, filterIndex), bypass);
+		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
 	}
 	
 	public void undo() {

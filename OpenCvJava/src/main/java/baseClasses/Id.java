@@ -15,10 +15,11 @@ public class Id
 		set(ids);
 	}
 	
-	public Id(int[] indexs, int group) {
-		id=indexs;
+	public Id(int layerIndex, int filterIndex) {
+		id=new int[2];
+		id[0]=layerIndex;
+		id[1]=filterIndex;
 	}
-	
 	public void initNULL(){
 		id[0]=-1;
 		id[1]=-1;
@@ -28,6 +29,14 @@ public class Id
 		return id;
 	}
 	
+	public int layerIndex(){
+		return id[0];
+	}
+
+	public int filterIndex(){
+		return id[1];
+	}
+
 	public void set(Id id){
 		this.id[0]=id.get()[0];
 		this.id[1]=id.get()[1];
