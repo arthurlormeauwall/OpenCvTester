@@ -23,19 +23,19 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<Frame>
 	}
 	    
 	public LinkedHashMap<String, Frame> getParameter() {
-		return state;
+		return currentParameters;
 	}
 	
 	public void setParameter(LinkedHashMap<String, Frame> frames) {		
 		
 		Boolean framesAreTheSame=true;
-		state=frames;
+		currentParameters=frames;
 		
 		Iterator<Entry<String, Frame>> new_Iterator= frames.entrySet().iterator();
 		
 	    while (new_Iterator.hasNext() && framesAreTheSame == true) {
 	    	HashMap.Entry<String, Frame> frameItem= (HashMap.Entry<String, Frame>) new_Iterator.next();
-	        if (frameItem.getValue().compareTo(state.get(frameItem.getKey()))) {
+	        if (frameItem.getValue().compareTo(currentParameters.get(frameItem.getKey()))) {
 	        	framesAreTheSame=true;
 	        }
 	        else {

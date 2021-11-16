@@ -139,7 +139,7 @@ public class ChainOfLayers extends CompositeFilter
 		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
 			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
 		
-			adjustControlToSet.setParameter(name, value);
+			adjustControlToSet.setParameters(name, value);
 			
 			activateFilter(id);
 			

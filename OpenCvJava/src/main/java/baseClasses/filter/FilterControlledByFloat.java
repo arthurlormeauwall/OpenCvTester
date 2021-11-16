@@ -16,38 +16,38 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		flags.defaultValues= new LinkedHashMap<String, Float>();
 		flags.zeroEffectValues= new LinkedHashMap<String, Float>();
 		flags.numberOfParameters=0;
-		state= new LinkedHashMap<String, Float>();
+		currentParameters= new LinkedHashMap<String, Float>();
 	
 		setParameterFlags();
-		state=(LinkedHashMap<String, Float>)flags.defaultValues.clone();
+		currentParameters=(LinkedHashMap<String, Float>)flags.defaultValues.clone();
 	}
 	
 	public abstract FilterControlledByFloat createNew();
 	public abstract void setParameterFlags();
 
 	public Float getParameter(String name) {
-		return state.get(name);
+		return currentParameters.get(name);
 	}
 	
 	public LinkedHashMap<String, Float> getParameters() {
-		return state;
+		return currentParameters;
 	}
 	
 	public void setParameter(LinkedHashMap<String, Float> parameter) {
 		
-		state=parameter;
+		currentParameters=parameter;
 		
 		if (parameter==flags.zeroEffectValues) {
 			isBypass=true;
 		}
 	}
 	
-	public void setParameter(String name, Float parameterValue) {		
-		state.put(name, parameterValue);
+	public void setParameters(String name, Float parameterValue) {		
+		currentParameters.put(name, parameterValue);
 	}
 	
-	public void setParameter(String name, Integer value) {
-		state.put(name, value.floatValue());
+	public void setParameters(String name, Integer value) {
+		currentParameters.put(name, value.floatValue());
 	}	
 	
 	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue) {

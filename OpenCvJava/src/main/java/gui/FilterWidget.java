@@ -77,7 +77,7 @@ public class FilterWidget extends JPanel
 	}
 
 	public void setParameters(String name, Integer value) {
-		sourceFilter.setParameter(name, value.floatValue());	
+		sourceFilter.setParameters(name, value.floatValue());	
 	}
 	
 	public FilterControlledByFloat getFilter() {

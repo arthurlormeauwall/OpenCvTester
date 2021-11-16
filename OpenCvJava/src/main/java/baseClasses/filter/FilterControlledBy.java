@@ -6,7 +6,7 @@ import filtersDataBase.FilterFlags;
 
 public abstract class FilterControlledBy<T> extends Filter
 {
-	protected LinkedHashMap<String, T> state;
+	protected LinkedHashMap<String, T> currentParameters;
 	protected FilterFlags<T> flags;
 	
 	public FilterControlledBy() {
