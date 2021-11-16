@@ -88,7 +88,7 @@ public class Layer extends CompositeFilter
 		return newMaskedLayer;
 	}
 
-	public Filter getLastFilter() {
+	public Filter getLastLayer() {
 		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-1);
 	}
 

@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import guiManager.ActionHistoryManager;
+import guiManager.GuiManager;
 import guiManager.LayerManager;
 
 public class LayerWidget extends JPanel 
@@ -21,7 +21,7 @@ public class LayerWidget extends JPanel
 	
 	private static final long serialVersionUID = 1L;
 	
-	public LayerWidget (LayerManager layerController, ActionHistoryManager actionHistoryManager){
+	public LayerWidget (LayerManager layerController, GuiManager actionHistoryManager){
 		this.layerController=layerController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		

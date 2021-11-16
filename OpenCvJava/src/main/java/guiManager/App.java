@@ -14,7 +14,7 @@ import renderingEngine.ChainOfLayers;
 
 public class App
 {
-	private ActionHistoryManager guiManager;
+	private GuiManager guiManager;
 	private MainWindow mainWindow;
 	private Frame source;
 	private Frame background;
@@ -34,7 +34,7 @@ public class App
 	}
 	
 	public void initialize(String fileName) throws IOException {
-		guiManager= new ActionHistoryManager(chainOfLayersInitializer(fileName), mainWindow);
+		guiManager= new GuiManager(chainOfLayersInitializer(fileName));
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
 	}

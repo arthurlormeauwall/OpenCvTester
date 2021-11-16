@@ -1,5 +1,7 @@
 package guiManager;
 
+import java.util.LinkedHashMap;
+
 import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
@@ -12,7 +14,7 @@ public class FilterManager extends Command {
 	protected Id id;
 	protected FilterWidget filterWidget;
 	
-	public FilterManager(FilterControlledByFloat filter, ActionHistoryManager guiManager){
+	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){
 		this.filter=filter;
 		this.id=filter.getId();
 		filterWidget=new FilterWidget(filter, guiManager);
@@ -34,4 +36,11 @@ public class FilterManager extends Command {
 		return filterWidget;
 	}
 
+	public void setEmitSignal(Boolean emitSignal) {
+		filterWidget.setEmitSignal(emitSignal);	
+	}
+
+	public void updateParameterValues(LinkedHashMap<String, Float> parameters) {
+		filterWidget.updateParameterValues(parameters);	
+	}
 }

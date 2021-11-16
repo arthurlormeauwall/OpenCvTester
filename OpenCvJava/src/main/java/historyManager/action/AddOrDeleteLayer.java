@@ -1,4 +1,4 @@
-package actions;
+package historyManager.action;
 
 
 import guiManager.ChainOfLayerManagers;
@@ -36,5 +36,15 @@ public class AddOrDeleteLayer implements Action {
 			chainOfLayers.delLayer(layerManager.getLayer());
 			chainOfLayerManager.deleteLayerManager(layerManager);
 		}	
+	}
+	
+	public void setAddOrDelete(Functionalities addOrDelete) {
+		this.addOrDelete=addOrDelete;
+	}
+	
+	public Action clone() {
+		AddOrDeleteLayer newAction = new AddOrDeleteLayer(chainOfLayers, chainOfLayerManager, layerManager);
+		newAction.setAddOrDelete(addOrDelete);
+		return newAction;
 	}
 }

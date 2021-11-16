@@ -3,26 +3,27 @@ package guiManager;
 import java.io.IOException;
 import java.util.Stack;
 
-import actionsHistory.ActionsHistory;
 import baseClasses.Id;
+import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
 import gui.MainWindow;
+import historyManager.HystoryManager;
+import historyManager.action.SetParameters;
 import renderingEngine.ChainOfLayers;
 import renderingEngine.Layer;
 
 
-public class ActionHistoryManager 
+public class GuiManager 
 {
-	private ActionsHistory history;
+	private HystoryManager history;
 	private ChainOfLayers chainOfLayers;
 	private MainWindow mainWindow;
 	private FrameWindowManager frameWindowManager;
 	
-	public ActionHistoryManager(ChainOfLayers chainOfLayers, MainWindow mainWindow){
+	public GuiManager(ChainOfLayers chainOfLayers){
 		this.chainOfLayers=chainOfLayers;
-		this.mainWindow=mainWindow;
 		
-		history=new ActionsHistory();
+		history=new HystoryManager();
 		frameWindowManager=new FrameWindowManager();
 		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
 	}
@@ -62,7 +63,7 @@ public class ActionHistoryManager
 		LayerManager newLayerManager= new LayerManager(newLayer, this);
 		newLayerManager.getLayerWindow().setVisible(false);
 		mainWindow.addLayerManager(newLayerManager);
-		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
+		refreshResult();
 		return newLayer;
 	}
 	
@@ -74,14 +75,14 @@ public class ActionHistoryManager
 		
 		FilterManager newLayerController = new FilterManager(newFilter, this);
 		mainWindow.addFilterWidgetInLayerWidget(newLayerController);	
-		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
+		refreshResult();
 	}
 	
 	public void delFilterInLayer(FilterManager filterManagerToDel)  {		
 		if (filterManagerToDel!=null) {
 			chainOfLayers.delFilterInLayer(filterManagerToDel.getFilter());
 			mainWindow.delFilterWidgetInLayerWidget(filterManagerToDel);
-			frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
+			refreshResult();
 		}
 	}
 	
@@ -89,22 +90,30 @@ public class ActionHistoryManager
 		if (layerController!=null) {
 			chainOfLayers.delLayer(layerController.getId());
 			mainWindow.deleteLayerManager(layerController);	
-			frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
+			refreshResult();
 		}
 	}
 
 	public void setOpacity(int layerIndex, Float opacity) {	
 		chainOfLayers.setOpacity(layerIndex, opacity);
-		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());
+		refreshResult();
 	}	
 
 	public void setParameters(Id id, String name, Float value) throws IOException {
-			chainOfLayers.setParameters(id, name, value);	
-			frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
+		chainOfLayers.setParameters(id, name, value);	
+		refreshResult();
+		
+		Filter filter= chainOfLayers.getLayer(id.layerIndex()).getFilter(id.filterIndex());
+		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filter.getId().clone());
+		history.setState(parameter);	
 	}
 	
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
 		chainOfLayers.setBypass(createFilterId(layerIndex, filterIndex), bypass);
+		refreshResult();
+	}
+	
+	public void refreshResult(){
 		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
 	}
 	

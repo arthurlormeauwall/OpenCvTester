@@ -2,7 +2,6 @@ package main;
 
 import java.io.IOException;
 import guiManager.App;
-import guiManager.Library;
 import userFilters.BlueGreenRedMultiplierFilter;
 import userFilters.GrayScaleFilter;
 

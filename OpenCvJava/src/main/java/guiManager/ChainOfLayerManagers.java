@@ -1,8 +1,9 @@
 package guiManager;
 
+import java.util.LinkedHashMap;
+
 import baseClasses.ChainOfCommands;
 import baseClasses.Id;
-import baseClasses.filter.Filter;
 import gui.MainWindow;
 
 public class ChainOfLayerManagers {
@@ -20,7 +21,7 @@ public class ChainOfLayerManagers {
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
-		((LayerManager)layerManagers.getCommand(filterController.getId().layerIndex())).addFilterController(filterController);
+		((LayerManager)layerManagers.getCommand(filterController.getId().layerIndex())).addFilterManager(filterController);
 		gui.updateGui();
 	}
 	
@@ -43,8 +44,8 @@ public class ChainOfLayerManagers {
 		gui.updateOpacityValue(layerIndex,opacity);
 	}
 
-	public void setParameters(Filter filter) {
-		gui.updateParametersValues(filter);
+	public void setParameters(Id id, LinkedHashMap<String, Float> parameters) {
+		gui.updateParametersValues(id, parameters);
 	}
 	
 	public int getNumberOfLayer(){
@@ -58,7 +59,7 @@ public class ChainOfLayerManagers {
 	}
 
 	
-	public LayerManager getLayerController (int i) {
+	public LayerManager getLayerManager (int i) {
 		
 		return (LayerManager)layerManagers.getCommand(i);
 	}

@@ -19,7 +19,6 @@ public class LayersFactory {
 		this.background=background;
 		this.source=source;
 		this.dest=dest;
-	
 		this.filtersDataBase=filtersDataBase;
 	}
 	

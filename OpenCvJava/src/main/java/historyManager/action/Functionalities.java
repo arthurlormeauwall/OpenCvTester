@@ -1,4 +1,4 @@
-package actions;
+package historyManager.action;
 
 public enum Functionalities 
 {	

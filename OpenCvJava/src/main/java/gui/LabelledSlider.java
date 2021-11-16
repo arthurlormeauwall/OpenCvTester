@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.BoxLayout;
@@ -10,24 +12,25 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import baseClasses.filter.FilterControlledByFloat;
-import guiManager.ActionHistoryManager;
+import guiManager.GuiManager;
 
 public class LabelledSlider extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
 	protected JSlider slider;
+	protected int currentValue;
 	protected JLabel  nameWidget;
 	protected FilterControlledByFloat widgetToUpdate;
 	protected JLabel value;
 	protected Boolean emitSignal;
 
-	protected ActionHistoryManager actionHistoryManager;
+	protected GuiManager guiManager;
 	
-	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, ActionHistoryManager actionHistoryManager){
+	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager actionHistoryManager){
 		emitSignal=true;
 		this.widgetToUpdate=widgetToUpdate;
-		this.actionHistoryManager=actionHistoryManager;
+		this.guiManager=actionHistoryManager;
 		slider = new JSlider ();
 		slider.setValue(Math.round(defaultValue*100));
 		slider.setMaximum(200);
@@ -41,6 +44,8 @@ public class LabelledSlider extends JPanel
 		add(value);
 		
 		addListeners();
+		
+		currentValue=slider.getValue();
 	}
 	
 	protected void addListeners() {
@@ -49,11 +54,43 @@ public class LabelledSlider extends JPanel
 			      public void stateChanged(ChangeEvent event)   {
 			    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
 			    	  try {
-						LabelledSlider.this.actionHistoryManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), slider.getValue()*0.01f);
+			    		 currentValue=slider.getValue();
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), slider.getValue()*0.01f);	
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 			      }
+			    });
+			 slider.addMouseListener(new MouseListener() {
+
+				public void mouseClicked(MouseEvent event) {
+					
+					
+				}
+
+				public void mousePressed(MouseEvent event) {
+					 try {
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), currentValue*0.01f);
+						 LabelledSlider.this.guiManager.store();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+				}
+
+				public void mouseReleased(MouseEvent e) {
+				
+					
+				}
+
+				public void mouseEntered(MouseEvent event) {
+					
+					
+				}
+
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
 			    });
 		}		
 		
@@ -61,5 +98,10 @@ public class LabelledSlider extends JPanel
 
 	public void setEmitSignal(Boolean emitSignal) {
 		this.emitSignal=emitSignal;
+	}
+
+	public JSlider getSlider() {
+		
+		return slider;
 	}
 }

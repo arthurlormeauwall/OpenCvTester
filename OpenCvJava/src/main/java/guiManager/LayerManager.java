@@ -11,38 +11,38 @@ import renderingEngine.Layer;
 
 public class LayerManager extends Command
 {
-	protected ChainOfCommands chainOfFilterControllers;
+	protected ChainOfCommands chainOfFilterManager;
 	protected Layer layer;
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
-	protected ActionHistoryManager guiManager;
+	protected GuiManager guiManager;
 	protected GroupsId groupID;
 	
-	public LayerManager(Layer layer, ActionHistoryManager guiManager) {
+	public LayerManager(Layer layer, GuiManager guiManager) {
 		groupID=GroupsId.FILTER;
 		this.layer=layer;
 		this.guiManager=guiManager;
 		this.id.set(layer.getId());
-		chainOfFilterControllers=new ChainOfCommands(layer.getId());
+		chainOfFilterManager=new ChainOfCommands(layer.getId());
 		layerWidget=new LayerWidget(this, this.guiManager);
 		layerWindow=new LayerWindow(this, this.guiManager);		
 	}
 	
-	public FilterManager getFilterController(int index) {
-		return  (FilterManager)chainOfFilterControllers.getCommand(index);
+	public FilterManager getFilterManager(int index) {
+		return  (FilterManager)chainOfFilterManager.getCommand(index);
 	}
 	public FilterManager deleteFilterWidget(Id id) {
-		return (FilterManager)chainOfFilterControllers.delCommand(id,indexType());
+		return (FilterManager)chainOfFilterManager.delCommand(id,indexType());
 	}
 
-	public FilterManager addFilterController(FilterManager newFilterController) {
-		chainOfFilterControllers.addCommand(newFilterController.getId(), newFilterController,indexType());
-		return newFilterController;
+	public FilterManager addFilterManager(FilterManager newFilterManager) {
+		chainOfFilterManager.addCommand(newFilterManager.getId(), newFilterManager,indexType());
+		return newFilterManager;
 	}
-	public FilterManager addFilterController(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
-		FilterManager filterController = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterControllers.addCommand(filterController.getId(), filterController,indexType());
-		return filterController;
+	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
+		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
+		chainOfFilterManager.addCommand(filterManager.getId(), filterManager,indexType());
+		return filterManager;
 	}
 
 	public Layer getLayer() {

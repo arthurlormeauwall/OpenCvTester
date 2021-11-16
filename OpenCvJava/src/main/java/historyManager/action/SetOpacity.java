@@ -1,4 +1,4 @@
-package actions;
+package historyManager.action;
 
 import filtersDataBase.OpacityFilter;
 import guiManager.ChainOfLayerManagers;
@@ -23,6 +23,11 @@ public class SetOpacity implements Action {
 	public void execute() {	
 		chainOfLayers.setOpacity(opacityFilter.getId().layerIndex(), opacityFilter.getOpacity());
 		chainOfLayerManager.setOpacity(opacityFilter.getId().layerIndex(), opacityFilter.getOpacity());
+	}
+	
+	public Action clone() {
+		SetOpacity newAction = new SetOpacity(chainOfLayers, chainOfLayerManager, opacityFilter);
+		return newAction;
 	}
 
 }

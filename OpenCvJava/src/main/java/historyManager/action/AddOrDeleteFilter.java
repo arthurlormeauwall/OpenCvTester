@@ -1,4 +1,4 @@
-package actions;
+package historyManager.action;
 
 
 import guiManager.ChainOfLayerManagers;
@@ -36,6 +36,16 @@ public class AddOrDeleteFilter implements Action {
 			chainOfLayers.delFilterInLayer(filterManager.getFilter());
 			chainOfLayerManager.deFilterWidgetInLayerWidget(filterManager);
 		}	
+	}
+	
+	public void setAddOrDelete(Functionalities addOrDelete) {
+		this.addOrDelete=addOrDelete;
+	}
+	
+	public Action clone() {
+		AddOrDeleteFilter newAction = new AddOrDeleteFilter(chainOfLayers, chainOfLayerManager, filterManager);
+		newAction.setAddOrDelete(addOrDelete);
+		return newAction;
 	}
 
 }

@@ -3,7 +3,6 @@ package renderingEngine;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import baseClasses.Command;
 import baseClasses.Id;
 import baseClasses.filter.Filter;
 import baseClasses.filter.FilterControlledByFloat;
@@ -137,9 +136,9 @@ public class ChainOfLayers extends CompositeFilter
 	
 	public void setParameters(Id id, String name, Float value) {
 		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
-			FilterControlledByFloat adjustControlToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
+			FilterControlledByFloat filterToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
 		
-			adjustControlToSet.setParameters(name, value);
+			filterToSet.setParameters(name, value);
 			activateFilter(id);
 			execute();
 		}
@@ -214,9 +213,13 @@ public class ChainOfLayers extends CompositeFilter
 		return filtersDataBase;
 	}
 	
-	public Command getLastFilter(){
-		return chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
+	public Layer getLastLayer(){
+		return (Layer)chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
 	}   
+	
+	public Layer getLayer(int layerIndex) {
+		return (Layer)chainOfFilters.getCommand(layerIndex);
+	}
 	
 	public int getNumberOfLayers() {
 		return chainOfFilters.getSize();
