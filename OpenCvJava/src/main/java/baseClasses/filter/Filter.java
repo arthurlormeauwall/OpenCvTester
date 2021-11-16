@@ -1,12 +1,10 @@
 package baseClasses.filter;
 
-
 import baseClasses.Command;
 import baseClasses.Executable;
 import baseClasses.Id;
 import baseClasses.frame.Frame;
 import baseClasses.frame.FrameFactory;
-
 
 
 public abstract class Filter extends Command implements Executable
@@ -58,6 +56,4 @@ public abstract class Filter extends Command implements Executable
 	public void activate() {
 		activate=true;		
 	}
-
-
 }

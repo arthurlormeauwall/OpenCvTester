@@ -50,5 +50,4 @@ public class CvFrame extends DefaultFrame
 	public Frame create() {
 		return new CvFrame();
 	}
-
 }

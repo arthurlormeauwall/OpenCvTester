@@ -17,7 +17,7 @@ public class OpacitySlider extends LabelledSlider {
 	}
 	
 	@Override
-	protected void addListener() {
+	protected void addListeners() {
 		if (emitSignal) {
 			 slider.addChangeListener(new ChangeListener() {
 			      public void stateChanged(ChangeEvent event)   {

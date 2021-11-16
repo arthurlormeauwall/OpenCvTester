@@ -37,5 +37,4 @@ public class AddOrDeleteLayer implements Action {
 			chainOfLayerManager.deleteLayerManager(layerManager);
 		}	
 	}
-
 }

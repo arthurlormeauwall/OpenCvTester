@@ -17,7 +17,6 @@ public class Id
 	
 	public Id(int[] indexs, int group) {
 		id=indexs;
-	
 	}
 	
 	public void initNULL(){

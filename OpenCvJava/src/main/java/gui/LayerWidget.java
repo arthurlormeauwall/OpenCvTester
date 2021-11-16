@@ -17,6 +17,7 @@ import guiManager.LayerManager;
 public class LayerWidget extends JPanel 
 {
 	LayerManager layerController;
+	JButton layerButton;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +27,7 @@ public class LayerWidget extends JPanel
 		
 		JPanel titlePanel= new JPanel();
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
-		JButton layerButton= new JButton("Layer");
+		layerButton= new JButton("Layer");
 		titlePanel.add(layerButton);
 		add(titlePanel);
 		
@@ -40,13 +41,15 @@ public class LayerWidget extends JPanel
 	    Border blackline = BorderFactory.createLineBorder(Color.black);
 	    setBorder(blackline); 
 	    
-	    layerButton.addActionListener(new ActionListener() {
+	    addListeners();
+	   
+	}
+	
+	public void addListeners() {
+		 layerButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	  LayerWidget.this.layerController.getLayerWindow().setVisible(true);    	
 		      }
-		    });
+		    });	
 	}
-
-
-
 }

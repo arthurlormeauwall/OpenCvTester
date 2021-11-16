@@ -39,8 +39,7 @@ public class FiltersDataBase
 	    while (new_Iterator.hasNext()) {
 	    	HashMap.Entry<String, FilterControlledByFloat> filterItem= (HashMap.Entry<String, FilterControlledByFloat>) new_Iterator.next();
 	    	filtersName.push(filterItem.getKey());
-	    }
-	    
+	    }    
 	    return filtersName;
 	}
 }

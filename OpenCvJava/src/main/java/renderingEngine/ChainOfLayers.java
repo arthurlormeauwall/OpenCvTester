@@ -200,26 +200,31 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}    
 	
-	protected Filter create(Stack<Id> controlId, Stack<String> controlName){
-		Layer layer = new Layer(filtersDataBase, controlId.get(0));
+	protected Filter create(Stack<Id> filterId, Stack<String> filterName){
+		Layer layer = new Layer(filtersDataBase, filterId.get(0));
 		layer.init(background, source, dest);
 		
-		if (controlName!=null) {
-			int numberOfControlToAdd = controlName.size();
+		if (filterName!=null) {
+			int numberOfFilterToAdd = filterName.size();
 
-			for (int i = 0; i < numberOfControlToAdd; i++) {
-				Stack<Id> temp=new Stack<Id>();
-				Stack<String> temp2=new Stack<String>();
-				
-				temp.push(controlId.get(i + 1));
-				temp2.push(controlName.get(i));
-				
-				layer.createAndAdd(temp, temp2);
+			for (int i = 0; i < numberOfFilterToAdd; i++) {		
+				layer.createAndAdd(filterIds(filterId, i), filterNames(filterName,i));
 			}
 		}
 		
 		return layer;
-	} 
+	}
+	
+	public Stack<Id> filterIds(Stack<Id> id, int index){
+		Stack<Id> temp=new Stack<Id>();
+		temp.push(id.get(index + 1));
+		return temp;
+	}
+	public Stack<String> filterNames(Stack<String> names, int index){
+		Stack<String> temp=new Stack<String>();
+		temp.push(names.get(index));
+		return temp;
+	}
 	
 	public void execute() {
 		renderer.execute(chainOfFilters.getChain());

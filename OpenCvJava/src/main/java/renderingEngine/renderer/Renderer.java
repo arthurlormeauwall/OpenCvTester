@@ -96,9 +96,9 @@ public abstract class Renderer {
 	public void render() {
 		Boolean checkIfActivate=true;
 		
-		int size = chainOfFilters.size();
+		int numberOfFilters = chainOfFilters.size();
 		
-		for (int i =0; i < size; i++) {
+		for (int i =0; i < numberOfFilters; i++) {
 			if (checkIfActivate) {
 				if (chainOfFilters.get(i).isActivate())
 				{

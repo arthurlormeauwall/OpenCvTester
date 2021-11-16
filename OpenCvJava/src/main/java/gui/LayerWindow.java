@@ -22,7 +22,12 @@ public class LayerWindow  extends JFrame
 	private JPanel filterPanel;
 	private ActionHistoryManager actionHistoryManager;
 	private JList<String> filtersList;
-	
+    
+	protected JButton addButton;
+	protected JButton delButton;
+	protected JButton undoButton;
+	protected JButton redoButton;
+ 	
 	public LayerWindow (LayerManager layerController, ActionHistoryManager actionHistoryManager){
 		super("Layer");
 		this.actionHistoryManager=actionHistoryManager;
@@ -40,10 +45,10 @@ public class LayerWindow  extends JFrame
 		add(buttonPanel);
 		add(filterPanel);
 		
-		JButton addButton = new JButton("AddFilter");
-		JButton delButton = new JButton("delFilter");
-		JButton undoButton = new JButton("Undo");
-		JButton redoButton = new JButton("Redo");
+		addButton = new JButton("AddFilter");
+		delButton = new JButton("delFilter");
+		undoButton = new JButton("Undo");
+		redoButton = new JButton("Redo");
 		buttonPanel.add(addButton);
 		buttonPanel.add(delButton);
 		buttonPanel.add(undoButton);
@@ -54,7 +59,18 @@ public class LayerWindow  extends JFrame
 		filtersList.clearSelection();
 		buttonPanel.add(filtersList);
 		
+		addListeners();
 		
+		
+		
+		
+		 this.pack();
+		updateGui();
+		
+		this.setVisible(true);
+	}
+	
+	public void addListeners() {
 		undoButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	
@@ -102,12 +118,6 @@ public class LayerWindow  extends JFrame
 		
 				}
 		    });
-		
-		
-		 this.pack();
-		updateGui();
-		
-		this.setVisible(true);
 	}
 
 	public void updateGui() {
@@ -118,8 +128,7 @@ public class LayerWindow  extends JFrame
 			filterPanel.add(layerManager.getFilterController(i).getFilterWidget());
 		}
 		
-		this.pack();
-		
+		this.pack();		
 	}
 
 }

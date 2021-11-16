@@ -72,6 +72,4 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
 	}
-
-	
 }

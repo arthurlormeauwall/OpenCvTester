@@ -40,11 +40,10 @@ public class LabelledSlider extends JPanel
 		add(slider);
 		add(value);
 		
-		addListener();
-
+		addListeners();
 	}
 	
-	protected void addListener() {
+	protected void addListeners() {
 		if (emitSignal) {
 			 slider.addChangeListener(new ChangeListener() {
 			      public void stateChanged(ChangeEvent event)   {

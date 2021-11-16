@@ -26,6 +26,10 @@ public class MainWindow extends JFrame
 	protected ChainOfLayerManagers chainOfLayerManager;
 	protected ActionHistoryManager actionHistoryManager;
 	protected JPanel layerPanel;
+	protected JButton addButton; 
+	protected JButton delButton; 
+	protected JButton undoButton;
+	protected JButton redoButton;  
 	
 	public MainWindow(ActionHistoryManager actionHistoryManager) {
 		super("OpenCV tester");
@@ -43,15 +47,22 @@ public class MainWindow extends JFrame
 		add(buttonPanel);
 		add(layerPanel);
 		
-		JButton addButton = new JButton("AddLayer");
-		JButton delButton = new JButton("dellayer");
-		JButton undoButton = new JButton("Undo");
-		JButton redoButton = new JButton("Redo");
+		addButton = new JButton("AddLayer");
+		delButton = new JButton("dellayer");
+		undoButton = new JButton("Undo");
+		redoButton = new JButton("Redo");
 		buttonPanel.add(addButton);
 		buttonPanel.add(delButton);
 		buttonPanel.add(undoButton);
 		buttonPanel.add(redoButton);
 		
+		addListeners();
+		 
+		this.pack();
+		this.setVisible(true);
+	}
+	
+	public void addListeners() {
 		 undoButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	
@@ -75,9 +86,6 @@ public class MainWindow extends JFrame
 		    	  MainWindow.this.actionHistoryManager.deleteLayerManager(chainOfLayerManager.getLayerController(chainOfLayerManager.getNumberOfLayer()-1));	    	
 		      }
 		    });
-		 
-		this.pack();
-		this.setVisible(true);
 	}
 
 	public void addFilterWidgetInLayerWidget(FilterManager filterController) {

@@ -11,7 +11,6 @@ public class FrameFactory {
 		frameType.put("Default", new DefaultFrame());
 	}
 	
-	
 	@SuppressWarnings("static-access")
 	public void setFrameType(String libraryOption) {
 		if (!hasBeenInit) {
@@ -20,7 +19,6 @@ public class FrameFactory {
 		}
 	}
 	
-	@SuppressWarnings("static-access")
 	public void putNewFrameType(String libraryOption, Frame newType) {
 		FrameFactory.frameType.put(libraryOption, newType);
 	}
@@ -32,6 +30,5 @@ public class FrameFactory {
 		else {
 			return FrameFactory.frameType.get(libraryOption).create();
 		}
-	
 	}
 }

@@ -3,14 +3,12 @@ package guiManager;
 import java.io.IOException;
 import java.util.Stack;
 
-
 import actionsHistory.ActionsHistory;
 import baseClasses.Id;
 import baseClasses.filter.FilterControlledByFloat;
 import gui.MainWindow;
 import renderingEngine.ChainOfLayers;
 import renderingEngine.Layer;
-
 
 
 public class ActionHistoryManager 
@@ -117,6 +115,7 @@ public class ActionHistoryManager
 	}
 	
 	public void store() {	
+		history.store();
 	}
 
 	public Stack<String> getFiltersName() {
