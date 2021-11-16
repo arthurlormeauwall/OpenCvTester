@@ -8,7 +8,6 @@ import baseClasses.filter.FilterControlledByFloat;
 import guiManager.ChainOfLayerManagers;
 import guiManager.GuiManager;
 import renderingEngine.ChainOfLayers;
-import renderingEngine.Layer;
 
 public class SetParameters implements Action {
 
