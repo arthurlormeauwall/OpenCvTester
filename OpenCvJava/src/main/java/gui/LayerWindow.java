@@ -23,10 +23,10 @@ public class LayerWindow  extends JFrame
 	private ActionHistoryManager actionHistoryManager;
 	private JList<String> filtersList;
     
-	protected JButton addButton;
-	protected JButton delButton;
-	protected JButton undoButton;
-	protected JButton redoButton;
+	private JButton addButton;
+	private JButton delButton;
+	private JButton undoButton;
+	private JButton redoButton;
  	
 	public LayerWindow (LayerManager layerController, ActionHistoryManager actionHistoryManager){
 		super("Layer");
@@ -60,9 +60,6 @@ public class LayerWindow  extends JFrame
 		buttonPanel.add(filtersList);
 		
 		addListeners();
-		
-		
-		
 		
 		 this.pack();
 		updateGui();

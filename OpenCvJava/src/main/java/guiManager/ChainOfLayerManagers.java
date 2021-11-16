@@ -9,7 +9,7 @@ public class ChainOfLayerManagers {
 	
 	private ChainOfCommands layerManagers;
 	private MainWindow gui;
-	protected GroupsId groupID;
+	private GroupsId groupID;
 	
 	public ChainOfLayerManagers (MainWindow gui){	
 		Id chainId = new Id();

@@ -16,9 +16,9 @@ public class App
 {
 	private ActionHistoryManager guiManager;
 	private MainWindow mainWindow;
-	protected Frame source;
-	protected Frame background;
-	protected Frame dest;
+	private Frame source;
+	private Frame background;
+	private Frame dest;
 	private FrameFactory frameFactory;
 
 	

@@ -16,8 +16,8 @@ import guiManager.LayerManager;
 
 public class LayerWidget extends JPanel 
 {
-	LayerManager layerController;
-	JButton layerButton;
+	private LayerManager layerController;
+	private JButton layerButton;
 	
 	private static final long serialVersionUID = 1L;
 	

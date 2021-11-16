@@ -23,13 +23,13 @@ public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	protected ChainOfLayerManagers chainOfLayerManager;
-	protected ActionHistoryManager actionHistoryManager;
-	protected JPanel layerPanel;
-	protected JButton addButton; 
-	protected JButton delButton; 
-	protected JButton undoButton;
-	protected JButton redoButton;  
+	private ChainOfLayerManagers chainOfLayerManager;
+	private ActionHistoryManager actionHistoryManager;
+	private JPanel layerPanel;
+	private JButton addButton; 
+	private JButton delButton; 
+	private JButton undoButton;
+	private JButton redoButton;  
 	
 	public MainWindow(ActionHistoryManager actionHistoryManager) {
 		super("OpenCV tester");

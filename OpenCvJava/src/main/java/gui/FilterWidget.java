@@ -18,8 +18,9 @@ import guiManager.ActionHistoryManager;
 
 public class FilterWidget extends JPanel
 {
-	HashMap<String, LabelledSlider> sliders;
-	FilterControlledByFloat sourceFilter;
+	private HashMap<String, LabelledSlider> sliders;
+	private FilterControlledByFloat sourceFilter;
+	private JCheckBox bypass;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +32,8 @@ public class FilterWidget extends JPanel
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
 		JLabel filterName= new JLabel(sourceFilter.getFilterName());
 		titlePanel.add(filterName);
-		titlePanel.add(new JCheckBox("Bypass", false));
+		bypass= new JCheckBox("Bypass", false);
+		titlePanel.add(bypass);
 		add(titlePanel);
 		
 		JPanel insidePanel = new JPanel();
@@ -49,6 +51,12 @@ public class FilterWidget extends JPanel
 	    
 	    Border blackline = BorderFactory.createLineBorder(Color.black);
 	    setBorder(blackline); 
+	    
+	    addListeneres();
+	}
+	
+	public void addListeneres() {
+		
 	}
 
 	public void setParameters(String name, Integer value) {
