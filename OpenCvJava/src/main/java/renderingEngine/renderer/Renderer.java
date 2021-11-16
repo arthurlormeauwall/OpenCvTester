@@ -25,11 +25,11 @@ public abstract class Renderer {
 	
 	public abstract void execute(Stack<Command> chainOfFilters);
 	public abstract Command getLastFilter();
-	public abstract int getNumberOfFilters();
+	public abstract int getNumberOfFiltersPlusOpacity();
 	
 	protected void updateNumberOfFrames() {
 
-		int numberOfFilters = getNumberOfFilters();
+		int numberOfFilters = getNumberOfFiltersPlusOpacity();
 		int numberOfFrames = frames.size();
 		int lastFrame = frames.size() - 1;
 
@@ -61,7 +61,7 @@ public abstract class Renderer {
 	public void dealFrames(Stack<Command> chainOfFilters) {
 		setChain(chainOfFilters);
 		
-		int numberOfFilters = getNumberOfFilters();
+		int numberOfFilters = getNumberOfFiltersPlusOpacity();
 		updateNumberOfFrames();
 
 		int lastFrameIndex = frames.size() - 1;

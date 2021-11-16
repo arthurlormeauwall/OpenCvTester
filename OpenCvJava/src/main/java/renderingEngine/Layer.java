@@ -67,7 +67,7 @@ public class Layer extends CompositeFilter
 	}
 	
 	public int getNumberOfFilters() {
-		return chainOfFilters.getSize() + 1;
+		return chainOfFilters.getSize();
 	}
 
 	public FilterControlledByFloat getFilter(int index) {
@@ -89,7 +89,7 @@ public class Layer extends CompositeFilter
 	}
 
 	public Filter getLastFilter() {
-		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-2);
+		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-1);
 	}
 
 	public Boolean hasFilter() {

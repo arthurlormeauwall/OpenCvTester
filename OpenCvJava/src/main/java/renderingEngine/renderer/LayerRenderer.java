@@ -24,8 +24,9 @@ public class LayerRenderer extends Renderer {
 		return ((Layer)compositeFilters).getOpacityFilter(); 
 	}
 
-	public int getNumberOfFilters() {
-		return chainOfFilters.size() + 1;
+	public int getNumberOfFiltersPlusOpacity() {
+		return chainOfFilters.size()+1;
 	}
+
 
 }

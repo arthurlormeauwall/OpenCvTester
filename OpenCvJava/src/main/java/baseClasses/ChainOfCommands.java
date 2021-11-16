@@ -58,8 +58,6 @@ public class ChainOfCommands
     }
     
     public int getCommandIndex(Id id,  int groupDeepnessIndex) {
-
-
         int controlIndex = id.get()[groupDeepnessIndex];
         return controlIndex;
     }

@@ -32,16 +32,16 @@ public class ChainOfLayers extends CompositeFilter
 	public Layer addLayer(Stack<Id> FilterId, Stack<String> filterNames){
 		
 		Layer newLayer = (Layer)createAndAdd(FilterId, filterNames);
-		checkAndActivateLayer(newLayer.getId());
+		checkAndActivateLayer(new Id(newLayer.getId().layerIndex()-1,0));
 		execute();
 		return newLayer;
 	}
 	
-	public Layer addLayer(Layer layer) {
-		add(layer);
-		checkAndActivateLayer(layer.getId());
+	public Layer addLayer(Layer newLayer) {
+		add(newLayer);
+		checkAndActivateLayer(new Id(newLayer.getId().layerIndex()-1,0));
 		execute();
-		return layer;
+		return newLayer;
 	}
 
 	public Layer delLayer(Id layerId){
@@ -155,12 +155,11 @@ public class ChainOfLayers extends CompositeFilter
 			
 			filterToBypass.bypass(bypass);
 			
-			activateFilter(id);
+			checkAndActivateLayer(new Id(id.layerIndex(), id.filterIndex()));
 			
 			execute();
 		}
 	}    
-	
 	
 	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
 		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > filterIndex;
@@ -197,10 +196,10 @@ public class ChainOfLayers extends CompositeFilter
 		layerToActivate.activate();
 		
 		if (layerToActivate.hasFilter()) {
-			if (layerToActivate.getNumberOfFilters()<2) {
+			if (layerToActivate.getNumberOfFilters()<1) {
 				activateFilter(new Id(id.layerIndex(),0));	
 			}
-			else if (layerToActivate.getNumberOfFilters()>=2){
+			else if (layerToActivate.getNumberOfFilters()>=1){
 				activateFilter(new Id(id.layerIndex(),id.filterIndex()));	
 			}
 		}

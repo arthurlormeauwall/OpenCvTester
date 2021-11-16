@@ -62,8 +62,8 @@ public abstract class CompositeFilter extends Filter
 		}
 	}
 	
-	public Boolean isIndexOutOfRange(Id controlId) {
-		int indexOfFilterToAddOrDelete= controlId.get()[indexType()];
+	public Boolean isIndexOutOfRange(Id filterId) {
+		int indexOfFilterToAddOrDelete= filterId.get()[indexType()];
 
 		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
 			return false;

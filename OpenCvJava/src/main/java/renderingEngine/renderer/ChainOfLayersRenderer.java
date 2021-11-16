@@ -43,7 +43,9 @@ public class ChainOfLayersRenderer extends Renderer {
 		return chainOfFilters.get(chainOfFilters.size() - 1);
 	}   
 	
-	public int getNumberOfFilters() {
+	public int getNumberOfFiltersPlusOpacity() {
 		return chainOfFilters.size();
 	}
+	
+	
 }
