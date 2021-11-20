@@ -61,7 +61,7 @@ Then you call `initialize(String fileName)` passing the path to the image you wa
 Filters are objects that you create and add to the `FiltersDataBase` object, managed by the `App` object (so you never have to deal directly with the `FiltersDataBase`).  
 In the beginning, the filters database is empty. 
 
-To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import baseClasses.filter.FilterControlledByFloat;`).
+To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import com.opencvtester.baseClasses.filter.FilterControlledByFloat;`).
 
 `FilterControlledByFloat` class provide several important things : 
 * Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). Important methods of `Frame` class : 
