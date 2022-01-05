@@ -42,9 +42,7 @@ What is currently missing :
 
 ## Usage
 
-To use this framework, you first have to import `App` classe from *com.opencvtester.app* package. Then you create an `App` object.
-
-Then you call `initialize(String fileName)` passing the path to the image you want to work with.
+To use this framework, you first have to import `App` classe from *com.opencvtester.app* package. Then you create an `App` object passing passing the path to the image you want to work with tp its constructor.
 
 ### Filters
 Filters are objects that you create and add to the `FiltersDataBase` object.
