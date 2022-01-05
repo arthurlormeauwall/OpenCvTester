@@ -1,4 +1,4 @@
-package com.opencvtester.guiManager;
+package com.opencvtester.app;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.MainWindow;
+import com.opencvtester.guiManager.GuiManager;
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class App

@@ -2,7 +2,7 @@ package com.sandbox.example.main;
 
 import java.io.IOException;
 
-import com.opencvtester.guiManager.App;
+import com.opencvtester.app.App;
 import com.sandbox.example.userFilters.BlueGreenRedMultiplierFilter;
 import com.sandbox.example.userFilters.GrayScaleFilter;
 
