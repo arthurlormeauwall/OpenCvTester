@@ -53,6 +53,7 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameIn
 		flags.zeroEffectValues.put(name, zeroEffectValue);
 		flags.numberOfParameters ++;
 	}
+	
 	public void setZeroEffectValues(LinkedHashMap<String, FrameInterface> parameter) {
 		flags.zeroEffectValues=parameter;
 	}
