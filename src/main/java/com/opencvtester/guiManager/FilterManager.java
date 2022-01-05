@@ -3,7 +3,6 @@ package com.opencvtester.guiManager;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.gui.FilterWidget;

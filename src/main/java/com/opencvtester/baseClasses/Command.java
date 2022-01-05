@@ -1,6 +1,6 @@
 package com.opencvtester.baseClasses;
 
-public abstract class Command
+public class Command
 {
 	protected Id id;
     protected Boolean isBypass;
@@ -13,10 +13,8 @@ public abstract class Command
     public Command(Id id) {	
     	this.id = new Id();
     	this.id.set(id);
-
 	    isBypass = false;
     } 
-
 
     public Id getId(){
     	return id;
@@ -29,12 +27,15 @@ public abstract class Command
     public void setLayerIndex(int layerIndex) {
     	id.setLayerId(layerIndex);
     }
+    
     public void setFilterIndex(int filterIndex) {
     	id.setFilterId(filterIndex);
     }
+    
     public int getLayerIndex() {
     	return id.layerIndex();
     }
+    
     public int getFilterIndex() {
     	return id.filterIndex();
     }

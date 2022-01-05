@@ -1,13 +1,12 @@
 package com.opencvtester.baseClasses.filter;
 
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.baseClasses.Executable;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 
 
-public abstract class Filter extends Command implements Executable
+public abstract class Filter extends Command
 {
 	protected FrameInterface source;
 	protected FrameInterface dest;
@@ -25,6 +24,8 @@ public abstract class Filter extends Command implements Executable
 		source = new Frame();
 		dest   = new Frame();
 	}
+	
+	public abstract void execute();
 
 	public FrameInterface getSource(){
 		return source;

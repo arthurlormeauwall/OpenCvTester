@@ -8,7 +8,6 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
-import com.opencvtester.guiManager.GroupsId;
 import com.opencvtester.renderingEngine.renderer.Renderer;
 
 public abstract class CompositeFilter extends Filter

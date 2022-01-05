@@ -6,7 +6,6 @@ import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
-import com.opencvtester.baseClasses.Executable;
 import com.opencvtester.renderingEngine.CompositeFilter;
 
 public abstract class Renderer {
@@ -54,8 +53,6 @@ public abstract class Renderer {
 				}
 			}		
 		}
-		
-
 	
 	public void dealFrames(Stack<Command> chainOfFilters) {
 		setChain(chainOfFilters);
@@ -101,13 +98,13 @@ public abstract class Renderer {
 			if (checkIfActivate) {
 				if (chainOfFilters.get(i).isActivate())
 				{
-					((Executable)chainOfFilters.get(i)).execute();	
+					((Filter)chainOfFilters.get(i)).execute();	
 					chainOfFilters.get(i).desactivate();
 					checkIfActivate=false;
 				}
 			}
 			else {
-				((Executable)chainOfFilters.get(i)).execute();	
+				((Filter)chainOfFilters.get(i)).execute();	
 			}		
 		}	
 	}
