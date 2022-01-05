@@ -20,7 +20,7 @@ public class Layer extends CompositeFilter
 	
 	public Layer (FiltersDataBase filtersDatabase, Id id) {
 		super(filtersDatabase, id);
-		groupID=GroupsId.FILTER;
+		groupID="filter";
 		opacityFilter = filtersDatabase.getAlphaFilter();
 		renderer= new LayerRenderer(this);
 	}
@@ -50,7 +50,7 @@ public class Layer extends CompositeFilter
 		renderer.execute(chainOfFilters.getChain());
 	}
 	
-	public void updateId(int indexType, int newValue){
+	public void updateId(String indexType, int newValue){
 		chainOfFilters.updateId(indexType, newValue);
 	}
 

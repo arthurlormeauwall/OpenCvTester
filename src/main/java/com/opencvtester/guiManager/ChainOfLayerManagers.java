@@ -10,14 +10,14 @@ public class ChainOfLayerManagers {
 	
 	private ChainOfCommands layerManagers;
 	private MainWindow gui;
-	private GroupsId groupID;
+	private String groupID;
 	
 	public ChainOfLayerManagers (MainWindow gui){	
 		Id chainId = new Id();
 		chainId.set(0,0);
 		layerManagers= new ChainOfCommands(chainId);
 		this.gui=gui;
-		groupID=GroupsId.LAYER;
+		groupID="layer";
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
@@ -64,8 +64,8 @@ public class ChainOfLayerManagers {
 		return (LayerManager)layerManagers.getCommand(i);
 	}
 	
-	public int indexType() {
-		return groupID.ordinal();
+	public String indexType() {
+		return groupID;
 	}
 
 }

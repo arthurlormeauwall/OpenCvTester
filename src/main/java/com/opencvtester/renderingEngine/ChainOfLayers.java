@@ -19,7 +19,7 @@ public class ChainOfLayers extends CompositeFilter
 	public ChainOfLayers (FiltersDataBase dbControls, FrameInterface background, Id id) {
 		super(dbControls, id);
 		layersFactory=new LayersFactory(background, source, dest, filtersDataBase);
-		groupID=GroupsId.LAYER;
+		groupID="layer";
 		this.background = background;
 		renderer=new ChainOfLayersRenderer(this, background);
 	}

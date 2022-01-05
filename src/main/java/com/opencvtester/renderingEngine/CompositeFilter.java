@@ -17,7 +17,7 @@ public abstract class CompositeFilter extends Filter
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
-	protected GroupsId groupID;
+	protected String groupID;
 	
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
@@ -62,7 +62,7 @@ public abstract class CompositeFilter extends Filter
 	}
 	
 	public Boolean isIndexOutOfRange(Id filterId) {
-		int indexOfFilterToAddOrDelete= filterId.get()[indexType()];
+		int indexOfFilterToAddOrDelete= filterId.get(indexType());
 
 		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
 			return false;
@@ -88,8 +88,8 @@ public abstract class CompositeFilter extends Filter
 		return filtersDataBase;
 	}
 	
-	public int indexType() {
-		return groupID.ordinal();
+	public String indexType() {
+		return groupID;
 	}
 	
 	public Filter getFirstFilter() {

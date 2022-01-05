@@ -13,7 +13,7 @@ public class ChainOfCommands
     	commands = new Stack<Command>();
     }
 
-    public void addCommand(Id id, Command filter, int groupDeepnessIndex) {
+    public void addCommand(Id id, Command filter, String groupDeepnessIndex) {
         int index = getCommandIndex(id, groupDeepnessIndex);
 
         int lastControl = commands.size() - 1;
@@ -34,7 +34,7 @@ public class ChainOfCommands
         }      
     }
 
-    public Command delCommand(Id id, int groupDeepnessIndex) {
+    public Command delCommand(Id id, String groupDeepnessIndex) {
         int index = getCommandIndex(id, groupDeepnessIndex);
         int lastControlIndex= commands.size()-1;
         if (index>lastControlIndex) {
@@ -45,21 +45,21 @@ public class ChainOfCommands
         return erasedCommand;
     }
     
-    public void updateAllId(int index, int groupDeepnessIndex) {
+    public void updateAllId(int index, String groupDeepnessIndex) {
         for (int i = index; i < commands.size(); i++) {
         	commands.get(i).updateId(groupDeepnessIndex, i);
         }
     }
  
-    public void updateId(int groupDeepnessIndex, int newValue) {
+    public void updateId(String groupDeepnessIndex, int newValue) {
         for (int i = 0; i <commands.size(); i++) {
         	commands.get(i).updateId(groupDeepnessIndex, newValue);
         }
     }
     
-    public int getCommandIndex(Id id,  int groupDeepnessIndex) {
-        int controlIndex = id.get()[groupDeepnessIndex];
-        return controlIndex;
+    public int getCommandIndex(Id id,  String groupDeepnessIndex) {
+        int commandIndex = id.get(groupDeepnessIndex);
+        return commandIndex;
     }
 
     public ChainOfCommands clone() {		

@@ -16,10 +16,10 @@ public class LayerManager extends Command
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
 	protected GuiManager guiManager;
-	protected GroupsId groupID;
+	protected String groupID;
 	
 	public LayerManager(Layer layer, GuiManager guiManager) {
-		groupID=GroupsId.FILTER;
+		groupID="filter";
 		this.layer=layer;
 		this.guiManager=guiManager;
 		this.id.set(layer.getId());
@@ -61,7 +61,7 @@ public class LayerManager extends Command
 		return layerWindow;
 	}
 	
-	public int indexType() {
-		return groupID.ordinal();
+	public String indexType() {
+		return groupID;
 	}	
 }

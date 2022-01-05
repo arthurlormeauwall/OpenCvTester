@@ -1,76 +1,79 @@
 package com.opencvtester.baseClasses;
 
+import java.util.HashMap;
 
 public class Id
 {
-	protected int[] id;
+	protected HashMap<String, Integer> id;
 	
 	public Id() {
-		id=new int[2];
+		id=new HashMap<String, Integer>();
 		initNULL();
 	
 	}
-	public Id(int[] ids) {
-		id=new int[2];
+	public Id(HashMap<String, Integer> ids) {
+		id=new HashMap<String, Integer>();
 		set(ids);
 	}
 	
 	public Id(int layerIndex, int filterIndex) {
-		id=new int[2];
-		id[0]=layerIndex;
-		id[1]=filterIndex;
+		id=new HashMap<String, Integer>();
+		id.put("layer", layerIndex);
+		id.put("filter", filterIndex);
 	}
 	public void initNULL(){
-		id[0]=-1;
-		id[1]=-1;
+		id.put("layer", -1);
+		id.put("filter", -1);
 	}
 
-	public int[] get(){
+	public HashMap<String, Integer> get(){
 		return id;
 	}
 	
+	public Integer get(String key){
+		return id.get(key);
+	}
+	
 	public int layerIndex(){
-		return id[0];
+		return id.get("layer");
 	}
 
 	public int filterIndex(){
-		return id[1];
+		return id.get("filter");
 	}
 
 	public void set(Id id){
-		this.id[0]=id.get()[0];
-		this.id[1]=id.get()[1];
+		this.id.put("layer", id.layerIndex());
+		this.id.put("filter", id.filterIndex());
 	}
 	
-	public void set(int[] id){
-		this.id=id;
+	@SuppressWarnings("unchecked")
+	public void set(HashMap<String, Integer> id){
+		this.id=(HashMap<String, Integer>) id.clone();
 	}
 	
-	public void set(int layerIndex, int controlIndex){
-		id[0]=layerIndex;
-		id[1]=controlIndex;
-	
+	public void set(int layerIndex, int filterIndex){
+		id.put("layer", layerIndex);
+		id.put("filter", filterIndex);
 	}
 	
-	public void setFilterOrLayer(int indexType, int newValue){
-		id[indexType]=newValue;
+	public void setFilterOrLayer(String indexType, int newValue){
+		id.put(indexType, newValue);
 	}
 
 	public Id clone() {
 		Id temp= new Id();
-		temp.get()[0]=id[0];
-		temp.get()[1]=id[1];
+		temp.setLayerId(id.get("layer"));
+		temp.setFilterId(id.get("filter"));
 	
 		return temp;
 	}
 	
-	public void setFilterId(int controlIndex){
-		id[1]=controlIndex;
+	public void setFilterId(int filterIndex){
+		id.put("filter", filterIndex);
 	}
 	
 	public void setLayerId(int layerIndex){
-		id[0]=layerIndex;
+		id.put("layer", layerIndex);
 	}
-	
-	
 }
