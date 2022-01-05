@@ -6,7 +6,6 @@
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
-* [Setup](#setup)
 * [Usage](#usage)
 * [Project Status](#project-status)
 * [Contact](#contact)
@@ -20,13 +19,11 @@ This project is aim to achieve that and its purpose is mostly educational.
 
 Moreover, users of this framework are expected to know Java and OpenCv.
 
-> This frameWork can also be used without Open Cv.
-
-
 ## Technologies Used
 
 - OpenCv version 3.4.15
 - Java(TM) SE Runtime Environment (build 16.0.1+9-24)
+- Maven 4.0.0
 
 
 ## Features
@@ -35,30 +32,22 @@ Moreover, users of this framework are expected to know Java and OpenCv.
 - Undo and redo with no limitation.
 
 
-## Setup
-You can download OpenCv here https://opencv.org/releases/
-
-If you are an Eclipse user, you can follow this tutorial to setup OpenCv in Eclipse :
-https://opencv-java-tutorials.readthedocs.io/en/latest/01-installing-opencv-for-java.html
-
-
 ## Project Status
 This project is still work in progress.
 What is currently missing :
-* undo/redo functionalities
-* bypass filter
+* Integrate image and control in a monolith UI for better UX
+* Undo/Redo add and delete layer and filter
+* open image from directory/ Save image to directory
 
 
 ## Usage
 
-To use this framework, you first have to import `App` classe from *guiManager* package. Then you create an `App` object.
-
-If you want to use open Cv, you must pass `Library.OPENCV` to App constructor. 
+To use this framework, you first have to import `App` classe from *com.opencvtester.app* package. Then you create an `App` object.
 
 Then you call `initialize(String fileName)` passing the path to the image you want to work with.
 
 ### Filters
-Filters are objects that you create and add to the `FiltersDataBase` object, managed by the `App` object (so you never have to deal directly with the `FiltersDataBase`).  
+Filters are objects that you create and add to the `FiltersDataBase` object.
 In the beginning, the filters database is empty. 
 
 To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import com.opencvtester.baseClasses.filter.FilterControlledByFloat;`).
@@ -67,8 +56,8 @@ To write your own filter class you have to create a class that extends the `Filt
 * Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). Important methods of `Frame` class : 
 	* `double[] getPixelAt(int row, int col);`
 	* `void setPixelAt(int row, int col, double[] data);`
-	*   When using open cv you can call `getMat()` mehtod to get `Mat` object. 
-	*   If you are not using open cv you can call `BufferedImage getBufferedImage()`.
+	*   `getMat()` to get `Mat` object and `set(Mat mat)` to set `Mat`
+	*   You can also call `BufferedImage getBufferedImage()` if you want to work with BufferedImage. 
 * Several float parameters that will be tweakable in the GUI. You can access them calling `getParameter(String name)` method.
 * Three abstract methods that you have to implement : 
   * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues)` for each parameter. When parameters are set to values specified by zeroEffectValues, bypass is automtically set to true.
