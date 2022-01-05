@@ -21,12 +21,18 @@ public class ChainOfLayerManagers {
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
-		((LayerManager)layerManagers.getCommand(filterController.getLayerIndex())).addFilterManager(filterController);
+		(
+				(LayerManager)layerManagers.getCommand(
+				
+				filterController.getId().layerIndex()
+				
+						)
+				).addFilterManager(filterController);
 		gui.updateGui();
 	}
 	
 	public void deFilterWidgetInLayerWidget(FilterManager filterManager) {
-		((LayerManager)layerManagers.getCommand(filterManager.getLayerIndex())).deleteFilterWidget(filterManager.getId());
+		((LayerManager)layerManagers.getCommand(filterManager.getId().layerIndex())).deleteFilterWidget(filterManager.getId());
 		gui.updateGui();
 	}
 

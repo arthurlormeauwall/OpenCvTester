@@ -11,7 +11,7 @@ import com.opencvtester.gui.FilterWidget;
 public class FilterManager extends Command {
 	
 	protected Filter filter;
-	protected Id id;
+
 	protected FilterWidget filterWidget;
 	
 	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){
@@ -20,14 +20,6 @@ public class FilterManager extends Command {
 		filterWidget=new FilterWidget(filter, guiManager);
 	}
 	
-	public void setId(Id id) {
-		this.id=id;
-	}
-
-	public Id getId() {
-		return id;
-	}
-
 	public Filter getFilter() {
 		return filter;
 	}
