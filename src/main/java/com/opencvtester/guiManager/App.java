@@ -19,17 +19,11 @@ public class App
 	private Frame background;
 	private Frame dest;
 	private FrameFactory frameFactory;
-
 	
-	public App () throws IOException{
+	public App () throws IOException{		
 		frameFactory = new FrameFactory();
-	}
-	
-	public App (Library libraryOption) throws IOException{		
-		frameFactory = new FrameFactory();
-		if (libraryOption == Library.OPENCV) {
-			initOpenCv();
-		}
+		addFrameType("OpenCv", new CvFrame());
+		setFrameType("OpenCv");
 	}
 	
 	public void initialize(String fileName) throws IOException {
