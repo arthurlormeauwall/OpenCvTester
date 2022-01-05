@@ -19,12 +19,9 @@ public class App
 	private FrameInterface background;
 	private FrameInterface dest;
 	
-	public App () throws IOException{
+	public App (String fileName) throws IOException{
 		// Init open cv library
 		nu.pattern.OpenCV.loadLocally();
-	}
-	
-	public void initialize(String fileName) throws IOException {
 		guiManager= new GuiManager(chainOfLayersInitializer(fileName));
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
