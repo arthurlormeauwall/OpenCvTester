@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-
-import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
@@ -20,7 +18,7 @@ public class CvFrame extends DefaultFrame
 	
 	public CvFrame() { 
 		if (!isInitialized) {
-			System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+			nu.pattern.OpenCV.loadLocally();
 			isInitialized=true;
 		}	
 	}
