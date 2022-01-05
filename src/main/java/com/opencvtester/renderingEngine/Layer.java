@@ -32,12 +32,13 @@ public class Layer extends CompositeFilter
 		opacityFilter.setSource(source);
 		opacityFilter.setDest(dest);
 		opacityFilter.init(background);
-		opacityFilter.getId().set(id.layerIndex(), 1);
+		opacityFilter.setLayerIndex(id.layerIndex());
+		opacityFilter.setFilterIndex(1);
 	}
 
 	protected Filter create(Stack<Id> id, Stack<String> commandsInDataBase){
 		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase.get(0));
-		newFilter.getId().set(id.get(0));
+		newFilter.setId(id.get(0).clone());
 		return newFilter;
 	}
 	
