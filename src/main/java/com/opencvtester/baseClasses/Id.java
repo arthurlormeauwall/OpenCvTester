@@ -64,7 +64,7 @@ public class Id
 		return temp;
 	}
 	
-	public void setControlId(int controlIndex){
+	public void setFilterId(int controlIndex){
 		id[1]=controlIndex;
 	}
 	
