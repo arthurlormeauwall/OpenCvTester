@@ -6,7 +6,6 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
-import com.opencvtester.baseClasses.frame.FrameFactory;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.MainWindow;
 import com.opencvtester.renderingEngine.ChainOfLayers;
@@ -18,13 +17,10 @@ public class App
 	private FrameInterface source;
 	private FrameInterface background;
 	private FrameInterface dest;
-	private FrameFactory frameFactory;
 	
 	public App () throws IOException{
+		// Init open cv library
 		nu.pattern.OpenCV.loadLocally();
-		frameFactory = new FrameFactory();
-		addFrameType("OpenCv", new Frame());
-		setFrameType("OpenCv");
 	}
 	
 	public void initialize(String fileName) throws IOException {
@@ -32,23 +28,15 @@ public class App
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setGui(mainWindow);
 	}
-	
-	public void addFrameType(String name, FrameInterface frameType) {
-		frameFactory.putNewFrameType(name, frameType);
-	}
-	
-	public void setFrameType(String frameType) {
-		frameFactory.setFrameType(frameType);	
-	}
 
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
 		guiManager.addFilterInDatabase(name, filter);
 	}
 	
 	public ChainOfLayers chainOfLayersInitializer(String fileName) throws IOException {	
-		background = frameFactory.create();
-		dest =  frameFactory.create();
-		source =  frameFactory.create();	
+		background = new Frame();
+		dest =  new Frame();
+		source =  new Frame();	
 		
 		source.readFromFile(fileName);
 		background.createPlainGrayFrame(source.getSpecs().rows, source.getSpecs().cols, 0);
@@ -63,9 +51,4 @@ public class App
 		
 		return chainOfLayers;	
 	}
-	
-	public void initOpenCv() {
-		addFrameType("OpenCv", new Frame());
-		setFrameType("OpenCv");
-	}	
 }
