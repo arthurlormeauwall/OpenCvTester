@@ -32,16 +32,16 @@ public abstract class Command
     public void setFilterIndex(int filterIndex) {
     	id.setFilterId(filterIndex);
     }
-    public int getLayerIndex(int layerIndex) {
+    public int getLayerIndex() {
     	return id.layerIndex();
     }
-    public int getFilterIndex(int filterIndex) {
+    public int getFilterIndex() {
     	return id.filterIndex();
     }
 
 
     public void updateId(int groupDeepnessIndex, int newValue) {
-    	id.setControlOrLayer(groupDeepnessIndex, newValue);
+    	id.setFilterOrLayer(groupDeepnessIndex, newValue);
     }
     
     public Boolean isbypass () {

@@ -33,14 +33,14 @@ public class ChainOfLayers extends CompositeFilter
 	public Layer addLayer(Stack<Id> FilterId, Stack<String> filterNames){
 		
 		Layer newLayer = (Layer)createAndAdd(FilterId, filterNames);
-		checkAndActivateLayer(new Id(newLayer.getId().layerIndex()-1,0));
+		checkAndActivateLayer(new Id(newLayer.getLayerIndex()-1,0));
 		execute();
 		return newLayer;
 	}
 	
 	public Layer addLayer(Layer newLayer) {
 		add(newLayer);
-		checkAndActivateLayer(new Id(newLayer.getId().layerIndex()-1,0));
+		checkAndActivateLayer(new Id(newLayer.getLayerIndex()-1,0));
 		execute();
 		return newLayer;
 	}
@@ -57,7 +57,7 @@ public class ChainOfLayers extends CompositeFilter
 		Id layerId=layer.getId();
 		Layer newLayer = (Layer)delete(layerId);
 		
-		checkAndActivateLayer(new Id(layer.getId().layerIndex()-1, 0));
+		checkAndActivateLayer(new Id(layer.getLayerIndex()-1, 0));
 		
 		execute();
 		return newLayer;		
@@ -66,11 +66,11 @@ public class ChainOfLayers extends CompositeFilter
 	public Filter createFilter(Stack<Id> filterId, String filterNames) {
 		Stack<String> stackOfFilterNames = new Stack<String>();
 		stackOfFilterNames.push(filterNames);		
-		return  ((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).create(filterId, stackOfFilterNames);
+		return  ((Layer)chainOfFilters.getCommand(filterId.get(0).layerIndex())).create(filterId, stackOfFilterNames);
 	}
 	
 	public Filter addFilterInLayer(Filter filter) {
-		((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).add(filter);
+		((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).add(filter);
 		activateFilter(filter.getId());
 		execute();	
 		return filter;
@@ -78,7 +78,7 @@ public class ChainOfLayers extends CompositeFilter
 	
 	public Filter delFilterInLayer(Id filterId){
 		if (getNumberOfLayers()> filterId.layerIndex()) {
-			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filterId.get()[0])).delete(filterId);
+			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filterId.layerIndex())).delete(filterId);
 			
 			checkAndActivateLayer(new Id(filterId.layerIndex(), filterId.filterIndex()-1));
 	
@@ -91,11 +91,11 @@ public class ChainOfLayers extends CompositeFilter
 	}  
 	
 	public Filter delFilterInLayer(Filter filter){
-		if (getNumberOfLayers()> filter.getId().get()[0]) {
+		if (getNumberOfLayers()> filter.getLayerIndex()) {
 			
 			
-			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getId().get()[0])).delete(filter.getId());
-			checkAndActivateLayer(new Id(filter.getId().layerIndex(), filter.getId().filterIndex()-1));
+			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter.getId());
+			checkAndActivateLayer(new Id(filter.getLayerIndex(), filter.getFilterIndex()-1));
 			execute();
 			return erasedFilter;
 		}
@@ -108,7 +108,7 @@ public class ChainOfLayers extends CompositeFilter
 		Stack<String> stackOfFilterNames = new Stack<String>();
 		stackOfFilterNames.push(filterNames);
 		
-		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.get(0).get()[0])).createAndAdd(filterId, stackOfFilterNames);
+		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.get(0).layerIndex())).createAndAdd(filterId, stackOfFilterNames);
 		
 		activateFilter(filterId.get(0));
 

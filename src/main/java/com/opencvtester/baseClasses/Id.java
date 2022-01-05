@@ -52,7 +52,7 @@ public class Id
 	
 	}
 	
-	public void setControlOrLayer(int indexType, int newValue){
+	public void setFilterOrLayer(int indexType, int newValue){
 		id[indexType]=newValue;
 	}
 

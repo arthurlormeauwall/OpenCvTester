@@ -21,7 +21,7 @@ public abstract class FilterControlledBy<T> extends Filter
 	public abstract void setParameter(LinkedHashMap<String, T> p);
 	
 	public void updateId(int groupDeepnessIndex, int newValue) {
-		id.setControlOrLayer(groupDeepnessIndex, newValue);
+		id.setFilterOrLayer(groupDeepnessIndex, newValue);
 	}
 	
 	public void bypass(Boolean bypass){
