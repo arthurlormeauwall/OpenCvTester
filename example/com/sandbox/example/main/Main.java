@@ -1,10 +1,10 @@
-package com.opencvtester.example.main;
+package com.sandbox.example.main;
 
 import java.io.IOException;
 
-import com.opencvtester.example.userFilters.BlueGreenRedMultiplierFilter;
-import com.opencvtester.example.userFilters.GrayScaleFilter;
 import com.opencvtester.guiManager.App;
+import com.sandbox.example.userFilters.BlueGreenRedMultiplierFilter;
+import com.sandbox.example.userFilters.GrayScaleFilter;
 
 public class Main 
 {

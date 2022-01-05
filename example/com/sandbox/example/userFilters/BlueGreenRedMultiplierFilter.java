@@ -1,4 +1,4 @@
-package com.opencvtester.example.userFilters;
+package com.sandbox.example.userFilters;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 
