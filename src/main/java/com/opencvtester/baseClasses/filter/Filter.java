@@ -3,14 +3,14 @@ package com.opencvtester.baseClasses.filter;
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.Executable;
 import com.opencvtester.baseClasses.Id;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.baseClasses.frame.FrameFactory;
 
 
 public abstract class Filter extends Command implements Executable
 {
-	protected Frame source;
-	protected Frame dest;
+	protected FrameInterface source;
+	protected FrameInterface dest;
 	protected Boolean activate;
 	private FrameFactory frameFactory;
 	
@@ -29,19 +29,19 @@ public abstract class Filter extends Command implements Executable
 		dest   = frameFactory.create ();
 	}
 
-	public Frame getSource(){
+	public FrameInterface getSource(){
 		return source;
 	}
 	
-	public void setSource(Frame source){
+	public void setSource(FrameInterface source){
 		this.source=source;
 	}
 	
-	public Frame getDest()        {
+	public FrameInterface getDest()        {
 		return dest;
 	}
 	
-	public void setDest(Frame dest)  {	
+	public void setDest(FrameInterface dest)  {	
 		this.dest=dest;
 	}
 

@@ -4,14 +4,14 @@ import java.util.Stack;
 
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.baseClasses.Executable;
 import com.opencvtester.baseClasses.frame.FrameFactory;
 import com.opencvtester.renderingEngine.CompositeFilter;
 
 public abstract class Renderer {
 	
-	protected Stack<Frame> frames;
+	protected Stack<FrameInterface> frames;
 	protected Stack<Filter> chainOfFilters;
 	protected CompositeFilter compositeFilters;
 	private FrameFactory frameFactory;
@@ -19,7 +19,7 @@ public abstract class Renderer {
 	public Renderer(CompositeFilter compositeFilters) {
 		this.compositeFilters=compositeFilters;	
 		chainOfFilters=new Stack<Filter>();
-		frames= new Stack<Frame>();
+		frames= new Stack<FrameInterface>();
 		frameFactory=new FrameFactory();
 	}
 	

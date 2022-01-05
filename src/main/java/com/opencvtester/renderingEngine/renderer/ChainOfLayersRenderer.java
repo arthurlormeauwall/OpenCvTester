@@ -3,15 +3,15 @@ package com.opencvtester.renderingEngine.renderer;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.renderingEngine.CompositeFilter;
 import com.opencvtester.renderingEngine.Layer;
 
 public class ChainOfLayersRenderer extends Renderer {
 
-	private Frame background;
+	private FrameInterface background;
 	
-	public ChainOfLayersRenderer(CompositeFilter compositeFilters, Frame background) {
+	public ChainOfLayersRenderer(CompositeFilter compositeFilters, FrameInterface background) {
 		super(compositeFilters);
 		this.background=background;
 	}

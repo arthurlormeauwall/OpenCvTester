@@ -4,8 +4,8 @@ import java.io.IOException;
 
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
-import com.opencvtester.baseClasses.frame.CvFrame;
 import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.baseClasses.frame.FrameFactory;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.MainWindow;
@@ -15,14 +15,15 @@ public class App
 {
 	private GuiManager guiManager;
 	private MainWindow mainWindow;
-	private Frame source;
-	private Frame background;
-	private Frame dest;
+	private FrameInterface source;
+	private FrameInterface background;
+	private FrameInterface dest;
 	private FrameFactory frameFactory;
 	
-	public App () throws IOException{		
+	public App () throws IOException{
+		nu.pattern.OpenCV.loadLocally();
 		frameFactory = new FrameFactory();
-		addFrameType("OpenCv", new CvFrame());
+		addFrameType("OpenCv", new Frame());
 		setFrameType("OpenCv");
 	}
 	
@@ -32,7 +33,7 @@ public class App
 		guiManager.setGui(mainWindow);
 	}
 	
-	public void addFrameType(String name, Frame frameType) {
+	public void addFrameType(String name, FrameInterface frameType) {
 		frameFactory.putNewFrameType(name, frameType);
 	}
 	
@@ -64,7 +65,7 @@ public class App
 	}
 	
 	public void initOpenCv() {
-		addFrameType("OpenCv", new CvFrame());
+		addFrameType("OpenCv", new Frame());
 		setFrameType("OpenCv");
 	}	
 }

@@ -4,11 +4,11 @@ import java.util.HashMap;
 
 public class FrameFactory {
 	static String libraryOption;
-	static HashMap <String, Frame> frameType=new HashMap <String, Frame>();
+	static HashMap <String, FrameInterface> frameType=new HashMap <String, FrameInterface>();
 	static Boolean hasBeenInit=false;
 	
 	public FrameFactory(){
-		frameType.put("Default", new DefaultFrame());
+		frameType.put("Default", new Frame());
 	}
 	
 	@SuppressWarnings("static-access")
@@ -19,11 +19,11 @@ public class FrameFactory {
 		}
 	}
 	
-	public void putNewFrameType(String libraryOption, Frame newType) {
+	public void putNewFrameType(String libraryOption, FrameInterface newType) {
 		FrameFactory.frameType.put(libraryOption, newType);
 	}
 
-	public Frame create() {
+	public FrameInterface create() {
 		if (libraryOption==null) {
 			return FrameFactory.frameType.get("Default").create();
 		}

@@ -6,17 +6,17 @@ import java.util.Stack;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.GroupsId;
 import com.opencvtester.renderingEngine.renderer.ChainOfLayersRenderer;
 
 public class ChainOfLayers extends CompositeFilter
 {
-	protected Frame background;
+	protected FrameInterface background;
 	protected LayersFactory layersFactory;
 		
-	public ChainOfLayers (FiltersDataBase dbControls, Frame background, Id id) {
+	public ChainOfLayers (FiltersDataBase dbControls, FrameInterface background, Id id) {
 		super(dbControls, id);
 		layersFactory=new LayersFactory(background, source, dest, filtersDataBase);
 		groupID=GroupsId.LAYER;

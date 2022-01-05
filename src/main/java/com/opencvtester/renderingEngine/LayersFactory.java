@@ -4,18 +4,18 @@ import java.util.Stack;
 
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 
 public class LayersFactory {
 
 	private Layer newLayer;
 	private FiltersDataBase filtersDataBase;
-	private Frame background;
-	private Frame source;
-	private Frame dest;
+	private FrameInterface background;
+	private FrameInterface source;
+	private FrameInterface dest;
 	
-	public LayersFactory(Frame background, Frame source, Frame dest, FiltersDataBase filtersDataBase) {
+	public LayersFactory(FrameInterface background, FrameInterface source, FrameInterface dest, FiltersDataBase filtersDataBase) {
 		this.background=background;
 		this.source=source;
 		this.dest=dest;

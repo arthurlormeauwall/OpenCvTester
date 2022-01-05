@@ -7,7 +7,7 @@ import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.filtersDataBase.OpacityFilter;
 import com.opencvtester.guiManager.GroupsId;
@@ -15,7 +15,7 @@ import com.opencvtester.renderingEngine.renderer.LayerRenderer;
 
 public class Layer extends CompositeFilter
 {
-	protected Frame background;
+	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;	
 	
 	public Layer (FiltersDataBase filtersDatabase, Id id) {
@@ -25,7 +25,7 @@ public class Layer extends CompositeFilter
 		renderer= new LayerRenderer(this);
 	}
 	
-	protected void init(Frame background, Frame source, Frame dest) {
+	protected void init(FrameInterface background, FrameInterface source, FrameInterface dest) {
 		setSource(source);
 		setDest(dest);
 
@@ -61,7 +61,7 @@ public class Layer extends CompositeFilter
 		opacityFilter.setOpacity(opacity);
 	}
 	
-	public void setBackGround(Frame background){
+	public void setBackGround(FrameInterface background){
 		this.background = background;
 		opacityFilter.setBackGround(background);
 	}

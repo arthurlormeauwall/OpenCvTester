@@ -6,14 +6,14 @@ import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.GroupsId;
 import com.opencvtester.renderingEngine.renderer.Renderer;
 
 public abstract class CompositeFilter extends Filter
 {
-	protected Stack<Frame> frames;
+	protected Stack<FrameInterface> frames;
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
@@ -21,7 +21,7 @@ public abstract class CompositeFilter extends Filter
 	
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
-		frames = new Stack<Frame>();
+		frames = new Stack<FrameInterface>();
 		this.filtersDataBase = filtersDataBase;	
 		
 		Id chainId = new Id(this.id.get());
