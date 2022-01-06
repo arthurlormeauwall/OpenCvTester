@@ -1,7 +1,6 @@
 package com.opencvtester.renderingEngine;
 
 import java.util.LinkedHashMap;
-import java.util.Stack;
 
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.Id;
@@ -35,15 +34,15 @@ public class Layer extends CompositeFilter
 		opacityFilter.setFilterIndex(1);
 	}
 
-	protected Filter create(Id id, String commandsInDataBase){
-		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase);
+	protected Filter getFilterFromDatabase(Id id, String filterNamesInDataBase){
+		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
 		newFilter.setId(id.clone());
 		return newFilter;
 	}
 	
 	public Filter createAndAdd(Id  id,String commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id)) {
-			Filter filter = create(id, commandsNamesInDataBase);
+			Filter filter = getFilterFromDatabase(id, commandsNamesInDataBase);
 			chainOfFilters.addCommand(filter, indexType());
 			return filter;
 		}

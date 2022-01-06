@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.Id;
+import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.gui.MainWindow;
 import com.opencvtester.historyManager.HystoryManager;
@@ -92,8 +93,8 @@ public class GuiManager
 		}
 	}
 
-	public void setOpacity(int layerIndex, Float opacity) {	
-		chainOfLayers.setOpacity(layerIndex, opacity);
+	public void setOpacity(Filter opacityFilter, Float opacity) {	
+		chainOfLayers.setOpacity(opacityFilter, opacity);
 		refreshResult();
 	}	
 

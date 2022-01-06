@@ -22,7 +22,7 @@ public class LayersFactory {
 		this.filtersDataBase=filtersDataBase;
 	}
 	
-	protected Filter createLayer(Stack<Id> id, Stack<String> filterNames){
+	protected Layer createLayer(Stack<Id> id, Stack<String> filterNames){
 		newLayer= new Layer(filtersDataBase, id.get(0));
 		newLayer.init(background, source, dest);
 		

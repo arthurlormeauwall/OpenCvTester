@@ -22,22 +22,17 @@ public class ChainOfLayers extends CompositeFilter
 		this.background = background;
 		renderer=new ChainOfLayersRenderer(this, background);
 	}
-	
-	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {
-		Layer newLayer = (Layer)createLayer(filterId, filterNames);
-		return newLayer;
-	}
-	
+
 	public Layer addLayer(Stack<Id> filterId, Stack<String> filterNames){
-		Layer newLayer = (Layer)createAndAdd(filterId, filterNames);
-		checkAndActivateLayer(new Id(newLayer.getLayerIndex()-1,0));
+		Layer newLayer = createAndAddLayer(filterId, filterNames);
+		checkAndActivateLayer(newLayer);
 		execute();
 		return newLayer;
 	}
 	
-	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
-		if (!isIndexOutOfRange(id.get(0))) {
-			Filter filter = create(id, commandsNamesInDataBase);
+	public Layer createAndAddLayer(Stack<Id> filterId, Stack<String> filterNames) {	
+		if (!isIndexOutOfRange(filterId.get(0))) {
+			Layer filter = createLayer(filterId, filterNames);
 			chainOfFilters.addCommand(filter, indexType());
 			return filter;
 		}
@@ -48,20 +43,20 @@ public class ChainOfLayers extends CompositeFilter
 	
 	public Layer addLayer(Layer newLayer) {
 		add(newLayer);
-		checkAndActivateLayer(new Id(newLayer.getLayerIndex()-1,0));
+		checkAndActivateLayer(newLayer);
 		execute();
 		return newLayer;
 	}
 
 	public Layer delLayer(Layer layer){
 		Layer newLayer = (Layer)delete(layer);
-		checkAndActivateLayer(new Id(layer.getLayerIndex()-1, 0));
+		checkAndActivateLayer(newLayer);
 		execute();
 		return newLayer;		
 	}  
 	
 	public Filter createFilter(Id filterId, String filterName) {		
-		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).create(filterId, filterName);
+		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).getFilterFromDatabase(filterId, filterName);
 	}
 	
 	public Filter addFilterInLayer(Filter filter) {
@@ -74,7 +69,7 @@ public class ChainOfLayers extends CompositeFilter
 	public Filter delFilterInLayer(Filter filter){
 		Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter);
 		
-		checkAndActivateLayer(new Id(filter.getLayerIndex(), filter.getFilterIndex()-1));
+		checkAndActivateFilter(filter);
 
 		execute();
 		return erasedFilter;
@@ -89,10 +84,10 @@ public class ChainOfLayers extends CompositeFilter
 		return newFilter;
 	}
 
-	public void setOpacity(int layerIndex, Float opacity){
-		if (getNumberOfLayers() >layerIndex) {
-			((Layer)chainOfFilters.getCommand(layerIndex)).setOpacity(opacity);
-			checkAndActivateLayer(new Id(layerIndex, 0));
+	public void setOpacity(Filter opacityFilter, Float opacity){
+		if (getNumberOfLayers() >opacityFilter.getLayerIndex()) {
+			((Layer)chainOfFilters.getCommand(opacityFilter.getLayerIndex())).setOpacity(opacity);
+			checkAndActivateLayer(opacityFilter);
 			execute();
 		}
 	}  
@@ -117,7 +112,7 @@ public class ChainOfLayers extends CompositeFilter
 			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex()));
 			
 			filterToBypass.bypass(bypass);
-			checkAndActivateLayer(new Id(id.layerIndex(), id.filterIndex()));			
+			checkAndActivateFilter(filterToBypass);			
 			execute();
 		}
 	}    
@@ -140,7 +135,20 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}
 	
-	public void checkAndActivateLayer (Id id) {	
+	public void checkAndActivateLayer (Filter newLayer) {	
+		Id id = new Id(newLayer.getLayerIndex()-1,0);
+		if(getNumberOfLayers()!=0) {
+			if (id.layerIndex()<=0){
+				activateLayer(new Id(0,0));
+			}
+			else {
+				activateLayer(id);
+			}
+		}
+	}
+	
+	public void checkAndActivateFilter (Filter newLayer) {	
+		Id id = new Id(newLayer.getLayerIndex(), newLayer.getFilterIndex());
 		if(getNumberOfLayers()!=0) {
 			if (id.layerIndex()<=0){
 				activateLayer(new Id(0,0));
@@ -167,7 +175,7 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}	
 	
-	protected Filter create(Stack<Id> filterId, Stack<String> filterName){
+	protected Layer createLayer(Stack<Id> filterId, Stack<String> filterName){
 		return layersFactory.createLayer(filterId, filterName);	
 	}
 	
