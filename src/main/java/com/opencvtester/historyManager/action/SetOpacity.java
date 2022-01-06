@@ -21,8 +21,8 @@ public class SetOpacity implements Action {
 	}
 	
 	public void execute() {	
-		chainOfLayers.setOpacity(opacityFilter.getId().layerIndex(), opacityFilter.getOpacity());
-		chainOfLayerManager.setOpacity(opacityFilter.getId().layerIndex(), opacityFilter.getOpacity());
+		chainOfLayers.setOpacity(opacityFilter.getLayerIndex(), opacityFilter.getOpacity());
+		chainOfLayerManager.setOpacity(opacityFilter.getLayerIndex(), opacityFilter.getOpacity());
 	}
 	
 	public Action clone() {

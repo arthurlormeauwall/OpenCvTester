@@ -42,13 +42,8 @@ public abstract class CompositeFilter extends Filter
 	}	
 	
 	public Filter add(Filter filter) {	
-		if (!isIndexOutOfRange(filter.getId())) {		
-			chainOfFilters.addCommand(filter, indexType());	
-			return filter;
-		}
-		else {
-			return null;
-		}
+		chainOfFilters.addCommand(filter, indexType());	
+		return filter;
 	}
 	
 	public Filter delete(Filter filter) {

@@ -39,6 +39,10 @@ public class Command
     public int getFilterIndex() {
     	return id.filterIndex();
     }
+    
+    public int getFilterOrLayerIndex(String key) {
+    	return id.get(key);
+    }
 
     public void updateId(String groupDeepnessIndex, int newValue) {
     	id.setFilterOrLayer(groupDeepnessIndex, newValue);

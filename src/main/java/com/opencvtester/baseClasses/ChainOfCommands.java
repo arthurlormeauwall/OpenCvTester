@@ -14,7 +14,7 @@ public class ChainOfCommands
     }
 
     public void addCommand(Command command, String indexType) {
-        int index = getCommandIndex(command.getId(), indexType);
+        int index = command.getFilterOrLayerIndex(indexType);
 
         int lastControl = commands.size() - 1;
         
@@ -34,14 +34,14 @@ public class ChainOfCommands
         }      
     }
 
-    public Command delCommand(Command command, String groupDeepnessIndex) {
-        int index = getCommandIndex(command.getId(), groupDeepnessIndex);
+    public Command delCommand(Command command, String indexType) {
+        int index = command.getFilterOrLayerIndex(indexType);
         int lastControlIndex= commands.size()-1;
         if (index>lastControlIndex) {
         	index=lastControlIndex;
         }
         Command erasedCommand =commands.remove(index);
-        updateAllId(index, groupDeepnessIndex);
+        updateAllId(index, indexType);
         return erasedCommand;
     }
     
@@ -57,10 +57,10 @@ public class ChainOfCommands
         }
     }
     
-    public int getCommandIndex(Id id,  String groupDeepnessIndex) {
-        int commandIndex = id.get(groupDeepnessIndex);
-        return commandIndex;
-    }
+//    public int getCommandIndex(Id id,  String groupDeepnessIndex) {
+//        int commandIndex = id.get(groupDeepnessIndex);
+//        return commandIndex;
+//    }
 
     public ChainOfCommands clone() {		
     	ChainOfCommands newChainControl = new ChainOfCommands(id.clone());
@@ -84,7 +84,6 @@ public class ChainOfCommands
     public void setCommandChain(Stack<Command> commandChain) {   	
     	commands=commandChain;
     }
-
 
     public int getSize() {
         return commands.size();
