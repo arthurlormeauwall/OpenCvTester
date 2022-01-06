@@ -2,8 +2,6 @@ package com.opencvtester.historyManager.action;
 
 import java.util.LinkedHashMap;
 
-import com.opencvtester.baseClasses.Id;
-import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.GuiManager;

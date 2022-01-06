@@ -1,11 +1,9 @@
 package com.opencvtester.guiManager;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.Id;
-import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.gui.MainWindow;
 import com.opencvtester.historyManager.HystoryManager;
