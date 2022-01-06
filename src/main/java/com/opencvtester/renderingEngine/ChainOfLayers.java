@@ -3,6 +3,7 @@ package com.opencvtester.renderingEngine;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
+import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
@@ -17,9 +18,11 @@ public class ChainOfLayers extends CompositeFilter
 		
 	public ChainOfLayers (FiltersDataBase dbControls, FrameInterface background, Id id) {
 		super(dbControls, id);
-		layersFactory=new LayersFactory(background, frameIn, frameOut, filtersDataBase);
-		groupID="layer";
+		
 		this.background = background;
+		layersFactory=new LayersFactory(background, frameIn, frameOut, filtersDataBase);
+		indexType="layer";
+		chainOfFilters = new ChainOfCommands (this.indexType);	
 		renderer=new ChainOfLayersRenderer(this, background);
 	}
 
@@ -33,7 +36,7 @@ public class ChainOfLayers extends CompositeFilter
 	public Layer createAndAddLayer(Stack<Id> filterId, Stack<String> filterNames) {	
 		if (!isIndexOutOfRange(filterId.get(0))) {
 			Layer filter = createLayer(filterId, filterNames);
-			chainOfFilters.addCommand(filter, indexType());
+			chainOfFilters.addCommand(filter, filter.getIndex(indexType));
 			return filter;
 		}
 		else {

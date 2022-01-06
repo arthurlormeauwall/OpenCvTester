@@ -2,17 +2,17 @@ package com.opencvtester.baseClasses;
 
 import java.util.Stack;
 
-
 public class ChainOfCommands
 {
     protected Stack<Command> commands;
+    protected String indexType;
 
-    public ChainOfCommands() { 
+    public ChainOfCommands(String indexType) { 
     	commands = new Stack<Command>();
+    	this.indexType=indexType;
     }
 
-    public void addCommand(Command command, String indexType) {
-        int index = command.getIndex(indexType);
+    public void addCommand(Command command, int index) {
 
         int lastControl = commands.size() - 1;
         
@@ -56,7 +56,7 @@ public class ChainOfCommands
     }
 
     public ChainOfCommands clone() {		
-    	ChainOfCommands newChain = new ChainOfCommands();
+    	ChainOfCommands newChain = new ChainOfCommands(indexType);
     	newChain.setCommandChain(commands);	
     	return newChain;
     }

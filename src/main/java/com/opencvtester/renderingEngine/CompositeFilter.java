@@ -16,17 +16,17 @@ public abstract class CompositeFilter extends Filter
 	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
-	protected String groupID;
+	protected String indexType;
 	
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
 		frames = new Stack<FrameInterface>();
 		this.filtersDataBase = filtersDataBase;	
-		chainOfFilters = new ChainOfCommands ();		
+	
 	}
 	
 	public Filter add(Filter filter) {	
-		chainOfFilters.addCommand(filter, indexType());	
+		chainOfFilters.addCommand(filter, filter.getIndex(indexType));	
 		return filter;
 	}
 	
@@ -62,7 +62,7 @@ public abstract class CompositeFilter extends Filter
 	}
 	
 	public String indexType() {
-		return groupID;
+		return indexType;
 	}
 	
 	public Filter getFirstFilter() {

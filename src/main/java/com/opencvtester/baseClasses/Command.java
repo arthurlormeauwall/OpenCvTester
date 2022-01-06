@@ -40,8 +40,8 @@ public class Command
     	return id.get(key);
     }
 
-    public void updateId(String groupDeepnessIndex, int newValue) {
-    	id.setFilterOrLayer(groupDeepnessIndex, newValue);
+    public void updateId(String indexType, int newValue) {
+    	id.setFilterOrLayer(indexType, newValue);
     }
     
     public Boolean isbypass () {

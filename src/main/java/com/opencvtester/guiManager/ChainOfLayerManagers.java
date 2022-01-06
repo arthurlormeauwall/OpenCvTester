@@ -11,14 +11,15 @@ public class ChainOfLayerManagers {
 	
 	private ChainOfCommands layerManagers;
 	private MainWindow gui;
-	private String groupID;
+	private String indexType;
 	
 	public ChainOfLayerManagers (MainWindow gui){	
 		Id chainId = new Id();
 		chainId.set(0,0);
-		layerManagers= new ChainOfCommands();
+
 		this.gui=gui;
-		groupID="layer";
+		indexType="layer";
+		layerManagers= new ChainOfCommands(indexType);
 	}
 	
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
@@ -32,12 +33,12 @@ public class ChainOfLayerManagers {
 	}
 
 	public void addLayerManager(LayerManager layerController) {
-		layerManagers.addCommand(layerController, indexType());	
+		layerManagers.addCommand(layerController, layerController.getIndex(indexType));	
 		gui.updateGui();
 	}
 
 	public void deleteLayerManager(LayerManager layerManager) {
-		layerManagers.delCommand(layerManager, indexType());	
+		layerManagers.delCommand(layerManager, indexType);	
 		gui.updateGui();
 	}
 
@@ -63,9 +64,4 @@ public class ChainOfLayerManagers {
 		
 		return (LayerManager)layerManagers.getCommand(i);
 	}
-	
-	public String indexType() {
-		return groupID;
-	}
-
 }

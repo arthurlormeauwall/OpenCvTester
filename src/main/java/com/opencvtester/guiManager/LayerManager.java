@@ -15,14 +15,15 @@ public class LayerManager extends Command
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
 	protected GuiManager guiManager;
-	protected String groupID;
+	protected String indexType;
 	
 	public LayerManager(Layer layer, GuiManager guiManager) {
-		groupID="filter";
 		this.layer=layer;
 		this.guiManager=guiManager;
 		this.id.set(layer);
-		chainOfFilterManager=new ChainOfCommands();
+		
+		indexType="filter";
+		chainOfFilterManager=new ChainOfCommands(indexType);
 		layerWidget=new LayerWidget(this, this.guiManager);
 		layerWindow=new LayerWindow(this, this.guiManager);		
 	}
@@ -36,12 +37,12 @@ public class LayerManager extends Command
 	}
 
 	public FilterManager addFilterManager(FilterManager newFilterManager) {
-		chainOfFilterManager.addCommand(newFilterManager,indexType());
+		chainOfFilterManager.addCommand(newFilterManager,newFilterManager.getIndex(indexType()));
 		return newFilterManager;
 	}
 	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
 		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterManager.addCommand(filterManager,indexType());
+		chainOfFilterManager.addCommand(filterManager,filterManager.getIndex(indexType));
 		return filterManager;
 	}
 
@@ -62,6 +63,6 @@ public class LayerManager extends Command
 	}
 	
 	public String indexType() {
-		return groupID;
+		return indexType;
 	}	
 }
