@@ -12,6 +12,9 @@ public abstract class Filter extends Command
 	protected FrameInterface frameOut;
 	protected Boolean activate;
 	
+	/*
+	 * CONSTRUCTOR & INITS & ABSTRACT
+	 */
 	public Filter() {
 		activate= false;
 		frameIn = new Frame();
@@ -26,7 +29,10 @@ public abstract class Filter extends Command
 	}
 	
 	public abstract void execute();
-
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public FrameInterface getFrameIn(){
 		return frameIn;
 	}
@@ -54,6 +60,4 @@ public abstract class Filter extends Command
 	public void activate() {
 		activate=true;		
 	}
-	
-
 }

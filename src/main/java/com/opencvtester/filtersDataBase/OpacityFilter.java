@@ -11,6 +11,9 @@ public class OpacityFilter extends FilterControlledByFloat
 	protected FrameInterface background;
 	private Float opacity;	
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public OpacityFilter() {
 	}
 	
@@ -20,12 +23,37 @@ public class OpacityFilter extends FilterControlledByFloat
 		setOpacity(flags.defaultValues.get("Opacity"));
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public void setParameterFlags() {	
 		opacity=1f; 
 		addParameterFlag("Opacity", 1f,1f); // TODO : replace this
 	}
 
+	public void setBackGround(FrameInterface background){	
+		this.background = background; 
+	}
 	
+	public void setOpacity(Float opacity){
+		this.opacity=opacity;
+	
+		LinkedHashMap<String,Float> newOpacity= new LinkedHashMap<String, Float>();
+		newOpacity.put("Opacity", opacity);
+		setParameter(newOpacity);	
+	}
+	
+	public Float getOpacity() {
+		return opacity;
+	}
+	
+	public FilterControlledByFloat createNew() {	
+		return new OpacityFilter();
+	}
+
+	/*
+	 * FEATURES
+	 */
 	public void execute() {
 		if (isBypass) {
 			frameIn.copyTo(frameOut);
@@ -58,27 +86,5 @@ public class OpacityFilter extends FilterControlledByFloat
 				}				
 			}
 		}
-	}
-			
-	public void setBackGround(FrameInterface background){	
-		this.background = background; 
-	}
-	
-	
-	public void setOpacity(Float opacity){
-		this.opacity=opacity;
-	
-		LinkedHashMap<String,Float> newOpacity= new LinkedHashMap<String, Float>();
-		newOpacity.put("Opacity", opacity);
-		setParameter(newOpacity);	
-	}
-	
-	public Float getOpacity() {
-		return opacity;
-	}
-
-	public FilterControlledByFloat createNew() {
-		
-		return new OpacityFilter();
 	}
 }

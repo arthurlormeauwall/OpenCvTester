@@ -31,6 +31,9 @@ public class FilterWidget extends JPanel
 	
 	private static final long serialVersionUID = 1L;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public FilterWidget (FilterControlledByFloat sourceFilter, GuiManager actionHistoryManager){
 		sliders= new LinkedHashMap<String, LabelledSlider>();
 		bypass=sourceFilter.isbypass();
@@ -83,6 +86,9 @@ public class FilterWidget extends JPanel
 		    });		
 	}
 
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public void setParameters(String name, Integer value) {
 		sourceFilter.setParameters(name, value.floatValue());	
 	}
@@ -91,6 +97,9 @@ public class FilterWidget extends JPanel
 		return sourceFilter;
 	}
 	
+	/*
+	 * FEATURES
+	 */
 	public void setEmitSignal(Boolean emitSignal) {
 		Iterator<Entry<String, LabelledSlider>> parametersIterator= sliders.entrySet().iterator();
 	    while (parametersIterator.hasNext()) {

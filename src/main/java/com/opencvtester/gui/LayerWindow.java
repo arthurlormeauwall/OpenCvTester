@@ -28,6 +28,9 @@ public class LayerWindow  extends JFrame
 	private JButton undoButton;
 	private JButton redoButton;
  	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public LayerWindow (LayerManager layerController, GuiManager actionHistoryManager){
 		super("Layer");
 		this.guiManager=actionHistoryManager;
@@ -120,6 +123,10 @@ public class LayerWindow  extends JFrame
 		    });
 	}
 
+
+	/*
+	 * FEATURES
+	 */
 	public void updateGui() {
 		filterPanel.removeAll();
 		
@@ -130,5 +137,4 @@ public class LayerWindow  extends JFrame
 		
 		this.pack();		
 	}
-
 }

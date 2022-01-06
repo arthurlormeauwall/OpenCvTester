@@ -16,6 +16,9 @@ public class SetParameters implements Action {
 	private LinkedHashMap<String, Float> parameters;
 	private GuiManager guiManager;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	@SuppressWarnings("unchecked")
 	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager,FilterControlledByFloat filter){
 		this.guiManager=guiManager;
@@ -26,12 +29,14 @@ public class SetParameters implements Action {
 
 	}
 	
+	/*
+	 * FEATURES
+	 */
 	public void invert() {	
 	}
 	
 	public void execute() {	
 		chainOfLayerManager.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).setEmitSignal(false);
-		
 		
 		chainOfLayerManager.setParameters(filter, parameters);
 		chainOfLayers.setParameters(filter, parameters);

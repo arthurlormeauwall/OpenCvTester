@@ -11,11 +11,28 @@ public class ChainOfLayersRenderer extends Renderer {
 
 	private FrameInterface background;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public ChainOfLayersRenderer(CompositeFilter compositeFilters, FrameInterface background) {
 		super(compositeFilters);
 		this.background=background;
 	}
-
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
+	public Command getLastFilter(){
+		return chainOfFilters.get(chainOfFilters.size() - 1);
+	}   
+	
+	public int getNumberOfFiltersPlusOpacity() {
+		return chainOfFilters.size();
+	}
+	
+	/*
+	 * FEATURES
+	 */
 	public void execute(Stack<Command> chainOfFilters) {
 		dealFrames(chainOfFilters);	
 		dealFramesInLayers();
@@ -39,14 +56,4 @@ public class ChainOfLayersRenderer extends Renderer {
 			 ((Layer)chainOfFilters.get(i)).dealFrames();	
 		}
 	}
-	
-	public Command getLastFilter(){
-		return chainOfFilters.get(chainOfFilters.size() - 1);
-	}   
-	
-	public int getNumberOfFiltersPlusOpacity() {
-		return chainOfFilters.size();
-	}
-	
-	
 }

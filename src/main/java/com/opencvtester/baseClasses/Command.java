@@ -5,6 +5,10 @@ public class Command
 	protected Id id;
     protected Boolean isBypass;
     
+    
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public Command() {    
 		this.id = new Id ();   
 		this.id.initNULL();
@@ -15,7 +19,10 @@ public class Command
     	this.id.set(id);
 	    isBypass = false;
     } 
-
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
     public void setId(Id id) {
     	this.id=id;
     }

@@ -12,12 +12,18 @@ public class AddOrDeleteLayer implements Action {
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerManagers chainOfLayerManager;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, LayerManager layerManager){
 		this.layerManager=layerManager;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
 	}
 
+	/*
+	 * FEATURES
+	 */
 	public void invert() {
 		if (addOrDelete== Functionalities.ADD) {
 			addOrDelete=Functionalities.DELETE;

@@ -6,14 +6,18 @@ public class Id
 {
 	protected HashMap<String, Integer> id;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public Id() {
 		id=new HashMap<String, Integer>();
 		initNULL();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Id(HashMap<String, Integer> ids) {
 		id=new HashMap<String, Integer>();
-		set(ids);
+		this.id=(HashMap<String, Integer>) ids.clone();
 	}
 	
 	public Id(int layerIndex, int filterIndex) {
@@ -22,11 +26,9 @@ public class Id
 		id.put("filter", filterIndex);
 	}
 	
-	public void initNULL(){
-		id.put("layer", -1);
-		id.put("filter", -1);
-	}
-
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public HashMap<String, Integer> get(){
 		return id;
 	}
@@ -58,21 +60,8 @@ public class Id
 		id.put("filter", command.getFilterIndex());
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void set(HashMap<String, Integer> id){
-		this.id=(HashMap<String, Integer>) id.clone();
-	}
-	
 	public void setFilterOrLayer(String indexType, int newValue){
 		id.put(indexType, newValue);
-	}
-
-	public Id clone() {
-		Id temp= new Id();
-		temp.setLayerIndex(id.get("layer"));
-		temp.setFilterIndex(id.get("filter"));
-	
-		return temp;
 	}
 	
 	public void setFilterIndex(int filterIndex){
@@ -81,5 +70,21 @@ public class Id
 	
 	public void setLayerIndex(int layerIndex){
 		id.put("layer", layerIndex);
+	}
+		
+	/*
+	 * FEATURES
+	 */
+	public void initNULL(){
+		id.put("layer", -1);
+		id.put("filter", -1);
+	}
+
+	public Id clone() {
+		Id temp= new Id();
+		temp.setLayerIndex(id.get("layer"));
+		temp.setFilterIndex(id.get("filter"));
+	
+		return temp;
 	}
 }

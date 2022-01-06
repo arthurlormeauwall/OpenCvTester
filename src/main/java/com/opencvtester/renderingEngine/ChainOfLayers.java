@@ -15,7 +15,10 @@ public class ChainOfLayers extends CompositeFilter
 {
 	protected FrameInterface background;
 	protected LayersFactory layersFactory;
-		
+	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public ChainOfLayers (FiltersDataBase dbControls, FrameInterface background, Id id) {
 		super(dbControls, id);
 		
@@ -25,7 +28,10 @@ public class ChainOfLayers extends CompositeFilter
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		renderer=new ChainOfLayersRenderer(this, background);
 	}
-
+	
+	/*
+	 * FEATURES
+	 */
 	public Layer addLayer(Stack<Id> filterId, Stack<String> filterNames){
 		Layer newLayer = createAndAddLayer(filterId, filterNames);
 		checkAndActivateLayer(newLayer);

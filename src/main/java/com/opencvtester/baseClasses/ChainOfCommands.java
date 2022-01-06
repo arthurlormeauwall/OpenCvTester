@@ -7,11 +7,36 @@ public class ChainOfCommands
     protected Stack<Command> commands;
     protected String indexType;
 
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
     public ChainOfCommands(String indexType) { 
     	commands = new Stack<Command>();
     	this.indexType=indexType;
     }
+      
+    /*
+	 * GETTERS & SETTERS
+	 */
+    public Stack<Command> getCommandChain() {      
+    	return commands;
+    }
+    
+    public void setCommandChain(Stack<Command> commandChain) {   	
+    	commands=commandChain;
+    }
 
+    public int getSize() {
+        return commands.size();
+    }
+
+	public Stack<Command> getChain() {
+		return commands;
+	} 
+	
+	/*
+	 * FEATURES
+	 */
     public void addCommand(Command command, int index) {  
         if (commands.size() == 0) {
         	commands.push(command);
@@ -40,12 +65,6 @@ public class ChainOfCommands
         }
     }
 
-    public ChainOfCommands clone() {		
-    	ChainOfCommands newChain = new ChainOfCommands(indexType);
-    	newChain.setCommandChain(commands);	
-    	return newChain;
-    }
-
     public Command getCommand(int index){
     	if (index>=0 && index < commands.size()) {
     		return commands.get(index);
@@ -55,19 +74,9 @@ public class ChainOfCommands
     	}
     }
 
-    public Stack<Command> getCommandChain() {      
-    	return commands;
+    public ChainOfCommands clone() {		
+    	ChainOfCommands newChain = new ChainOfCommands(indexType);
+    	newChain.setCommandChain(commands);	
+    	return newChain;
     }
-    
-    public void setCommandChain(Stack<Command> commandChain) {   	
-    	commands=commandChain;
-    }
-
-    public int getSize() {
-        return commands.size();
-    }
-
-	public Stack<Command> getChain() {
-		return commands;
-	} 
 }

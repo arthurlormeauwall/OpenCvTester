@@ -8,18 +8,17 @@ import com.opencvtester.renderingEngine.Layer;
 
 public class LayerRenderer extends Renderer {
 
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public LayerRenderer(CompositeFilter compositeFilters) {
 		super(compositeFilters);
 	}
 
-	@Override
-	public void execute(Stack<Command> chainOfFilters) {
-		setChain(chainOfFilters);
-		render();
-		((Layer)compositeFilters).getOpacityFilter().execute();	
-		
-	}
-
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public Command getLastFilter() {
 		return ((Layer)compositeFilters).getOpacityFilter(); 
 	}
@@ -27,6 +26,14 @@ public class LayerRenderer extends Renderer {
 	public int getNumberOfFiltersPlusOpacity() {
 		return chainOfFilters.size()+1;
 	}
-
-
+	
+	/*
+	 * FEATURES
+	 */
+	@Override
+	public void execute(Stack<Command> chainOfFilters) {
+		setChain(chainOfFilters);
+		render();
+		((Layer)compositeFilters).getOpacityFilter().execute();	
+	}
 }

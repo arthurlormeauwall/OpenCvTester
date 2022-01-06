@@ -14,7 +14,9 @@ public abstract class Renderer {
 	protected Stack<Filter> chainOfFilters;
 	protected CompositeFilter compositeFilters;
 
-	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public Renderer(CompositeFilter compositeFilters) {
 		this.compositeFilters=compositeFilters;	
 		chainOfFilters=new Stack<Filter>();
@@ -24,7 +26,10 @@ public abstract class Renderer {
 	public abstract void execute(Stack<Command> chainOfFilters);
 	public abstract Command getLastFilter();
 	public abstract int getNumberOfFiltersPlusOpacity();
-	
+
+	/*
+	 * FEATURES
+	 */
 	protected void updateNumberOfFrames() {
 
 		int numberOfFilters = getNumberOfFiltersPlusOpacity();

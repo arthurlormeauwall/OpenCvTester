@@ -11,6 +11,9 @@ public class OpacitySlider extends LabelledSlider {
 
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public OpacitySlider(String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager actionHistoryManager) {
 		super(name, defaultValue, widgetToUpdate, actionHistoryManager);
 		slider.setMaximum(100);

@@ -21,6 +21,9 @@ public class LayerWidget extends JPanel
 	
 	private static final long serialVersionUID = 1L;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public LayerWidget (LayerManager layerController, GuiManager actionHistoryManager){
 		this.layerController=layerController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));

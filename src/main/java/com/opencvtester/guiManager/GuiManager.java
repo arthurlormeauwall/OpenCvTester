@@ -20,6 +20,9 @@ public class GuiManager
 	private MainWindow mainWindow;
 	private FrameWindowManager frameWindowManager;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public GuiManager(ChainOfLayers chainOfLayers){
 		this.chainOfLayers=chainOfLayers;
 		
@@ -28,10 +31,20 @@ public class GuiManager
 		frameWindowManager.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public void setMainWindow(MainWindow mainWindow) {
 		this.mainWindow=mainWindow;		
 	}
+
+	public Stack<String> getFiltersName() {
+		return chainOfLayers.getFilterDataBase().getFiltersName();	
+	}
 	
+	/*
+	 * FEATURES
+	 */
 	private Id createLayerId(int layerIndex) {	
 		Id id = new Id();
 		id.set(layerIndex, 0);
@@ -66,7 +79,6 @@ public class GuiManager
 		refreshResult();
 		return newLayer;
 	}
-	
 	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
 		Id id= createFilterId(layerIndex, filterIndex);
@@ -125,9 +137,5 @@ public class GuiManager
 	
 	public void store() {	
 		history.store();
-	}
-
-	public Stack<String> getFiltersName() {
-		return chainOfLayers.getFilterDataBase().getFiltersName();	
 	}
 }

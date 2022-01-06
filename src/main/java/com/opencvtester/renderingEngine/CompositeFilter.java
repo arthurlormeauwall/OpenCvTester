@@ -18,6 +18,9 @@ public abstract class CompositeFilter extends Filter
 	protected Renderer renderer;
 	protected String indexType;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
 		super(id);
 		frames = new Stack<FrameInterface>();
@@ -25,26 +28,10 @@ public abstract class CompositeFilter extends Filter
 	
 	}
 	
-	public Filter add(Filter filter) {	
-		chainOfFilters.addCommand(filter, filter.getIndex(indexType));	
-		return filter;
-	}
 	
-	public Filter delete(Filter filter) {
-		return (Filter)chainOfFilters.delCommand(filter.getIndex(indexType));	
-	}
-	
-	public Boolean isIndexOutOfRange(Id filterId) {
-		int indexOfFilterToAddOrDelete= filterId.get(indexType());
-
-		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public Command get(int index) {
 		return chainOfFilters.getCommand(index);
 	}
@@ -65,6 +52,29 @@ public abstract class CompositeFilter extends Filter
 		return indexType;
 	}
 	
+	/*
+	 * FEATURES
+	 */
+	public Filter add(Filter filter) {	
+		chainOfFilters.addCommand(filter, filter.getIndex(indexType));	
+		return filter;
+	}
+	
+	public Filter delete(Filter filter) {
+		return (Filter)chainOfFilters.delCommand(filter.getIndex(indexType));	
+	}
+	
+	public Boolean isIndexOutOfRange(Id filterId) {
+		int indexOfFilterToAddOrDelete= filterId.get(indexType());
+
+		if(chainOfFilters.getSize()>= indexOfFilterToAddOrDelete) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 	public Filter getFirstFilter() {
 		if (chainOfFilters.getSize()==0) {
 			return this;
@@ -73,5 +83,4 @@ public abstract class CompositeFilter extends Filter
 			return (Filter)chainOfFilters.getCommand(0);
 		}
 	}
-
 }

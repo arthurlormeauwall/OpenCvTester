@@ -12,12 +12,18 @@ public class AddOrDeleteFilter implements Action {
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerManagers chainOfLayerManager;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, FilterManager filterManager){
 		this.filterManager=filterManager;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
 	}
 
+	/*
+	 * FEATURES
+	 */
 	public void invert() {
 		if (addOrDelete== Functionalities.ADD) {
 			addOrDelete=Functionalities.DELETE;

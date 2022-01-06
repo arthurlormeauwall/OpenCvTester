@@ -9,13 +9,18 @@ public class HystoryManager
 	protected Stack<Action> actions;
 	protected int currentIndex;;
 	
-	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public HystoryManager(){
 		actions=new Stack<Action>();
 		currentIndex=0;
 		actions.push(null);
 	}
 		
+	/*
+	 * FEATURES
+	 */
 	public void store() {
 		clearUndoHistory();
 		if (actions.isEmpty()) {
@@ -56,7 +61,6 @@ public class HystoryManager
 			actions.set(currentIndex, command);
 		}	
 	}
-	
 	
 	public Boolean isUndoEmpty() {
 		if (currentIndex>0) {

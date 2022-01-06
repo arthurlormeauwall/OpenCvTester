@@ -10,6 +10,9 @@ public class SetOpacity implements Action {
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerManagers chainOfLayerManager;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public SetOpacity(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, OpacityFilter opacityFilter){
 		this.opacityFilter=opacityFilter;
 		this.chainOfLayers=chainOfLayers;
@@ -17,6 +20,9 @@ public class SetOpacity implements Action {
 
 	}
 	
+	/*
+	 * FEATURES
+	 */
 	public void invert() {	
 	}
 	

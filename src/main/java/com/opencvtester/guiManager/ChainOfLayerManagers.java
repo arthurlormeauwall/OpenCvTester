@@ -13,6 +13,9 @@ public class ChainOfLayerManagers {
 	private MainWindow gui;
 	private String indexType;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public ChainOfLayerManagers (MainWindow gui){	
 		Id chainId = new Id();
 		chainId.set(0,0);
@@ -22,6 +25,16 @@ public class ChainOfLayerManagers {
 		layerManagers= new ChainOfCommands(indexType);
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
+	public LayerManager getLayerManager (int i) {
+		return (LayerManager)layerManagers.getCommand(i);
+	}
+	
+	/*
+	 * FEATURES
+	 */
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
 		((LayerManager)layerManagers.getCommand(filterController.getLayerIndex())).addFilterManager(filterController);
 		gui.updateGui();
@@ -58,10 +71,5 @@ public class ChainOfLayerManagers {
 		for (int i=0;i<getNumberOfLayer();i++) {
 			((LayerManager)layerManagers.getCommand(i)).updateGui();
 		}	
-	}
-
-	public LayerManager getLayerManager (int i) {
-		
-		return (LayerManager)layerManagers.getCommand(i);
 	}
 }

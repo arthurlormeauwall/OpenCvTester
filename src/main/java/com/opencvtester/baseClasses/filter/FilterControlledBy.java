@@ -9,6 +9,9 @@ public abstract class FilterControlledBy<T> extends Filter
 	protected LinkedHashMap<String, T> currentParameters;
 	protected FilterFlags<T> flags;
 	
+	/*
+	 * CONSTRUCTOR & INITS & ABSTRACT
+	 */
 	public FilterControlledBy() {
 		initFilterControlledBy();
 	}
@@ -20,10 +23,14 @@ public abstract class FilterControlledBy<T> extends Filter
 	
 	public abstract void setParameter(LinkedHashMap<String, T> p);
 	
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public void setIndex(String indexType, int newValue) {
 		id.setFilterOrLayer(indexType, newValue);
 	}
-	
+
 	public void bypass(Boolean bypass){
 		setBypass(bypass);
 	}
@@ -51,5 +58,4 @@ public abstract class FilterControlledBy<T> extends Filter
 	public FilterFlags<T> getFlags() {
 		return flags;
 	}
-
 }

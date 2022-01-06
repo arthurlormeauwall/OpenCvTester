@@ -30,6 +30,9 @@ public class MainWindow extends JFrame
 	private JButton undoButton;
 	private JButton redoButton;  
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public MainWindow(GuiManager guiManager) {
 		super("OpenCV tester");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +91,21 @@ public class MainWindow extends JFrame
 		      }
 		    });
 	}
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
+	public GuiManager getGuiManager() {
+		return guiManager;
+	}
 
+	public ChainOfLayerManagers getChainOfLayerManagers() {
+		return chainOfLayerManagers;
+	}	
+	
+	/*
+	 * FEATURES
+	 */
 	public void addFilterWidgetInLayerWidget(FilterManager filterController) {
 		chainOfLayerManagers.addFilterWigetInLayerWiget(filterController);
 		updateGui();
@@ -106,7 +123,6 @@ public class MainWindow extends JFrame
 		layerManager.getLayerWindow().setVisible(false);
 		chainOfLayerManagers.deleteLayerManager(layerManager);		
 	}
-
 
 	public void updateOpacityValue(int layerIndex, Float opacity) {
 	}
@@ -127,14 +143,6 @@ public class MainWindow extends JFrame
 		}
 		this.pack();
 	}
-
-	public GuiManager getGuiManager() {
-		return guiManager;
-	}
-
-	public ChainOfLayerManagers getChainOfLayerManagers() {
-		return chainOfLayerManagers;
-	}	
 }
 
 

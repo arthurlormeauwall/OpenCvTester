@@ -10,11 +10,17 @@ public class FrameWindowManager {
 	protected JFrame frameWindow;
 	protected BufferedImage bufImage;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	FrameWindowManager(){
 		frameWindow= new JFrame("Image");
 		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
 	}
-	
+
+	/*
+	 * FEATURES
+	 */
 	public void refresh(BufferedImage bufImage) {
 		frameWindow.getContentPane().removeAll();
 		frameWindow.getContentPane().add(new JLabel(new ImageIcon(bufImage)));

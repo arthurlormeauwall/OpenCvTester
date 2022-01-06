@@ -12,12 +12,18 @@ public class FilterManager extends Command {
 	protected Filter filter;
 	protected FilterWidget filterWidget;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){
 		this.filter=filter;
 		this.id.set(filter);
 		filterWidget=new FilterWidget(filter, guiManager);
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public Filter getFilter() {
 		return filter;
 	}
@@ -29,7 +35,10 @@ public class FilterManager extends Command {
 	public void setEmitSignal(Boolean emitSignal) {
 		filterWidget.setEmitSignal(emitSignal);	
 	}
-
+	
+	/*
+	 * FEATURES
+	 */
 	public void updateParameterValues(LinkedHashMap<String, Float> parameters) {
 		filterWidget.updateParameterValues(parameters);	
 	}

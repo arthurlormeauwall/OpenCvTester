@@ -19,6 +19,9 @@ public class App
 	private FrameInterface backgroundFrame;
 	private FrameInterface frameOut;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public App (String fileName) throws IOException{
 		// Init open cv library
 		nu.pattern.OpenCV.loadLocally();
@@ -26,8 +29,11 @@ public class App
 		guiManager= new GuiManager(chainOfLayersInitializer(fileName));
 		mainWindow = new MainWindow(guiManager);
 		guiManager.setMainWindow(mainWindow);
-	}
-
+	}	
+	
+	/*
+	 * FEATURES
+	 */
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
 		guiManager.addFilterInDatabase(name, filter);
 	}

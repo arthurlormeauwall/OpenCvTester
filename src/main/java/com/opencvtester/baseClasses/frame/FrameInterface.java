@@ -3,7 +3,7 @@ package com.opencvtester.baseClasses.frame;
 import java.awt.image.BufferedImage;
 
 public interface FrameInterface {
-	
+
 	public void readFromFile(final String fileName) ;
 
 	public void copyTo(FrameInterface newFrame) ;

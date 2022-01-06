@@ -17,6 +17,9 @@ public class Layer extends CompositeFilter
 	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;	
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public Layer (FiltersDataBase filtersDatabase, Id id) {
 		super(filtersDatabase, id);
 		indexType="filter";
@@ -35,7 +38,49 @@ public class Layer extends CompositeFilter
 		opacityFilter.setLayerIndex(id.layerIndex());
 		opacityFilter.setFilterIndex(1);
 	}
+	
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
+	public OpacityFilter getOpacityFilter(){
+		return opacityFilter;
+	}
+	
+	public void setOpacity(Float opacity){
+		opacityFilter.setOpacity(opacity);
+	}
 
+	public void setBackGround(FrameInterface background){
+		this.background = background;
+		opacityFilter.setBackGround(background);
+	}
+	
+	public int getNumberOfFilters() {
+		return chainOfFilters.getSize();
+	}
+	
+	public Filter getLastLayer() {
+		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-1);
+	}
+
+	public Boolean hasFilter() {
+		if (getNumberOfFilters()==0) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
+	public FilterControlledByFloat getFilter(int index) {
+		return (FilterControlledByFloat)chainOfFilters.getCommand(index);
+	}
+
+	
+	/*
+	 * FEATURES
+	 */
 	protected Filter getFilterFromDatabase(Id id, String filterNamesInDataBase){
 		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
 		newFilter.setId(id.clone());
@@ -61,27 +106,6 @@ public class Layer extends CompositeFilter
 		renderer.execute(chainOfFilters.getChain());
 	}
 
-	public OpacityFilter getOpacityFilter(){
-		return opacityFilter;
-	}
-	
-	public void setOpacity(Float opacity){
-		opacityFilter.setOpacity(opacity);
-	}
-	
-	public void setBackGround(FrameInterface background){
-		this.background = background;
-		opacityFilter.setBackGround(background);
-	}
-	
-	public int getNumberOfFilters() {
-		return chainOfFilters.getSize();
-	}
-
-	public FilterControlledByFloat getFilter(int index) {
-		return (FilterControlledByFloat)chainOfFilters.getCommand(index);
-	}
-
 	public void dealFrames() {
 		renderer.dealFrames(chainOfFilters.getChain());		
 	}
@@ -96,16 +120,4 @@ public class Layer extends CompositeFilter
 		return newMaskedLayer;
 	}
 
-	public Filter getLastLayer() {
-		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-1);
-	}
-
-	public Boolean hasFilter() {
-		if (getNumberOfFilters()==0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
 }

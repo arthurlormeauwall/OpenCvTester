@@ -12,10 +12,16 @@ public class FiltersDataBase
 	protected HashMap<String, FilterControlledByFloat> filters;
 	protected OpacityFilter alphaFilter;
 
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public FiltersDataBase() {
 		filters= new HashMap<String, FilterControlledByFloat>();
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public FilterControlledByFloat getFilter(String name){
 		return filters.get(name).createNew();	
 	}
@@ -31,7 +37,10 @@ public class FiltersDataBase
 	public FilterFlags<Float> getFlags(String name){
 			return filters.get(name).getFlags();
 	}
-
+	
+	/*
+	 * FEATURES
+	 */
 	public Stack<String> getFiltersName() {
 		Stack<String> filtersName= new Stack<String>();
 		Iterator<Entry<String, FilterControlledByFloat>> new_Iterator= filters.entrySet().iterator();

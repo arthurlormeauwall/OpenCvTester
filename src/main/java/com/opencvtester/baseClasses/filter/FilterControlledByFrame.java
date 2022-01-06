@@ -11,6 +11,9 @@ import com.opencvtester.baseClasses.frame.FrameInterface;
 
 public abstract class FilterControlledByFrame extends FilterControlledBy<FrameInterface>
 {
+	/*
+	 * CONSTRUCTOR & INITS & ABSTRACT
+	 */
 	public FilterControlledByFrame() {
 		initFilterControlledByFrame();
 	} 
@@ -21,11 +24,27 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameIn
 		flags.zeroEffectValues= new LinkedHashMap<String, FrameInterface>();
 		flags.numberOfParameters=0;	
 	}
-	    
+	
+	/*
+	 * GETTERS & SETTERS
+	 */    
 	public LinkedHashMap<String, FrameInterface> getParameter() {
 		return currentParameters;
 	}
 	
+	public void addParameterFlag(String name, FrameInterface defaultValue, FrameInterface zeroEffectValue) {
+		flags.defaultValues.put(name, defaultValue);
+		flags.zeroEffectValues.put(name, zeroEffectValue);
+		flags.numberOfParameters ++;
+	}
+	
+	public void setZeroEffectValues(LinkedHashMap<String, FrameInterface> parameter) {
+		flags.zeroEffectValues=parameter;
+	}
+	
+	/*
+	 * FEATURES
+	 */
 	public void setParameter(LinkedHashMap<String, FrameInterface> frames) {		
 		
 		Boolean framesAreTheSame=true;
@@ -46,15 +65,5 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameIn
 			isBypass=true;
 		}
 		activate();
-	}
-	
-	public void addParameterFlag(String name, FrameInterface defaultValue, FrameInterface zeroEffectValue) {
-		flags.defaultValues.put(name, defaultValue);
-		flags.zeroEffectValues.put(name, zeroEffectValue);
-		flags.numberOfParameters ++;
-	}
-	
-	public void setZeroEffectValues(LinkedHashMap<String, FrameInterface> parameter) {
-		flags.zeroEffectValues=parameter;
 	}
 }

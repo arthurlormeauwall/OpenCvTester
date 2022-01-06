@@ -6,6 +6,11 @@ import java.util.LinkedHashMap;
 
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 {
+	
+	/*
+	 * CONSTRUCTOR & INITS & ABSTRACT
+	 */
+
 	public FilterControlledByFloat() {
 		initFilterControlledByFloat();
 	} 
@@ -25,6 +30,10 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	public abstract FilterControlledByFloat createNew();
 	public abstract void setParameterFlags();
 
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public Float getParameter(String name) {
 		return currentParameters.get(name);
 	}

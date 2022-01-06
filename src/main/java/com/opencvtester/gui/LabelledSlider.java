@@ -27,6 +27,9 @@ public class LabelledSlider extends JPanel
 
 	protected GuiManager guiManager;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager actionHistoryManager){
 		emitSignal=true;
 		this.widgetToUpdate=widgetToUpdate;
@@ -95,12 +98,15 @@ public class LabelledSlider extends JPanel
 		
 	}
 
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public void setEmitSignal(Boolean emitSignal) {
 		this.emitSignal=emitSignal;
 	}
 
 	public JSlider getSlider() {
-		
 		return slider;
 	}
 }

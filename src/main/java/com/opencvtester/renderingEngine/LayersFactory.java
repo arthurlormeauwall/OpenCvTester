@@ -14,13 +14,19 @@ public class LayersFactory {
 	private FrameInterface source;
 	private FrameInterface dest;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public LayersFactory(FrameInterface background, FrameInterface source, FrameInterface dest, FiltersDataBase filtersDataBase) {
 		this.background=background;
 		this.source=source;
 		this.dest=dest;
 		this.filtersDataBase=filtersDataBase;
 	}
-	
+
+	/*
+	 * FEATURES
+	 */
 	protected Layer createLayer(Stack<Id> id, Stack<String> filterNames){
 		newLayer= new Layer(filtersDataBase, id.get(0));
 		newLayer.init(background, source, dest);

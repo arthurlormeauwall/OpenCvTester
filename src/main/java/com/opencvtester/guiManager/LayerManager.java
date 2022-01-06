@@ -17,6 +17,9 @@ public class LayerManager extends Command
 	protected GuiManager guiManager;
 	protected String indexType;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public LayerManager(Layer layer, GuiManager guiManager) {
 		this.layer=layer;
 		this.guiManager=guiManager;
@@ -28,30 +31,18 @@ public class LayerManager extends Command
 		layerWindow=new LayerWindow(this, this.guiManager);		
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
 	public FilterManager getFilterManager(int index) {
 		return  (FilterManager)chainOfFilterManager.getCommand(index);
 	}
 	
-	public FilterManager deleteFilterWidget(Command command) {
-		return (FilterManager)chainOfFilterManager.delCommand(command.getIndex(indexType));
-	}
-
-	public FilterManager addFilterManager(FilterManager newFilterManager) {
-		chainOfFilterManager.addCommand(newFilterManager,newFilterManager.getIndex(indexType()));
-		return newFilterManager;
-	}
-	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
-		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterManager.addCommand(filterManager,filterManager.getIndex(indexType));
-		return filterManager;
-	}
-
-	public Layer getLayer() {
-		return layer;
-	}
-
 	public void updateGui() {
 		layerWindow.updateGui();	
+	}
+	public Layer getLayer() {
+		return layer;
 	}
 
 	public LayerWidget getLayerWidget() {
@@ -61,8 +52,21 @@ public class LayerManager extends Command
 	public LayerWindow getLayerWindow() {
 		return layerWindow;
 	}
-	
-	public String indexType() {
-		return indexType;
-	}	
+		
+	/*
+	 * FEATURES
+	 */	
+	public FilterManager deleteFilterWidget(Command command) {
+		return (FilterManager)chainOfFilterManager.delCommand(command.getIndex(indexType));
+	}
+
+	public FilterManager addFilterManager(FilterManager newFilterManager) {
+		chainOfFilterManager.addCommand(newFilterManager,newFilterManager.getIndex(indexType));
+		return newFilterManager;
+	}
+	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
+		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
+		chainOfFilterManager.addCommand(filterManager,filterManager.getIndex(indexType));
+		return filterManager;
+	}
 }

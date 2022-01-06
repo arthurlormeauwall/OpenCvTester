@@ -23,11 +23,30 @@ public class Frame implements FrameInterface {
 	BufferedImage bufferedImage;
 	FrameSpecs frameSpecs;
 	
+	/*
+	 * CONSTRUCTOR & INITS
+	 */
 	public Frame() {
 		bufferedImage= new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		frameSpecs= new FrameSpecs();
 	}
 	
+	/*
+	 * GETTERS & SETTERS
+	 */
+	public FrameSpecs getSpecs() {
+		return frameSpecs;
+	}
+
+	public void setSpecs() {
+		frameSpecs.bitMax=255; //TODO change and read actual maxbitValue of image	
+		frameSpecs.cols=bufferedImage.getWidth();
+		frameSpecs.rows=bufferedImage.getHeight();
+	}
+	
+	/*
+	 * FEATURES
+	 */
 	public void readFromFile(String fileName) {
 		try
         {
@@ -88,17 +107,6 @@ public class Frame implements FrameInterface {
 			return false;
 		}
 
-	public FrameSpecs getSpecs() {
-		
-		return frameSpecs;
-	}
-
-	public void setSpecs() {
-		frameSpecs.bitMax=255; //TODO change and read actual maxbitValue of image	
-		frameSpecs.cols=bufferedImage.getWidth();
-		frameSpecs.rows=bufferedImage.getHeight();
-	}
-
 	public double[] getPixelAt(int row, int col) {
 		double [] pixelValue= new double[3];
 		
@@ -143,5 +151,4 @@ public class Frame implements FrameInterface {
 	public FrameInterface create() {
 		return new Frame();
 	}
-
 }
