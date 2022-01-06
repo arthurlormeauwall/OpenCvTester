@@ -67,22 +67,22 @@ public abstract class Renderer {
 
 
 			if (numberOfFilters == 1) {
-				((Filter)lastFilter).setSource(compositeFilters.getFrameIn());
-				((Filter)lastFilter).setDest(compositeFilters.getFrameOut());
+				((Filter)lastFilter).setFrameIn(compositeFilters.getFrameIn());
+				((Filter)lastFilter).setFrameOut(compositeFilters.getFrameOut());
 			}
 			else if (numberOfFilters >= 2) {
 
-				((Filter)chainOfFilters.get(0)).setSource(compositeFilters.getFrameIn());
-				((Filter)chainOfFilters.get(0)).setDest(frames.get(0));
+				((Filter)chainOfFilters.get(0)).setFrameIn(compositeFilters.getFrameIn());
+				((Filter)chainOfFilters.get(0)).setFrameOut(frames.get(0));
 
 				for (int j = 1; j < numberOfFilters - 1; j++) {
-					((Filter)chainOfFilters.get(j)).setSource(frames.get(j - 1));
-					((Filter)chainOfFilters.get(j)).setDest(frames.get(j));
+					((Filter)chainOfFilters.get(j)).setFrameIn(frames.get(j - 1));
+					((Filter)chainOfFilters.get(j)).setFrameOut(frames.get(j));
 				}
-				((Filter)lastFilter).setSource(frames.get(lastFrameIndex));
-				((Filter)lastFilter).setDest(compositeFilters.getFrameOut());
+				((Filter)lastFilter).setFrameIn(frames.get(lastFrameIndex));
+				((Filter)lastFilter).setFrameOut(compositeFilters.getFrameOut());
 			}
-			compositeFilters.setDest(((Filter)lastFilter).getFrameOut());
+			compositeFilters.setFrameOut(((Filter)lastFilter).getFrameOut());
 		}
 		else {
 			compositeFilters.getFrameIn().copyTo(compositeFilters.getFrameOut());

@@ -31,7 +31,7 @@ public abstract class Filter extends Command
 		return frameIn;
 	}
 	
-	public void setSource(FrameInterface frameIn){
+	public void setFrameIn(FrameInterface frameIn){
 		this.frameIn=frameIn;
 	}
 	
@@ -39,7 +39,7 @@ public abstract class Filter extends Command
 		return frameOut;
 	}
 	
-	public void setDest(FrameInterface frameOut)  {	
+	public void setFrameOut(FrameInterface frameOut)  {	
 		this.frameOut=frameOut;
 	}
 

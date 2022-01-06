@@ -45,8 +45,8 @@ public class App
 		chainOfLayersId.initNULL();
 		
 		ChainOfLayers chainOfLayers = new ChainOfLayers(new FiltersDataBase(), backgroundFrame, chainOfLayersId);
-		chainOfLayers.setSource(frameIn);
-		chainOfLayers.setDest(frameOut);
+		chainOfLayers.setFrameIn(frameIn);
+		chainOfLayers.setFrameOut(frameOut);
 		
 		return chainOfLayers;	
 	}

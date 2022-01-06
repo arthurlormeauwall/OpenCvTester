@@ -26,11 +26,11 @@ public class Layer extends CompositeFilter
 	}
 	
 	protected void init(FrameInterface background, FrameInterface source, FrameInterface dest) {
-		setSource(source);
-		setDest(dest);
+		setFrameIn(source);
+		setFrameOut(dest);
 
-		opacityFilter.setSource(source);
-		opacityFilter.setDest(dest);
+		opacityFilter.setFrameIn(source);
+		opacityFilter.setFrameOut(dest);
 		opacityFilter.init(background);
 		opacityFilter.setLayerIndex(id.layerIndex());
 		opacityFilter.setFilterIndex(1);
