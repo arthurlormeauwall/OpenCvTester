@@ -6,10 +6,8 @@ import java.util.Stack;
 public class ChainOfCommands
 {
     protected Stack<Command> commands;
-    Id id;
 
-    public ChainOfCommands(Id id) { 
-    	this.id=id;
+    public ChainOfCommands() { 
     	commands = new Stack<Command>();
     }
 
@@ -56,14 +54,9 @@ public class ChainOfCommands
         	commands.get(i).updateId(groupDeepnessIndex, newValue);
         }
     }
-    
-//    public int getCommandIndex(Id id,  String groupDeepnessIndex) {
-//        int commandIndex = id.get(groupDeepnessIndex);
-//        return commandIndex;
-//    }
 
     public ChainOfCommands clone() {		
-    	ChainOfCommands newChainControl = new ChainOfCommands(id.clone());
+    	ChainOfCommands newChainControl = new ChainOfCommands();
     	newChainControl.setCommandChain(commands);	
     	return newChainControl;
     }

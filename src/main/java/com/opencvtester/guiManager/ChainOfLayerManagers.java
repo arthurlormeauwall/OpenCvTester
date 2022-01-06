@@ -16,7 +16,7 @@ public class ChainOfLayerManagers {
 	public ChainOfLayerManagers (MainWindow gui){	
 		Id chainId = new Id();
 		chainId.set(0,0);
-		layerManagers= new ChainOfCommands(chainId);
+		layerManagers= new ChainOfCommands();
 		this.gui=gui;
 		groupID="layer";
 	}

@@ -10,7 +10,6 @@ import com.opencvtester.gui.FilterWidget;
 public class FilterManager extends Command {
 	
 	protected Filter filter;
-
 	protected FilterWidget filterWidget;
 	
 	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){

@@ -22,10 +22,7 @@ public abstract class CompositeFilter extends Filter
 		super(id);
 		frames = new Stack<FrameInterface>();
 		this.filtersDataBase = filtersDataBase;	
-		
-		Id chainId = new Id(this.id.get());
-		
-		chainOfFilters = new ChainOfCommands (chainId);		
+		chainOfFilters = new ChainOfCommands ();		
 	}
 	
 	public Filter add(Filter filter) {	

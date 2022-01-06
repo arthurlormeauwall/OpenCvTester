@@ -16,14 +16,14 @@ public class Command
 	    isBypass = false;
     } 
 
-//    public Id getId(){
-//    	return id;
-//    }
-//    
-//    public void setId(Id id) {
-//    	this.id=id;
-//    }
-//    
+    public Id getId(){
+    	return id;
+    }
+    
+    public void setId(Id id) {
+    	this.id=id;
+    }
+    
     public void setLayerIndex(int layerIndex) {
     	id.setLayerIndex(layerIndex);
     }

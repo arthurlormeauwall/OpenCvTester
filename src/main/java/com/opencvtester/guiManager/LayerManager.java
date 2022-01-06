@@ -22,7 +22,7 @@ public class LayerManager extends Command
 		this.layer=layer;
 		this.guiManager=guiManager;
 		this.id.set(layer.getId());
-		chainOfFilterManager=new ChainOfCommands(layer.getId());
+		chainOfFilterManager=new ChainOfCommands();
 		layerWidget=new LayerWidget(this, this.guiManager);
 		layerWindow=new LayerWindow(this, this.guiManager);		
 	}
