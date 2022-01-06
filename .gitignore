@@ -27,5 +27,6 @@ assets
 .classpath
 .settings
 bin
-
+/src/test/
 /target/
+
