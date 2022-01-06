@@ -58,7 +58,6 @@ public class ChainOfLayerManagers {
 		}	
 	}
 
-	
 	public LayerManager getLayerManager (int i) {
 		
 		return (LayerManager)layerManagers.getCommand(i);

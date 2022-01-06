@@ -1,6 +1,7 @@
 package com.opencvtester.guiManager;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.Id;
@@ -103,8 +104,7 @@ public class GuiManager
 		chainOfLayers.setParameters(id, name, value);	
 		refreshResult();
 		
-		Filter filter= chainOfLayers.getLayer(id.layerIndex()).getFilter(id.filterIndex());
-		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filter.getId().clone());
+		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), new Id(id.get()));
 		history.setState(parameter);	
 	}
 	
