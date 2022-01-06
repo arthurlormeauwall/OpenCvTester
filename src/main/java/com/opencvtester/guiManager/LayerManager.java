@@ -31,17 +31,18 @@ public class LayerManager extends Command
 	public FilterManager getFilterManager(int index) {
 		return  (FilterManager)chainOfFilterManager.getCommand(index);
 	}
-	public FilterManager deleteFilterWidget(Id id) {
-		return (FilterManager)chainOfFilterManager.delCommand(id,indexType());
+	
+	public FilterManager deleteFilterWidget(Command command) {
+		return (FilterManager)chainOfFilterManager.delCommand(command,indexType());
 	}
 
 	public FilterManager addFilterManager(FilterManager newFilterManager) {
-		chainOfFilterManager.addCommand(newFilterManager.getId(), newFilterManager,indexType());
+		chainOfFilterManager.addCommand(newFilterManager,indexType());
 		return newFilterManager;
 	}
 	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
 		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterManager.addCommand(filterManager.getId(), filterManager,indexType());
+		chainOfFilterManager.addCommand(filterManager,indexType());
 		return filterManager;
 	}
 

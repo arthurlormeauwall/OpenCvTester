@@ -27,17 +27,17 @@ public class ChainOfLayerManagers {
 	}
 	
 	public void deFilterWidgetInLayerWidget(FilterManager filterManager) {
-		((LayerManager)layerManagers.getCommand(filterManager.getLayerIndex())).deleteFilterWidget(filterManager.getId());
+		((LayerManager)layerManagers.getCommand(filterManager.getLayerIndex())).deleteFilterWidget(filterManager);
 		gui.updateGui();
 	}
 
 	public void addLayerManager(LayerManager layerController) {
-		layerManagers.addCommand(layerController.getId(), layerController, indexType());	
+		layerManagers.addCommand(layerController, indexType());	
 		gui.updateGui();
 	}
 
-	public void deleteLayerManager(LayerManager layerWidget) {
-		layerManagers.delCommand(layerWidget.getId(), indexType());	
+	public void deleteLayerManager(LayerManager layerManager) {
+		layerManagers.delCommand(layerManager, indexType());	
 		gui.updateGui();
 	}
 

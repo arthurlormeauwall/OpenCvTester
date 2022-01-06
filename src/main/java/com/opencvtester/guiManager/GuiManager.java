@@ -85,10 +85,10 @@ public class GuiManager
 		}
 	}
 	
-	public void deleteLayerManager(LayerManager layerController) {		
-		if (layerController!=null) {
-			chainOfLayers.delLayer(layerController.getId());
-			mainWindow.deleteLayerManager(layerController);	
+	public void deleteLayerManager(LayerManager layerManager) {		
+		if (layerManager!=null) {
+			chainOfLayers.delLayer(layerManager.getLayer());
+			mainWindow.deleteLayerManager(layerManager);	
 			refreshResult();
 		}
 	}

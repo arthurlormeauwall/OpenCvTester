@@ -33,7 +33,7 @@ public abstract class CompositeFilter extends Filter
 	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id.get(0))) {
 			Filter filter = create(id, commandsNamesInDataBase);
-			chainOfFilters.addCommand(id.get(0), filter, indexType());
+			chainOfFilters.addCommand(filter, indexType());
 			return filter;
 		}
 		else {
@@ -43,7 +43,7 @@ public abstract class CompositeFilter extends Filter
 	
 	public Filter add(Filter filter) {	
 		if (!isIndexOutOfRange(filter.getId())) {		
-			chainOfFilters.addCommand(filter.getId(), filter, indexType());	
+			chainOfFilters.addCommand(filter, indexType());	
 			return filter;
 		}
 		else {
@@ -51,13 +51,8 @@ public abstract class CompositeFilter extends Filter
 		}
 	}
 	
-	public Filter delete(Id id) {
-		if (!isIndexOutOfRange(id)) {
-			return (Filter)chainOfFilters.delCommand(id,indexType());	
-		}
-		else {
-			return null;
-		}
+	public Filter delete(Filter filter) {
+		return (Filter)chainOfFilters.delCommand(filter,indexType());	
 	}
 	
 	public Boolean isIndexOutOfRange(Id filterId) {

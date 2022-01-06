@@ -13,13 +13,13 @@ public class ChainOfCommands
     	commands = new Stack<Command>();
     }
 
-    public void addCommand(Id id, Command filter, String groupDeepnessIndex) {
-        int index = getCommandIndex(id, groupDeepnessIndex);
+    public void addCommand(Command command, String indexType) {
+        int index = getCommandIndex(command.getId(), indexType);
 
         int lastControl = commands.size() - 1;
         
         if (commands.size() == 0) {
-        	commands.push(filter);
+        	commands.push(command);
         }
 
         else {
@@ -29,13 +29,13 @@ public class ChainOfCommands
                     index = 0;
                 }              
             }
-        	commands.add(index, filter);     
-        	 updateAllId(index, groupDeepnessIndex);
+        	commands.add(index, command);     
+        	 updateAllId(index, indexType);
         }      
     }
 
-    public Command delCommand(Id id, String groupDeepnessIndex) {
-        int index = getCommandIndex(id, groupDeepnessIndex);
+    public Command delCommand(Command command, String groupDeepnessIndex) {
+        int index = getCommandIndex(command.getId(), groupDeepnessIndex);
         int lastControlIndex= commands.size()-1;
         if (index>lastControlIndex) {
         	index=lastControlIndex;
