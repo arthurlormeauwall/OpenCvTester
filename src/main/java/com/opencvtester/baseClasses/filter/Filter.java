@@ -54,4 +54,6 @@ public abstract class Filter extends Command
 	public void activate() {
 		activate=true;		
 	}
+	
+
 }

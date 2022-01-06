@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.opencvtester.baseClasses.Id;
+import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.FilterManager;
 import com.opencvtester.guiManager.GuiManager;
@@ -111,8 +112,8 @@ public class MainWindow extends JFrame
 	public void updateOpacityValue(int layerIndex, Float opacity) {
 	}
 
-	public void updateParametersValues(Id id, LinkedHashMap<String, Float> parameters) {	
-		chainOfLayerManagers.getLayerManager(id.layerIndex()).getFilterManager(id.filterIndex()).updateParameterValues(parameters);
+	public void updateParametersValues(Filter filter, LinkedHashMap<String, Float> parameters) {	
+		chainOfLayerManagers.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).updateParameterValues(parameters);
 	}
 	
 	public void updateGui() {

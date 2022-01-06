@@ -1,5 +1,6 @@
 package com.opencvtester.filtersDataBase;
 
+import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 
 public class EmptyFilter extends FilterControlledByFloat {
@@ -18,4 +19,5 @@ public class EmptyFilter extends FilterControlledByFloat {
 	public void setParameterFlags() {
 		setEmptyFlags();	
 	}
+
 }

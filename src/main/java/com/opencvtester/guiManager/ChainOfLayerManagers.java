@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Id;
+import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.gui.MainWindow;
 
 public class ChainOfLayerManagers {
@@ -44,8 +45,8 @@ public class ChainOfLayerManagers {
 		gui.updateOpacityValue(layerIndex,opacity);
 	}
 
-	public void setParameters(Id id, LinkedHashMap<String, Float> parameters) {
-		gui.updateParametersValues(id, parameters);
+	public void setParameters(Filter filter, LinkedHashMap<String, Float> parameters) {
+		gui.updateParametersValues(filter, parameters);
 	}
 	
 	public int getNumberOfLayer(){

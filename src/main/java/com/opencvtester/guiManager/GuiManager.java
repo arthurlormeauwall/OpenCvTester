@@ -104,7 +104,7 @@ public class GuiManager
 		chainOfLayers.setParameters (filterToSet, name, value);	
 		refreshResult();
 		
-		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), new Id(filterToSet.getId().get()));
+		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet);
 		history.setState(parameter);	
 	}
 	

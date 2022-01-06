@@ -12,17 +12,16 @@ import com.opencvtester.renderingEngine.ChainOfLayers;
 public class SetParameters implements Action {
 
 	
-	private Id id;
+	private FilterControlledByFloat filter;
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerManagers chainOfLayerManager;
 	private LinkedHashMap<String, Float> parameters;
 	private GuiManager guiManager;
 	
 	@SuppressWarnings("unchecked")
-	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, Id id){
+	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager,FilterControlledByFloat filter){
 		this.guiManager=guiManager;
-		this.id=id;
-		Filter filter= chainOfLayers.getLayer(id.layerIndex()).getFilter(id.filterIndex());
+		this.filter=filter;
 		parameters= (LinkedHashMap<String, Float>)((FilterControlledByFloat)filter).getParameters().clone();
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
@@ -33,19 +32,19 @@ public class SetParameters implements Action {
 	}
 	
 	public void execute() {	
-		chainOfLayerManager.getLayerManager(id.layerIndex()).getFilterManager(id.filterIndex()).setEmitSignal(false);
+		chainOfLayerManager.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).setEmitSignal(false);
 		
 		
-		chainOfLayerManager.setParameters(id, parameters);
-		chainOfLayers.setParameters(id, parameters);
+		chainOfLayerManager.setParameters(filter, parameters);
+		chainOfLayers.setParameters(filter, parameters);
 		
 		guiManager.refreshResult();
 		
-		chainOfLayerManager.getLayerManager(id.layerIndex()).getFilterManager(id.filterIndex()).setEmitSignal(true);
+		chainOfLayerManager.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).setEmitSignal(true);
 	}
 	
 	public Action clone() {
-		SetParameters newAction = new SetParameters(guiManager, chainOfLayers, chainOfLayerManager, id.clone());
+		SetParameters newAction = new SetParameters(guiManager, chainOfLayers, chainOfLayerManager, filter);
 		return newAction;
 	}
 
