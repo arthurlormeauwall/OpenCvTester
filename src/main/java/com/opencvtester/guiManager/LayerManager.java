@@ -2,6 +2,7 @@ package com.opencvtester.guiManager;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
+import com.opencvtester.baseClasses.Id;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.LayerWidget;
 import com.opencvtester.gui.LayerWindow;
@@ -21,7 +22,7 @@ public class LayerManager extends Command
 		groupID="filter";
 		this.layer=layer;
 		this.guiManager=guiManager;
-		this.id.set(layer.getId());
+		this.id.set(layer);
 		chainOfFilterManager=new ChainOfCommands();
 		layerWidget=new LayerWidget(this, this.guiManager);
 		layerWindow=new LayerWindow(this, this.guiManager);		

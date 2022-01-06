@@ -14,7 +14,7 @@ public class FilterManager extends Command {
 	
 	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){
 		this.filter=filter;
-		this.id=filter.getId();
+		this.id.set(filter);
 		filterWidget=new FilterWidget(filter, guiManager);
 	}
 	

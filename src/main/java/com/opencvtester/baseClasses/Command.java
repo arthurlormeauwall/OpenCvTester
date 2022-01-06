@@ -16,10 +16,6 @@ public class Command
 	    isBypass = false;
     } 
 
-    public Id getId(){
-    	return id;
-    }
-    
     public void setId(Id id) {
     	this.id=id;
     }

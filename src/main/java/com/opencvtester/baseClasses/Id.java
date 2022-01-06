@@ -53,6 +53,11 @@ public class Id
 		id.put("filter", filterIndex);
 	}
 	
+	public void set(Command command){
+		id.put("layer", command.getLayerIndex());
+		id.put("filter", command.getFilterIndex());
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void set(HashMap<String, Integer> id){
 		this.id=(HashMap<String, Integer>) id.clone();
