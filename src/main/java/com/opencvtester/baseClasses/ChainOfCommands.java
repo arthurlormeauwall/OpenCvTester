@@ -12,46 +12,31 @@ public class ChainOfCommands
     	this.indexType=indexType;
     }
 
-    public void addCommand(Command command, int index) {
-
-        int lastControl = commands.size() - 1;
-        
+    public void addCommand(Command command, int index) {  
         if (commands.size() == 0) {
         	commands.push(command);
         }
-
         else {
-        	if (index > lastControl + 1) {
-                index = lastControl + 1;
-                if (index < 0) {
-                    index = 0;
-                }              
-            }
+        	index=Math.max(Math.min(commands.size(), index),0);
         	commands.add(index, command);     
         	 updateAllId(index);
         }      
     }
 
     public Command delCommand(int index) {
-//        int index = command.getIndex(indexType);
         int lastCommandIndex= commands.size()-1;
-        if (index>lastCommandIndex) {
-        	index=lastCommandIndex;
-        }
+        
+        index=Math.min(lastCommandIndex,index);
+
         Command erasedCommand =commands.remove(index);
         updateAllId(index);
         return erasedCommand;
     }
     
     public void updateAllId(int index) {
-        for (int i = index; i < commands.size(); i++) {
+    	int commandSize=commands.size();
+        for (int i = index; i < commandSize; i++) {
         	commands.get(i).setIndex(indexType, i);
-        }
-    }
- 
-    public void updateId(int newValue) {
-        for (int i = 0; i <commands.size(); i++) {
-        	commands.get(i).setIndex(indexType, newValue);
         }
     }
 
