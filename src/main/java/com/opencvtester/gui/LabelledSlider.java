@@ -55,7 +55,7 @@ public class LabelledSlider extends JPanel
 			    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
 			    	  try {
 			    		 currentValue=slider.getValue();
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), slider.getValue()*0.01f);	
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate, nameWidget.getText(), slider.getValue()*0.01f);	
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -70,7 +70,7 @@ public class LabelledSlider extends JPanel
 
 				public void mousePressed(MouseEvent event) {
 					 try {
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate.getId(), nameWidget.getText(), currentValue*0.01f);
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate, nameWidget.getText(), currentValue*0.01f);
 						 LabelledSlider.this.guiManager.store();
 						} catch (IOException e) {
 							e.printStackTrace();

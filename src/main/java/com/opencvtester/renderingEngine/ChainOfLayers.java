@@ -133,15 +133,10 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	} 
 	
-	public void setParameters(Id id, String name, Float value) {
-		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
-			FilterControlledByFloat filterToSet = (FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex());
-		
+	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) {
 			filterToSet.setParameters(name, value);
-			activateFilter(id);
-			execute();
-		}
-		
+			activateFilter(filterToSet.getId());
+			execute();	
 	}
 	
 	public void setBypass(Id id, Boolean bypass){

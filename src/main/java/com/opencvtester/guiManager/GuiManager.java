@@ -100,11 +100,11 @@ public class GuiManager
 		refreshResult();
 	}	
 
-	public void setParameters(Id id, String name, Float value) throws IOException {
-		chainOfLayers.setParameters(id, name, value);	
+	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+		chainOfLayers.setParameters (filterToSet, name, value);	
 		refreshResult();
 		
-		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), new Id(id.get()));
+		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), new Id(filterToSet.getId().get()));
 		history.setState(parameter);	
 	}
 	
