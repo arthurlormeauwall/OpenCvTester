@@ -25,11 +25,11 @@ public class Command
     }
     
     public void setLayerIndex(int layerIndex) {
-    	id.setLayerId(layerIndex);
+    	id.setLayerIndex(layerIndex);
     }
     
     public void setFilterIndex(int filterIndex) {
-    	id.setFilterId(filterIndex);
+    	id.setFilterIndex(filterIndex);
     }
     
     public int getLayerIndex() {
@@ -39,7 +39,6 @@ public class Command
     public int getFilterIndex() {
     	return id.filterIndex();
     }
-
 
     public void updateId(String groupDeepnessIndex, int newValue) {
     	id.setFilterOrLayer(groupDeepnessIndex, newValue);

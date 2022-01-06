@@ -9,8 +9,8 @@ public class Id
 	public Id() {
 		id=new HashMap<String, Integer>();
 		initNULL();
-	
 	}
+	
 	public Id(HashMap<String, Integer> ids) {
 		id=new HashMap<String, Integer>();
 		set(ids);
@@ -21,6 +21,7 @@ public class Id
 		id.put("layer", layerIndex);
 		id.put("filter", filterIndex);
 	}
+	
 	public void initNULL(){
 		id.put("layer", -1);
 		id.put("filter", -1);
@@ -47,14 +48,14 @@ public class Id
 		this.id.put("filter", id.filterIndex());
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void set(HashMap<String, Integer> id){
-		this.id=(HashMap<String, Integer>) id.clone();
-	}
-	
 	public void set(int layerIndex, int filterIndex){
 		id.put("layer", layerIndex);
 		id.put("filter", filterIndex);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void set(HashMap<String, Integer> id){
+		this.id=(HashMap<String, Integer>) id.clone();
 	}
 	
 	public void setFilterOrLayer(String indexType, int newValue){
@@ -63,17 +64,17 @@ public class Id
 
 	public Id clone() {
 		Id temp= new Id();
-		temp.setLayerId(id.get("layer"));
-		temp.setFilterId(id.get("filter"));
+		temp.setLayerIndex(id.get("layer"));
+		temp.setFilterIndex(id.get("filter"));
 	
 		return temp;
 	}
 	
-	public void setFilterId(int filterIndex){
+	public void setFilterIndex(int filterIndex){
 		id.put("filter", filterIndex);
 	}
 	
-	public void setLayerId(int layerIndex){
+	public void setLayerIndex(int layerIndex){
 		id.put("layer", layerIndex);
 	}
 }
