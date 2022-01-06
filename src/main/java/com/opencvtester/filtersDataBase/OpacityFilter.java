@@ -28,16 +28,16 @@ public class OpacityFilter extends FilterControlledByFloat
 	
 	public void execute() {
 		if (isBypass) {
-			source.copyTo(dest);
+			frameIn.copyTo(frameOut);
 		}
 		else if (!isBypass) {
 			
 			Float opacity = getParameter("Opacity");
 			
-			int NBITMAX = source.getSpecs().bitMax;
+			int NBITMAX = frameIn.getSpecs().bitMax;
 
-			int m_row = dest.getSpecs().rows;
-			int m_column = dest.getSpecs().cols;
+			int m_row = frameOut.getSpecs().rows;
+			int m_column = frameOut.getSpecs().cols;
 
 			for (int row = 0; row < m_row; row++)
 			{
@@ -47,20 +47,19 @@ public class OpacityFilter extends FilterControlledByFloat
 					for (int i = 0; i < 3; i++) {
 						float alpha_pixel = opacity;
 						float background_pixel = (float)(background.getPixelAt(row, column)[i]);
-						float source_pixel = (float)(source.getPixelAt(row, column)[i]);
+						float source_pixel = (float)(frameIn.getPixelAt(row, column)[i]);
 
 						int after = (int)   (background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel);
 						if (after > NBITMAX) { after = NBITMAX; }
 						
 						data[i] = after;
 					}
-					dest.setPixelAt(row, column, data);				
+					frameOut.setPixelAt(row, column, data);				
 				}				
 			}
 		}
 	}
-		
-	
+			
 	public void setBackGround(FrameInterface background){	
 		this.background = background; 
 	}
@@ -73,6 +72,7 @@ public class OpacityFilter extends FilterControlledByFloat
 		newOpacity.put("Opacity", opacity);
 		setParameter(newOpacity);	
 	}
+	
 	public Float getOpacity() {
 		return opacity;
 	}

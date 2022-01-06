@@ -36,7 +36,7 @@ public class Command
     	return id.filterIndex();
     }
     
-    public int getFilterOrLayerIndex(String key) {
+    public int getIndex(String key) {
     	return id.get(key);
     }
 

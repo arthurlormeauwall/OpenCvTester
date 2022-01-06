@@ -50,12 +50,12 @@ public class Frame implements FrameInterface {
 		setSpecs();
 	}
 	
-	static BufferedImage deepCopy(BufferedImage bufferedImage) {
+	public BufferedImage deepCopy(BufferedImage bufferedImage) {
 		 ColorModel cm = bufferedImage.getColorModel();
 		 boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
 		 WritableRaster raster = bufferedImage.copyData(null);
 		 return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
-		}
+	}
 
 	public void createPlainGrayFrame(int rows, int cols, int data) {
 		bufferedImage= new BufferedImage(rows, cols, BufferedImage.TYPE_INT_RGB);
@@ -136,7 +136,6 @@ public class Frame implements FrameInterface {
 		  try {
 			  bufferedImage = ImageIO.read(in);
 		  } catch (IOException e) {
-			  // TODO Auto-generated catch block
 			  e.printStackTrace();
 		  } 	  
 	}

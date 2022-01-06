@@ -88,7 +88,6 @@ public class LabelledSlider extends JPanel
 				}
 
 				public void mouseExited(MouseEvent e) {
-					// TODO Auto-generated method stub
 					
 				}
 			    });

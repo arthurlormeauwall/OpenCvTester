@@ -36,7 +36,6 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	public void setParameter(LinkedHashMap<String, Float> parameter) {
 		
 		currentParameters=parameter;
-		
 		if (parameter==flags.zeroEffectValues) {
 			isBypass=true;
 		}

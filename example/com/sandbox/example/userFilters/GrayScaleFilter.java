@@ -20,14 +20,14 @@ public class GrayScaleFilter extends FilterControlledByFloat
 
 	public void execute() {
 		if (isBypass) {
-			source.copyTo(dest);
+			frameIn.copyTo(frameOut);
 		}
 
 		if (!isBypass)
 	    {
-	        int row = source.getSpecs().rows;
-	        int column = source.getSpecs().cols;
-	        int bitMax = source.getSpecs().bitMax;
+	        int row = frameIn.getSpecs().rows;
+	        int column = frameIn.getSpecs().cols;
+	        int bitMax = frameIn.getSpecs().bitMax;
 
 	        for (int rowCount = 0; rowCount < row; rowCount++)
 	        {
@@ -37,9 +37,9 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	                float greenMultiplier = getParameter("GreenMult");
 	                float redMultiplier = getParameter("RedMult"); 
 
-	                float bluePixel = (float)source.getPixelAt(rowCount, columnCount)[0];
-	                float greenPixel = (float)source.getPixelAt(rowCount, columnCount)[1];
-	                float redPixel = (float)source.getPixelAt(rowCount, columnCount)[2];
+	                float bluePixel = (float)frameIn.getPixelAt(rowCount, columnCount)[0];
+	                float greenPixel = (float)frameIn.getPixelAt(rowCount, columnCount)[1];
+	                float redPixel = (float)frameIn.getPixelAt(rowCount, columnCount)[2];
 
 	                float after = blueMultiplier * bluePixel + greenMultiplier * greenPixel + redMultiplier * redPixel;
 	                if (after > bitMax) { after = bitMax; }
@@ -47,7 +47,7 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	                temp[0]=after;
 	                temp[1]=after;
 	                temp[2]=after;
-	                dest.setPixelAt(rowCount, columnCount, temp);
+	                frameOut.setPixelAt(rowCount, columnCount, temp);
 	            }
 	        }   
 	    }	

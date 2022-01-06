@@ -36,7 +36,7 @@ public abstract class Renderer {
 			{
 				frames.push(new Frame());
 				if (i==0) {		
-					compositeFilters.getDest().copyTo(frames.get(i));
+					compositeFilters.getFrameOut().copyTo(frames.get(i));
 				}
 				else {
 					frames.get(i-1).copyTo(frames.get(i));
@@ -67,12 +67,12 @@ public abstract class Renderer {
 
 
 			if (numberOfFilters == 1) {
-				((Filter)lastFilter).setSource(compositeFilters.getSource());
-				((Filter)lastFilter).setDest(compositeFilters.getDest());
+				((Filter)lastFilter).setSource(compositeFilters.getFrameIn());
+				((Filter)lastFilter).setDest(compositeFilters.getFrameOut());
 			}
 			else if (numberOfFilters >= 2) {
 
-				((Filter)chainOfFilters.get(0)).setSource(compositeFilters.getSource());
+				((Filter)chainOfFilters.get(0)).setSource(compositeFilters.getFrameIn());
 				((Filter)chainOfFilters.get(0)).setDest(frames.get(0));
 
 				for (int j = 1; j < numberOfFilters - 1; j++) {
@@ -80,12 +80,12 @@ public abstract class Renderer {
 					((Filter)chainOfFilters.get(j)).setDest(frames.get(j));
 				}
 				((Filter)lastFilter).setSource(frames.get(lastFrameIndex));
-				((Filter)lastFilter).setDest(compositeFilters.getDest());
+				((Filter)lastFilter).setDest(compositeFilters.getFrameOut());
 			}
-			compositeFilters.setDest(((Filter)lastFilter).getDest());
+			compositeFilters.setDest(((Filter)lastFilter).getFrameOut());
 		}
 		else {
-			compositeFilters.getSource().copyTo(compositeFilters.getDest());
+			compositeFilters.getFrameIn().copyTo(compositeFilters.getFrameOut());
 		}
 	}
 	

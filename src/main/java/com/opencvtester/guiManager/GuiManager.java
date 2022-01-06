@@ -25,10 +25,10 @@ public class GuiManager
 		
 		history=new HystoryManager();
 		frameWindowManager=new FrameWindowManager();
-		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
+		frameWindowManager.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
 	}
 	
-	public void setGui(MainWindow mainWindow) {
+	public void setMainWindow(MainWindow mainWindow) {
 		this.mainWindow=mainWindow;		
 	}
 	
@@ -112,7 +112,7 @@ public class GuiManager
 	}
 	
 	public void refreshResult(){
-		frameWindowManager.refresh(chainOfLayers.getDest().getBufferedImage());	
+		frameWindowManager.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
 	}
 	
 	public void undo() {

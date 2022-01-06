@@ -8,39 +8,39 @@ import com.opencvtester.baseClasses.frame.FrameInterface;
 
 public abstract class Filter extends Command
 {
-	protected FrameInterface source;
-	protected FrameInterface dest;
+	protected FrameInterface frameIn;
+	protected FrameInterface frameOut;
 	protected Boolean activate;
 	
 	public Filter() {
 		activate= false;
-		source = new Frame();
-		dest   = new Frame();
+		frameIn = new Frame();
+		frameOut   = new Frame();
 	}
 	
 	public Filter(Id id) {
 		super (id);
 		activate= false;
-		source = new Frame();
-		dest   = new Frame();
+		frameIn = new Frame();
+		frameOut   = new Frame();
 	}
 	
 	public abstract void execute();
 
-	public FrameInterface getSource(){
-		return source;
+	public FrameInterface getFrameIn(){
+		return frameIn;
 	}
 	
-	public void setSource(FrameInterface source){
-		this.source=source;
+	public void setSource(FrameInterface frameIn){
+		this.frameIn=frameIn;
 	}
 	
-	public FrameInterface getDest()        {
-		return dest;
+	public FrameInterface getFrameOut()        {
+		return frameOut;
 	}
 	
-	public void setDest(FrameInterface dest)  {	
-		this.dest=dest;
+	public void setDest(FrameInterface frameOut)  {	
+		this.frameOut=frameOut;
 	}
 
 	public Boolean isActivate() {

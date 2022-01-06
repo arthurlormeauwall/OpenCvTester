@@ -29,7 +29,7 @@ public class ChainOfLayersRenderer extends Renderer {
 		if (numberOfMaskedLayers>0) {
 			((Layer)chainOfFilters.get(0)).setBackGround(background);
 			for (int i = 1; i < numberOfMaskedLayers; i++) {
-				((Layer)chainOfFilters.get(i)).setBackGround(((Layer)chainOfFilters.get(i - 1)).getDest());
+				((Layer)chainOfFilters.get(i)).setBackGround(((Layer)chainOfFilters.get(i - 1)).getFrameOut());
 			}
 		}	
 	}   

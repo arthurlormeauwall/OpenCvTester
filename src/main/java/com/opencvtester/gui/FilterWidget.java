@@ -54,6 +54,7 @@ public class FilterWidget extends JPanel
 	        HashMap.Entry<String, Float> parameterEntry= (HashMap.Entry<String, Float>) parametersIterator.next();
 	        String parameterName= parameterEntry.getKey();
 	        Float parameterValue= parameterEntry.getValue();
+	        
 	        LabelledSlider sliderToAdd= new LabelledSlider(parameterName, parameterValue, this.getFilter(), actionHistoryManager); 
 	        sliders.put(parameterName, sliderToAdd);
 	        insidePanel.add(sliderToAdd);      

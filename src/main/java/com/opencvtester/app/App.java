@@ -15,16 +15,17 @@ public class App
 {
 	private GuiManager guiManager;
 	private MainWindow mainWindow;
-	private FrameInterface source;
-	private FrameInterface background;
-	private FrameInterface dest;
+	private FrameInterface frameIn;
+	private FrameInterface backgroundFrame;
+	private FrameInterface frameOut;
 	
 	public App (String fileName) throws IOException{
 		// Init open cv library
 		nu.pattern.OpenCV.loadLocally();
+		
 		guiManager= new GuiManager(chainOfLayersInitializer(fileName));
 		mainWindow = new MainWindow(guiManager);
-		guiManager.setGui(mainWindow);
+		guiManager.setMainWindow(mainWindow);
 	}
 
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
@@ -32,20 +33,20 @@ public class App
 	}
 	
 	public ChainOfLayers chainOfLayersInitializer(String fileName) throws IOException {	
-		background = new Frame();
-		dest =  new Frame();
-		source =  new Frame();	
+		backgroundFrame = new Frame();
+		frameOut =  new Frame();
+		frameIn =  new Frame();	
 		
-		source.readFromFile(fileName);
-		background.createPlainGrayFrame(source.getSpecs().rows, source.getSpecs().cols, 0);
-		source.copyTo(dest);
+		frameIn.readFromFile(fileName);
+		backgroundFrame.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 0);
+		frameIn.copyTo(frameOut);
 		
 		Id chainOfLayersId = new Id();
 		chainOfLayersId.initNULL();
 		
-		ChainOfLayers chainOfLayers = new ChainOfLayers(new FiltersDataBase(), background, chainOfLayersId);
-		chainOfLayers.setSource(source);
-		chainOfLayers.setDest(dest);
+		ChainOfLayers chainOfLayers = new ChainOfLayers(new FiltersDataBase(), backgroundFrame, chainOfLayersId);
+		chainOfLayers.setSource(frameIn);
+		chainOfLayers.setDest(frameOut);
 		
 		return chainOfLayers;	
 	}
