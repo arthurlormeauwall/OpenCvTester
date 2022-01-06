@@ -51,7 +51,7 @@ In the beginning, the filters database is empty.
 To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import com.opencvtester.baseClasses.filter.FilterControlledByFloat;`).
 
 `FilterControlledByFloat` class provide several important things : 
-* Two `Frame` objects : `source` and `dest` (input and output frame as yourFilter(source)=dest). Important methods of `Frame` class : 
+* Two `Frame` objects : `frameIn` and `frameOut` (input and output frame as yourFilter(frameIn)=frameOut). Important methods of `Frame` class : 
 	* `double[] getPixelAt(int row, int col);`
 	* `void setPixelAt(int row, int col, double[] data);`
 	*   `getMat()` to get `Mat` object and `set(Mat mat)` to set `Mat`
