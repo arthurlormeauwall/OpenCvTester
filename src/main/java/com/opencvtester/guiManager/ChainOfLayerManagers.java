@@ -38,7 +38,7 @@ public class ChainOfLayerManagers {
 	}
 
 	public void deleteLayerManager(LayerManager layerManager) {
-		layerManagers.delCommand(layerManager, indexType);	
+		layerManagers.delCommand(layerManager.getIndex(indexType));	
 		gui.updateGui();
 	}
 

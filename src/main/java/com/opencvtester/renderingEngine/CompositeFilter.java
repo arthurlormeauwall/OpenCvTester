@@ -31,7 +31,7 @@ public abstract class CompositeFilter extends Filter
 	}
 	
 	public Filter delete(Filter filter) {
-		return (Filter)chainOfFilters.delCommand(filter,indexType());	
+		return (Filter)chainOfFilters.delCommand(filter.getIndex(indexType));	
 	}
 	
 	public Boolean isIndexOutOfRange(Id filterId) {

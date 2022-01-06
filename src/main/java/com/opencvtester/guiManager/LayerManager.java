@@ -33,7 +33,7 @@ public class LayerManager extends Command
 	}
 	
 	public FilterManager deleteFilterWidget(Command command) {
-		return (FilterManager)chainOfFilterManager.delCommand(command,indexType());
+		return (FilterManager)chainOfFilterManager.delCommand(command.getIndex(indexType));
 	}
 
 	public FilterManager addFilterManager(FilterManager newFilterManager) {

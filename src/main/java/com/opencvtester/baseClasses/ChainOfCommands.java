@@ -32,8 +32,8 @@ public class ChainOfCommands
         }      
     }
 
-    public Command delCommand(Command command, String indexType) {
-        int index = command.getIndex(indexType);
+    public Command delCommand(int index) {
+//        int index = command.getIndex(indexType);
         int lastCommandIndex= commands.size()-1;
         if (index>lastCommandIndex) {
         	index=lastCommandIndex;
