@@ -68,8 +68,7 @@ public class GuiManager
 	
 	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
-		Stack<Id> id= new Stack<Id>();
-		id.push(createFilterId(layerIndex, filterIndex));
+		Id id= createFilterId(layerIndex, filterIndex);
 		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
 		
 		FilterManager newLayerController = new FilterManager(newFilter, this);

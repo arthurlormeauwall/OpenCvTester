@@ -35,10 +35,21 @@ public class Layer extends CompositeFilter
 		opacityFilter.setFilterIndex(1);
 	}
 
-	protected Filter create(Stack<Id> id, Stack<String> commandsInDataBase){
+	protected Filter create(Id id, Stack<String> commandsInDataBase){
 		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase.get(0));
-		newFilter.setId(id.get(0).clone());
+		newFilter.setId(id.clone());
 		return newFilter;
+	}
+	
+	public Filter createAndAdd(Id  id, Stack<String> commandsNamesInDataBase) {	
+		if (!isIndexOutOfRange(id)) {
+			Filter filter = create(id, commandsNamesInDataBase);
+			chainOfFilters.addCommand(filter, indexType());
+			return filter;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public void setFloatParameters(int controlIndex, LinkedHashMap<String,Float> parameters){	

@@ -23,7 +23,6 @@ public class ChainOfLayers extends CompositeFilter
 		renderer=new ChainOfLayersRenderer(this, background);
 	}
 	
-	
 	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {
 		Layer newLayer = (Layer)createLayer(filterId, filterNames);
 		return newLayer;
@@ -36,6 +35,17 @@ public class ChainOfLayers extends CompositeFilter
 		return newLayer;
 	}
 	
+	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
+		if (!isIndexOutOfRange(id.get(0))) {
+			Filter filter = create(id, commandsNamesInDataBase);
+			chainOfFilters.addCommand(filter, indexType());
+			return filter;
+		}
+		else {
+			return null;
+		}
+	}	
+	
 	public Layer addLayer(Layer newLayer) {
 		add(newLayer);
 		checkAndActivateLayer(new Id(newLayer.getLayerIndex()-1,0));
@@ -43,13 +53,6 @@ public class ChainOfLayers extends CompositeFilter
 		return newLayer;
 	}
 
-//	public Layer delLayer(Layer layer){
-//		Layer newLayer = (Layer)delete(layerId);
-//		checkAndActivateLayer(new Id(layerId.layerIndex()-1, 0));
-//		execute();
-//		return newLayer;		
-//	}  
-//	
 	public Layer delLayer(Layer layer){
 		Layer newLayer = (Layer)delete(layer);
 		checkAndActivateLayer(new Id(layer.getLayerIndex()-1, 0));
@@ -57,10 +60,10 @@ public class ChainOfLayers extends CompositeFilter
 		return newLayer;		
 	}  
 	
-	public Filter createFilter(Stack<Id> filterId, String filterNames) {
+	public Filter createFilter(Id filterId, String filterNames) {
 		Stack<String> stackOfFilterNames = new Stack<String>();
 		stackOfFilterNames.push(filterNames);		
-		return  ((Layer)chainOfFilters.getCommand(filterId.get(0).layerIndex())).create(filterId, stackOfFilterNames);
+		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).create(filterId, stackOfFilterNames);
 	}
 	
 	public Filter addFilterInLayer(Filter filter) {
@@ -93,11 +96,11 @@ public class ChainOfLayers extends CompositeFilter
 //		}	
 //	} 
 
-	public FilterControlledByFloat createAndAddFilterInLayer(Stack<Id> filterId, String filterNames) {
+	public FilterControlledByFloat createAndAddFilterInLayer(Id filterId, String filterNames) {
 		Stack<String> stackOfFilterNames = new Stack<String>();
 		stackOfFilterNames.push(filterNames);
 		
-		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.get(0).layerIndex())).createAndAdd(filterId, stackOfFilterNames);
+		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createAndAdd(filterId, stackOfFilterNames);
 		
 		activateFilter(newFilter);
 

@@ -28,19 +28,6 @@ public abstract class CompositeFilter extends Filter
 		chainOfFilters = new ChainOfCommands (chainId);		
 	}
 	
-	protected abstract Filter create(Stack<Id> ids, Stack<String> filterNamesInDataBase);
-	
-	public Filter createAndAdd(Stack<Id>  id, Stack<String> commandsNamesInDataBase) {	
-		if (!isIndexOutOfRange(id.get(0))) {
-			Filter filter = create(id, commandsNamesInDataBase);
-			chainOfFilters.addCommand(filter, indexType());
-			return filter;
-		}
-		else {
-			return null;
-		}
-	}	
-	
 	public Filter add(Filter filter) {	
 		chainOfFilters.addCommand(filter, indexType());	
 		return filter;
