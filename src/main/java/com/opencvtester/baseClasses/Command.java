@@ -40,7 +40,7 @@ public class Command
     	return id.get(key);
     }
 
-    public void updateId(String indexType, int newValue) {
+    public void setIndex(String indexType, int newValue) {
     	id.setFilterOrLayer(indexType, newValue);
     }
     

@@ -60,10 +60,6 @@ public class Layer extends CompositeFilter
 	public void execute() {	
 		renderer.execute(chainOfFilters.getChain());
 	}
-	
-	public void updateId(String indexType, int newValue){
-		chainOfFilters.updateId(indexType, newValue);
-	}
 
 	public OpacityFilter getOpacityFilter(){
 		return opacityFilter;

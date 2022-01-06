@@ -28,7 +28,7 @@ public class ChainOfCommands
                 }              
             }
         	commands.add(index, command);     
-        	 updateAllId(index, indexType);
+        	 updateAllId(index);
         }      
     }
 
@@ -39,19 +39,19 @@ public class ChainOfCommands
         	index=lastCommandIndex;
         }
         Command erasedCommand =commands.remove(index);
-        updateAllId(index, indexType);
+        updateAllId(index);
         return erasedCommand;
     }
     
-    public void updateAllId(int index, String indexType) {
+    public void updateAllId(int index) {
         for (int i = index; i < commands.size(); i++) {
-        	commands.get(i).updateId(indexType, i);
+        	commands.get(i).setIndex(indexType, i);
         }
     }
  
-    public void updateId(String indexType, int newValue) {
+    public void updateId(int newValue) {
         for (int i = 0; i <commands.size(); i++) {
-        	commands.get(i).updateId(indexType, newValue);
+        	commands.get(i).setIndex(indexType, newValue);
         }
     }
 

@@ -20,7 +20,7 @@ public abstract class FilterControlledBy<T> extends Filter
 	
 	public abstract void setParameter(LinkedHashMap<String, T> p);
 	
-	public void updateId(String indexType, int newValue) {
+	public void setIndex(String indexType, int newValue) {
 		id.setFilterOrLayer(indexType, newValue);
 	}
 	
