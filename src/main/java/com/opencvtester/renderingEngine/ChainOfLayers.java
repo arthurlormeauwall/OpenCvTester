@@ -60,10 +60,8 @@ public class ChainOfLayers extends CompositeFilter
 		return newLayer;		
 	}  
 	
-	public Filter createFilter(Id filterId, String filterNames) {
-		Stack<String> stackOfFilterNames = new Stack<String>();
-		stackOfFilterNames.push(filterNames);		
-		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).create(filterId, stackOfFilterNames);
+	public Filter createFilter(Id filterId, String filterName) {		
+		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).create(filterId, filterName);
 	}
 	
 	public Filter addFilterInLayer(Filter filter) {
@@ -81,26 +79,9 @@ public class ChainOfLayers extends CompositeFilter
 		execute();
 		return erasedFilter;
 	}  
-	
-//	public Filter delFilterInLayer(Filter filter){
-//		if (getNumberOfLayers()> filter.getLayerIndex()) {
-//			
-//			
-//			Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter.getId());
-//			checkAndActivateLayer(new Id(filter.getLayerIndex(), filter.getFilterIndex()-1));
-//			execute();
-//			return erasedFilter;
-//		}
-//		else {
-//			return null;
-//		}	
-//	} 
 
-	public FilterControlledByFloat createAndAddFilterInLayer(Id filterId, String filterNames) {
-		Stack<String> stackOfFilterNames = new Stack<String>();
-		stackOfFilterNames.push(filterNames);
-		
-		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createAndAdd(filterId, stackOfFilterNames);
+	public FilterControlledByFloat createAndAddFilterInLayer(Id filterId, String filterName) {
+		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createAndAdd(filterId, filterName);
 		
 		activateFilter(newFilter);
 

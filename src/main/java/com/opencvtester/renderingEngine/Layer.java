@@ -35,13 +35,13 @@ public class Layer extends CompositeFilter
 		opacityFilter.setFilterIndex(1);
 	}
 
-	protected Filter create(Id id, Stack<String> commandsInDataBase){
-		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase.get(0));
+	protected Filter create(Id id, String commandsInDataBase){
+		Filter newFilter = (Filter) filtersDataBase.getFilter(commandsInDataBase);
 		newFilter.setId(id.clone());
 		return newFilter;
 	}
 	
-	public Filter createAndAdd(Id  id, Stack<String> commandsNamesInDataBase) {	
+	public Filter createAndAdd(Id  id,String commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id)) {
 			Filter filter = create(id, commandsNamesInDataBase);
 			chainOfFilters.addCommand(filter, indexType());

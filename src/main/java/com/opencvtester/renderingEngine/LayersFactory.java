@@ -30,16 +30,10 @@ public class LayersFactory {
 			int numberOfFilterToAdd = filterNames.size();
 
 			for (int i = 0; i < numberOfFilterToAdd; i++) {		
-				newLayer.createAndAdd(id.get(i + 1), filterNames(filterNames,i));
+				newLayer.createAndAdd(id.get(i + 1), filterNames.get(i));
 			}
 		}
 		
 		return newLayer;
-	}
-
-	public Stack<String> filterNames(Stack<String> names, int index){
-		Stack<String> temp=new Stack<String>();
-		temp.push(names.get(index));
-		return temp;
 	}
 }
