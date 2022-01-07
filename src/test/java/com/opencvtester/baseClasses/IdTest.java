@@ -64,10 +64,23 @@ class IdTest {
 		assertEquals(filterIndex, id.filterIndex());
 		
 		// test setters
-		id.setLayerIndex(0);
-		id.setFilterIndex(0);
+		id.setLayerIndex(-1);
+		id.setFilterIndex(-1);
 		
-		assertEquals(0, id.layerIndex());
-		assertEquals(0, id.filterIndex());
+		assertEquals(-1, id.layerIndex());
+		assertEquals(-1, id.filterIndex());
+		
+		// Test clone 
+		Id idB = new Id();
+		idB= id.clone();
+		
+		assertEquals(id.layerIndex(),idB.layerIndex());
+		assertEquals(id.filterIndex(),idB.layerIndex());
+		
+		id.setLayerIndex(layerIndex);
+		id.setFilterIndex(filterIndex);
+		
+		assertEquals(-1,idB.layerIndex());
+		assertEquals(-1,idB.layerIndex());
 	}
 }
