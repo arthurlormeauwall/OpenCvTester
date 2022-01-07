@@ -42,7 +42,7 @@ public class ChainOfLayers extends CompositeFilter
 	public Layer createAndAddLayer(Stack<Id> filterId, Stack<String> filterNames) {	
 		if (!isIndexOutOfRange(filterId.get(0))) {
 			Layer filter = createLayer(filterId, filterNames);
-			chainOfFilters.addCommand(filter, filter.getIndex(indexType));
+			chainOfFilters.addCommand(filter);
 			return filter;
 		}
 		else {

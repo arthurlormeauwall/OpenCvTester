@@ -61,12 +61,12 @@ public class LayerManager extends Command
 	}
 
 	public FilterManager addFilterManager(FilterManager newFilterManager) {
-		chainOfFilterManager.addCommand(newFilterManager,newFilterManager.getIndex(indexType));
+		chainOfFilterManager.addCommand(newFilterManager);
 		return newFilterManager;
 	}
 	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
 		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterManager.addCommand(filterManager,filterManager.getIndex(indexType));
+		chainOfFilterManager.addCommand(filterManager);
 		return filterManager;
 	}
 }

@@ -90,7 +90,7 @@ public class Layer extends CompositeFilter
 	public Filter createAndAdd(Id  id,String commandsNamesInDataBase) {	
 		if (!isIndexOutOfRange(id)) {
 			Filter filter = getFilterFromDatabase(id, commandsNamesInDataBase);
-			chainOfFilters.addCommand(filter, filter.getIndex(indexType));
+			chainOfFilters.addCommand(filter);
 			return filter;
 		}
 		else {

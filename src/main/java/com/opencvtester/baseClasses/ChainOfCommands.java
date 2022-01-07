@@ -34,17 +34,27 @@ public class ChainOfCommands
 		return commands;
 	} 
 	
+    public Command getCommand(int index){
+    	if (index>=0 && index < commands.size()) {
+    		return commands.get(index);
+    	}
+    	else {
+    		return null;
+    	}
+    }
+	
 	/*
 	 * FEATURES
 	 */
-    public void addCommand(Command command, int index) {  
+    public void addCommand(Command command) {  
+    	int index = command.getIndex(indexType);
         if (commands.size() == 0) {
         	commands.push(command);
         }
         else {
         	index=Math.max(Math.min(commands.size(), index),0);
         	commands.add(index, command);     
-        	 updateAllId(index);
+        	updateAllId(index);
         }      
     }
 
@@ -63,15 +73,6 @@ public class ChainOfCommands
         for (int i = index; i < commandSize; i++) {
         	commands.get(i).setIndex(indexType, i);
         }
-    }
-
-    public Command getCommand(int index){
-    	if (index>=0 && index < commands.size()) {
-    		return commands.get(index);
-    	}
-    	else {
-    		return null;
-    	}
     }
 
     public ChainOfCommands clone() {		

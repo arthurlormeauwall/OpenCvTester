@@ -46,7 +46,7 @@ public class ChainOfLayerManagers {
 	}
 
 	public void addLayerManager(LayerManager layerController) {
-		layerManagers.addCommand(layerController, layerController.getIndex(indexType));	
+		layerManagers.addCommand(layerController);	
 		gui.updateGui();
 	}
 

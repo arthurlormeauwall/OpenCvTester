@@ -56,7 +56,7 @@ public abstract class CompositeFilter extends Filter
 	 * FEATURES
 	 */
 	public Filter add(Filter filter) {	
-		chainOfFilters.addCommand(filter, filter.getIndex(indexType));	
+		chainOfFilters.addCommand(filter);	
 		return filter;
 	}
 	
