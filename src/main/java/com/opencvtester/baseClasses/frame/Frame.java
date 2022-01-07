@@ -4,12 +4,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
+
 import java.awt.Color;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-
 import javax.imageio.ImageIO;
 
 import org.opencv.core.CvType;
@@ -77,10 +78,10 @@ public class Frame implements FrameInterface {
 	}
 
 	public void createPlainGrayFrame(int rows, int cols, int data) {
-		bufferedImage= new BufferedImage(rows, cols, BufferedImage.TYPE_INT_RGB);
+		bufferedImage= new BufferedImage(cols, rows, BufferedImage.TYPE_INT_RGB);
 		for (int i=0 ; i < rows ;i++) {  	
 			for (int j=0 ; j < cols ; j++){ 	
-				bufferedImage.setRGB(i, j, data);
+				bufferedImage.setRGB(j, i, data);
 			}
 		}
 		setSpecs();
@@ -110,7 +111,7 @@ public class Frame implements FrameInterface {
 	public double[] getPixelAt(int row, int col) {
 		double [] pixelValue= new double[3];
 		
-        Color color = new Color(bufferedImage.getRGB(row, col), true);
+        Color color = new Color(bufferedImage.getRGB(col, row), true);
         pixelValue[0]=(double)color.getBlue();
         pixelValue[1]=(double)color.getGreen();
         pixelValue[2]=(double)color.getRed();
@@ -120,7 +121,7 @@ public class Frame implements FrameInterface {
 
 	public void setPixelAt(int row, int col, double[] data) {
 		Color color = new Color ((int)data[2],(int)data[1],(int)data[0]);	
-		bufferedImage.setRGB(row, col, color.getRGB());
+		bufferedImage.setRGB(col, row, color.getRGB());
 	}
 
 	public BufferedImage getBufferedImage() {
