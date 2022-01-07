@@ -46,24 +46,6 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		return currentParameters;
 	}
 	
-	public void setParameter(LinkedHashMap<String, Float> parameter) {		
-		currentParameters=parameter;
-		boolean parametersAreTheSame = true;
-		
-		Iterator<Entry<String, Float>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
-		
-	    while (zeroEffectValuesIterator.hasNext() && parametersAreTheSame == true) {
-	    	HashMap.Entry<String, Float> item= (HashMap.Entry<String, Float>) zeroEffectValuesIterator.next();
-	    	
-	    	if (!item.getValue().equals(currentParameters.get(item.getKey()))) {
-	        	parametersAreTheSame=false;
-	        }
-	    }
-		if (parametersAreTheSame) {
-			isBypass=true;
-		}
-	}
-	
 	public void setParameters(String name, Float parameterValue) {		
 		currentParameters.put(name, parameterValue);
 	}
@@ -89,5 +71,27 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
+	}
+	
+	/*
+	 * Features
+	 */
+	public void setParameter(LinkedHashMap<String, Float> parameter) {		
+		currentParameters=parameter;
+		boolean parametersAreTheSame = true;
+		
+		Iterator<Entry<String, Float>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
+		
+	    while (zeroEffectValuesIterator.hasNext() && parametersAreTheSame == true) {
+	    	HashMap.Entry<String, Float> item= (HashMap.Entry<String, Float>) zeroEffectValuesIterator.next();
+	    	
+	    	if (!item.getValue().equals(currentParameters.get(item.getKey()))) {
+	        	parametersAreTheSame=false;
+	        }
+	    }
+		if (parametersAreTheSame) {
+			isBypass=true;
+		}
+		activate();
 	}
 }

@@ -71,7 +71,7 @@ public class GuiManager
 			}
 		}
 		
-		Layer newLayer= chainOfLayers.addLayer(id, filterNames);
+		Layer newLayer= chainOfLayers.createAndAddLayer(id, filterNames);
 		
 		LayerManager newLayerManager= new LayerManager(newLayer, this);
 		newLayerManager.getLayerWindow().setVisible(false);
