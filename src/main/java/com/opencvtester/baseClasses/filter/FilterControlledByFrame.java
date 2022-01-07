@@ -50,14 +50,12 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameIn
 		Boolean framesAreTheSame=true;
 		currentParameters=frames;
 		
-		Iterator<Entry<String, FrameInterface>> new_Iterator= frames.entrySet().iterator();
+		Iterator<Entry<String, FrameInterface>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
 		
-	    while (new_Iterator.hasNext() && framesAreTheSame == true) {
-	    	HashMap.Entry<String, FrameInterface> frameItem= (HashMap.Entry<String, FrameInterface>) new_Iterator.next();
-	        if (frameItem.getValue().compareTo(currentParameters.get(frameItem.getKey()))) {
-	        	framesAreTheSame=true;
-	        }
-	        else {
+	    while (zeroEffectValuesIterator.hasNext() && framesAreTheSame == true) {
+	    	HashMap.Entry<String, FrameInterface> item= (HashMap.Entry<String,FrameInterface>) zeroEffectValuesIterator.next();
+	    	
+	    	if (!item.getValue().compareTo(currentParameters.get(item.getKey()))) {
 	        	framesAreTheSame=false;
 	        }
 	    }

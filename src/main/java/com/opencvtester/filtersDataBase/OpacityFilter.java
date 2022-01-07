@@ -77,7 +77,7 @@ public class OpacityFilter extends FilterControlledByFloat
 						float background_pixel = (float)(background.getPixelAt(row, column)[i]);
 						float source_pixel = (float)(frameIn.getPixelAt(row, column)[i]);
 
-						int after = (int)   (background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel);
+						int after = Math.round((background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel));
 						if (after > NBITMAX) { after = NBITMAX; }
 						
 						data[i] = after;

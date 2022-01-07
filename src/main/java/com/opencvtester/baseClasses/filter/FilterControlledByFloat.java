@@ -1,7 +1,11 @@
 package com.opencvtester.baseClasses.filter;
 
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+
 
 
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
@@ -42,10 +46,20 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		return currentParameters;
 	}
 	
-	public void setParameter(LinkedHashMap<String, Float> parameter) {
-		
+	public void setParameter(LinkedHashMap<String, Float> parameter) {		
 		currentParameters=parameter;
-		if (parameter==flags.zeroEffectValues) {
+		boolean parametersAreTheSame = true;
+		
+		Iterator<Entry<String, Float>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
+		
+	    while (zeroEffectValuesIterator.hasNext() && parametersAreTheSame == true) {
+	    	HashMap.Entry<String, Float> item= (HashMap.Entry<String, Float>) zeroEffectValuesIterator.next();
+	    	
+	    	if (!item.getValue().equals(currentParameters.get(item.getKey()))) {
+	        	parametersAreTheSame=false;
+	        }
+	    }
+		if (parametersAreTheSame) {
 			isBypass=true;
 		}
 	}

@@ -11,6 +11,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+
 import javax.imageio.ImageIO;
 
 import org.opencv.core.CvType;
@@ -98,7 +100,10 @@ public class Frame implements FrameInterface {
 				
 				for (int i=0; i<rows; i++) {
 					for (int j=0; j<cols;j ++) {
-						if (frame.getPixelAt(i,j) != getPixelAt(i,j)) {
+						double[] framePixel=frame.getPixelAt(i, j);
+						double[] thisPixel=getPixelAt(i,j);
+						
+						if (!Arrays.equals(framePixel, thisPixel)) {
 							return false;
 						}
 					}
