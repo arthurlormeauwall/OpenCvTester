@@ -2,8 +2,6 @@ package com.opencvtester.baseClasses;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-import java.util.LinkedList;
 import java.util.Random;
 import java.util.Stack;
 

@@ -5,8 +5,6 @@ import java.awt.image.ColorModel;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 
-import java.awt.Color;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
