@@ -55,7 +55,7 @@ public class Command
     }
     
     public Boolean isbypass () {
-    	return isBypass;
+    	return isBypassLocked;
     }
     
     public void setBypass(Boolean bypassState) {
