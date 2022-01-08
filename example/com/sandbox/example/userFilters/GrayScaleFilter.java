@@ -43,10 +43,10 @@ public class GrayScaleFilter extends FilterControlledByFloat
 
 	                float after = blueMultiplier * bluePixel + greenMultiplier * greenPixel + redMultiplier * redPixel;
 	                if (after > bitMax) { after = bitMax; }
-	                double[] temp= new double[3];
-	                temp[0]=after;
-	                temp[1]=after;
-	                temp[2]=after;
+	                int[] temp= new int[3];
+	                temp[0]=(int)after;
+	                temp[1]=(int)after;
+	                temp[2]=(int)after;
 	                frameOut.setPixelAt(rowCount, columnCount, temp);
 	            }
 	        }   

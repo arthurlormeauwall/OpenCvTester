@@ -100,8 +100,8 @@ public class Frame implements FrameInterface {
 				
 				for (int i=0; i<rows; i++) {
 					for (int j=0; j<cols;j ++) {
-						double[] framePixel=frame.getPixelAt(i, j);
-						double[] thisPixel=getPixelAt(i,j);
+						int[] framePixel=frame.getPixelAt(i, j);
+						int[] thisPixel=getPixelAt(i,j);
 						
 						if (!Arrays.equals(framePixel, thisPixel)) {
 							return false;
@@ -113,20 +113,25 @@ public class Frame implements FrameInterface {
 			return false;
 		}
 
-	public double[] getPixelAt(int row, int col) {
-		double [] pixelValue= new double[3];
-		
-        Color color = new Color(bufferedImage.getRGB(col, row), true);
-        pixelValue[0]=(double)color.getBlue();
-        pixelValue[1]=(double)color.getGreen();
-        pixelValue[2]=(double)color.getRed();
-		
+	public int[] getPixelAt(int row, int col) {
+		int [] pixelValue= new int[4];	
+		int p = bufferedImage.getRGB(col, row);
+
+	    //get alpha
+	    pixelValue[3] =((p>>24) & 0xff);
+	    //get red
+	    pixelValue[2] = ((p>>16) & 0xff);
+	    //get green
+	    pixelValue[1] = ((p>>8) & 0xff);
+	    //get blue
+	    pixelValue[0] = ((p) & 0xff);
+	
 		return pixelValue;		   
 	}
 
-	public void setPixelAt(int row, int col, double[] data) {
-		Color color = new Color ((int)data[2],(int)data[1],(int)data[0]);	
-		bufferedImage.setRGB(col, row, color.getRGB());
+	public void setPixelAt(int row, int col, int[] data) {
+		int pixel = (data[2]<<16) | (data[1]<<8) | data[0];
+		bufferedImage.setRGB(col, row, pixel);
 	}
 
 	public BufferedImage getBufferedImage() {

@@ -49,10 +49,10 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 	                if (afterGreen > bitMax) { afterGreen = bitMax; }
 	                if (afterRed > bitMax) { afterRed = bitMax; }
 
-	                double[] temp= new double[3];
-	                temp[0]=afterBlue;
-	                temp[1]=afterGreen;
-	                temp[2]=afterRed;
+	                int[] temp= new int[3];
+	                temp[0]=(int)afterBlue;
+	                temp[1]=(int)afterGreen;
+	                temp[2]=(int)afterRed;
 	                
 	          
 	               frameOut.setPixelAt(rowCount, columnCount, temp);   

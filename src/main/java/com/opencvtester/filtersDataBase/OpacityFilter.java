@@ -71,7 +71,7 @@ public class OpacityFilter extends FilterControlledByFloat
 			{
 				for (int column = 0; column < m_column; column++)
 				{
-					double[] data= new double[3];
+					int[] data= new int[3];
 					for (int i = 0; i < 3; i++) {
 						float alpha_pixel = opacity;
 						float background_pixel = (float)(background.getPixelAt(row, column)[i]);

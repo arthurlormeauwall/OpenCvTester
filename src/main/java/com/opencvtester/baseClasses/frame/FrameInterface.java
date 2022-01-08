@@ -16,9 +16,9 @@ public interface FrameInterface {
 	
 	public void setSpecs();
 	
-	public double[] getPixelAt(int row, int col);
+	public int[] getPixelAt(int row, int col);
 	
-	public void setPixelAt(int row, int col, double[] data);
+	public void setPixelAt(int row, int col, int[] data);
 	
 	public BufferedImage getBufferedImage();
 	
