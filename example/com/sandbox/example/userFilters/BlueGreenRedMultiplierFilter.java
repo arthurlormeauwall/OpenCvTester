@@ -9,9 +9,9 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 
 	public void setParameterFlags() {	
 
-		addParameterFlag("BlueMult", 1f, 1f, 200);
-		addParameterFlag("GreenMult", 1f, 1f, 200);
-		addParameterFlag("RedMult", 1f, 1f, 200);
+		addParameterFlag("BlueMult", 1f, 1f, 130);
+		addParameterFlag("GreenMult", 1f, 1f, 130);
+		addParameterFlag("RedMult", 1f, 1f, 130);
 	}
 	
 	public BlueGreenRedMultiplierFilter createNew() {	
