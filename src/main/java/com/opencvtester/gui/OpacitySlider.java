@@ -28,7 +28,7 @@ public class OpacitySlider extends LabelledSlider {
 			      public void stateChanged(ChangeEvent event)   {
 			    	  OpacitySlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); // TODO : change this
 			    	  
-			    		  OpacitySlider.this.guiManager.setOpacity(OpacitySlider.this.widgetToUpdate, slider.getValue()*0.01f);
+			    		  OpacitySlider.this.guiManager.setOpacity(OpacitySlider.this.filterToUpdate, slider.getValue()*0.01f);
 			      }
 			    });
 		}		

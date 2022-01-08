@@ -23,7 +23,7 @@ public class LabelledSlider extends JPanel
 	protected JSlider slider;
 	protected int currentValue;
 	protected JLabel  nameWidget;
-	protected FilterControlledByFloat widgetToUpdate;
+	protected FilterControlledByFloat filterToUpdate;
 	protected JLabel value;
 	protected Boolean emitSignal;
 
@@ -32,13 +32,13 @@ public class LabelledSlider extends JPanel
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat widgetToUpdate, GuiManager actionHistoryManager){
+	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat filterToUpdate, GuiManager actionHistoryManager){
 		emitSignal=true;
-		this.widgetToUpdate=widgetToUpdate;
+		this.filterToUpdate=filterToUpdate;
 		this.guiManager=actionHistoryManager;
 		slider = new JSlider ();
 		slider.setValue(Math.round(defaultValue*100));
-		slider.setMaximum(widgetToUpdate.getFlags().sliderScale.get(name));
+		slider.setMaximum(filterToUpdate.getFlags().sliderScale.get(name));
 		slider.setOrientation(JSlider.VERTICAL);
 		this.nameWidget = new JLabel(name);
 		this.value = new JLabel( String.valueOf(defaultValue));
@@ -60,7 +60,7 @@ public class LabelledSlider extends JPanel
 			    	  LabelledSlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); 
 			    	  try {
 			    		 currentValue=slider.getValue();
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate, nameWidget.getText(), slider.getValue()*0.01f);	
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);	
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -75,7 +75,7 @@ public class LabelledSlider extends JPanel
 
 				public void mousePressed(MouseEvent event) {
 					 try {
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate, nameWidget.getText(), currentValue*0.01f);
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.filterToUpdate, nameWidget.getText(), currentValue*0.01f);
 						 LabelledSlider.this.guiManager.store();
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -99,7 +99,6 @@ public class LabelledSlider extends JPanel
 		}		
 		
 	}
-
 	
 	/*
 	 * GETTERS & SETTERS

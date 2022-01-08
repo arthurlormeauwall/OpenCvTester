@@ -89,9 +89,6 @@ public class FilterWidget extends JPanel
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public void setParameters(String name, Integer value) {
-		sourceFilter.setParameters(name, value.floatValue());	
-	}
 	
 	public FilterControlledByFloat getFilter() {
 		return sourceFilter;

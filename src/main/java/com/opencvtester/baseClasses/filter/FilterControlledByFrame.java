@@ -45,7 +45,7 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameIn
 	/*
 	 * FEATURES
 	 */
-	public void setParameter(LinkedHashMap<String, FrameInterface> frames) {		
+	public void setAllParameters(LinkedHashMap<String, FrameInterface> frames) {		
 		
 		Boolean framesAreTheSame=true;
 		currentParameters=frames;

@@ -23,7 +23,7 @@ public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat
 			frameIn.copyTo(frameOut);
 		}
 
-		if (!isBypass)
+		else
 	    {
 	        int row = frameIn.getSpecs().rows;
 	        int column = frameIn.getSpecs().cols;

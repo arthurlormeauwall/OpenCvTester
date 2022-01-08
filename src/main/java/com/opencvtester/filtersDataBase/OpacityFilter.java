@@ -28,7 +28,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	 */
 	public void setParameterFlags() {	
 		opacity=1f; 
-		addParameterFlag("Opacity", 1f,1f, 100); // TODO : replace this
+		addParameterFlag("Opacity", 1f,1f, 100); 
 	}
 
 	public void setBackGround(FrameInterface background){	
@@ -40,7 +40,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	
 		LinkedHashMap<String,Float> newOpacity= new LinkedHashMap<String, Float>();
 		newOpacity.put("Opacity", opacity);
-		setParameter(newOpacity);	
+		setAllParameters(newOpacity);	
 	}
 	
 	public Float getOpacity() {

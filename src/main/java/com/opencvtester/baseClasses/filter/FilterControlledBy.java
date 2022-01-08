@@ -21,7 +21,7 @@ public abstract class FilterControlledBy<T> extends Filter
 		isBypass=false;	
 	}
 	
-	public abstract void setParameter(LinkedHashMap<String, T> p);
+	public abstract void setAllParameters(LinkedHashMap<String, T> p);
 	
 	
 	/*
@@ -52,7 +52,7 @@ public abstract class FilterControlledBy<T> extends Filter
 	}
 	
 	public void reset() {
-		setParameter(flags.defaultValues);
+		setAllParameters(flags.defaultValues);
 	}
 	
 	public FilterFlags<T> getFlags() {

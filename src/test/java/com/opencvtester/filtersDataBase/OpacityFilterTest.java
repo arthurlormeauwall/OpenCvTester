@@ -27,7 +27,7 @@ class OpacityFilterTest {
 		LinkedHashMap<String,Float> p1 = new LinkedHashMap<String, Float>();
 		p1.put("Opacity", 0.5f);
 		
-		filter.setParameter(p1);
+		filter.setAllParameters(p1);
 		
 		assertEquals(0.5f, filter.getParameter("Opacity"));
 		

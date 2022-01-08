@@ -78,7 +78,7 @@ public class Frame implements FrameInterface {
 	}
 
 	public void createPlainGrayFrame(int rows, int cols, int data) {
-		bufferedImage= new BufferedImage(cols, rows, BufferedImage.TYPE_INT_RGB);
+		bufferedImage= new BufferedImage(cols, rows, BufferedImage.TYPE_INT_ARGB);
 		for (int i=0 ; i < rows ;i++) {  	
 			for (int j=0 ; j < cols ; j++){ 	
 				bufferedImage.setRGB(j, i, data);

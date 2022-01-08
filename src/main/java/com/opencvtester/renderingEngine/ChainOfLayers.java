@@ -120,14 +120,14 @@ public class ChainOfLayers extends CompositeFilter
 	
 	public void setParameters(FilterControlledByFloat adjustControlToSet, LinkedHashMap<String,Float> parameters){
 		
-			adjustControlToSet.setParameter(parameters);
+			adjustControlToSet.setAllParameters(parameters);
 			
 			checkAndActivateFilter(adjustControlToSet);
 			execute();
 	} 
 	
 	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) {
-			filterToSet.setParameters(name, value);
+			filterToSet.setParameter(name, value);
 			checkAndActivateFilter(filterToSet);
 			execute();	
 	}
@@ -163,13 +163,10 @@ public class ChainOfLayers extends CompositeFilter
 	}
 	
 	public void checkAndActivateFilter (Filter newFilter) {	
-		this.getLayer(newFilter.getLayerIndex()).activate();
+		getLayer(newFilter.getLayerIndex()).activate();
 		newFilter.activate();
 		for (int i=newFilter.getLayerIndex(); i<getNumberOfLayers() ; i++) {
-			getLayer(i).activate();
-			if (getLayer(i).getNumberOfFilters()>0) {
-				getLayer(i).getFirstFilter().activate();
-			}
+			checkAndActivateLayer(getLayer(i));
 		}
 	}
 

@@ -4,6 +4,7 @@ public class Command
 {
 	protected Id id;
     protected Boolean isBypass;
+    protected Boolean isBypassLocked;
     
     
 	/*
@@ -12,12 +13,14 @@ public class Command
 	public Command() {    
 		this.id = new Id ();   
 		this.id.initNULL();
+		isBypassLocked=false;
     } 
 	
     public Command(Id id) {	
     	this.id = new Id();
     	this.id.set(id);
 	    isBypass = false;
+	    isBypassLocked=false;
     } 
 	
 	/*
@@ -57,5 +60,6 @@ public class Command
     
     public void setBypass(Boolean bypassState) {
     	isBypass=bypassState;
+        isBypassLocked=bypassState;    
     }   
 }

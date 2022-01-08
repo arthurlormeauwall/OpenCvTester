@@ -1,7 +1,5 @@
 package com.opencvtester.renderingEngine;
 
-import java.util.LinkedHashMap;
-
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.Id;
@@ -96,10 +94,6 @@ public class Layer extends CompositeFilter
 		else {
 			return null;
 		}
-	}
-	
-	public void setFloatParameters(int controlIndex, LinkedHashMap<String,Float> parameters){	
-		((FilterControlledByFloat)chainOfFilters.getCommand(controlIndex)).setParameter(parameters);
 	}
 	
 	public void execute() {	

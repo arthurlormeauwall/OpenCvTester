@@ -29,7 +29,7 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		currentParameters= new LinkedHashMap<String, Float>();
 	
 		setParameterFlags();
-		currentParameters=(LinkedHashMap<String, Float>)flags.defaultValues.clone();
+		setAllParameters((LinkedHashMap<String, Float>)flags.defaultValues.clone());
 	}
 	
 	public abstract FilterControlledByFloat createNew();
@@ -46,14 +46,6 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	public LinkedHashMap<String, Float> getParameters() {
 		return currentParameters;
 	}
-	
-	public void setParameters(String name, Float parameterValue) {		
-		currentParameters.put(name, parameterValue);
-	}
-	
-	public void setParameters(String name, Integer value) {
-		currentParameters.put(name, value.floatValue());
-	}	
 	
 	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue, int sliderScale) {
 	
@@ -78,8 +70,20 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	/*
 	 * Features
 	 */
-	public void setParameter(LinkedHashMap<String, Float> parameter) {		
-		currentParameters=parameter;
+	@SuppressWarnings("unchecked")
+	public void setParameter(String name, Float value) {
+		LinkedHashMap<String, Float> temp= new LinkedHashMap<String, Float>();
+		temp=(LinkedHashMap<String, Float>)currentParameters.clone();
+		temp.put(name, value);
+		setAllParameters(temp);
+	}
+	
+	public void setAllParameters(LinkedHashMap<String, Float> parameters) {		
+		if (isBypass && !isBypassLocked) {
+			isBypass=false;
+		}
+		
+		currentParameters=parameters;	
 		boolean parametersAreTheSame = true;
 		
 		Iterator<Entry<String, Float>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
@@ -95,5 +99,8 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 			isBypass=true;
 		}
 		activate();
+		
 	}
+
+
 }
