@@ -2,6 +2,7 @@ package com.opencvtester.filtersDataBase;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Stack;
 
@@ -9,14 +10,14 @@ import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 
 public class FiltersDataBase 
 {
-	protected HashMap<String, FilterControlledByFloat> filters;
+	protected LinkedHashMap<String, FilterControlledByFloat> filters;
 	protected OpacityFilter alphaFilter;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	public FiltersDataBase() {
-		filters= new HashMap<String, FilterControlledByFloat>();
+		filters= new LinkedHashMap<String, FilterControlledByFloat>();
 	}
 	
 	/*
