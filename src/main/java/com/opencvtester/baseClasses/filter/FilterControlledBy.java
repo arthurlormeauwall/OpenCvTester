@@ -1,6 +1,9 @@
 package com.opencvtester.baseClasses.filter;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import com.opencvtester.filtersDataBase.FilterFlags;
 
@@ -21,7 +24,7 @@ public abstract class FilterControlledBy<T> extends Filter
 		isBypass=false;	
 	}
 	
-	public abstract void setAllParameters(LinkedHashMap<String, T> p);
+//	public abstract void setAllParameters(LinkedHashMap<String, Comparable<T>> p);
 	
 	
 	/*
@@ -57,5 +60,38 @@ public abstract class FilterControlledBy<T> extends Filter
 	
 	public FilterFlags<T> getFlags() {
 		return flags;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setParameter(String name, T value) {
+		LinkedHashMap<String, T> temp= new LinkedHashMap<String, T>();
+		temp=(LinkedHashMap<String, T>)currentParameters.clone();
+		temp.put(name, value);
+		setAllParameters(temp);
+	}
+	
+	@SuppressWarnings("unchecked") // we assume that class 'T' extends Comparable interface, this is the case for Float and Frame classes
+	public void setAllParameters(LinkedHashMap<String, T> parameters) {		
+		if (isBypass && !isBypassLocked) {
+			isBypass=false;
+		}
+		
+		currentParameters=parameters;	
+		boolean parametersAreTheSame = true;
+		
+		Iterator<Entry<String, T>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
+		
+	    while (zeroEffectValuesIterator.hasNext() && parametersAreTheSame == true) {
+	    	HashMap.Entry<String, Comparable<T>> item= (HashMap.Entry<String, Comparable<T>>) zeroEffectValuesIterator.next();
+	    	
+	    	if (item.getValue().compareTo(currentParameters.get(item.getKey()))!=0) {
+	        	parametersAreTheSame=false;
+	        }
+	    }
+		if (parametersAreTheSame) {
+			isBypass=true;
+		}
+		activate();
+		
 	}
 }

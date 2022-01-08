@@ -1,12 +1,6 @@
 package com.opencvtester.baseClasses.filter;
 
-
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-
-
 
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 {
@@ -66,41 +60,4 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 	public void setEmptyFlags() {
 		flags.numberOfParameters=0;
 	}
-	
-	/*
-	 * Features
-	 */
-	@SuppressWarnings("unchecked")
-	public void setParameter(String name, Float value) {
-		LinkedHashMap<String, Float> temp= new LinkedHashMap<String, Float>();
-		temp=(LinkedHashMap<String, Float>)currentParameters.clone();
-		temp.put(name, value);
-		setAllParameters(temp);
-	}
-	
-	public void setAllParameters(LinkedHashMap<String, Float> parameters) {		
-		if (isBypass && !isBypassLocked) {
-			isBypass=false;
-		}
-		
-		currentParameters=parameters;	
-		boolean parametersAreTheSame = true;
-		
-		Iterator<Entry<String, Float>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
-		
-	    while (zeroEffectValuesIterator.hasNext() && parametersAreTheSame == true) {
-	    	HashMap.Entry<String, Float> item= (HashMap.Entry<String, Float>) zeroEffectValuesIterator.next();
-	    	
-	    	if (!item.getValue().equals(currentParameters.get(item.getKey()))) {
-	        	parametersAreTheSame=false;
-	        }
-	    }
-		if (parametersAreTheSame) {
-			isBypass=true;
-		}
-		activate();
-		
-	}
-
-
 }

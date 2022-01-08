@@ -10,7 +10,7 @@ public interface FrameInterface {
 
 	public void createPlainGrayFrame(int rows, int cols, int data);
 	
-	public Boolean compareTo(FrameInterface p) ;
+	public int compareTo(FrameInterface p) ;
 
 	public FrameSpecs getSpecs();
 	

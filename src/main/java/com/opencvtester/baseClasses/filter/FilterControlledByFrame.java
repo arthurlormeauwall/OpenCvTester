@@ -1,11 +1,7 @@
 package com.opencvtester.baseClasses.filter;
 
-
-
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Map.Entry;
+
 
 import com.opencvtester.baseClasses.frame.FrameInterface;
 
@@ -40,28 +36,5 @@ public abstract class FilterControlledByFrame extends FilterControlledBy<FrameIn
 	
 	public void setZeroEffectValues(LinkedHashMap<String, FrameInterface> parameter) {
 		flags.zeroEffectValues=parameter;
-	}
-	
-	/*
-	 * FEATURES
-	 */
-	public void setAllParameters(LinkedHashMap<String, FrameInterface> frames) {		
-		
-		Boolean framesAreTheSame=true;
-		currentParameters=frames;
-		
-		Iterator<Entry<String, FrameInterface>> zeroEffectValuesIterator= flags.zeroEffectValues.entrySet().iterator();
-		
-	    while (zeroEffectValuesIterator.hasNext() && framesAreTheSame == true) {
-	    	HashMap.Entry<String, FrameInterface> item= (HashMap.Entry<String,FrameInterface>) zeroEffectValuesIterator.next();
-	    	
-	    	if (!item.getValue().compareTo(currentParameters.get(item.getKey()))) {
-	        	framesAreTheSame=false;
-	        }
-	    }
-		if (framesAreTheSame) {
-			isBypass=true;
-		}
-		activate();
 	}
 }

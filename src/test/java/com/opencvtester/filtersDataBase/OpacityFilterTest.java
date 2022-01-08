@@ -57,7 +57,7 @@ class OpacityFilterTest {
 			
 			Frame result=new Frame();
 			result.createPlainGrayFrame(100, 100, Math.round(255*opacity));
-			assertTrue(result.compareTo(filter.getFrameOut()));
+			assertTrue(result.compareTo(filter.getFrameOut())==0);
 		}
 	}
 }

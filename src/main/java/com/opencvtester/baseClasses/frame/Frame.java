@@ -18,7 +18,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfByte;
 import org.opencv.imgcodecs.Imgcodecs;
 
-public class Frame implements FrameInterface {
+public class Frame implements FrameInterface, Comparable<FrameInterface>  {
 	
 	final int NumberOfColorLayer = 3; 
 	BufferedImage bufferedImage;
@@ -87,7 +87,7 @@ public class Frame implements FrameInterface {
 		setSpecs();
 	}
 
-	public Boolean compareTo(FrameInterface frame) {
+	public int compareTo(FrameInterface frame) {
 			int rowsP= frame.getSpecs().rows;
 			int colsP=frame.getSpecs().cols;
 			
@@ -102,13 +102,13 @@ public class Frame implements FrameInterface {
 						int[] thisPixel=getPixelAt(i,j);
 						
 						if (!Arrays.equals(framePixel, thisPixel)) {
-							return false;
+							return -1;
 						}
 					}
 				}
-				return true ; 
+				return 0 ; 
 			}
-			return false;
+			return -1;
 		}
 
 	public int[] getPixelAt(int row, int col) {
