@@ -3,6 +3,7 @@ package com.opencvtester.gui;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -17,6 +18,7 @@ import com.opencvtester.guiManager.GuiManager;
 public class LabelledSlider extends JPanel
 {
 	private static final long serialVersionUID = 1L;
+	private static final DecimalFormat df = new DecimalFormat("0.00");
 	
 	protected JSlider slider;
 	protected int currentValue;
@@ -55,7 +57,7 @@ public class LabelledSlider extends JPanel
 		if (emitSignal) {
 			 slider.addChangeListener(new ChangeListener() {
 			      public void stateChanged(ChangeEvent event)   {
-			    	  LabelledSlider.this.value.setText(String.valueOf(slider.getValue()*0.01f)); // TODO : change this
+			    	  LabelledSlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); 
 			    	  try {
 			    		 currentValue=slider.getValue();
 						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.widgetToUpdate, nameWidget.getText(), slider.getValue()*0.01f);	
