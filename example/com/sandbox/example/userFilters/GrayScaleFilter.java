@@ -9,9 +9,9 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	
 	public void setParameterFlags() {
 
-		addParameterFlag("BlueMult", 0.1f, -1f);
-		addParameterFlag("GreenMult", 0.6f, -1f);
-		addParameterFlag("RedMult", 0.3f, -1f);
+		addParameterFlag("BlueMult", 0.1f, -1f, 100);
+		addParameterFlag("GreenMult", 0.6f, -1f, 100);
+		addParameterFlag("RedMult", 0.3f, -1f, 100);
 	}
 	
 	public GrayScaleFilter createNew() {	

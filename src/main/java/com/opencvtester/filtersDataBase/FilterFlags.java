@@ -8,5 +8,6 @@ public class FilterFlags<T>
 	public int numberOfParameters;
 	public LinkedHashMap<String, T> defaultValues;
 	public LinkedHashMap<String, T> zeroEffectValues;
+	public LinkedHashMap<String, Integer> sliderScale;
 }
 

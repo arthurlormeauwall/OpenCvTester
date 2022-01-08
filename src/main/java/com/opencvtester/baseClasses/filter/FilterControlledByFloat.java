@@ -24,6 +24,7 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		flags.filterName = new String();
 		flags.defaultValues= new LinkedHashMap<String, Float>();
 		flags.zeroEffectValues= new LinkedHashMap<String, Float>();
+		flags.sliderScale = new LinkedHashMap<String, Integer>();
 		flags.numberOfParameters=0;
 		currentParameters= new LinkedHashMap<String, Float>();
 	
@@ -54,11 +55,12 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		currentParameters.put(name, value.floatValue());
 	}	
 	
-	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue) {
+	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue, int sliderScale) {
 	
 		flags.defaultValues.put(name, defaultValue);
 		flags.zeroEffectValues.put(name, zeroEffectValue);
 		flags.numberOfParameters ++;
+		flags.sliderScale.put(name, sliderScale);
 	}
 	
 	public void setFilterName(String name) {

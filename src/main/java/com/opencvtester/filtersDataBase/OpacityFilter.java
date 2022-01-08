@@ -28,7 +28,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	 */
 	public void setParameterFlags() {	
 		opacity=1f; 
-		addParameterFlag("Opacity", 1f,1f); // TODO : replace this
+		addParameterFlag("Opacity", 1f,1f, 100); // TODO : replace this
 	}
 
 	public void setBackGround(FrameInterface background){	

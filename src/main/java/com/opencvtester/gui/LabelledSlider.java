@@ -38,7 +38,7 @@ public class LabelledSlider extends JPanel
 		this.guiManager=actionHistoryManager;
 		slider = new JSlider ();
 		slider.setValue(Math.round(defaultValue*100));
-		slider.setMaximum(200);
+		slider.setMaximum(widgetToUpdate.getFlags().sliderScale.get(name));
 		slider.setOrientation(JSlider.VERTICAL);
 		this.nameWidget = new JLabel(name);
 		this.value = new JLabel( String.valueOf(defaultValue));
