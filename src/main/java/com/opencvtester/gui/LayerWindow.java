@@ -75,7 +75,6 @@ public class LayerWindow  extends JFrame
 		      public void actionPerformed(ActionEvent event)   {
 		    	  
 		    	  LayerWindow.this.guiManager.undo();
-		    	
 		      }
 		    });
 		 
@@ -89,6 +88,7 @@ public class LayerWindow  extends JFrame
 		    	
 		    	LayerWindow.this.filtersList.setVisible(true);		    	
 		    	LayerWindow.this.pack();
+		
 		      }
 		    });
 		 delButton.addActionListener(new ActionListener() {
@@ -98,7 +98,8 @@ public class LayerWindow  extends JFrame
 						FilterManager filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
 						filterToDel.getFilterWidget().setVisible(false);
 						 LayerWindow.this.pack();
-						 LayerWindow.this.guiManager.delFilterInLayer(filterToDel);
+						 LayerWindow.this.guiManager.deleteFilterInLayer(filterToDel);
+					     LayerWindow.this.guiManager.store();
 					}	 
 		      }
 		    });
@@ -112,6 +113,7 @@ public class LayerWindow  extends JFrame
 					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
 					    	if (nameOfNewFilter!=null) {
 					    		LayerWindow.this.guiManager.createAndAddFilterInLayer(thisLayerIndex, newFilterIndex, nameOfNewFilter);
+					        	LayerWindow.this.guiManager.store();
 					    	}					    	
 					    	LayerWindow.this.filtersList.setVisible(false);
 					    	LayerWindow.this.filtersList.clearSelection();

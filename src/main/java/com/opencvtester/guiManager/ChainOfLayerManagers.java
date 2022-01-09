@@ -10,7 +10,7 @@ import com.opencvtester.gui.MainWindow;
 public class ChainOfLayerManagers {
 	
 	private ChainOfCommands layerManagers;
-	private MainWindow gui;
+	private MainWindow mainWindow;
 	private String indexType;
 	
 	/*
@@ -20,7 +20,7 @@ public class ChainOfLayerManagers {
 		Id chainId = new Id();
 		chainId.set(0,0);
 
-		this.gui=gui;
+		this.mainWindow=gui;
 		indexType="layer";
 		layerManagers= new ChainOfCommands(indexType);
 	}
@@ -37,30 +37,30 @@ public class ChainOfLayerManagers {
 	 */
 	public void addFilterWigetInLayerWiget(FilterManager filterController) {
 		((LayerManager)layerManagers.getCommand(filterController.getLayerIndex())).addFilterManager(filterController);
-		gui.updateGui();
+		mainWindow.updateGui();
 	}
 	
 	public void deFilterWidgetInLayerWidget(FilterManager filterManager) {
 		((LayerManager)layerManagers.getCommand(filterManager.getLayerIndex())).deleteFilterWidget(filterManager);
-		gui.updateGui();
+		mainWindow.updateGui();
 	}
 
 	public void addLayerManager(LayerManager layerController) {
 		layerManagers.addCommand(layerController);	
-		gui.updateGui();
+		mainWindow.updateGui();
 	}
 
 	public void deleteLayerManager(LayerManager layerManager) {
 		layerManagers.delCommand(layerManager.getIndex(indexType));	
-		gui.updateGui();
+		mainWindow.updateGui();
 	}
 
 	public void setOpacity(int layerIndex, Float opacity) {
-		gui.updateOpacityValue(layerIndex,opacity);
+		mainWindow.updateOpacityValue(layerIndex,opacity);
 	}
 
 	public void setParameters(Filter filter, LinkedHashMap<String, Float> parameters) {
-		gui.updateParametersValues(filter, parameters);
+		mainWindow.updateParametersValues(filter, parameters);
 	}
 	
 	public int getNumberOfLayer(){

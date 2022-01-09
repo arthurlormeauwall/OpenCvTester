@@ -1,8 +1,10 @@
 package com.opencvtester.historyManager.action;
 
 
+import com.opencvtester.gui.MainWindow;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.LayerManager;
+import com.opencvtester.historyManager.HistoryReader;
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteLayer implements Action {
@@ -10,17 +12,27 @@ public class AddOrDeleteLayer implements Action {
 	public Functionalities addOrDelete;
 	private LayerManager layerManager;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerManagers chainOfLayerManager;
+	private MainWindow mainWindow;
+	private HistoryReader historyReader;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, LayerManager layerManager){
+	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, MainWindow mainWindow, LayerManager layerManager, HistoryReader historyReader){
 		this.layerManager=layerManager;
 		this.chainOfLayers=chainOfLayers;
-		this.chainOfLayerManager=chainOfLayerManager;
+		this.mainWindow=mainWindow;
+		this.historyReader=historyReader;
 	}
-
+	
+	public boolean lockedSystem() {
+		return true;
+	}
+	
+	public HistoryReader getHistoryReader() {
+		return historyReader;
+	}
+	
 	/*
 	 * FEATURES
 	 */
@@ -36,11 +48,11 @@ public class AddOrDeleteLayer implements Action {
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
 			chainOfLayers.addLayer(layerManager.getLayer());
-			chainOfLayerManager.addLayerManager(layerManager);
+			mainWindow.addLayerManager(layerManager);
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
 			chainOfLayers.delLayer(layerManager.getLayer());
-			chainOfLayerManager.deleteLayerManager(layerManager);
+			mainWindow.deleteLayerManager(layerManager);
 		}	
 	}
 	
@@ -49,7 +61,7 @@ public class AddOrDeleteLayer implements Action {
 	}
 	
 	public Action clone() {
-		AddOrDeleteLayer newAction = new AddOrDeleteLayer(chainOfLayers, chainOfLayerManager, layerManager);
+		AddOrDeleteLayer newAction = new AddOrDeleteLayer(chainOfLayers, mainWindow, layerManager, historyReader);
 		newAction.setAddOrDelete(addOrDelete);
 		return newAction;
 	}

@@ -36,7 +36,7 @@ public class FilterWidget extends JPanel
 	 */
 	public FilterWidget (FilterControlledByFloat sourceFilter, GuiManager actionHistoryManager){
 		sliders= new LinkedHashMap<String, LabelledSlider>();
-		bypass=sourceFilter.isbypass();
+		bypass=sourceFilter.isbypassLocked();
 		this.sourceFilter= sourceFilter;
 		this.actionHistoryManager=actionHistoryManager;
 		

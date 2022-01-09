@@ -7,7 +7,12 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.gui.MainWindow;
-import com.opencvtester.historyManager.HystoryManager;
+import com.opencvtester.historyManager.AddOrDeleteHistoryReader;
+import com.opencvtester.historyManager.HistoryManager;
+import com.opencvtester.historyManager.SetParameterHistoryReader;
+import com.opencvtester.historyManager.action.AddOrDeleteFilter;
+import com.opencvtester.historyManager.action.AddOrDeleteLayer;
+import com.opencvtester.historyManager.action.Functionalities;
 import com.opencvtester.historyManager.action.SetParameters;
 import com.opencvtester.renderingEngine.ChainOfLayers;
 import com.opencvtester.renderingEngine.Layer;
@@ -15,10 +20,10 @@ import com.opencvtester.renderingEngine.Layer;
 
 public class GuiManager 
 {
-	private HystoryManager history;
+	private HistoryManager history;
 	private ChainOfLayers chainOfLayers;
 	private MainWindow mainWindow;
-	private FrameWindowManager frameWindowManager;
+	private FrameWindowManager frameOutWindow;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -26,9 +31,9 @@ public class GuiManager
 	public GuiManager(ChainOfLayers chainOfLayers){
 		this.chainOfLayers=chainOfLayers;
 		
-		history=new HystoryManager();
-		frameWindowManager=new FrameWindowManager();
-		frameWindowManager.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
+		history=new HistoryManager();
+		frameOutWindow=new FrameWindowManager();
+		frameOutWindow.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
 	}
 	
 	/*
@@ -77,31 +82,48 @@ public class GuiManager
 		newLayerManager.getLayerWindow().setVisible(false);
 		mainWindow.addLayerManager(newLayerManager);
 		refreshResult();
+		
+		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, newLayerManager, new AddOrDeleteHistoryReader());
+		parameter.setAddOrDelete(Functionalities.ADD);
+		history.setState(parameter);
+		
 		return newLayer;
+	}
+	
+	public void deleteLayer(LayerManager layerManager) {		
+		if (layerManager!=null) {
+			chainOfLayers.delLayer(layerManager.getLayer());
+			mainWindow.deleteLayerManager(layerManager);	
+			refreshResult();
+			
+			AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager, new AddOrDeleteHistoryReader());
+			parameter.setAddOrDelete(Functionalities.DELETE);
+			history.setState(parameter);
+		}
 	}
 	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
 		Id id= createFilterId(layerIndex, filterIndex);
 		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
 		
-		FilterManager newLayerController = new FilterManager(newFilter, this);
-		mainWindow.addFilterWidgetInLayerWidget(newLayerController);	
+		FilterManager newFilterManager = new FilterManager(newFilter, this);
+		mainWindow.addFilterWidgetInLayerWidget(newFilterManager);	
 		refreshResult();
+		
+		AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow.getChainOfLayerManagers(), newFilterManager, new AddOrDeleteHistoryReader());
+		parameter.setAddOrDelete(Functionalities.ADD);
+		history.setState(parameter);
 	}
 	
-	public void delFilterInLayer(FilterManager filterManagerToDel)  {		
+	public void deleteFilterInLayer(FilterManager filterManagerToDel)  {		
 		if (filterManagerToDel!=null) {
 			chainOfLayers.delFilterInLayer(filterManagerToDel.getFilter());
 			mainWindow.delFilterWidgetInLayerWidget(filterManagerToDel);
 			refreshResult();
-		}
-	}
-	
-	public void deleteLayerManager(LayerManager layerManager) {		
-		if (layerManager!=null) {
-			chainOfLayers.delLayer(layerManager.getLayer());
-			mainWindow.deleteLayerManager(layerManager);	
-			refreshResult();
+			
+			AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow.getChainOfLayerManagers(), filterManagerToDel, new AddOrDeleteHistoryReader());
+			parameter.setAddOrDelete(Functionalities.DELETE);
+			history.setState(parameter);
 		}
 	}
 
@@ -114,7 +136,7 @@ public class GuiManager
 		chainOfLayers.setParameters (filterToSet, name, value);	
 		refreshResult();
 		
-		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet);
+		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet, new SetParameterHistoryReader());
 		history.setState(parameter);	
 	}
 	
@@ -124,7 +146,7 @@ public class GuiManager
 	}
 	
 	public void refreshResult(){
-		frameWindowManager.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
+		frameOutWindow.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
 	}
 	
 	public void undo() {

@@ -60,7 +60,8 @@ public class LabelledSlider extends JPanel
 			    	  LabelledSlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); 
 			    	  try {
 			    		 currentValue=slider.getValue();
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);	
+						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
+						 
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -82,9 +83,7 @@ public class LabelledSlider extends JPanel
 						}
 				}
 
-				public void mouseReleased(MouseEvent e) {
-				
-					
+				public void mouseReleased(MouseEvent e) {					
 				}
 
 				public void mouseEntered(MouseEvent event) {

@@ -54,8 +54,12 @@ public class Command
     	id.setFilterOrLayer(indexType, newValue);
     }
     
-    public Boolean isbypass () {
+    public Boolean isbypassLocked () {
     	return isBypassLocked;
+    }
+    
+    public Boolean isbypass() {
+    	return isBypass;
     }
     
     public void setBypass(Boolean bypassState) {

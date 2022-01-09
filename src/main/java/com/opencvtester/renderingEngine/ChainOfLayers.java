@@ -145,7 +145,7 @@ public class ChainOfLayers extends CompositeFilter
 	}    
 	
 	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
-		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  > filterIndex;
+		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;
 	}
 	
 

@@ -25,8 +25,8 @@ public class MainWindow extends JFrame
 	private ChainOfLayerManagers chainOfLayerManagers;
 	private GuiManager guiManager;
 	private JPanel layerPanel;
-	private JButton addButton; 
-	private JButton delButton; 
+	private JButton addLayerButton; 
+	private JButton delLayerButton; 
 	private JButton undoButton;
 	private JButton redoButton;  
 	
@@ -49,12 +49,12 @@ public class MainWindow extends JFrame
 		add(buttonPanel);
 		add(layerPanel);
 		
-		addButton = new JButton("AddLayer");
-		delButton = new JButton("dellayer");
+		addLayerButton = new JButton("AddLayer");
+		delLayerButton = new JButton("dellayer");
 		undoButton = new JButton("Undo");
 		redoButton = new JButton("Redo");
-		buttonPanel.add(addButton);
-		buttonPanel.add(delButton);
+		buttonPanel.add(addLayerButton);
+		buttonPanel.add(delLayerButton);
 		buttonPanel.add(undoButton);
 		buttonPanel.add(redoButton);
 		
@@ -67,9 +67,7 @@ public class MainWindow extends JFrame
 	public void addListeners() {
 		 undoButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	  
 		    	  MainWindow.this.guiManager.undo();
-		    	
 		      }
 		    });
 		 
@@ -79,15 +77,17 @@ public class MainWindow extends JFrame
 		      }
 		    });
 		 
-		 addButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
+		 addLayerButton.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event)   {	
 		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerManagers.getNumberOfLayer(), null);
+		    	MainWindow.this.guiManager.store();
 		      }
 		    });
 		 
-		 delButton.addActionListener(new ActionListener() {
+		 delLayerButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	  MainWindow.this.guiManager.deleteLayerManager(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1));	    	
+		    	  MainWindow.this.guiManager.deleteLayer(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1));
+		    	  MainWindow.this.guiManager.store();
 		      }
 		    });
 	}
