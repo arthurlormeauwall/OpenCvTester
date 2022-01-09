@@ -15,9 +15,6 @@ public class HistoryManager
 		history.actions=new Stack<Action>();
 		history.currentIndex=0;
 		history.actions.push(null);
-		history.indexIsLocked = false;
-		history.undoCount=0;
-		history.redoCount=0;
 		history.firstRedo=false;
 		history.firstUndo=false;
 	}
