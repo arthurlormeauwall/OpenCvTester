@@ -36,7 +36,6 @@ Moreover, users of this framework are expected to know Java and OpenCv.
 This project is still work in progress.
 What is currently missing :
 * Integrate image and control in a monolith UI for better UX
-* Undo/Redo add and delete layer and filter
 * open image from directory/ Save image to directory
 
 
@@ -58,7 +57,7 @@ To write your own filter class you have to create a class that extends the `Filt
 	*   You can also call `BufferedImage getBufferedImage()` if you want to work with BufferedImage. 
 * Several float parameters that will be tweakable in the GUI. You can access them calling `getParameter(String name)` method.
 * Three abstract methods that you have to implement : 
-  * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues)` for each parameter. When parameters are set to values specified by zeroEffectValues, bypass is automtically set to true.
+  * `public void setParameterFlags()` : here you create parameters calling `addParameterFlag(String name, Float defaultValue, Float zeroEffectValues, int sliderMaximumValue)` for each parameter. When parameters are set to values specified by zeroEffectValues, bypass is automtically set to true.
   * `void execute()` : here you write your algorithm. 
   * `YourType createNew() {	
 		return new YourType();
