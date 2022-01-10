@@ -83,7 +83,7 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}
 	
-	public Filter delFilterInLayer(Filter filter){
+	public Filter delFilter(Filter filter){
 		Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter);
 		
 		if (this.getLayer(filter.getLayerIndex()).getNumberOfFilters()==0) {
@@ -100,14 +100,14 @@ public class ChainOfLayers extends CompositeFilter
 		return erasedFilter;
 	}  
 
-	public FilterControlledByFloat createAndAddFilterInLayer(Id filterId, String filterName) {
-		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createAndAdd(filterId, filterName);
-		
-		checkAndActivateFilter(newFilter);
-
-		execute();	
-		return newFilter;
-	}
+//	public FilterControlledByFloat createAndAddFilterInLayer(Id filterId, String filterName) {
+//		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createAndAdd(filterId, filterName);
+//		
+//		checkAndActivateFilter(newFilter);
+//
+//		execute();	
+//		return newFilter;
+//	}
 
 	public void setOpacity(Filter opacityFilter, Float opacity){
 		if (getNumberOfLayers() >opacityFilter.getLayerIndex()) {

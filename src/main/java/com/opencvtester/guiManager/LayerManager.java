@@ -69,4 +69,14 @@ public class LayerManager extends Command
 		chainOfFilterManager.addCommand(filterManager);
 		return filterManager;
 	}
+	
+	public void deleteLayerWindow() {
+		layerWindow.setVisible(false);
+		layerWindow=null;
+	}
+	
+	public void createLayerWindow() {
+		layerWindow=new LayerWindow(this, this.guiManager);
+		layerWindow.setVisible(false);
+	}
 }

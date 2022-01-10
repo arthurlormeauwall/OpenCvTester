@@ -1,7 +1,6 @@
 package com.opencvtester.historyManager.action;
 
-
-import com.opencvtester.guiManager.ChainOfLayerManagers;
+import com.opencvtester.gui.MainWindow;
 import com.opencvtester.guiManager.FilterManager;
 import com.opencvtester.historyManager.HistoryReader;
 import com.opencvtester.renderingEngine.ChainOfLayers;
@@ -11,17 +10,17 @@ public class AddOrDeleteFilter implements Action {
 	public Functionalities addOrDelete;
 	private FilterManager filterManager;
 	private ChainOfLayers chainOfLayers;
-	private ChainOfLayerManagers chainOfLayerManager;
+	private MainWindow mainWindow;
 	private HistoryReader historyReader;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager, FilterManager filterManager, HistoryReader historyReader){
+	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, MainWindow mainWindow, FilterManager filterManager, HistoryReader historyReader){
 		this.historyReader=historyReader;
 		this.filterManager=filterManager;
 		this.chainOfLayers=chainOfLayers;
-		this.chainOfLayerManager=chainOfLayerManager;
+		this.mainWindow=mainWindow;
 	}
 
 	public HistoryReader getHistoryReader() {
@@ -45,12 +44,10 @@ public class AddOrDeleteFilter implements Action {
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
-			chainOfLayers.addFilterInLayer(filterManager.getFilter());
-			chainOfLayerManager.addFilterWigetInLayerWiget(filterManager);
+			mainWindow.getGuiManager().addFilter(filterManager.getFilter());
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			chainOfLayers.delFilterInLayer(filterManager.getFilter());
-			chainOfLayerManager.deFilterWidgetInLayerWidget(filterManager);
+			mainWindow.getGuiManager().deleteFilter(filterManager);
 		}	
 	}
 	
@@ -59,7 +56,7 @@ public class AddOrDeleteFilter implements Action {
 	}
 	
 	public Action clone() {
-		AddOrDeleteFilter newAction = new AddOrDeleteFilter(chainOfLayers, chainOfLayerManager, filterManager, historyReader);
+		AddOrDeleteFilter newAction = new AddOrDeleteFilter(chainOfLayers, mainWindow, filterManager, historyReader);
 		newAction.setAddOrDelete(addOrDelete);
 		return newAction;
 	}

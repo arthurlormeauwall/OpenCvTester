@@ -7,98 +7,113 @@ public class AddOrDeleteHistoryReader implements HistoryReader {
 	@Override
 	public void store(History history) {
 		clearRedoHistory(history);
-		if (history.actions.get(history.currentIndex)!=null) {
-			history.actions.push(history.actions.get(history.currentIndex).clone());	
-			history.currentIndex+=1;
+		if (history.currentAction!=null) {
+			history.undoList.push(history.currentAction.clone());	
 		}
 	}
 
 	@Override
-	public void undo(History history) {
-		if (isUndoEmpty(history)==false) {
-			if (history.firstUndo) {
-				invertAndExecute(history);
-				history.firstUndo=false;
-			}
-			else {
+	public void undo(History history) {	
+		if (history.firstUndo) {
+			if (!isUndoEmpty(history)) {	
+				if (history.undoList.lastElement().lockedSystem()==false) {
+					history.redoList.push(history.undoList.pop());
+				}
 				
-				moveIndexBackward(history);
+				history.currentAction=history.undoList.pop();
 				invertAndExecute(history);
-			}		
+				history.redoList.push(history.currentAction);	
+			}
+		}	
+		else {
+			if (!isUndoEmpty(history)) {
+				history.currentAction=history.undoList.pop();	
+				invertAndExecute(history);
+				history.redoList.push(history.currentAction);	
+				
+			}
 		}
-		history.firstRedo=true;
+		history.firstUndo=false;
 	}
 
 	@Override
-	public void redo(History history) {
-		if (isRedoEmpty(history)==false) {
-			if (history.firstRedo) {
-				invertAndExecute(history);
-				history.firstRedo=false;
-			}
-			else {
-				
-				moveIndexForward(history);
-			    invertAndExecute(history);	
-			}
-		}
-		
-		history.firstUndo=true;
+	public void redo(History history) {	
+		if (!isRedoEmpty(history)) {	
+			
+			history.currentAction=history.redoList.pop();
+			
+			invertAndExecute(history);
+			
+			history.undoList.push(history.currentAction);
+			
+			history.firstUndo=false;
+		}	
 	}
 
 	@Override
 	public void invertAndExecute(History history) {
-		history.actions.get(history.currentIndex).invert();
-		history.actions.get(history.currentIndex).execute();
+		history.currentAction.invert();
+		history.currentAction.execute();
 	}
 
-	@Override
-	public void moveIndexForward(History history) {
-		history.currentIndex+=1;
-	}
-
-	@Override
-	public void moveIndexBackward(History history) {
-		history.currentIndex-=1;
-	}
 
 	@Override
 	public void setState(Action action, History history) {
-		// if the last action performed is not an action that lockIndex (typically : SetParameter and SetOpacity)
-		// then we should begin by storing the current state 
-		if (history.actions.get(history.currentIndex)!=null){
-			if (history.actions.get(history.currentIndex).lockedSystem()==false) {
-				history.actions.get(history.currentIndex).getHistoryReader().store(history);
+		if (action.lockedSystem()==false) {
+			if (history.undoList.lastElement().lockedSystem()==true) {
+				store(history);
 			}
 		}
-
-		history.actions.set(history.currentIndex, action);	
+		
+		history.currentAction= action;
+		history.firstUndo=false;
 	}
 
 	@Override
 	public Boolean isUndoEmpty(History history) {
-		if (history.currentIndex>0) {
-			return false;
+		if (history.firstUndo) {
+			if (!history.undoList.isEmpty()) {
+				if (history.undoList.lastElement().lockedSystem()==true) {
+					return false;
+				}
+				else {
+					if (history.undoList.size()>=2) {
+						return true;
+					}
+					else {
+						return false;
+					}
+				}	
+			}
+			else {
+				return true;
+			}	
 		}
 		else {
-			return true;
+			return history.undoList.isEmpty();
 		}
+			
 	}
 
 	@Override
 	public Boolean isRedoEmpty(History history) {
-		if (history.currentIndex<history.actions.size()-2) {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return history.redoList.isEmpty();	
 	}
 
 	@Override
 	public void clearRedoHistory(History history) {
-		for (int i = history.actions.size()-1; i>= history.currentIndex+1; i--) {
-			history.actions.pop();
-		}
+		history.redoList.clear();
+	}
+
+	@Override
+	public void moveIndexForward(History historyManager) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void moveIndexBackward(History historyManager) {
+		// TODO Auto-generated method stub
+		
 	}
 }

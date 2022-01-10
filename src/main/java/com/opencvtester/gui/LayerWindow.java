@@ -23,8 +23,8 @@ public class LayerWindow  extends JFrame
 	private GuiManager guiManager;
 	private JList<String> filtersList;
     
-	private JButton addButton;
-	private JButton delButton;
+	private JButton addFilterButton;
+	private JButton delFilterButton;
 	private JButton undoButton;
 	private JButton redoButton;
  	
@@ -48,12 +48,12 @@ public class LayerWindow  extends JFrame
 		add(buttonPanel);
 		add(filterPanel);
 		
-		addButton = new JButton("AddFilter");
-		delButton = new JButton("delFilter");
+		addFilterButton = new JButton("AddFilter");
+		delFilterButton = new JButton("delFilter");
 		undoButton = new JButton("Undo");
 		redoButton = new JButton("Redo");
-		buttonPanel.add(addButton);
-		buttonPanel.add(delButton);
+		buttonPanel.add(addFilterButton);
+		buttonPanel.add(delFilterButton);
 		buttonPanel.add(undoButton);
 		buttonPanel.add(redoButton);
 		
@@ -83,22 +83,20 @@ public class LayerWindow  extends JFrame
 		    	  LayerWindow.this.guiManager.redo();
 		      }
 		    });
-		 addButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
-		    	
+		 addFilterButton.addActionListener(new ActionListener() {
+		      public void actionPerformed(ActionEvent event)   {	    	
 		    	LayerWindow.this.filtersList.setVisible(true);		    	
 		    	LayerWindow.this.pack();
-		
 		      }
 		    });
-		 delButton.addActionListener(new ActionListener() {
+		 delFilterButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 			    	int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-1;
 					if(indexOfFitlerToDel>=0) {
 						FilterManager filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
 						filterToDel.getFilterWidget().setVisible(false);
 						 LayerWindow.this.pack();
-						 LayerWindow.this.guiManager.deleteFilterInLayer(filterToDel);
+						 LayerWindow.this.guiManager.deleteFilterAndSetState(filterToDel);
 					     LayerWindow.this.guiManager.store();
 					}	 
 		      }
@@ -106,7 +104,6 @@ public class LayerWindow  extends JFrame
 		 
 		 filtersList.addListSelectionListener (new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent listSelectionEvent) {
-
 					 if ( !listSelectionEvent.getValueIsAdjusting()) {
 						 	int thisLayerIndex = LayerWindow.this.layerManager.getLayer().getLayerIndex();
 					    	int newFilterIndex=LayerWindow.this.layerManager.getLayer().getNumberOfFilters();

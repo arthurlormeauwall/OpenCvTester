@@ -37,9 +37,10 @@ public class LabelledSlider extends JPanel
 		this.filterToUpdate=filterToUpdate;
 		this.guiManager=actionHistoryManager;
 		slider = new JSlider ();
-		slider.setValue(Math.round(defaultValue*100));
+
 		slider.setMaximum(filterToUpdate.getFlags().sliderScale.get(name));
 		slider.setOrientation(JSlider.VERTICAL);
+		slider.setValue(Math.round(filterToUpdate.getParameter(name)*100));
 		this.nameWidget = new JLabel(name);
 		this.value = new JLabel( String.valueOf(defaultValue));
 		
@@ -54,49 +55,46 @@ public class LabelledSlider extends JPanel
 	}
 	
 	protected void addListeners() {
-		if (emitSignal) {
-			 slider.addChangeListener(new ChangeListener() {
-			      public void stateChanged(ChangeEvent event)   {
-			    	  LabelledSlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); 
-			    	  try {
-			    		 currentValue=slider.getValue();
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
-						 
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-			      }
-			    });
-			 slider.addMouseListener(new MouseListener() {
-
-				public void mouseClicked(MouseEvent event) {
-					
-					
+		 slider.addChangeListener(new ChangeListener() {
+		      public void stateChanged(ChangeEvent event)   {
+		    	  LabelledSlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); 
+		    	  try {
+		    		 currentValue=slider.getValue();
+		    		 if (emitSignal) {
+		    			 LabelledSlider.this.guiManager.setParametersAndSetState(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
+		    		 }
+					 
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
+		      }
+		    });
+		 slider.addMouseListener(new MouseListener() {
 
-				public void mousePressed(MouseEvent event) {
-					 try {
-						 LabelledSlider.this.guiManager.setParameters(LabelledSlider.this.filterToUpdate, nameWidget.getText(), currentValue*0.01f);
-						 LabelledSlider.this.guiManager.store();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-				}
+			public void mouseClicked(MouseEvent event) {
+				
+				
+			}
 
-				public void mouseReleased(MouseEvent e) {					
-				}
+			public void mousePressed(MouseEvent event) {
 
-				public void mouseEntered(MouseEvent event) {
-					
-					
-				}
+			}
 
-				public void mouseExited(MouseEvent e) {
-					
+			public void mouseReleased(MouseEvent e) {	
+				if (emitSignal) { 
+					LabelledSlider.this.guiManager.store();
 				}
-			    });
-		}		
-		
+			}
+
+			public void mouseEntered(MouseEvent event) {
+				
+				
+			}
+
+			public void mouseExited(MouseEvent e) {
+				
+			}
+		    });	
 	}
 	
 	/*

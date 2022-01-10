@@ -2,7 +2,6 @@ package com.opencvtester.historyManager.action;
 
 
 import com.opencvtester.gui.MainWindow;
-import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.LayerManager;
 import com.opencvtester.historyManager.HistoryReader;
 import com.opencvtester.renderingEngine.ChainOfLayers;
@@ -47,12 +46,10 @@ public class AddOrDeleteLayer implements Action {
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
-			chainOfLayers.addLayer(layerManager.getLayer());
-			mainWindow.addLayerManager(layerManager);
+			mainWindow.getGuiManager().addLayer(layerManager);
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			chainOfLayers.delLayer(layerManager.getLayer());
-			mainWindow.deleteLayerManager(layerManager);
+			mainWindow.getGuiManager().deleteLayer(layerManager);
 		}	
 	}
 	

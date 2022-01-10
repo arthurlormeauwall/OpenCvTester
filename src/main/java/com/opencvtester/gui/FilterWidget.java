@@ -115,8 +115,10 @@ public class FilterWidget extends JPanel
 		  values.push(entry.getValue());
 		}
 		
+		setEmitSignal(false);
 		for (int i=0;i<names.size();i++) {
 			sliders.get(names.get(i)).getSlider().setValue(((Float)(values.get(i)*100)).intValue()); 
 		}
+		setEmitSignal(true);
 	}
 }

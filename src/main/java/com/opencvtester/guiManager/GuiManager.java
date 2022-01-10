@@ -66,7 +66,11 @@ public class GuiManager
 		chainOfLayers.getFiltersDataBase().addFilter(name, filter);
 	}
 	
-	public Layer createAndAddLayer (int layerIndex, Stack<String> filterNames) {	
+	public void createAndAddLayer (int layerIndex, Stack<String> filterNames) {	
+		addLayerAndSetState(createLayer(layerIndex, filterNames));
+	}
+	
+	public Layer createLayer(int layerIndex, Stack<String> filterNames) {
 		Stack<Id> id= new Stack<Id>();
 		id.push(createLayerId(layerIndex));
 		
@@ -76,21 +80,47 @@ public class GuiManager
 			}
 		}
 		
-		Layer newLayer= chainOfLayers.createAndAddLayer(id, filterNames);
+		Layer newLayer= chainOfLayers.createLayer(id, filterNames);
 		
-		LayerManager newLayerManager= new LayerManager(newLayer, this);
+		return newLayer;
+	}
+	
+
+	public void addLayer(LayerManager layerManager) {
+		chainOfLayers.addLayer(layerManager.getLayer());
+		
+		layerManager.createLayerWindow();
+		mainWindow.addLayerManager(layerManager);
+		refreshResult();
+	}
+	
+	public void addLayerAndSetState(Layer layer) {
+		chainOfLayers.addLayer(layer);
+		
+		LayerManager newLayerManager= new LayerManager(layer, this);
 		newLayerManager.getLayerWindow().setVisible(false);
 		mainWindow.addLayerManager(newLayerManager);
 		refreshResult();
 		
 		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, newLayerManager, new AddOrDeleteHistoryReader());
 		parameter.setAddOrDelete(Functionalities.ADD);
-		history.setState(parameter);
-		
-		return newLayer;
+		history.setState(parameter);	
 	}
 	
-	public void deleteLayer(LayerManager layerManager) {		
+
+	public boolean deleteLayer(LayerManager layerManager) {
+		if (layerManager!=null) {
+			chainOfLayers.delLayer(layerManager.getLayer());
+			mainWindow.deleteLayerManager(layerManager);	
+			refreshResult();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean deleteLayerAndSetState(LayerManager layerManager) {		
 		if (layerManager!=null) {
 			chainOfLayers.delLayer(layerManager.getLayer());
 			mainWindow.deleteLayerManager(layerManager);	
@@ -99,46 +129,100 @@ public class GuiManager
 			AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager, new AddOrDeleteHistoryReader());
 			parameter.setAddOrDelete(Functionalities.DELETE);
 			history.setState(parameter);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	
+	public void storeDeleteLayer(LayerManager layerManager) {
+		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager, new AddOrDeleteHistoryReader());
+		parameter.setAddOrDelete(Functionalities.DELETE);
+		history.setState(parameter);
+	}
+	
 	public void createAndAddFilterInLayer(int layerIndex, int filterIndex, String filterName) {	
+		addFilterAndSetState(createFilter(layerIndex,filterIndex,filterName));
+	}
+	
+	public FilterControlledByFloat createFilter(int layerIndex, int filterIndex, String filterName) {
 		Id id= createFilterId(layerIndex, filterIndex);
-		FilterControlledByFloat newFilter = chainOfLayers.createAndAddFilterInLayer(id, filterName);
+		FilterControlledByFloat newFilter = (FilterControlledByFloat) chainOfLayers.createFilter(id, filterName);
+		return newFilter;
+	}
+	
+	public void addFilterAndSetState(Filter filter) {
 		
-		FilterManager newFilterManager = new FilterManager(newFilter, this);
-		mainWindow.addFilterWidgetInLayerWidget(newFilterManager);	
+		chainOfLayers.addFilterInLayer(filter);
+		
+		FilterManager newFilterManager = new FilterManager((FilterControlledByFloat)filter, this);
+		
+		mainWindow.addFilterManager(newFilterManager);	
 		refreshResult();
 		
-		AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow.getChainOfLayerManagers(), newFilterManager, new AddOrDeleteHistoryReader());
+		AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow, newFilterManager, new AddOrDeleteHistoryReader());
 		parameter.setAddOrDelete(Functionalities.ADD);
 		history.setState(parameter);
 	}
 	
-	public void deleteFilterInLayer(FilterManager filterManagerToDel)  {		
-		if (filterManagerToDel!=null) {
-			chainOfLayers.delFilterInLayer(filterManagerToDel.getFilter());
-			mainWindow.delFilterWidgetInLayerWidget(filterManagerToDel);
+	public void addFilter(Filter filter) {
+		chainOfLayers.addFilterInLayer(filter);
+		
+		FilterManager newFilterManager = new FilterManager((FilterControlledByFloat)filter, this);
+		
+		mainWindow.addFilterManager(newFilterManager);	
+		refreshResult();
+	}
+	
+	public boolean deleteFilterAndSetState(FilterManager filterManager)  {		
+		if (filterManager!=null) {
+			chainOfLayers.delFilter(filterManager.getFilter());
+			mainWindow.deleteFilterManager(filterManager);
 			refreshResult();
 			
-			AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow.getChainOfLayerManagers(), filterManagerToDel, new AddOrDeleteHistoryReader());
+			AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow, filterManager, new AddOrDeleteHistoryReader());
 			parameter.setAddOrDelete(Functionalities.DELETE);
 			history.setState(parameter);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
+	
+	public boolean deleteFilter(FilterManager filterManager) {
+		if (filterManager!=null) {
+			chainOfLayers.delFilter(filterManager.getFilter());
+			mainWindow.deleteFilterManager(filterManager);
+			refreshResult();
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 
 	public void setOpacity(Filter opacityFilter, Float opacity) {	
 		chainOfLayers.setOpacity(opacityFilter, opacity);
 		refreshResult();
 	}	
 
-	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+	public void setParametersAndSetState(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
 		chainOfLayers.setParameters (filterToSet, name, value);	
 		refreshResult();
 		
 		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet, new SetParameterHistoryReader());
 		history.setState(parameter);	
 	}
+	
+	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+		chainOfLayers.setParameters (filterToSet, name, value);	
+		refreshResult();
+	}
+	
 	
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
 		chainOfLayers.setBypass(createFilterId(layerIndex, filterIndex), bypass);
@@ -160,4 +244,6 @@ public class GuiManager
 	public void store() {	
 		history.store();
 	}
+
+
 }

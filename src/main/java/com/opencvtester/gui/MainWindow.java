@@ -5,6 +5,7 @@ package com.opencvtester.gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
+import java.util.Stack;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -29,12 +30,17 @@ public class MainWindow extends JFrame
 	private JButton delLayerButton; 
 	private JButton undoButton;
 	private JButton redoButton;  
+	public Stack<LayerWindow> test;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	public MainWindow(GuiManager guiManager) {
 		super("OpenCV tester");
+		
+		test= new Stack<LayerWindow>();
+		
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.guiManager=guiManager;	
 		chainOfLayerManagers= new ChainOfLayerManagers(this);
@@ -86,8 +92,9 @@ public class MainWindow extends JFrame
 		 
 		 delLayerButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
-		    	  MainWindow.this.guiManager.deleteLayer(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1));
-		    	  MainWindow.this.guiManager.store();
+		    	  if (MainWindow.this.guiManager.deleteLayerAndSetState(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1))) {
+		    		  MainWindow.this.guiManager.store();
+		    	  }		    	  
 		      }
 		    });
 	}
@@ -106,13 +113,12 @@ public class MainWindow extends JFrame
 	/*
 	 * FEATURES
 	 */
-	public void addFilterWidgetInLayerWidget(FilterManager filterController) {
-		chainOfLayerManagers.addFilterWigetInLayerWiget(filterController);
-		updateGui();
+	public void addFilterManager(FilterManager filterManager) {
+		chainOfLayerManagers.addFilterManager(filterManager);
 	}
 
-	public void delFilterWidgetInLayerWidget(FilterManager filterController) {
-		chainOfLayerManagers.deFilterWidgetInLayerWidget(filterController);	
+	public void deleteFilterManager(FilterManager filterManager) {	
+		chainOfLayerManagers.deleteFilterManager(filterManager);	
 	}
 
 	public void addLayerManager(LayerManager layerManager) {
@@ -120,9 +126,10 @@ public class MainWindow extends JFrame
 	}
 	
 	public void deleteLayerManager(LayerManager layerManager) {
-		layerManager.getLayerWindow().setVisible(false);
+		layerManager.deleteLayerWindow();
 		chainOfLayerManagers.deleteLayerManager(layerManager);		
 	}
+	
 
 	public void updateOpacityValue(int layerIndex, Float opacity) {
 	}
