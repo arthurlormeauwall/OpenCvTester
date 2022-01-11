@@ -3,15 +3,15 @@ package com.opencvtester.historyManager.action;
 
 import com.opencvtester.gui.MainWindow;
 import com.opencvtester.guiManager.LayerManager;
-
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteLayer implements Action {
 
-	public Functionalities addOrDelete;
+	private Functionalities addOrDelete;
 	private LayerManager layerManager;
 	private ChainOfLayers chainOfLayers;
 	private MainWindow mainWindow;
+	private NatureOfAction natureOfAction;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -20,10 +20,11 @@ public class AddOrDeleteLayer implements Action {
 		this.layerManager=layerManager;
 		this.chainOfLayers=chainOfLayers;
 		this.mainWindow=mainWindow;
+		this.natureOfAction=NatureOfAction.ADD_OR_DELETE;
 	}
 	
-	public boolean addOrDeleteAction() {
-		return true;
+	public NatureOfAction natureOfAction() {
+		return natureOfAction;
 	}
 
 	/*

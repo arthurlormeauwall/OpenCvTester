@@ -5,7 +5,6 @@ import java.util.LinkedHashMap;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.GuiManager;
-
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class SetParameters implements Action {
@@ -16,6 +15,7 @@ public class SetParameters implements Action {
 	private ChainOfLayerManagers chainOfLayerManager;
 	private LinkedHashMap<String, Float> parameters;
 	private GuiManager guiManager;
+	private NatureOfAction natureOfAction;
 	
 	
 	/*
@@ -28,11 +28,11 @@ public class SetParameters implements Action {
 		parameters= (LinkedHashMap<String, Float>)((FilterControlledByFloat)filter).getParameters().clone();
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
-
+		this.natureOfAction=NatureOfAction.PARAMETER_SETTING;
 	}
 	
-	public boolean addOrDeleteAction() {
-		return false;
+	public NatureOfAction natureOfAction() {
+		return natureOfAction;
 	}
 	/*
 	 * FEATURES

@@ -2,14 +2,14 @@ package com.opencvtester.historyManager.action;
 
 import com.opencvtester.filtersDataBase.OpacityFilter;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
-
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class SetOpacity implements Action {
 
-	public OpacityFilter opacityFilter;
+	private OpacityFilter opacityFilter;
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerManagers chainOfLayerManager;
+	private NatureOfAction natureOfAction;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -18,11 +18,12 @@ public class SetOpacity implements Action {
 		this.opacityFilter=opacityFilter;
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
+		this.natureOfAction=NatureOfAction.PARAMETER_SETTING;
 
 	}
 	
-	public boolean addOrDeleteAction() {
-		return false;
+	public NatureOfAction natureOfAction() {
+		return natureOfAction;
 	}
 	
 

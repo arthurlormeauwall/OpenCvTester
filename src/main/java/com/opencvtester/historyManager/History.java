@@ -3,27 +3,19 @@ package com.opencvtester.historyManager;
 import java.util.Stack;
 
 import com.opencvtester.historyManager.action.Action;
+import com.opencvtester.historyManager.action.NatureOfAction;
 
 public class History {
-	public Stack<Action> undoStack;
-	public Stack<Action> redoStack;
-
-	Action currentAction;
-	public Stack<Action> actions;
-	
-	public boolean firstUndo;
-	public boolean firstRedo;
+	private Stack<Action> undoStack;
+	private Stack<Action> redoStack;
+	private Action currentAction;
 	
 	public History() {
 		undoStack= new Stack<Action>();
 		redoStack = new Stack<Action>();
 		currentAction= null;
-
-		firstRedo=true;
-		firstUndo=true;
 	}
 
-	
 	public Action nextUndo() {
 		return undoStack.lastElement();
 	}
@@ -32,11 +24,11 @@ public class History {
 		return redoStack.lastElement();
 	}
 
-	public Action currentAction() {
+	public Action currentState() {
 		return currentAction;
 	}
 	
-	public void setCurrentAction(Action action) {
+	public void setCurrentState(Action action) {
 		currentAction=action;
 	}
 	
@@ -49,14 +41,14 @@ public class History {
 	}
 	
 	public void putCurrentStateInUndo() {
-		undoStack.push(currentAction());
+		undoStack.push(currentState());
 	}
 	
 	public void putCurrentStateInRedo() {
-		redoStack.push(currentAction());
+		redoStack.push(currentState());
 	}
 	
-	public void putInUndoStack(Action action) {
+	public void putInUndoHistory(Action action) {
 		undoStack.push(action);
 	}
 	
@@ -64,8 +56,8 @@ public class History {
 		redoStack.push(action);
 	}
 	
-	public void saveCurrentInUndoList() {
-		putInUndoStack(currentAction);	
+	public void saveCurrentInUndoStack() {
+		putInUndoHistory(currentAction);	
 	}
 	
 	public void saveCurrentInReddoStack() {
@@ -79,4 +71,42 @@ public class History {
 	public void popNextRedoInCurrent() {
 		currentAction=popNextRedo();
 	}
+	
+	public boolean isThereUndoActionsLeft(boolean firstUndo) {
+		if (firstUndo) {
+			if (!undoStack.isEmpty()) {
+				if (nextUndo().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
+					return true;
+				}
+				else {
+					if (numberOfUndoActionsLeft()>=2) {
+						return true;
+					}
+					else {
+						return false;
+					}
+				}	
+			}
+			else {
+				return false;
+			}	
+		}
+		else {
+			return !undoStack.isEmpty();
+		}
+	}
+	
+	public boolean isThereRedoActionsLeft() {
+		return !redoStack.isEmpty();
+	}
+	
+	public int numberOfUndoActionsLeft() {
+		return undoStack.size();
+	}
+	
+	public void clearRedoHistory() {
+		redoStack.clear();
+	}
+	
+	
 }

@@ -240,7 +240,7 @@ public class GuiManager
 	}
 	
 	public void store() {	
-		history.store();
+		history.storeCurrentStateInHistory();
 	}
 
 
