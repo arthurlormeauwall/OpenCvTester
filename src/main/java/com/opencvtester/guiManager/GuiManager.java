@@ -7,9 +7,7 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.gui.MainWindow;
-import com.opencvtester.historyManager.AddOrDeleteHistoryReader;
 import com.opencvtester.historyManager.HistoryManager;
-import com.opencvtester.historyManager.SetParameterHistoryReader;
 import com.opencvtester.historyManager.action.AddOrDeleteFilter;
 import com.opencvtester.historyManager.action.AddOrDeleteLayer;
 import com.opencvtester.historyManager.action.Functionalities;
@@ -102,7 +100,7 @@ public class GuiManager
 		mainWindow.addLayerManager(newLayerManager);
 		refreshResult();
 		
-		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, newLayerManager, new AddOrDeleteHistoryReader());
+		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, newLayerManager);
 		parameter.setAddOrDelete(Functionalities.ADD);
 		history.setState(parameter);	
 	}
@@ -126,7 +124,7 @@ public class GuiManager
 			mainWindow.deleteLayerManager(layerManager);	
 			refreshResult();
 			
-			AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager, new AddOrDeleteHistoryReader());
+			AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager);
 			parameter.setAddOrDelete(Functionalities.DELETE);
 			history.setState(parameter);
 			return true;
@@ -137,7 +135,7 @@ public class GuiManager
 	}
 	
 	public void storeDeleteLayer(LayerManager layerManager) {
-		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager, new AddOrDeleteHistoryReader());
+		AddOrDeleteLayer parameter= new AddOrDeleteLayer (chainOfLayers, mainWindow, layerManager);
 		parameter.setAddOrDelete(Functionalities.DELETE);
 		history.setState(parameter);
 	}
@@ -161,7 +159,7 @@ public class GuiManager
 		mainWindow.addFilterManager(newFilterManager);	
 		refreshResult();
 		
-		AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow, newFilterManager, new AddOrDeleteHistoryReader());
+		AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow, newFilterManager);
 		parameter.setAddOrDelete(Functionalities.ADD);
 		history.setState(parameter);
 	}
@@ -181,7 +179,7 @@ public class GuiManager
 			mainWindow.deleteFilterManager(filterManager);
 			refreshResult();
 			
-			AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow, filterManager, new AddOrDeleteHistoryReader());
+			AddOrDeleteFilter parameter= new AddOrDeleteFilter (chainOfLayers, mainWindow, filterManager);
 			parameter.setAddOrDelete(Functionalities.DELETE);
 			history.setState(parameter);
 			return true;
@@ -214,7 +212,7 @@ public class GuiManager
 		chainOfLayers.setParameters (filterToSet, name, value);	
 		refreshResult();
 		
-		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet, new SetParameterHistoryReader());
+		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet);
 		history.setState(parameter);	
 	}
 	

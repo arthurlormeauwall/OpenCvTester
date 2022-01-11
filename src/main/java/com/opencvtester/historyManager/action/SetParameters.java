@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.GuiManager;
-import com.opencvtester.historyManager.HistoryReader;
+
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class SetParameters implements Action {
@@ -16,28 +16,23 @@ public class SetParameters implements Action {
 	private ChainOfLayerManagers chainOfLayerManager;
 	private LinkedHashMap<String, Float> parameters;
 	private GuiManager guiManager;
-	private HistoryReader historyReader;
+	
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	@SuppressWarnings("unchecked")
-	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager,FilterControlledByFloat filter, HistoryReader historyReader){
+	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager,FilterControlledByFloat filter){
 		this.guiManager=guiManager;
 		this.filter=filter;
 		parameters= (LinkedHashMap<String, Float>)((FilterControlledByFloat)filter).getParameters().clone();
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
-		this.historyReader=historyReader;
 
 	}
 	
-	public boolean addOrDeleteSystem() {
+	public boolean addOrDeleteAction() {
 		return false;
-	}
-	
-	public HistoryReader getHistoryReader() {
-		return historyReader;
 	}
 	/*
 	 * FEATURES
@@ -56,7 +51,7 @@ public class SetParameters implements Action {
 	}
 	
 	public Action clone() {
-		SetParameters newAction = new SetParameters(guiManager, chainOfLayers, chainOfLayerManager, filter, historyReader);
+		SetParameters newAction = new SetParameters(guiManager, chainOfLayers, chainOfLayerManager, filter);
 		return newAction;
 	}
 
