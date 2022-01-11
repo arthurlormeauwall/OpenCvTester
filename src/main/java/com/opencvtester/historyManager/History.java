@@ -92,7 +92,7 @@ public class History {
 			}	
 		}
 		else {
-			return !undoStack.isEmpty();
+			return undoStack.isEmpty();
 		}
 	}
 	

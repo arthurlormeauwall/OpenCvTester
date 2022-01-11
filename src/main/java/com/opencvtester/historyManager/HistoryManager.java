@@ -34,14 +34,21 @@ public class HistoryManager
 	
 	public void setState(Action action) {
 		history.setCurrentState(action);
+		
 		firstUndo=true;
 		firstRedo=true;
 		
-		if (action.natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
+		if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
 			if (history.nextUndo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
 				storeCurrentStateInHistory();
 			}
 		}
+	}
+	
+
+	public void invertAndExecute() {
+		history.currentState().invert();
+		history.currentState().execute();
 	}
 	
 	public void undo() {	
@@ -112,11 +119,6 @@ public class HistoryManager
 		
 		invertAndExecute();
 		history.pushUndoHistory(history.currentState());
-	}
-
-	public void invertAndExecute() {
-		history.currentState().invert();
-		history.currentState().execute();
 	}
 }
 

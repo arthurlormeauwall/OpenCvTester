@@ -23,10 +23,7 @@ public abstract class FilterControlledBy<T> extends Filter
 		flags = new FilterFlags<T>();
 		isBypass=false;	
 	}
-	
-//	public abstract void setAllParameters(LinkedHashMap<String, Comparable<T>> p);
-	
-	
+
 	/*
 	 * GETTERS & SETTERS
 	 */
