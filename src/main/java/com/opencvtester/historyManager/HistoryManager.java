@@ -52,7 +52,7 @@ public class HistoryManager
 	}
 	
 	public void undo() {	
-		if (!history.undoIsEmpty(firstUndo)) {	
+		if (undoIsNotEmpty()) {	
 			if (firstUndo) {	
 				firstUndo();	
 			}	
@@ -63,6 +63,30 @@ public class HistoryManager
 			firstUndo=false;
 			firstRedo=true;
 		}		
+	}
+	
+	public boolean undoIsNotEmpty() {
+		if (firstUndo) {
+			if (!history.undoIsNotEmpty()) {
+				return false;
+			}
+			else {
+				if (history.nextUndo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
+					return true;
+				}
+				else {
+					if (history.numberOfUndoActionsLeft()>=2) {
+						return true;
+					}
+					else {
+						return false;
+					}
+				}	
+			}
+		}
+		else {
+			return history.undoIsNotEmpty();
+		}
 	}
 	
 	public void firstUndo() {
@@ -82,7 +106,7 @@ public class HistoryManager
 	}
 	
 	public void redo() {	
-	if (!history.redoIsEmpty()) {	
+	if (history.redoIsNotEmpty()) {	
 		if (firstRedo) {	
 			firstRedo();
 		}
@@ -118,6 +142,7 @@ public class HistoryManager
 		}
 		
 		invertAndExecute();
+		
 		history.pushUndoHistory(history.currentState());
 	}
 }

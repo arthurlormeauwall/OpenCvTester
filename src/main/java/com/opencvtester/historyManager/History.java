@@ -3,7 +3,6 @@ package com.opencvtester.historyManager;
 import java.util.Stack;
 
 import com.opencvtester.historyManager.action.Action;
-import com.opencvtester.historyManager.action.NatureOfAction;
 
 public class History {
 	private Stack<Action> undoStack;
@@ -72,32 +71,12 @@ public class History {
 		currentAction=popNextRedo();
 	}
 	
-	public boolean undoIsEmpty(boolean firstUndo) {
-		if (firstUndo) {
-			if (!undoStack.isEmpty()) {
-				if (nextUndo().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
-					return false;
-				}
-				else {
-					if (numberOfUndoActionsLeft()>=2) {
-						return false;
-					}
-					else {
-						return true;
-					}
-				}	
-			}
-			else {
-				return true;
-			}	
-		}
-		else {
-			return undoStack.isEmpty();
-		}
+	public boolean undoIsNotEmpty() {
+		return !undoStack.isEmpty();
 	}
 	
-	public boolean redoIsEmpty() {
-		return redoStack.isEmpty();
+	public boolean redoIsNotEmpty() {
+		return !redoStack.isEmpty();
 	}
 	
 	public int numberOfUndoActionsLeft() {
