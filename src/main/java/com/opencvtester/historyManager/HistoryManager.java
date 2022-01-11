@@ -32,63 +32,6 @@ public class HistoryManager
 		}
 	}
 	
-//	public void undo() {	
-//		if (history.isThereUndoActionsLeft(firstUndo)) {
-//			
-//			if (firstUndo) {	
-//				if (history.nextUndo().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {	
-//					history.putInRedoStack(history.popNextUndo());		
-//				}	
-//			}	
-//			else {	
-//				history.putInRedoStack(history.currentState());
-//			}	
-//			
-//			history.setCurrentState(history.popNextUndo());				
-//			invertAndExecute();	
-//			
-//			firstUndo=false;
-//			firstRedo=true;
-//		}		
-//	}
-
-//	public void redo() {	
-//		if (history.isThereRedoActionsLeft()) {	
-//			if (firstRedo) {	
-//				if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {				
-//					history.putInUndoHistory(history.currentState());	
-//					history.setCurrentState(history.popNextRedo());
-//				}	
-//			}
-//			else {
-//				history.popNextRedoInCurrent();
-//				
-//				if (history.nextUndo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
-//					if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {	
-//						history.putInUndoHistory(history.currentState());
-//						history.setCurrentState(history.popNextRedo());
-//					}
-//				}
-//			}
-//			
-//			invertAndExecute();
-//			
-//			if (firstRedo) {
-//				if (history.currentState().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
-//					history.putInUndoHistory(history.currentState());
-//				}		
-//			}
-//			else {
-//				history.putInUndoHistory(history.currentState());
-//			}
-//			firstRedo=false;
-//			firstUndo=true;
-//		}			
-//	}
-	
-	
-	/////////////////// TEST 
-	
 	public void redo() {	
 	if (history.isThereRedoActionsLeft()) {	
 		if (firstRedo) {	
