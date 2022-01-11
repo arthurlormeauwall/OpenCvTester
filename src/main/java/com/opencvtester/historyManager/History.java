@@ -48,20 +48,20 @@ public class History {
 		redoStack.push(currentState());
 	}
 	
-	public void putInUndoHistory(Action action) {
+	public void pushUndoHistory(Action action) {
 		undoStack.push(action);
 	}
 	
-	public void putInRedoStack(Action action) {
+	public void pushRedoHistory(Action action) {
 		redoStack.push(action);
 	}
 	
 	public void saveCurrentInUndoStack() {
-		putInUndoHistory(currentAction);	
+		pushUndoHistory(currentAction);	
 	}
 	
 	public void saveCurrentInReddoStack() {
-		putInRedoStack(currentAction);	
+		pushRedoHistory(currentAction);	
 	}
 	
 	public void popNextUndoInCurrent() {
@@ -72,23 +72,23 @@ public class History {
 		currentAction=popNextRedo();
 	}
 	
-	public boolean isThereUndoActionsLeft(boolean firstUndo) {
+	public boolean undoIsEmpty(boolean firstUndo) {
 		if (firstUndo) {
 			if (!undoStack.isEmpty()) {
 				if (nextUndo().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
-					return true;
+					return false;
 				}
 				else {
 					if (numberOfUndoActionsLeft()>=2) {
-						return true;
+						return false;
 					}
 					else {
-						return false;
+						return true;
 					}
 				}	
 			}
 			else {
-				return false;
+				return true;
 			}	
 		}
 		else {
@@ -96,8 +96,8 @@ public class History {
 		}
 	}
 	
-	public boolean isThereRedoActionsLeft() {
-		return !redoStack.isEmpty();
+	public boolean redoIsEmpty() {
+		return redoStack.isEmpty();
 	}
 	
 	public int numberOfUndoActionsLeft() {
