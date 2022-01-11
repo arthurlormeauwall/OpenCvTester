@@ -28,7 +28,6 @@ public abstract class CompositeFilter extends Filter
 	
 	}
 	
-	
 	/*
 	 * GETTERS & SETTERS
 	 */

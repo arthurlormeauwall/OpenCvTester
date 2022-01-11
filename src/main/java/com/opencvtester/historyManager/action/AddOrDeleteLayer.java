@@ -5,8 +5,8 @@ import com.opencvtester.gui.MainWindow;
 import com.opencvtester.guiManager.LayerManager;
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
-public class AddOrDeleteLayer implements Action {
-
+public class AddOrDeleteLayer implements Action 
+{
 	private Functionalities addOrDelete;
 	private LayerManager layerManager;
 	private ChainOfLayers chainOfLayers;

@@ -1,6 +1,7 @@
 package com.opencvtester.historyManager.action;
 
-public enum Functionalities {	
+public enum Functionalities 
+{	
 	ADD,
 	DELETE
 }
