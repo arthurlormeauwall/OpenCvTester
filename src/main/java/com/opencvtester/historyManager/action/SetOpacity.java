@@ -23,7 +23,7 @@ public class SetOpacity implements Action {
 
 	}
 	
-	public boolean lockedSystem() {
+	public boolean addOrDeleteSystem() {
 		return false;
 	}
 	

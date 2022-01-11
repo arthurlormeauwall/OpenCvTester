@@ -27,7 +27,7 @@ public class AddOrDeleteFilter implements Action {
 		return historyReader;
 	}
 	
-	public boolean lockedSystem() {
+	public boolean addOrDeleteSystem() {
 		return true;
 	}
 	/*

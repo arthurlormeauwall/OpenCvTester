@@ -32,7 +32,7 @@ public class SetParameters implements Action {
 
 	}
 	
-	public boolean lockedSystem() {
+	public boolean addOrDeleteSystem() {
 		return false;
 	}
 	

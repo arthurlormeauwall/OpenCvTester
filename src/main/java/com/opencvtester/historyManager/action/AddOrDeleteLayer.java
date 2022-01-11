@@ -24,7 +24,7 @@ public class AddOrDeleteLayer implements Action {
 		this.historyReader=historyReader;
 	}
 	
-	public boolean lockedSystem() {
+	public boolean addOrDeleteSystem() {
 		return true;
 	}
 	

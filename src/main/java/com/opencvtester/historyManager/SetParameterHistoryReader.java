@@ -16,7 +16,7 @@ public class SetParameterHistoryReader implements HistoryReader {
 	public void undo(History history) {	
 		if (history.firstUndo) {
 			if (!isUndoEmpty(history)) {	
-				if (history.undoList.lastElement().lockedSystem()==false) {
+				if (history.undoList.lastElement().addOrDeleteSystem()==false) {
 					history.redoList.push(history.undoList.pop());
 				}
 				
@@ -65,7 +65,7 @@ public class SetParameterHistoryReader implements HistoryReader {
 	public Boolean isUndoEmpty(History history) {
 		if (history.firstUndo) {
 			if (!history.undoList.isEmpty()) {
-				if (history.undoList.lastElement().lockedSystem()==true) {
+				if (history.undoList.lastElement().addOrDeleteSystem()==true) {
 					return false;
 				}
 				else {

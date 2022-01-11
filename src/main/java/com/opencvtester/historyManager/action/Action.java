@@ -4,7 +4,7 @@ import com.opencvtester.historyManager.HistoryReader;
 
 public interface Action 
 {
-	public abstract boolean lockedSystem();
+	public abstract boolean addOrDeleteSystem();
 	public abstract void execute();
 	public abstract void invert();
 	public abstract Action clone();
