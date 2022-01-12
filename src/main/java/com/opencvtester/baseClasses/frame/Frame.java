@@ -78,12 +78,14 @@ public class Frame implements FrameInterface, Comparable<FrameInterface>  {
 	}
 
 	public void createPlainGrayFrame(int rows, int cols, int data) {
+		int pixel = (data<<16) | (data<<8) | data;
 		bufferedImage= new BufferedImage(cols, rows, BufferedImage.TYPE_INT_ARGB);
 		for (int i=0 ; i < rows ;i++) {  	
 			for (int j=0 ; j < cols ; j++){ 	
-				bufferedImage.setRGB(j, i, data);
+				bufferedImage.setRGB(j, i, pixel);
 			}
 		}
+		
 		setSpecs();
 	}
 
