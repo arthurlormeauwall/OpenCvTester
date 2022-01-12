@@ -48,8 +48,8 @@ public class LayerWindow  extends JFrame
 		add(buttonPanel);
 		add(filterPanel);
 		
-		addFilterButton = new JButton("AddFilter");
-		delFilterButton = new JButton("delFilter");
+		addFilterButton = new JButton("Add");
+		delFilterButton = new JButton("Delete");
 		undoButton = new JButton("Undo");
 		redoButton = new JButton("Redo");
 		buttonPanel.add(addFilterButton);

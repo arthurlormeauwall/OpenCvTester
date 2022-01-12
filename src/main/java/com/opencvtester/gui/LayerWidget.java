@@ -30,7 +30,7 @@ public class LayerWidget extends JPanel
 		
 		JPanel titlePanel= new JPanel();
 		titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.LINE_AXIS));
-		layerButton= new JButton("Layer");
+		layerButton= new JButton("Open");
 		titlePanel.add(layerButton);
 		add(titlePanel);
 		

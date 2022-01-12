@@ -55,8 +55,8 @@ public class MainWindow extends JFrame
 		add(buttonPanel);
 		add(layerPanel);
 		
-		addLayerButton = new JButton("AddLayer");
-		delLayerButton = new JButton("dellayer");
+		addLayerButton = new JButton("Add");
+		delLayerButton = new JButton("Delete");
 		undoButton = new JButton("Undo");
 		redoButton = new JButton("Redo");
 		buttonPanel.add(addLayerButton);

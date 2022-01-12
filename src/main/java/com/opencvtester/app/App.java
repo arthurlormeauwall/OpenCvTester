@@ -44,7 +44,7 @@ public class App
 		frameIn =  new Frame();	
 		
 		frameIn.readFromFile(fileName);
-		backgroundFrame.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 0);
+		backgroundFrame.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
 		frameIn.copyTo(frameOut);
 		
 		Id chainOfLayersId = new Id();

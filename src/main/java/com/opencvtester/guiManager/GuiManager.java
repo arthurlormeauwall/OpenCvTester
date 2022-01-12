@@ -31,6 +31,7 @@ public class GuiManager
 		
 		history=new HistoryManager();
 		frameOutWindow=new FrameWindowManager();
+		
 		frameOutWindow.refresh(chainOfLayers.getFrameOut().getBufferedImage());	
 	}
 	
