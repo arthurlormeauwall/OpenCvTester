@@ -43,6 +43,9 @@ public class App
 		frameOut =  new Frame();
 		frameIn =  new Frame();	
 		
+//		Frame frametest= new Frame();
+//		frametest.set(((Frame)frameIn).getMat());
+		
 		frameIn.readFromFile(fileName);
 		backgroundFrame.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
 		frameIn.copyTo(frameOut);

@@ -30,6 +30,19 @@ public class Frame implements FrameInterface, Comparable<FrameInterface>  {
 	public Frame() {
 		bufferedImage= new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		frameSpecs= new FrameSpecs();
+		setSpecs();
+	}
+	
+	public Frame(int row, int col, int data) {
+		bufferedImage= new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+		frameSpecs= new FrameSpecs();
+		createPlainGrayFrame(row, col, data);
+	}
+	
+	public Frame(BufferedImage bufferedImage) {
+		this.bufferedImage= bufferedImage;
+		frameSpecs= new FrameSpecs();
+		setSpecs();
 	}
 	
 	/*
@@ -70,7 +83,7 @@ public class Frame implements FrameInterface, Comparable<FrameInterface>  {
 		setSpecs();
 	}
 	
-	public BufferedImage deepCopy(BufferedImage bufferedImage) {
+	public static BufferedImage deepCopy(BufferedImage bufferedImage) {
 		 ColorModel cm = bufferedImage.getColorModel();
 		 boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
 		 WritableRaster raster = bufferedImage.copyData(null);
@@ -78,6 +91,7 @@ public class Frame implements FrameInterface, Comparable<FrameInterface>  {
 	}
 
 	public void createPlainGrayFrame(int rows, int cols, int data) {
+		data= Math.max(0, Math.min(255, data));
 		int pixel = (data<<16) | (data<<8) | data;
 		bufferedImage= new BufferedImage(cols, rows, BufferedImage.TYPE_INT_ARGB);
 		for (int i=0 ; i < rows ;i++) {  	
