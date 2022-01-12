@@ -1,9 +1,7 @@
 package com.opencvtester.guiManager;
 
 import java.awt.GraphicsConfiguration;
-import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
