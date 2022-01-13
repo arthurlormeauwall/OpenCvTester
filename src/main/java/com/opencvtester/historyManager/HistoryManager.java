@@ -100,8 +100,15 @@ public class HistoryManager
 	
 	public void othersUndo() {
 		history.pushRedoHistory(history.currentState());
+		history.setCurrentState(history.popNextUndo());	
 		
-		history.setCurrentState(history.popNextUndo());		
+		if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
+			if (history.nextRedo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
+				history.pushRedoHistory(history.currentState());
+				history.setCurrentState(history.popNextUndo());	
+			}
+		}
+		
 		invertAndExecute();
 	}
 	
