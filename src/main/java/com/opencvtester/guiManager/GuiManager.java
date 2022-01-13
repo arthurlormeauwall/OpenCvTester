@@ -153,7 +153,7 @@ public class GuiManager
 	
 	public void addFilterAndSetState(Filter filter) {
 		
-		chainOfLayers.addFilterInLayer(filter);
+		chainOfLayers.addFilter(filter);
 		
 		FilterManager newFilterManager = new FilterManager((FilterControlledByFloat)filter, this);
 		
@@ -166,7 +166,7 @@ public class GuiManager
 	}
 	
 	public void addFilter(Filter filter) {
-		chainOfLayers.addFilterInLayer(filter);
+		chainOfLayers.addFilter(filter);
 		
 		FilterManager newFilterManager = new FilterManager((FilterControlledByFloat)filter, this);
 		
@@ -208,7 +208,7 @@ public class GuiManager
 	}	
 
 	public void setParametersAndSetState(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
-		chainOfLayers.setParameters (filterToSet, name, value);	
+		chainOfLayers.setOneParameter (filterToSet, name, value);	
 		refreshResult();
 		
 		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filterToSet);
@@ -216,7 +216,7 @@ public class GuiManager
 	}
 	
 	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
-		chainOfLayers.setParameters (filterToSet, name, value);	
+		chainOfLayers.setOneParameter (filterToSet, name, value);	
 		refreshResult();
 	}
 	

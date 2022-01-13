@@ -30,13 +30,28 @@ public class ChainOfLayers extends CompositeFilter
 	}
 	
 	/*
-	 * FEATURES
+	 * GETTERS AND SETTERS
 	 */
-	public Layer createAndAddLayer(Stack<Id> filterId, Stack<String> filterNames){
-		Layer newLayer = createLayer(filterId, filterNames);
-		return addLayer(newLayer);
+	
+	public FiltersDataBase getFilterDataBase() {
+		return filtersDataBase;
 	}
 	
+	public Layer getLastLayer(){
+		return (Layer)chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
+	}   
+	
+	public Layer getLayer(int layerIndex) {
+		return (Layer)chainOfFilters.getCommand(layerIndex);
+	}
+	
+	public int getNumberOfLayers() {
+		return chainOfFilters.getSize();
+	}	
+	
+	/*
+	 * FEATURES
+	 */
 	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
 		if (!isIndexOutOfRange(filterId.get(0))) {
 			Layer layer = layersFactory.createLayer(filterId, filterNames);				
@@ -47,67 +62,48 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}	
 	
-	public Layer addLayer(Layer newLayer) {
+	public void  addLayer(Layer newLayer) {
 		add(newLayer);
 		
 		checkAndActivateLayer(newLayer);
 		execute();
-		return newLayer;
 	}
 
-	public Layer delLayer(Layer layer){
-		Layer newLayer = (Layer)delete(layer);
+	public void delLayer(Layer layer){
+		delete(layer);
 		
 		if (layer.getLayerIndex()>0) {
-			checkAndActivateLayer(this.getLayer(newLayer.getLayerIndex()-1));
+			checkAndActivateLayer(this.getLayer(layer.getLayerIndex()-1));
 		}
 		
-		execute();
-		return newLayer;		
+		execute();		
 	}  
 	
 	public Filter createFilter(Id filterId, String filterName) {		
 		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createFilter(filterId, filterName);
 	}
 	
-	public Filter addFilterInLayer(Filter filter) {
+	public void addFilter(Filter filter) {
 		if (areIndexLegal(filter.getLayerIndex(), filter.getFilterIndex())) {
 			((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).add(filter);
 			
 			checkAndActivateFilter(filter);
 			execute();	
-			return filter;
-		}
-		else {
-			return null;
 		}
 	}
 	
-	public Filter delFilter(Filter filter){
-		Filter erasedFilter =((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter);
+	public void delFilter(Filter filter){
+		((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter);
 		
-		if (this.getLayer(filter.getLayerIndex()).getNumberOfFilters()==0) {
+		if (this.getLayer(filter.getLayerIndex()).getNumberOfFilters()==0 || filter.getFilterIndex()==0) {
 			checkAndActivateLayer(this.getLayer(filter.getLayerIndex()));
-		}
-		else if (this.getLayer(filter.getLayerIndex()).getNumberOfFilters()==1) {
-			checkAndActivateFilter(filter);
 		}
 		else {
 			checkAndActivateFilter(this.getLayer(filter.getLayerIndex()).getFilter(filter.getFilterIndex()-1));
 		}
 
 		execute();
-		return erasedFilter;
 	}  
-
-//	public FilterControlledByFloat createAndAddFilterInLayer(Id filterId, String filterName) {
-//		FilterControlledByFloat newFilter =(FilterControlledByFloat) ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createAndAdd(filterId, filterName);
-//		
-//		checkAndActivateFilter(newFilter);
-//
-//		execute();	
-//		return newFilter;
-//	}
 
 	public void setOpacity(Filter opacityFilter, Float opacity){
 		if (getNumberOfLayers() >opacityFilter.getLayerIndex()) {
@@ -118,7 +114,7 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}  
 	
-	public void setParameters(FilterControlledByFloat adjustControlToSet, LinkedHashMap<String,Float> parameters){
+	public void setAllFilterParameters(FilterControlledByFloat adjustControlToSet, LinkedHashMap<String,Float> parameters){
 		
 			adjustControlToSet.setAllParameters(parameters);
 			
@@ -126,7 +122,7 @@ public class ChainOfLayers extends CompositeFilter
 			execute();
 	} 
 	
-	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) {
+	public void setOneParameter(FilterControlledByFloat filterToSet, String name, Float value) {
 			filterToSet.setParameter(name, value);
 			checkAndActivateFilter(filterToSet);
 			execute();	
@@ -147,7 +143,6 @@ public class ChainOfLayers extends CompositeFilter
 	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
 		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;
 	}
-	
 
 	public void checkAndActivateLayer (Layer newLayer) {		
 		newLayer.activate();
@@ -173,20 +168,4 @@ public class ChainOfLayers extends CompositeFilter
 	public void execute() {
 		renderer.execute(chainOfFilters.getChain());
 	}
-
-	public FiltersDataBase getFilterDataBase() {
-		return filtersDataBase;
-	}
-	
-	public Layer getLastLayer(){
-		return (Layer)chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
-	}   
-	
-	public Layer getLayer(int layerIndex) {
-		return (Layer)chainOfFilters.getCommand(layerIndex);
-	}
-	
-	public int getNumberOfLayers() {
-		return chainOfFilters.getSize();
-	}	
 }

@@ -25,7 +25,6 @@ public abstract class CompositeFilter extends Filter
 		super(id);
 		frames = new Stack<FrameInterface>();
 		this.filtersDataBase = filtersDataBase;	
-	
 	}
 	
 	/*
@@ -54,13 +53,12 @@ public abstract class CompositeFilter extends Filter
 	/*
 	 * FEATURES
 	 */
-	public Filter add(Filter filter) {	
+	public void add(Filter filter) {	
 		chainOfFilters.addCommand(filter);	
-		return filter;
 	}
 	
-	public Filter delete(Filter filter) {
-		return (Filter)chainOfFilters.delCommand(filter.getIndex(indexType));	
+	public void delete(Filter filter) {
+		chainOfFilters.delCommand(filter.getIndex(indexType));	
 	}
 	
 	public Boolean isIndexOutOfRange(Id filterId) {

@@ -60,17 +60,12 @@ public class Layer extends CompositeFilter
 		return chainOfFilters.getSize();
 	}
 	
-	public Filter getLastLayer() {
+	public Filter getLastFilter() {
 		return (Filter)chainOfFilters.getCommand(getNumberOfFilters()-1);
 	}
 
 	public Boolean hasFilter() {
-		if (getNumberOfFilters()==0) {
-			return false;
-		}
-		else {
-			return true;
-		}
+		return (getNumberOfFilters()!=0);
 	}
 
 	public FilterControlledByFloat getFilter(int index) {
@@ -86,14 +81,10 @@ public class Layer extends CompositeFilter
 		return filterFactory.createFilter(id, filterNamesInDataBase);
 	}
 	
-	public Filter createAndAdd(Id  id,String filterNamesInDataBase) {	
+	public void createAndAdd(Id  id,String filterNamesInDataBase) {	
 		if (!isIndexOutOfRange(id)) {
-			Filter filter = createFilter(id, filterNamesInDataBase);
-			
-			return add(filter);
-		}
-		else {
-			return null;
+			Filter filter = createFilter(id, filterNamesInDataBase);		
+			add(filter);
 		}
 	}
 	
