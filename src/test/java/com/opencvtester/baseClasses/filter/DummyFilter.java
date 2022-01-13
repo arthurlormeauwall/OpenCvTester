@@ -5,6 +5,9 @@ public class DummyFilter extends FilterControlledByFloat{
 	@SuppressWarnings("unused")
 	private String log;
 	
+	public DummyFilter() {
+		setName("dummyFilter");
+	}
 	@Override
 	public FilterControlledByFloat createNew() {
 		

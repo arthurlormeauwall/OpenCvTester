@@ -19,11 +19,11 @@ public class ChainOfLayers extends CompositeFilter
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public ChainOfLayers (FiltersDataBase dbControls, FrameInterface background, Id id) {
-		super(dbControls, id);
+	public ChainOfLayers (FiltersDataBase filterDataBase, FrameInterface background, Id id) {
+		super(filterDataBase, id);
 		
 		this.background = background;
-		layersFactory=new LayersFactory(background, frameIn, frameOut, filtersDataBase);
+		layersFactory=new LayersFactory(filtersDataBase);
 		indexType="layer";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		renderer=new ChainOfLayersRenderer(this, background);
@@ -31,8 +31,7 @@ public class ChainOfLayers extends CompositeFilter
 	
 	/*
 	 * GETTERS AND SETTERS
-	 */
-	
+	 */	
 	public FiltersDataBase getFilterDataBase() {
 		return filtersDataBase;
 	}

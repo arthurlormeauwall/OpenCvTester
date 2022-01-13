@@ -76,7 +76,6 @@ public class Layer extends CompositeFilter
 	/*
 	 * FEATURES
 	 */
-
 	public Filter createFilter(Id  id,String filterNamesInDataBase) {
 		return filterFactory.createFilter(id, filterNamesInDataBase);
 	}

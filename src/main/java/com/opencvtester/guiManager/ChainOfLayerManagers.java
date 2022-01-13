@@ -3,7 +3,6 @@ package com.opencvtester.guiManager;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.gui.MainWindow;
 
@@ -17,9 +16,6 @@ public class ChainOfLayerManagers {
 	 * CONSTRUCTOR & INITS
 	 */
 	public ChainOfLayerManagers (MainWindow gui){	
-		Id chainId = new Id();
-		chainId.set(0,0);
-
 		this.mainWindow=gui;
 		indexType="layer";
 		layerManagers= new ChainOfCommands(indexType);
