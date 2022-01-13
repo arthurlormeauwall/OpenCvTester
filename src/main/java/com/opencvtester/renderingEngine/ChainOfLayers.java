@@ -144,12 +144,12 @@ public class ChainOfLayers extends CompositeFilter
 		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;
 	}
 
-	public void checkAndActivateLayer (Layer newLayer) {		
-		newLayer.activate();
-		if (newLayer.getNumberOfFilters()>0) {
-			newLayer.getFirstFilter().activate();
+	public void checkAndActivateLayer (Layer layer) {		
+		layer.activate();
+		if (layer.getNumberOfFilters()>0) {
+			layer.getFirstFilter().activate();
 		}
-		for (int i= newLayer.getLayerIndex(); i<getNumberOfLayers() ; i++) {
+		for (int i= layer.getLayerIndex(); i<getNumberOfLayers() ; i++) {
 			getLayer(i).activate();
 			if (getLayer(i).getNumberOfFilters()>0) {
 				getLayer(i).getFirstFilter().activate();
