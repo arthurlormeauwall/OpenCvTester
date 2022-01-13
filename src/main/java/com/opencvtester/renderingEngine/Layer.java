@@ -24,21 +24,11 @@ public class Layer extends CompositeFilter
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		opacityFilter = filtersDatabase.getOpacityFilter();
+		opacityFilter.setLayerIndex(id.layerIndex());
+		opacityFilter.setFilterIndex(-1);
 		renderer= new LayerRenderer(this);
 		filterFactory= new FilterFactory(filtersDatabase);
 	}
-	
-	protected void init(FrameInterface background, FrameInterface source, FrameInterface dest) {
-		setFrameIn(source);
-		setFrameOut(dest);
-
-		opacityFilter.setFrameIn(source);
-		opacityFilter.setFrameOut(dest);
-		opacityFilter.init(background);
-		opacityFilter.setLayerIndex(id.layerIndex());
-		opacityFilter.setFilterIndex(1);
-	}
-	
 	
 	/*
 	 * GETTERS & SETTERS

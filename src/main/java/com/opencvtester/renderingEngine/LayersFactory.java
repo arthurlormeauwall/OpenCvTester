@@ -22,7 +22,7 @@ public class LayersFactory {
 	 */
 	protected Layer createLayer(Stack<Id> id, Stack<String> filterNames){
 		newLayer= new Layer(filtersDataBase, id.get(0));
-	
+		
 		if (filterNames!=null) {
 			int numberOfFilterToAdd = filterNames.size();
 

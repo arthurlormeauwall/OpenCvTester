@@ -53,7 +53,7 @@ public class ChainOfLayers extends CompositeFilter
 	 */
 	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
 		if (!isIndexOutOfRange(filterId.get(0))) {
-			Layer layer = layersFactory.createLayer(filterId, filterNames);				
+			Layer layer = layersFactory.createLayer(filterId, filterNames);	
 			return layer;
 		}
 		else {
