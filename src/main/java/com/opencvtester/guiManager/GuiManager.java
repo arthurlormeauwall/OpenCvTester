@@ -68,6 +68,9 @@ public class GuiManager
 	public void createAndAddLayer (int layerIndex, Stack<String> filterNames) {	
 		addLayerAndSetState(createLayer(layerIndex, filterNames));
 	}
+	public void createAndAddLayer (int layerIndex) {	
+		addLayerAndSetState(createEmptyLayer(layerIndex));
+	}
 	
 	public Layer createLayer(int layerIndex, Stack<String> filterNames) {
 		Stack<Id> id= new Stack<Id>();
@@ -80,6 +83,13 @@ public class GuiManager
 		}
 		
 		Layer newLayer= chainOfLayers.createLayer(id, filterNames);
+		
+		return newLayer;
+	}
+	
+	public Layer createEmptyLayer(int layerIndex) {
+		Id id= createLayerId(layerIndex);
+		Layer newLayer= chainOfLayers.createEmptyLayer(id);
 		
 		return newLayer;
 	}

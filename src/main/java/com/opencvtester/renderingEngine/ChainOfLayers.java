@@ -60,6 +60,15 @@ public class ChainOfLayers extends CompositeFilter
 			return null;
 		}
 	}	
+	public Layer createEmptyLayer(Id filterId) {	
+		if (!isIndexOutOfRange(filterId)) {
+			Layer layer = layersFactory.createEmptyLayer(filterId);	
+			return layer;
+		}
+		else {
+			return null;
+		}
+	}	
 	
 	public void  addLayer(Layer newLayer) {
 		add(newLayer);

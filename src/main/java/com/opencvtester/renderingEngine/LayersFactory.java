@@ -32,4 +32,9 @@ public class LayersFactory {
 		}	
 		return newLayer;
 	}
+	
+	protected Layer createEmptyLayer(Id id){
+		newLayer= new Layer(filtersDataBase, id);
+		return newLayer;
+	}
 }
