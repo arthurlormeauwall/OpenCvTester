@@ -41,11 +41,11 @@ public class ChainOfLayersRenderer extends Renderer {
 	}
 
 	public void dealBackground(){
-		int numberOfMaskedLayers = chainOfFilters.size();
+		int numberOfLayers = chainOfFilters.size();
 		
-		if (numberOfMaskedLayers>0) {
+		if (numberOfLayers>0) {
 			((Layer)chainOfFilters.get(0)).setBackGround(background);
-			for (int i = 1; i < numberOfMaskedLayers; i++) {
+			for (int i = 1; i < numberOfLayers; i++) {
 				((Layer)chainOfFilters.get(i)).setBackGround(((Layer)chainOfFilters.get(i - 1)).getFrameOut());
 			}
 		}	
