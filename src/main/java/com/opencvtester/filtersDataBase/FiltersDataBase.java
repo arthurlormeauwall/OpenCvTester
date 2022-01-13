@@ -27,11 +27,11 @@ public class FiltersDataBase
 		return filters.get(name).createNew();	
 	}
 	
-	public void addFilter(String name, FilterControlledByFloat control) {
-		filters.put(name, control);
+	public void addFilter(String name, FilterControlledByFloat filter) {
+		filters.put(name, filter);
 	}
 	
-	public OpacityFilter getAlphaFilter(){
+	public OpacityFilter getOpacityFilter(){
 		return new OpacityFilter();
 	}
 	

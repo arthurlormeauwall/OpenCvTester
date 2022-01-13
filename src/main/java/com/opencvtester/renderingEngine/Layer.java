@@ -13,7 +13,8 @@ import com.opencvtester.renderingEngine.renderer.LayerRenderer;
 public class Layer extends CompositeFilter
 {
 	protected FrameInterface background;
-	protected OpacityFilter opacityFilter;	
+	protected OpacityFilter opacityFilter;
+	protected FilterFactory filterFactory;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -22,8 +23,9 @@ public class Layer extends CompositeFilter
 		super(filtersDatabase, id);
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
-		opacityFilter = filtersDatabase.getAlphaFilter();
+		opacityFilter = filtersDatabase.getOpacityFilter();
 		renderer= new LayerRenderer(this);
+		filterFactory= new FilterFactory(filtersDatabase);
 	}
 	
 	protected void init(FrameInterface background, FrameInterface source, FrameInterface dest) {
@@ -79,17 +81,16 @@ public class Layer extends CompositeFilter
 	/*
 	 * FEATURES
 	 */
-	protected Filter getFilterFromDatabase(Id id, String filterNamesInDataBase){
-		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
-		newFilter.setId(id.clone());
-		return newFilter;
+
+	public Filter createFilter(Id  id,String filterNamesInDataBase) {
+		return filterFactory.createFilter(id, filterNamesInDataBase);
 	}
 	
-	public Filter createAndAdd(Id  id,String commandsNamesInDataBase) {	
+	public Filter createAndAdd(Id  id,String filterNamesInDataBase) {	
 		if (!isIndexOutOfRange(id)) {
-			Filter filter = getFilterFromDatabase(id, commandsNamesInDataBase);
-			chainOfFilters.addCommand(filter);
-			return filter;
+			Filter filter = createFilter(id, filterNamesInDataBase);
+			
+			return add(filter);
 		}
 		else {
 			return null;

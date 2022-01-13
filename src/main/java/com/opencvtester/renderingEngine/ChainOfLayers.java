@@ -67,7 +67,7 @@ public class ChainOfLayers extends CompositeFilter
 	}  
 	
 	public Filter createFilter(Id filterId, String filterName) {		
-		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).getFilterFromDatabase(filterId, filterName);
+		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createFilter(filterId, filterName);
 	}
 	
 	public Filter addFilterInLayer(Filter filter) {

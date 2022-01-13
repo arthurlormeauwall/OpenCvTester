@@ -202,8 +202,6 @@ public class GuiManager
 		}
 	}
 	
-	
-
 	public void setOpacity(Filter opacityFilter, Float opacity) {	
 		chainOfLayers.setOpacity(opacityFilter, opacity);
 		refreshResult();
@@ -243,6 +241,4 @@ public class GuiManager
 	public void store() {	
 		history.storeCurrentStateInHistory();
 	}
-
-
 }
