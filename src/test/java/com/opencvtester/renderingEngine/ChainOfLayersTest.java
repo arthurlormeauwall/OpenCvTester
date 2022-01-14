@@ -47,6 +47,7 @@ class ChainOfLayersTest {
 	public void setup() {
 		chainOfLayers.addLayer(layers.get(0));
 		chainOfLayers.addLayer(layers.get(1));
+		
 		chainOfLayers.getLastLayer().addFilter(filters.get(0));
 		chainOfLayers.getLastLayer().addFilter(filters.get(1));
 		chainOfLayers.getLastLayer().addFilter(filters.get(2));
@@ -125,16 +126,69 @@ class ChainOfLayersTest {
 
 	@Test
 	void testCheckAndActivateLayer() {
-	
+		chainOfLayers.getLayer(0).deleteAllFilters();
+		filters.get(0).setId(new Id(0,0));
+		chainOfLayers.getLayer(0).addFilter(filters.get(0));
+		
+		chainOfLayers.getLastLayer().deleteAllFilters();
+		filters.get(1).setId(new Id(0,1));
+		filters.get(2).setId(new Id(0,2));
+		chainOfLayers.getLastLayer().addFilter(filters.get(1));
+		chainOfLayers.getLastLayer().addFilter(filters.get(2));
+		
+		chainOfLayers.checkAndActivateLayer(chainOfLayers.getLayer(0));
+		
+		assertTrue(chainOfLayers.getLayer(0).isActivate());
+		assertTrue(chainOfLayers.getLayer(0).getFilter(0).isActivate());
+		assertTrue(chainOfLayers.getLayer(1).isActivate());
+		assertTrue(chainOfLayers.getLayer(1).getFilter(0).isActivate());		
 	}
 
 	@Test
 	void testCheckAndActivateFilter() {
+		chainOfLayers.getLayer(0).deleteAllFilters();
+		chainOfLayers.getLastLayer().deleteAllFilters();
 		
-	}
+		///////////////// 
+		filters.get(0).setId(new Id(0,0));
+		chainOfLayers.getLayer(0).addFilter(filters.get(0));
+		
+		filters.get(1).setId(new Id(1,1));
+		filters.get(2).setId(new Id(1,2));
+		chainOfLayers.getLastLayer().addFilter(filters.get(1));
+		chainOfLayers.getLastLayer().addFilter(filters.get(2));
+		
+		chainOfLayers.checkAndActivateFilter(chainOfLayers.getLayer(0).getFirstFilter());
+		
+		assertTrue(chainOfLayers.getLayer(0).isActivate());
+		assertTrue(chainOfLayers.getLayer(0).getFilter(0).isActivate());
+		assertTrue(chainOfLayers.getLayer(1).isActivate());
+		assertTrue(chainOfLayers.getLayer(1).getFilter(0).isActivate());
+		
+		///////////////// 
+		chainOfLayers.getLayer(0).desactivate();
+		chainOfLayers.getLastLayer().desactivate();
+		filters.get(0).desactivate();
+		filters.get(1).desactivate();
+		filters.get(2).desactivate();
+		chainOfLayers.getLayer(0).deleteAllFilters();
+		chainOfLayers.getLastLayer().deleteAllFilters();
+		///////////////// 
 
-	@Test
-	void testIsIndexOutOfRange() {
-	
+		filters.get(0).setId(new Id(0,0));
+		chainOfLayers.getLayer(0).addFilter(filters.get(0));
+		
+		filters.get(1).setId(new Id(1,1));
+		filters.get(2).setId(new Id(1,2));
+		chainOfLayers.getLastLayer().addFilter(filters.get(1));
+		chainOfLayers.getLastLayer().addFilter(filters.get(2));
+		
+		chainOfLayers.checkAndActivateFilter(chainOfLayers.getLayer(1).getFilter(1));
+		
+		assertFalse(chainOfLayers.getLayer(0).isActivate());
+		assertFalse(chainOfLayers.getLayer(0).getFilter(0).isActivate());
+		assertTrue(chainOfLayers.getLayer(1).isActivate());
+		assertFalse(chainOfLayers.getLayer(1).getFilter(0).isActivate());
+		assertTrue(chainOfLayers.getLayer(1).getFilter(1).isActivate());	
 	}
 }

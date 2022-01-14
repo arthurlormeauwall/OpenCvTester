@@ -167,7 +167,7 @@ public class ChainOfLayers extends CompositeFilter
 	public void checkAndActivateFilter (Filter newFilter) {	
 		getLayer(newFilter.layerIndex()).activate();
 		newFilter.activate();
-		for (int i=newFilter.layerIndex(); i<getNumberOfLayers() ; i++) {
+		for (int i=newFilter.layerIndex()+1; i<getNumberOfLayers() ; i++) {
 			checkAndActivateLayer(getLayer(i));
 		}
 	}
