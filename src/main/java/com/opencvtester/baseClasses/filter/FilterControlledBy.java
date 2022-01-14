@@ -35,9 +35,9 @@ public abstract class FilterControlledBy<T> extends Filter
 		setBypass(bypass);
 	}
 	
-	public void setName(String name) {
-		flags.filterName = name;
-	}
+//	public void setName(String name) {
+//		flags.filterName = name;
+//	}
 	
 	public void setNumberOfParamters (int n) {
 		flags.numberOfParameters = n;

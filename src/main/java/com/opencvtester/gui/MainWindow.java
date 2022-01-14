@@ -135,7 +135,7 @@ public class MainWindow extends JFrame
 	}
 
 	public void updateParametersValues(Filter filter, LinkedHashMap<String, Float> parameters) {	
-		chainOfLayerManagers.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).updateParameterValues(parameters);
+		chainOfLayerManagers.getLayerManager(filter.layerIndex()).getFilterManager(filter.filterIndex()).updateParameterValues(parameters);
 	}
 	
 	public void updateGui() {

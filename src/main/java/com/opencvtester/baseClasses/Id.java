@@ -56,8 +56,8 @@ public class Id
 	}
 	
 	public void set(Command command){
-		id.put("layer", command.getLayerIndex());
-		id.put("filter", command.getFilterIndex());
+		id.put("layer", command.layerIndex());
+		id.put("filter", command.filterIndex());
 	}
 	
 	public void setFilterOrLayer(String indexType, int newValue){

@@ -6,7 +6,7 @@ public class DummyFilter extends FilterControlledByFloat{
 	private String log;
 	
 	public DummyFilter() {
-		setName("dummyFilter");
+		setFilterName("test");
 	}
 	@Override
 	public FilterControlledByFloat createNew() {

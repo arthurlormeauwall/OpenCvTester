@@ -41,13 +41,13 @@ public class SetParameters implements Action {
 	}
 	
 	public void execute() {	
-		chainOfLayerManager.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).setEmitSignal(false);
+		chainOfLayerManager.getLayerManager(filter.layerIndex()).getFilterManager(filter.filterIndex()).setEmitSignal(false);
 		
 		chainOfLayerManager.setParameters(filter, parameters);
 		chainOfLayers.setAllFilterParameters(filter, parameters);
 		guiManager.refreshResult();
 		
-		chainOfLayerManager.getLayerManager(filter.getLayerIndex()).getFilterManager(filter.getFilterIndex()).setEmitSignal(true);
+		chainOfLayerManager.getLayerManager(filter.layerIndex()).getFilterManager(filter.filterIndex()).setEmitSignal(true);
 	}
 	
 	public Action clone() {

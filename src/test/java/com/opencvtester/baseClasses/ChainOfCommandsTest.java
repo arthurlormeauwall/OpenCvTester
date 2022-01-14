@@ -63,8 +63,8 @@ class ChainOfCommandsTest {
 		Stack<Command> resultChainOfFilter= chainOfFilter.getChain();
 		
 		for(int i=0;i< NUMBER_OF_TEST;i++){
-			assertEquals(i, resultChainOfLayer.get(i).getLayerIndex());
-			assertEquals(i, resultChainOfFilter.get(i).getFilterIndex());
+			assertEquals(i, resultChainOfLayer.get(i).layerIndex());
+			assertEquals(i, resultChainOfFilter.get(i).filterIndex());
 			
 			assertTrue(resultChainOfLayer.contains(layers.get(i)));
 			assertTrue(resultChainOfFilter.contains(filters.get(i)));

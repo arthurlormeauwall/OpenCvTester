@@ -6,16 +6,18 @@ import com.opencvtester.filtersDataBase.FiltersDataBase;
 
 public class FilterFactory {
 	
-	private FiltersDataBase filtersDataBase;
+	private static FiltersDataBase filtersDataBase;
 	
 	public FilterFactory(FiltersDataBase filtersDataBase) {
 		this.filtersDataBase= filtersDataBase;
 	}
-	public Filter createFilter(Id  id,String commandsNamesInDataBase) {
-		return getFilterFromDatabase(id, commandsNamesInDataBase);
-	}
 	
-	public Filter getFilterFromDatabase(Id id, String filterNamesInDataBase){
+	public static Filter createFilter(Id  id,String filterNamesInDataBase, FiltersDataBase filtersDataBase) {
+		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
+		newFilter.setId(id.clone());
+		return newFilter;
+	}
+	public Filter createFilter(Id  id,String filterNamesInDataBase) {
 		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
 		newFilter.setId(id.clone());
 		return newFilter;

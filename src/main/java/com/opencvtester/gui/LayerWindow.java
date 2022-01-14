@@ -105,7 +105,7 @@ public class LayerWindow  extends JFrame
 		 filtersList.addListSelectionListener (new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent listSelectionEvent) {
 					 if ( !listSelectionEvent.getValueIsAdjusting()) {
-						 	int thisLayerIndex = LayerWindow.this.layerManager.getLayer().getLayerIndex();
+						 	int thisLayerIndex = LayerWindow.this.layerManager.getLayer().layerIndex();
 					    	int newFilterIndex=LayerWindow.this.layerManager.getLayer().getNumberOfFilters();
 					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
 					    	if (nameOfNewFilter!=null) {

@@ -32,12 +32,12 @@ public class ChainOfLayerManagers {
 	 * FEATURES
 	 */
 	public void addFilterManager(FilterManager filterController) {
-		((LayerManager)layerManagers.getCommand(filterController.getLayerIndex())).addFilterManager(filterController);
+		((LayerManager)layerManagers.getCommand(filterController.layerIndex())).addFilterManager(filterController);
 		mainWindow.updateGui();
 	}
 	
 	public void deleteFilterManager(FilterManager filterManager) {
-		((LayerManager)layerManagers.getCommand(filterManager.getLayerIndex())).deleteFilterWidget(filterManager);
+		((LayerManager)layerManagers.getCommand(filterManager.layerIndex())).deleteFilterWidget(filterManager);
 		mainWindow.updateGui();
 	}
 

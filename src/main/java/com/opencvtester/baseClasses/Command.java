@@ -38,11 +38,11 @@ public class Command
     	id.setFilterIndex(filterIndex);
     }
     
-    public int getLayerIndex() {
+    public int layerIndex() {
     	return id.layerIndex();
     }
     
-    public int getFilterIndex() {
+    public int filterIndex() {
     	return id.filterIndex();
     }
     

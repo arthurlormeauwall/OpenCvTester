@@ -18,10 +18,6 @@ public class ChainOfCommands
     /*
 	 * GETTERS & SETTERS
 	 */
-    public Stack<Command> getCommandChain() {      
-    	return commands;
-    }
-    
     public void setCommandChain(Stack<Command> commandChain) {   	
     	commands=commandChain;
     }

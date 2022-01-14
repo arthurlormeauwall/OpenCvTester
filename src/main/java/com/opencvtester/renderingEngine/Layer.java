@@ -19,8 +19,10 @@ public class Layer extends CompositeFilter
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public Layer (FiltersDataBase filtersDatabase, Id id) {
-		super(filtersDatabase, id);
+	public Layer (FiltersDataBase filtersDatabase, int layerIndex) {
+		super(filtersDatabase);
+		
+		this.id.set(createLayerId(layerIndex));
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		opacityFilter = filtersDatabase.getOpacityFilter();
@@ -29,6 +31,12 @@ public class Layer extends CompositeFilter
 		renderer= new LayerRenderer(this);
 		filterFactory= new FilterFactory(filtersDatabase);
 	}
+	
+	private Id createLayerId(int layerIndex) {	
+		Id id = new Id();
+		id.set(layerIndex, 0);
+		return id;
+	}	
 	
 	/*
 	 * GETTERS & SETTERS
@@ -71,7 +79,7 @@ public class Layer extends CompositeFilter
 	}
 	
 	public void createAndAdd(Id  id,String filterNamesInDataBase) {	
-		if (!isIndexOutOfRange(id)) {
+		if (!isIndexOutOfRange(id.filterIndex())) {
 			Filter filter = createFilter(id, filterNamesInDataBase);		
 			add(filter);
 		}
@@ -86,7 +94,7 @@ public class Layer extends CompositeFilter
 	}
 	
 	public Command clone() {	
-		Layer newMaskedLayer= new Layer(filtersDataBase, id);
+		Layer newMaskedLayer= new Layer(filtersDataBase, id.layerIndex());
 		
 		newMaskedLayer.setChain(chainOfFilters.clone());
 		newMaskedLayer.setOpacity(opacityFilter.getOpacity());
@@ -94,5 +102,23 @@ public class Layer extends CompositeFilter
 		
 		return newMaskedLayer;
 	}
+	
+	public void addFilter(Filter filter) {
+		if (filter.layerIndex()==id.layerIndex()) {
+			add(filter);
+		}
+	}
 
+	public void deleteFilter(Filter filter) {
+		if (filter.layerIndex()==id.layerIndex()) {
+			delete(filter);
+		}
+	}
+	
+	public void deleteAllFilters() {
+		int size=getNumberOfFilters();
+		for (int i=size-1; i>=0;i--) {
+			deleteFilter(getLastFilter());
+		}
+	}
 }

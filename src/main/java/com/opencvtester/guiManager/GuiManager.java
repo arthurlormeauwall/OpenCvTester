@@ -89,7 +89,7 @@ public class GuiManager
 	
 	public Layer createEmptyLayer(int layerIndex) {
 		Id id= createLayerId(layerIndex);
-		Layer newLayer= chainOfLayers.createEmptyLayer(id);
+		Layer newLayer= chainOfLayers.createEmptyLayer(layerIndex);
 		
 		return newLayer;
 	}
@@ -119,7 +119,7 @@ public class GuiManager
 
 	public boolean deleteLayer(LayerManager layerManager) {
 		if (layerManager!=null) {
-			chainOfLayers.delLayer(layerManager.getLayer());
+			chainOfLayers.deleteLayer(layerManager.getLayer());
 			mainWindow.deleteLayerManager(layerManager);	
 			refreshResult();
 			return true;
@@ -131,7 +131,7 @@ public class GuiManager
 	
 	public boolean deleteLayerAndSetState(LayerManager layerManager) {		
 		if (layerManager!=null) {
-			chainOfLayers.delLayer(layerManager.getLayer());
+			chainOfLayers.deleteLayer(layerManager.getLayer());
 			mainWindow.deleteLayerManager(layerManager);	
 			refreshResult();
 			
@@ -186,7 +186,7 @@ public class GuiManager
 	
 	public boolean deleteFilterAndSetState(FilterManager filterManager)  {		
 		if (filterManager!=null) {
-			chainOfLayers.delFilter(filterManager.getFilter());
+			chainOfLayers.deleteFilter(filterManager.getFilter());
 			mainWindow.deleteFilterManager(filterManager);
 			refreshResult();
 			
@@ -202,7 +202,7 @@ public class GuiManager
 	
 	public boolean deleteFilter(FilterManager filterManager) {
 		if (filterManager!=null) {
-			chainOfLayers.delFilter(filterManager.getFilter());
+			chainOfLayers.deleteFilter(filterManager.getFilter());
 			mainWindow.deleteFilterManager(filterManager);
 			refreshResult();
 			return true;

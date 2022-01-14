@@ -14,7 +14,7 @@ import com.opencvtester.renderingEngine.renderer.ChainOfLayersRenderer;
 public class ChainOfLayers extends CompositeFilter
 {
 	protected FrameInterface background;
-	protected LayersFactory layersFactory;
+	protected LayerFactory layersFactory;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -23,7 +23,7 @@ public class ChainOfLayers extends CompositeFilter
 		super(filterDataBase, id);
 		
 		this.background = background;
-		layersFactory=new LayersFactory(filtersDataBase);
+		layersFactory=new LayerFactory(filtersDataBase);
 		indexType="layer";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		renderer=new ChainOfLayersRenderer(this, background);
@@ -52,7 +52,7 @@ public class ChainOfLayers extends CompositeFilter
 	 * FEATURES
 	 */
 	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
-		if (!isIndexOutOfRange(filterId.get(0))) {
+		if (!isIndexOutOfRange(filterId.get(0).layerIndex())) {
 			Layer layer = layersFactory.createLayer(filterId, filterNames);	
 			return layer;
 		}
@@ -60,9 +60,9 @@ public class ChainOfLayers extends CompositeFilter
 			return null;
 		}
 	}	
-	public Layer createEmptyLayer(Id filterId) {	
-		if (!isIndexOutOfRange(filterId)) {
-			Layer layer = layersFactory.createEmptyLayer(filterId);	
+	public Layer createEmptyLayer(int layerIndex) {	
+		if (!isIndexOutOfRange(layerIndex)) {
+			Layer layer = layersFactory.createEmptyLayer(layerIndex);	
 			return layer;
 		}
 		else {
@@ -77,11 +77,11 @@ public class ChainOfLayers extends CompositeFilter
 		execute();
 	}
 
-	public void delLayer(Layer layer){
+	public void deleteLayer(Layer layer){
 		delete(layer);
 		
-		if (layer.getLayerIndex()>0) {
-			checkAndActivateLayer(this.getLayer(layer.getLayerIndex()-1));
+		if (layer.layerIndex()>0) {
+			checkAndActivateLayer(this.getLayer(layer.layerIndex()-1));
 		}
 		
 		execute();		
@@ -92,32 +92,32 @@ public class ChainOfLayers extends CompositeFilter
 	}
 	
 	public void addFilter(Filter filter) {
-		if (areIndexLegal(filter.getLayerIndex(), filter.getFilterIndex())) {
-			((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).add(filter);
+		if (areIndexLegal(filter.layerIndex(), filter.filterIndex())) {
+			((Layer)chainOfFilters.getCommand(filter.layerIndex())).addFilter(filter);
 			
 			checkAndActivateFilter(filter);
 			execute();	
 		}
 	}
 	
-	public void delFilter(Filter filter){
-		((Layer)chainOfFilters.getCommand(filter.getLayerIndex())).delete(filter);
+	public void deleteFilter(Filter filter){
+		((Layer)chainOfFilters.getCommand(filter.layerIndex())).deleteFilter(filter);
 		
-		if (this.getLayer(filter.getLayerIndex()).getNumberOfFilters()==0 || filter.getFilterIndex()==0) {
-			checkAndActivateLayer(this.getLayer(filter.getLayerIndex()));
+		if (this.getLayer(filter.layerIndex()).getNumberOfFilters()==0 || filter.filterIndex()==0) {
+			checkAndActivateLayer(this.getLayer(filter.layerIndex()));
 		}
 		else {
-			checkAndActivateFilter(this.getLayer(filter.getLayerIndex()).getFilter(filter.getFilterIndex()-1));
+			checkAndActivateFilter(this.getLayer(filter.layerIndex()).getFilter(filter.filterIndex()-1));
 		}
 
 		execute();
 	}  
 
 	public void setOpacity(Filter opacityFilter, Float opacity){
-		if (getNumberOfLayers() >opacityFilter.getLayerIndex()) {
-			((Layer)chainOfFilters.getCommand(opacityFilter.getLayerIndex())).setOpacity(opacity);
+		if (getNumberOfLayers() >opacityFilter.layerIndex()) {
+			((Layer)chainOfFilters.getCommand(opacityFilter.layerIndex())).setOpacity(opacity);
 			
-			checkAndActivateLayer(getLayer(opacityFilter.getLayerIndex()));
+			checkAndActivateLayer(getLayer(opacityFilter.layerIndex()));
 			execute();
 		}
 	}  
@@ -140,7 +140,7 @@ public class ChainOfLayers extends CompositeFilter
 		
 		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
 	
-			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).get(id.filterIndex()));
+			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).getFilter(id.filterIndex()));
 			
 			filterToBypass.bypass(bypass);
 			checkAndActivateFilter(filterToBypass);			
@@ -157,7 +157,7 @@ public class ChainOfLayers extends CompositeFilter
 		if (layer.getNumberOfFilters()>0) {
 			layer.getFirstFilter().activate();
 		}
-		for (int i= layer.getLayerIndex(); i<getNumberOfLayers() ; i++) {
+		for (int i= layer.layerIndex(); i<getNumberOfLayers() ; i++) {
 			getLayer(i).activate();
 			if (getLayer(i).getNumberOfFilters()>0) {
 				getLayer(i).getFirstFilter().activate();
@@ -166,9 +166,9 @@ public class ChainOfLayers extends CompositeFilter
 	}
 	
 	public void checkAndActivateFilter (Filter newFilter) {	
-		getLayer(newFilter.getLayerIndex()).activate();
+		getLayer(newFilter.layerIndex()).activate();
 		newFilter.activate();
-		for (int i=newFilter.getLayerIndex(); i<getNumberOfLayers() ; i++) {
+		for (int i=newFilter.layerIndex(); i<getNumberOfLayers() ; i++) {
 			checkAndActivateLayer(getLayer(i));
 		}
 	}

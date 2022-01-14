@@ -28,6 +28,9 @@ public class FiltersDataBase
 	}
 	
 	public void addFilter(String name, FilterControlledByFloat filter) {
+		if (filter!=null) {
+			filter.setFilterName(name);
+		}
 		filters.put(name, filter);
 	}
 	

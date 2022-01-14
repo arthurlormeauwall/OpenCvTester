@@ -75,11 +75,11 @@ public class FilterWidget extends JPanel
 		bypassBox.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	  if (bypass) {
-		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.getLayerIndex(), sourceFilter.getFilterIndex(), false);
+		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.layerIndex(), sourceFilter.filterIndex(), false);
 		    		  bypass=false;
 		    	  }
 		    	  else  {
-		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.getLayerIndex(), sourceFilter.getFilterIndex(), true);
+		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.layerIndex(), sourceFilter.filterIndex(), true);
 		    		  bypass=true;
 		    	  }
 		      }
