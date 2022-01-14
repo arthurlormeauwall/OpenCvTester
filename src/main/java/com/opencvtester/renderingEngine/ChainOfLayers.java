@@ -23,7 +23,6 @@ public class ChainOfLayers extends CompositeFilter
 		super(filterDataBase, id);
 		
 		this.background = background;
-		layersFactory=new LayerFactory(filtersDataBase);
 		indexType="layer";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		renderer=new ChainOfLayersRenderer(this, background);
@@ -53,7 +52,7 @@ public class ChainOfLayers extends CompositeFilter
 	 */
 	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
 		if (!isIndexOutOfRange(filterId.get(0).layerIndex())) {
-			Layer layer = layersFactory.createLayer(filterId, filterNames);	
+			Layer layer = LayerFactory.createLayer(filterId, filterNames, filtersDataBase);	
 			return layer;
 		}
 		else {
@@ -62,7 +61,7 @@ public class ChainOfLayers extends CompositeFilter
 	}	
 	public Layer createEmptyLayer(int layerIndex) {	
 		if (!isIndexOutOfRange(layerIndex)) {
-			Layer layer = layersFactory.createEmptyLayer(layerIndex);	
+			Layer layer = LayerFactory.createEmptyLayer(layerIndex,filtersDataBase);	
 			return layer;
 		}
 		else {

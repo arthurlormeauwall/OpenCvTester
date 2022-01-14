@@ -3,7 +3,6 @@ package com.opencvtester.renderingEngine;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
-import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.FrameInterface;

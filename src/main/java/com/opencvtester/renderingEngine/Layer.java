@@ -14,7 +14,7 @@ public class Layer extends CompositeFilter
 {
 	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;
-	protected FilterFactory filterFactory;
+//	protected FilterFactory filterFactory;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -29,7 +29,7 @@ public class Layer extends CompositeFilter
 		opacityFilter.setLayerIndex(id.layerIndex());
 		opacityFilter.setFilterIndex(-1);
 		renderer= new LayerRenderer(this);
-		filterFactory= new FilterFactory(filtersDatabase);
+//		filterFactory= new FilterFactory(filtersDatabase);
 	}
 	
 	private Id createLayerId(int layerIndex) {	
@@ -75,7 +75,7 @@ public class Layer extends CompositeFilter
 	 * FEATURES
 	 */
 	public Filter createFilter(Id  id,String filterNamesInDataBase) {
-		return filterFactory.createFilter(id, filterNamesInDataBase);
+		return FilterFactory.createFilter(id, filterNamesInDataBase, filtersDataBase);
 	}
 	
 	public void createAndAdd(Id  id,String filterNamesInDataBase) {	

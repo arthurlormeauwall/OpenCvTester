@@ -88,7 +88,6 @@ public class GuiManager
 	}
 	
 	public Layer createEmptyLayer(int layerIndex) {
-		Id id= createLayerId(layerIndex);
 		Layer newLayer= chainOfLayers.createEmptyLayer(layerIndex);
 		
 		return newLayer;

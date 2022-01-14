@@ -29,8 +29,6 @@ class ChainOfLayersTest {
 		
 		filterDb.addFilter("test", filter);
 		
-		LayerFactory layersfactory=new LayerFactory(filterDb);
-		
 		layers= new Stack<Layer>();
 		filters= new Stack<Filter>();
 		
@@ -38,9 +36,8 @@ class ChainOfLayersTest {
 		filters.push(FilterFactory.createFilter(new Id(1,1), "test",filterDb));
 		filters.push(FilterFactory.createFilter(new Id(1,2), "test",filterDb));
 		
-		layers.push(layersfactory.createEmptyLayer(0));
-		
-		layers.push(layersfactory.createEmptyLayer(1));
+		layers.push(LayerFactory.createEmptyLayer(0, filterDb));
+		layers.push(LayerFactory.createEmptyLayer(1,filterDb));
 		
 		chainOfLayers = new ChainOfLayers(filterDb, new Frame(10,10,127), new Id(0,0));
 
