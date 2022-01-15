@@ -62,6 +62,7 @@ public class LayerManager extends Command
 
 	public FilterManager addFilterManager(FilterManager newFilterManager) {
 		chainOfFilterManager.addCommand(newFilterManager);
+		newFilterManager.getFilterWidget().setVisible(true);
 		return newFilterManager;
 	}
 	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {

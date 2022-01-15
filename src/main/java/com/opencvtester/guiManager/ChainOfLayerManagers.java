@@ -31,8 +31,8 @@ public class ChainOfLayerManagers {
 	/*
 	 * FEATURES
 	 */
-	public void addFilterManager(FilterManager filterController) {
-		((LayerManager)layerManagers.getCommand(filterController.layerIndex())).addFilterManager(filterController);
+	public void addFilterManager(FilterManager filterManager) {
+		((LayerManager)layerManagers.getCommand(filterManager.layerIndex())).addFilterManager(filterManager);
 		mainWindow.updateGui();
 	}
 	

@@ -1,25 +1,22 @@
 package com.opencvtester.historyManager.action;
 
 
-import com.opencvtester.gui.MainWindow;
+import com.opencvtester.guiManager.GuiManager;
 import com.opencvtester.guiManager.LayerManager;
-import com.opencvtester.renderingEngine.ChainOfLayers;
 
 public class AddOrDeleteLayer implements Action 
 {
 	private Functionalities addOrDelete;
 	private LayerManager layerManager;
-	private ChainOfLayers chainOfLayers;
-	private MainWindow mainWindow;
+	private GuiManager guiManager;
 	private NatureOfAction natureOfAction;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public AddOrDeleteLayer(ChainOfLayers chainOfLayers, MainWindow mainWindow, LayerManager layerManager){
+	public AddOrDeleteLayer(GuiManager guiManager, LayerManager layerManager){
+		this.guiManager = guiManager;
 		this.layerManager=layerManager;
-		this.chainOfLayers=chainOfLayers;
-		this.mainWindow=mainWindow;
 		this.natureOfAction=NatureOfAction.ADD_OR_DELETE;
 	}
 	
@@ -40,11 +37,14 @@ public class AddOrDeleteLayer implements Action
 	}
 
 	public void execute() {
-		if (addOrDelete== Functionalities.ADD) {
-			mainWindow.getGuiManager().addLayer(layerManager);
+		if (addOrDelete== Functionalities.ADD) {			
+			guiManager.addLayer(layerManager);
+			
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			mainWindow.getGuiManager().deleteLayer(layerManager);
+			if (layerManager!=null) {
+				guiManager.deleteLayer(layerManager);
+			}
 		}	
 	}
 	
@@ -53,7 +53,7 @@ public class AddOrDeleteLayer implements Action
 	}
 	
 	public Action clone() {
-		AddOrDeleteLayer newAction = new AddOrDeleteLayer(chainOfLayers, mainWindow, layerManager);
+		AddOrDeleteLayer newAction = new AddOrDeleteLayer(guiManager, layerManager);
 		newAction.setAddOrDelete(addOrDelete);
 		return newAction;
 	}

@@ -1,24 +1,21 @@
 package com.opencvtester.historyManager.action;
 
-import com.opencvtester.gui.MainWindow;
 import com.opencvtester.guiManager.FilterManager;
-import com.opencvtester.renderingEngine.ChainOfLayers;
+import com.opencvtester.guiManager.GuiManager;
 
 public class AddOrDeleteFilter implements Action {
 
 	private Functionalities addOrDelete;
 	private FilterManager filterManager;
-	private ChainOfLayers chainOfLayers;
-	private MainWindow mainWindow;
+	private GuiManager guiManager;
 	private NatureOfAction natureOfAction;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public AddOrDeleteFilter(ChainOfLayers chainOfLayers, MainWindow mainWindow, FilterManager filterManager){
+	public AddOrDeleteFilter(GuiManager guiManager, FilterManager filterManager){
 		this.filterManager=filterManager;
-		this.chainOfLayers=chainOfLayers;
-		this.mainWindow=mainWindow;
+		this.guiManager=guiManager;
 		this.natureOfAction=NatureOfAction.ADD_OR_DELETE;
 	}
 	
@@ -40,10 +37,12 @@ public class AddOrDeleteFilter implements Action {
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
-			mainWindow.getGuiManager().addFilter(filterManager.getFilter());
+			guiManager.addFilter(filterManager);
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			mainWindow.getGuiManager().deleteFilter(filterManager);
+			if (filterManager!=null) {
+				guiManager.deleteFilter(filterManager);
+			}
 		}	
 	}
 	
@@ -52,7 +51,7 @@ public class AddOrDeleteFilter implements Action {
 	}
 	
 	public Action clone() {
-		AddOrDeleteFilter newAction = new AddOrDeleteFilter(chainOfLayers, mainWindow, filterManager);
+		AddOrDeleteFilter newAction = new AddOrDeleteFilter(guiManager, filterManager);
 		newAction.setAddOrDelete(addOrDelete);
 		return newAction;
 	}

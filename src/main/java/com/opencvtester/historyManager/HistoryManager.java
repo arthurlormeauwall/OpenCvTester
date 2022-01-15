@@ -38,11 +38,11 @@ public class HistoryManager
 		firstUndo=true;
 		firstRedo=true;
 		
-		if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
-			if (history.nextUndo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
-				storeCurrentStateInHistory();
-			}
-		}
+//		if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
+//			if (history.nextUndo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
+//				storeCurrentStateInHistory();
+//			}
+//		}
 	}
 	
 
@@ -57,7 +57,7 @@ public class HistoryManager
 				firstUndo();	
 			}	
 			else {	
-				othersUndo();
+				firstUndo();	
 			}	
 			
 			firstUndo=false;
@@ -96,20 +96,14 @@ public class HistoryManager
 		
 		history.setCurrentState(history.popNextUndo());				
 		invertAndExecute();	
+		history.pushRedoHistory(history.currentState());
 	}
 	
 	public void othersUndo() {
-		history.pushRedoHistory(history.currentState());
 		history.setCurrentState(history.popNextUndo());	
-		
-		if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {
-			if (history.nextRedo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
-				history.pushRedoHistory(history.currentState());
-				history.setCurrentState(history.popNextUndo());	
-			}
-		}
-		
+	
 		invertAndExecute();
+		history.pushRedoHistory(history.currentState());
 	}
 	
 	public void redo() {	
@@ -118,7 +112,7 @@ public class HistoryManager
 			firstRedo();
 		}
 		else {
-			othersRedo();
+			firstRedo();
 		}
 		
 		firstRedo=false;
@@ -126,30 +120,23 @@ public class HistoryManager
 	}			
 }
 	public void firstRedo() {	
-		if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {				
-			history.pushUndoHistory(history.currentState());	
-			history.setCurrentState(history.popNextRedo());
-		}	
+		if (history.nextRedo().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {				
+			history.pushUndoHistory(history.popNextRedo());			
+		}
 		
+		history.setCurrentState(history.popNextRedo());
 		invertAndExecute();
 		
-		if (history.currentState().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {	
-			history.pushUndoHistory(history.currentState());
-		}
+
+		history.pushUndoHistory(history.currentState());
+
 	}
 	
 	public void othersRedo() {
 		history.setCurrentState(history.popNextRedo());
-		
-		if (history.nextUndo().natureOfAction()==NatureOfAction.ADD_OR_DELETE) {
-			if (history.currentState().natureOfAction()==NatureOfAction.PARAMETER_SETTING) {	
-				history.pushUndoHistory(history.currentState());
-				history.setCurrentState(history.popNextRedo());
-			}
-		}
-		
 		invertAndExecute();
 		
+
 		history.pushUndoHistory(history.currentState());
 	}
 }

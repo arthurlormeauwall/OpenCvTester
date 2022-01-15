@@ -85,7 +85,8 @@ public class MainWindow extends JFrame
 		 
 		 addLayerButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {	
-		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerManagers.getNumberOfLayer());
+//		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerManagers.getNumberOfLayer());
+		    	MainWindow.this.guiManager.createAddLayerAndSetState(chainOfLayerManagers.getNumberOfLayer());
 		    	MainWindow.this.guiManager.store();
 		      }
 		    });

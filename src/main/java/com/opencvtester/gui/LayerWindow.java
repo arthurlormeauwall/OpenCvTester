@@ -33,6 +33,8 @@ public class LayerWindow  extends JFrame
 	 */
 	public LayerWindow (LayerManager layerController, GuiManager actionHistoryManager){
 		super("Layer");
+		
+		
 		this.guiManager=actionHistoryManager;
 		this.layerManager=layerController;
 		
@@ -67,7 +69,7 @@ public class LayerWindow  extends JFrame
 		 this.pack();
 		updateGui();
 		
-		this.setVisible(true);
+		this.setVisible(false);
 	}
 	
 	public void addListeners() {
@@ -109,7 +111,7 @@ public class LayerWindow  extends JFrame
 					    	int newFilterIndex=LayerWindow.this.layerManager.getLayer().getNumberOfFilters();
 					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
 					    	if (nameOfNewFilter!=null) {
-					    		LayerWindow.this.guiManager.createAndAddFilterInLayer(thisLayerIndex, newFilterIndex, nameOfNewFilter);
+					    		LayerWindow.this.guiManager.createAddFilterAndSetState(thisLayerIndex, newFilterIndex, nameOfNewFilter);
 					        	LayerWindow.this.guiManager.store();
 					    	}					    	
 					    	LayerWindow.this.filtersList.setVisible(false);

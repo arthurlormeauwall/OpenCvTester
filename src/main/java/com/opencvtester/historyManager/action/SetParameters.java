@@ -45,7 +45,7 @@ public class SetParameters implements Action {
 		
 		chainOfLayerManager.setParameters(filter, parameters);
 		chainOfLayers.setAllFilterParameters(filter, parameters);
-		guiManager.refreshResult();
+		guiManager.refreshFrameOut();
 		
 		chainOfLayerManager.getLayerManager(filter.layerIndex()).getFilterManager(filter.filterIndex()).setEmitSignal(true);
 	}
