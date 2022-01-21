@@ -16,7 +16,6 @@ import javax.swing.border.Border;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.guiManager.GuiManager;
@@ -72,8 +71,7 @@ public class FilterWidget extends JPanel
 	}
 	
 	public void addListeneres() {
-		bypassBox.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
+		bypassBox.addActionListener((ActionEvent event)->{
 		    	  if (bypass) {
 		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.layerIndex(), sourceFilter.filterIndex(), false);
 		    		  bypass=false;
@@ -82,8 +80,7 @@ public class FilterWidget extends JPanel
 		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.layerIndex(), sourceFilter.filterIndex(), true);
 		    		  bypass=true;
 		    	  }
-		      }
-		    });		
+		      });		
 	}
 
 	/*

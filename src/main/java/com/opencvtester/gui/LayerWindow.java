@@ -1,15 +1,12 @@
 package com.opencvtester.gui;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import com.opencvtester.guiManager.FilterManager;
 import com.opencvtester.guiManager.GuiManager;
@@ -73,39 +70,31 @@ public class LayerWindow  extends JFrame
 	}
 	
 	public void addListeners() {
-		 undoButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
-		    	  
-		    	  LayerWindow.this.guiManager.undo();
-		      }
-		    });
+		 undoButton.addActionListener((ActionEvent event)->{
+			 	LayerWindow.this.guiManager.undo();
+			});
 
-		 redoButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
-		    	  LayerWindow.this.guiManager.redo();
-		      }
-		    });
-		 addFilterButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {	    	
+		 redoButton.addActionListener((ActionEvent event)-> {
+	    	  	LayerWindow.this.guiManager.redo();
+	  		});
+		 
+		 addFilterButton.addActionListener((ActionEvent event)->{	    	
 		    	LayerWindow.this.filtersList.setVisible(true);		    	
 		    	LayerWindow.this.pack();
-		      }
-		    });
-		 delFilterButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
-			    	int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-1;
-					if(indexOfFitlerToDel>=0) {
-						FilterManager filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
-						filterToDel.getFilterWidget().setVisible(false);
-						 LayerWindow.this.pack();
-						 LayerWindow.this.guiManager.deleteFilterAndSetState(filterToDel);
-					     LayerWindow.this.guiManager.store();
-					}	 
-		      }
-		    });
+	    	});
 		 
-		 filtersList.addListSelectionListener (new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent listSelectionEvent) {
+		 delFilterButton.addActionListener((ActionEvent event) -> {
+		    	int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-1;
+				if(indexOfFitlerToDel>=0) {
+					FilterManager filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
+					filterToDel.getFilterWidget().setVisible(false);
+					 LayerWindow.this.pack();
+					 LayerWindow.this.guiManager.deleteFilterAndSetState(filterToDel);
+				     LayerWindow.this.guiManager.store();
+				}	 
+		    });
+
+		 filtersList.addListSelectionListener ((listSelectionEvent)-> {
 					 if ( !listSelectionEvent.getValueIsAdjusting()) {
 						 	int thisLayerIndex = LayerWindow.this.layerManager.getLayer().layerIndex();
 					    	int newFilterIndex=LayerWindow.this.layerManager.getLayer().getNumberOfFilters();
@@ -118,10 +107,7 @@ public class LayerWindow  extends JFrame
 					    	LayerWindow.this.filtersList.clearSelection();
 					    	LayerWindow.this.pack();
 					 }
-			    		
-		
-				}
-		    });
+			 });
 	}
 
 

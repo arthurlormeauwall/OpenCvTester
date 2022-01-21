@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.guiManager.GuiManager;
@@ -55,8 +54,7 @@ public class LabelledSlider extends JPanel
 	}
 	
 	protected void addListeners() {
-		 slider.addChangeListener(new ChangeListener() {
-		      public void stateChanged(ChangeEvent event)   {
+		 slider.addChangeListener((ChangeEvent event)->{
 		    	  LabelledSlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); 
 		    	  try {
 		    		 currentValue=slider.getValue();
@@ -67,13 +65,11 @@ public class LabelledSlider extends JPanel
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-		      }
-		    });
+		     });
+		 
 		 slider.addMouseListener(new MouseListener() {
 
 			public void mouseClicked(MouseEvent event) {
-				
-				
 			}
 
 			public void mousePressed(MouseEvent event) {

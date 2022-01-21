@@ -4,7 +4,6 @@ package com.opencvtester.gui;
 import java.text.DecimalFormat;
 
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.guiManager.GuiManager;
@@ -24,13 +23,11 @@ public class OpacitySlider extends LabelledSlider {
 	@Override
 	protected void addListeners() {
 		if (emitSignal) {
-			 slider.addChangeListener(new ChangeListener() {
-			      public void stateChanged(ChangeEvent event)   {
+			 slider.addChangeListener((ChangeEvent event)->{
 			    	  OpacitySlider.this.value.setText(String.valueOf(df.format(slider.getValue()*0.01f))); // TODO : change this
 			    	  
 			    		  OpacitySlider.this.guiManager.setOpacity(OpacitySlider.this.filterToUpdate, slider.getValue()*0.01f);
-			      }
-			    });
+			     });
 		}		
 		
 	}

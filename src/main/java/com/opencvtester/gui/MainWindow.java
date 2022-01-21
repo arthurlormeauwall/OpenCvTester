@@ -3,7 +3,6 @@ package com.opencvtester.gui;
 
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
@@ -71,33 +70,25 @@ public class MainWindow extends JFrame
 	}
 	
 	public void addListeners() {
-		 undoButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
+		 undoButton.addActionListener((ActionEvent event)->{
 		    	  MainWindow.this.guiManager.undo();
-		      }
-		    });
+		     });
 		 
-		 redoButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
+		 redoButton.addActionListener((ActionEvent event)->{
 		    	  MainWindow.this.guiManager.redo();
-		      }
-		    });
+		     });
 		 
-		 addLayerButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {	
+		 addLayerButton.addActionListener((ActionEvent event)->{	
 //		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerManagers.getNumberOfLayer());
 		    	MainWindow.this.guiManager.createAddLayerAndSetState(chainOfLayerManagers.getNumberOfLayer());
 		    	MainWindow.this.guiManager.store();
-		      }
-		    });
+		     });
 		 
-		 delLayerButton.addActionListener(new ActionListener() {
-		      public void actionPerformed(ActionEvent event)   {
+		 delLayerButton.addActionListener((ActionEvent event)->{
 		    	  if (MainWindow.this.guiManager.deleteLayerAndSetState(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1))) {
 		    		  MainWindow.this.guiManager.store();
 		    	  }		    	  
-		      }
-		    });
+		     });
 	}
 	
 	/*
