@@ -31,12 +31,12 @@ public class LayerWindow  extends JFrame
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayerWindow (LayerManager layerController, GuiManager actionHistoryManager){
+	public LayerWindow (LayerManager layerManager, GuiManager actionHistoryManager){
 		super("Layer");
 		
 		
 		this.guiManager=actionHistoryManager;
-		this.layerManager=layerController;
+		this.layerManager=layerManager;
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -79,7 +79,7 @@ public class LayerWindow  extends JFrame
 		    	  LayerWindow.this.guiManager.undo();
 		      }
 		    });
-		 
+
 		 redoButton.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent event)   {
 		    	  LayerWindow.this.guiManager.redo();
