@@ -8,28 +8,27 @@ import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.filtersDataBase.OpacityFilter;
+import com.opencvtester.guiManager.FilterFactory;
 import com.opencvtester.renderingEngine.renderer.LayerRenderer;
 
 public class Layer extends CompositeFilter
 {
 	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;
-//	protected FilterFactory filterFactory;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public Layer (FiltersDataBase filtersDatabase, int layerIndex) {
-		super(filtersDatabase);
+	public Layer (int layerIndex, OpacityFilter opacityFilter) {
+		super();
 		
 		this.id.set(createLayerId(layerIndex));
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
-		opacityFilter = filtersDatabase.getOpacityFilter();
+		this.opacityFilter = opacityFilter;
 		opacityFilter.setLayerIndex(id.layerIndex());
 		opacityFilter.setFilterIndex(-1);
 		renderer= new LayerRenderer(this);
-//		filterFactory= new FilterFactory(filtersDatabase);
 	}
 	
 	private Id createLayerId(int layerIndex) {	
@@ -74,16 +73,16 @@ public class Layer extends CompositeFilter
 	/*
 	 * FEATURES
 	 */
-	public Filter createFilter(Id  id,String filterNamesInDataBase) {
-		return FilterFactory.createFilter(id, filterNamesInDataBase, filtersDataBase);
-	}
+//	public Filter createFilter(Id  id,String filterNamesInDataBase) {
+//		return FilterFactory.createFilter(id, filterNamesInDataBase);
+//	}
 	
-	public void createAndAdd(Id  id,String filterNamesInDataBase) {	
-		if (!isIndexOutOfRange(id.filterIndex())) {
-			Filter filter = createFilter(id, filterNamesInDataBase);		
-			add(filter);
-		}
-	}
+//	public void createAndAdd(Id  id,String filterNamesInDataBase) {	
+//		if (!isIndexOutOfRange(id.filterIndex())) {
+//			Filter filter = createFilter(id, filterNamesInDataBase);		
+//			add(filter);
+//		}
+//	}
 	
 	public void execute() {	
 		renderer.execute(chainOfFilters.getChain());
@@ -94,10 +93,9 @@ public class Layer extends CompositeFilter
 	}
 	
 	public Command clone() {	
-		Layer newMaskedLayer= new Layer(filtersDataBase, id.layerIndex());
+		Layer newMaskedLayer= new Layer(id.layerIndex(), opacityFilter);
 		
 		newMaskedLayer.setChain(chainOfFilters.clone());
-		newMaskedLayer.setOpacity(opacityFilter.getOpacity());
 		newMaskedLayer.setBackGround(background);
 		
 		return newMaskedLayer;

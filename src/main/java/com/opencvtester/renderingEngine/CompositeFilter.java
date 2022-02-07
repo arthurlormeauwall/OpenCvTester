@@ -12,7 +12,7 @@ import com.opencvtester.renderingEngine.renderer.Renderer;
 public abstract class CompositeFilter extends Filter
 {
 	protected Stack<FrameInterface> frames;
-	protected FiltersDataBase filtersDataBase;
+//	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
 	protected String indexType;
@@ -20,14 +20,13 @@ public abstract class CompositeFilter extends Filter
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public CompositeFilter(FiltersDataBase filtersDataBase, Id id) {
+	public CompositeFilter(Id id) {
 		super(id);
 		frames = new Stack<FrameInterface>();
-		this.filtersDataBase = filtersDataBase;	
 	}
-	public CompositeFilter(FiltersDataBase filtersDataBase) {
+	public CompositeFilter() {
+		super();
 		frames = new Stack<FrameInterface>();
-		this.filtersDataBase = filtersDataBase;	
 	}
 	
 	/*
@@ -40,11 +39,7 @@ public abstract class CompositeFilter extends Filter
 	public void setChain(ChainOfCommands chain) {
 		chainOfFilters=chain;
 	}	
-	
-	public FiltersDataBase getFiltersDataBase() {
-		return filtersDataBase;
-	}
-	
+
 	public String indexType() {
 		return indexType;
 	}

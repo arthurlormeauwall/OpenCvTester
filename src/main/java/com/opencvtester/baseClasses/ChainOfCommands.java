@@ -2,9 +2,13 @@ package com.opencvtester.baseClasses;
 
 import java.util.Stack;
 
-public class ChainOfCommands
+public class ChainOfCommands 
 {
-    protected Stack<Command> commands;
+    /**
+	 * 
+	 */
+	
+	protected Stack<Command> commands;
     protected String indexType;
 
 	/*

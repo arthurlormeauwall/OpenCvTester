@@ -1,14 +1,14 @@
 package com.opencvtester.renderingEngine;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Stack;
 
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
+import com.opencvtester.guiManager.LayerFactory;
 
 class LayerFactoryTest {
 
@@ -18,15 +18,11 @@ class LayerFactoryTest {
 		FiltersDataBase filterDb =new FiltersDataBase();
 		filterDb.addFilter("test", filter);
 		
-		Stack<Id> tempIdStack= new Stack<Id>();
-		tempIdStack.push(new Id(1,0));
-		tempIdStack.push(new Id(1,0));
-		tempIdStack.push(new Id(1,1));
 		Stack<String> tempNames = new Stack<String>();
 		tempNames.push("test");
 		tempNames.push("test");
 		
-		Layer layer = LayerFactory.createLayer(tempIdStack, tempNames, filterDb);
+		Layer layer = LayerFactory.createLayer(1, tempNames, filterDb);
 		
 		assertEquals(1, layer.layerIndex());
 		assertEquals("test", layer.getFilter(0).getFilterName());

@@ -28,6 +28,10 @@ public class ChainOfLayerManagers {
 		return (LayerManager)layerManagers.getCommand(i);
 	}
 	
+	public ChainOfCommands getChainOfCommands () {
+		return layerManagers;
+	}
+	
 	/*
 	 * FEATURES
 	 */

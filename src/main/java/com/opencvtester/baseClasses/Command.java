@@ -1,6 +1,6 @@
 package com.opencvtester.baseClasses;
 
-public class Command
+public class Command 
 {
 	protected Id id;
     protected Boolean isBypass;

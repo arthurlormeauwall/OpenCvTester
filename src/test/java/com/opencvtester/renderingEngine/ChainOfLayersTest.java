@@ -13,6 +13,8 @@ import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
+import com.opencvtester.guiManager.FilterFactory;
+import com.opencvtester.guiManager.LayerFactory;
 
 class ChainOfLayersTest {
 
@@ -27,19 +29,20 @@ class ChainOfLayersTest {
 		filter= new DummyFilter();
 		filterDb =new FiltersDataBase();
 		
+		
 		filterDb.addFilter("test", filter);
 		
 		layers= new Stack<Layer>();
 		filters= new Stack<Filter>();
 		
 		filters.push(FilterFactory.createFilter(new Id(1,0), "test", filterDb));
-		filters.push(FilterFactory.createFilter(new Id(1,1), "test",filterDb));
-		filters.push(FilterFactory.createFilter(new Id(1,2), "test",filterDb));
+		filters.push(FilterFactory.createFilter(new Id(1,1), "test", filterDb));
+		filters.push(FilterFactory.createFilter(new Id(1,2), "test", filterDb));
 		
 		layers.push(LayerFactory.createEmptyLayer(0, filterDb));
-		layers.push(LayerFactory.createEmptyLayer(1,filterDb));
+		layers.push(LayerFactory.createEmptyLayer(1, filterDb));
 		
-		chainOfLayers = new ChainOfLayers(filterDb, new Frame(10,10,127), new Id(0,0));
+		chainOfLayers = new ChainOfLayers(new Frame(10,10,127));
 
 	}
 	

@@ -3,6 +3,10 @@ package com.opencvtester.gui;
 
 
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
@@ -29,6 +33,8 @@ public class MainWindow extends JFrame
 	private JButton delLayerButton; 
 	private JButton undoButton;
 	private JButton redoButton;  
+	private JButton saveButton;
+	private JButton reloadButton;
 	public Stack<LayerWindow> test;
 	
 	/*
@@ -58,10 +64,14 @@ public class MainWindow extends JFrame
 		delLayerButton = new JButton("Delete");
 		undoButton = new JButton("Undo");
 		redoButton = new JButton("Redo");
+		saveButton = new JButton("save");
+		reloadButton = new JButton ("reload");
 		buttonPanel.add(addLayerButton);
 		buttonPanel.add(delLayerButton);
 		buttonPanel.add(undoButton);
 		buttonPanel.add(redoButton);
+		buttonPanel.add(saveButton);
+		buttonPanel.add(reloadButton);
 		
 		addListeners();
 		 
@@ -70,6 +80,13 @@ public class MainWindow extends JFrame
 	}
 	
 	public void addListeners() {
+		 saveButton.addActionListener((ActionEvent event)->{
+	    	  MainWindow.this.guiManager.save();
+	     });
+	 
+		 reloadButton.addActionListener((ActionEvent event)->{
+	    	  MainWindow.this.guiManager.reload();
+	     });
 		 undoButton.addActionListener((ActionEvent event)->{
 		    	  MainWindow.this.guiManager.undo();
 		     });
@@ -79,18 +96,18 @@ public class MainWindow extends JFrame
 		     });
 		 
 		 addLayerButton.addActionListener((ActionEvent event)->{	
-//		    	MainWindow.this.guiManager.createAndAddLayer(chainOfLayerManagers.getNumberOfLayer());
-		    	MainWindow.this.guiManager.createAddLayerAndSetState(chainOfLayerManagers.getNumberOfLayer());
+		    	MainWindow.this.guiManager.createAddLayerAndSetHistory(chainOfLayerManagers.getNumberOfLayer());
 		    	MainWindow.this.guiManager.store();
 		     });
 		 
 		 delLayerButton.addActionListener((ActionEvent event)->{
-		    	  if (MainWindow.this.guiManager.deleteLayerAndSetState(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1))) {
+		    	  if (MainWindow.this.guiManager.deleteLayerAndSetHistory(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1))) {
 		    		  MainWindow.this.guiManager.store();
 		    	  }		    	  
 		     });
 	}
-	
+
+
 	/*
 	 * GETTERS & SETTERS
 	 */
@@ -114,6 +131,7 @@ public class MainWindow extends JFrame
 	}
 
 	public void addLayerManager(LayerManager layerManager) {
+		layerManager.createLayerWindow();
 		chainOfLayerManagers.addLayerManager(layerManager);	
 	}
 	
@@ -142,6 +160,7 @@ public class MainWindow extends JFrame
 		}
 		this.pack();
 	}
+
 }
 
 

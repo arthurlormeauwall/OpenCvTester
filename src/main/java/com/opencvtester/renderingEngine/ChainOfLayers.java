@@ -1,14 +1,14 @@
 package com.opencvtester.renderingEngine;
 
 import java.util.LinkedHashMap;
-import java.util.Stack;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
-import com.opencvtester.filtersDataBase.FiltersDataBase;
+import com.opencvtester.guiManager.LayerFactory;
 import com.opencvtester.renderingEngine.renderer.ChainOfLayersRenderer;
 
 public class ChainOfLayers extends CompositeFilter
@@ -19,22 +19,38 @@ public class ChainOfLayers extends CompositeFilter
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public ChainOfLayers (FiltersDataBase filterDataBase, FrameInterface background, Id id) {
-		super(filterDataBase, id);
-		
-		this.background = background;
-		indexType="layer";
-		chainOfFilters = new ChainOfCommands (this.indexType);	
-		renderer=new ChainOfLayersRenderer(this, background);
-	}
+	
+	public ChainOfLayers (FrameInterface frameIn) {
+	super();
+	this.background = new Frame();
+	frameIn.copyTo(this.frameIn);
+	this.frameIn.copyTo(this.frameOut);
+	this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
+	
+	indexType="layer";
+	chainOfFilters = new ChainOfCommands (this.indexType);	
+	renderer=new ChainOfLayersRenderer(this, background);
+}
+	
+	public ChainOfLayers (String fileName) {
+	super();
+	this.background = new Frame();
+	frameIn.readFromFile(fileName);
+	frameIn.copyTo(frameOut);
+	this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
+	
+	indexType="layer";
+	chainOfFilters = new ChainOfCommands (this.indexType);	
+	renderer=new ChainOfLayersRenderer(this, background);
+}
 	
 	/*
 	 * GETTERS AND SETTERS
 	 */	
-	public FiltersDataBase getFilterDataBase() {
-		return filtersDataBase;
-	}
-	
+//	public FiltersDataBase getFilterDataBase() {
+//		return filtersDataBase;
+//	}
+//	
 	public Layer getLastLayer(){
 		return (Layer)chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
 	}   
@@ -50,24 +66,25 @@ public class ChainOfLayers extends CompositeFilter
 	/*
 	 * FEATURES
 	 */
-	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
-		if (!isIndexOutOfRange(filterId.get(0).layerIndex())) {
-			Layer layer = LayerFactory.createLayer(filterId, filterNames, filtersDataBase);	
-			return layer;
-		}
-		else {
-			return null;
-		}
-	}	
-	public Layer createEmptyLayer(int layerIndex) {	
-		if (!isIndexOutOfRange(layerIndex)) {
-			Layer layer = LayerFactory.createEmptyLayer(layerIndex,filtersDataBase);	
-			return layer;
-		}
-		else {
-			return null;
-		}
-	}	
+//	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
+//		if (!isIndexOutOfRange(filterId.get(0).layerIndex())) {
+//			Layer layer = LayerFactory.createLayer(filterId, filterNames, filtersDataBase);	
+//			return layer;
+//		}
+//		else {
+//			return null;
+//		}
+//	}	
+//	
+//	public Layer createEmptyLayer(int layerIndex) {	
+//		if (!isIndexOutOfRange(layerIndex)) {
+//			Layer layer = LayerFactory.createEmptyLayer(layerIndex,filtersDataBase);	
+//			return layer;
+//		}
+//		else {
+//			return null;
+//		}
+//	}	
 	
 	public void  addLayer(Layer newLayer) {
 		add(newLayer);
@@ -86,9 +103,10 @@ public class ChainOfLayers extends CompositeFilter
 		execute();		
 	}  
 	
-	public Filter createFilter(Id filterId, String filterName) {		
-		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createFilter(filterId, filterName);
-	}
+//	public Filter createFilter(Id filterId, String filterName) {		
+//		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createFilter(filterId, filterName);
+//	}
+//	
 	
 	public void addFilter(Filter filter) {
 		if (areIndexLegal(filter.layerIndex(), filter.filterIndex())) {
@@ -145,7 +163,18 @@ public class ChainOfLayers extends CompositeFilter
 			checkAndActivateFilter(filterToBypass);			
 			execute();
 		}
-	}    
+	}   
+	public void setBypass(int layerIndex, int filterIndex, Boolean bypass){
+		
+		if (areIndexLegal(layerIndex, filterIndex)) {
+	
+			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(filterIndex));
+			
+			filterToBypass.bypass(bypass);
+			checkAndActivateFilter(filterToBypass);			
+			execute();
+		}
+	}  
 	
 	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
 		return getNumberOfLayers() > layerIndex && ((Layer)chainOfFilters.getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;

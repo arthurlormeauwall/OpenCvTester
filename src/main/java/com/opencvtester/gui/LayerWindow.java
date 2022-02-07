@@ -89,7 +89,7 @@ public class LayerWindow  extends JFrame
 					FilterManager filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
 					filterToDel.getFilterWidget().setVisible(false);
 					 LayerWindow.this.pack();
-					 LayerWindow.this.guiManager.deleteFilterAndSetState(filterToDel);
+					 LayerWindow.this.guiManager.deleteFilterAndSetHistory(filterToDel);
 				     LayerWindow.this.guiManager.store();
 				}	 
 		    });
@@ -100,7 +100,7 @@ public class LayerWindow  extends JFrame
 					    	int newFilterIndex=LayerWindow.this.layerManager.getLayer().getNumberOfFilters();
 					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
 					    	if (nameOfNewFilter!=null) {
-					    		LayerWindow.this.guiManager.createAddFilterAndSetState(thisLayerIndex, newFilterIndex, nameOfNewFilter);
+					    		LayerWindow.this.guiManager.createAddFilterAndSetHistory(thisLayerIndex, newFilterIndex, nameOfNewFilter);
 					        	LayerWindow.this.guiManager.store();
 					    	}					    	
 					    	LayerWindow.this.filtersList.setVisible(false);

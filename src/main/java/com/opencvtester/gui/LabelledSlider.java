@@ -59,7 +59,7 @@ public class LabelledSlider extends JPanel
 		    	  try {
 		    		 currentValue=slider.getValue();
 		    		 if (emitSignal) {
-		    			 LabelledSlider.this.guiManager.setParametersAndSetState(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
+		    			 LabelledSlider.this.guiManager.setParametersAndSetHistory(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
 		    		 }
 					 
 				} catch (IOException e) {
@@ -75,7 +75,7 @@ public class LabelledSlider extends JPanel
 			public void mousePressed(MouseEvent event) {
 				if (emitSignal) { 
 					try {
-						LabelledSlider.this.guiManager.setParametersAndSetState(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
+						LabelledSlider.this.guiManager.setParametersAndSetHistory(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
