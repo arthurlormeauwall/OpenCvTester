@@ -15,6 +15,8 @@ import com.opencvtester.historyManager.action.AddOrDeleteFilter;
 import com.opencvtester.historyManager.action.AddOrDeleteLayer;
 import com.opencvtester.historyManager.action.Functionalities;
 import com.opencvtester.historyManager.action.SetParameters;
+import com.opencvtester.persistence.FilterData;
+import com.opencvtester.persistence.SessionManager;
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 
@@ -24,22 +26,21 @@ public class GuiManager
 	private ChainOfLayers chainOfLayers;
 	private MainWindow mainWindow;
 	private FrameWindowManager frameOutWindow;
-	private LayerFactory layerFactory;
-	private FilterFactory filterFactory;
 	private FiltersDataBase filtersDataBase;
+	private SessionManager sessionManager;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public GuiManager(String fileName) throws IOException{
+	public GuiManager(String fileName, FiltersDataBase filtersDataBase) throws IOException{
 		
-		filtersDataBase = new FiltersDataBase();
+		this.filtersDataBase = filtersDataBase;
 		chainOfLayers = new ChainOfLayers(fileName);
 		mainWindow = new MainWindow(this);		
 		history=new HistoryManager();
 		frameOutWindow=new FrameWindowManager(chainOfLayers.getFrameOut());
-		layerFactory=new LayerFactory(filtersDataBase, this);
-		filterFactory=new FilterFactory(filtersDataBase, this);
+
+		sessionManager= new SessionManager(filtersDataBase, this);
 	}
 
 	
@@ -51,41 +52,30 @@ public class GuiManager
 		return filtersDataBase.getFiltersName();	
 	}
 	
+	
 	/*
 	 * FEATURES
-	 */
-	
+	 */	
 	
 	public void reload() {
 		
+		String fileName="src/main/ressources/session/session";
+		sessionManager.reloadSession(fileName, this);
 	}
 
 	public void save() {
-		try(FileOutputStream out = new FileOutputStream("src/main/ressources/sessions/test"); ObjectOutputStream os = new ObjectOutputStream(out)) {
-//			os.writeObject(new Session(mainWindow.getChainOfLayerManagers().getChainOfCommands())); 
-			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println("yo mama");
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("yo mama");
-		}		
-	}
-
-	public void addFilterInDatabase(String name, FilterControlledByFloat filter) {
-		filtersDataBase.addFilter(name, filter);
+		String fileName="src/main/ressources/session/session";
+		sessionManager.saveSession(fileName, this);	
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex, Stack<String> filterNames) {
-		LayerManager layerManager = layerFactory.createLayerManager(layerIndex, filterNames);
+		LayerManager layerManager = sessionManager.createLayer(layerIndex,filterNames);
 		addLayer(layerManager);
 		setAddLayerHistory(layerManager);
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex) {
-		LayerManager layerManager = layerFactory.createEmptyLayerManager(layerIndex);
+		LayerManager layerManager = sessionManager.createLayer(layerIndex);
 		addLayer(layerManager);
 		setAddLayerHistory(layerManager);
 	}
@@ -102,13 +92,16 @@ public class GuiManager
 	}
 	
 	public void addLayer(LayerManager layerManager) {
+		 sessionManager.addLayer(layerManager);
+		 
 		chainOfLayers.addLayer(layerManager.getLayer());			
-		
 		mainWindow.addLayerManager(layerManager);
 		mainWindow.getGuiManager().refreshFrameOut();
 	}	
 	
 	public void deleteLayer(LayerManager layerManager) {
+		sessionManager.deleteLayer(layerManager);
+		
 		chainOfLayers.deleteLayer(layerManager.getLayer());
 		mainWindow.deleteLayerManager(layerManager);	
 		refreshFrameOut();
@@ -130,13 +123,14 @@ public class GuiManager
 	///////////////////////////////////////////////////////////
 	
 	public void createAddFilterAndSetHistory(int layerIndex, int filterIndex, String filterName) {
-		FilterManager filterManager = filterFactory.createFilterFilterManager(layerIndex, filterIndex, filterName);	
+		FilterManager filterManager = sessionManager.createFilter(layerIndex, filterIndex, filterName);
 		addFilter( filterManager);
 		setAddFilterHistory(filterManager);
 	}	
 
 	public boolean deleteFilterAndSetHistory(FilterManager filterManager) {		
 		if (filterManager!=null) {
+			
 			deleteFilter(filterManager);			
 			setDeleteFilterHistory(filterManager);
 			return true;
@@ -147,12 +141,15 @@ public class GuiManager
 	}
 	
 	public void addFilter(FilterManager filterManager) {
+		sessionManager.addFilter(filterManager);
 		chainOfLayers.addFilter(filterManager.getFilter());	
 		mainWindow.addFilterManager(filterManager);	
 		mainWindow.getGuiManager().refreshFrameOut();
 	}	
 	
 	public void deleteFilter(FilterManager filterManager) {
+		sessionManager.deleteFilter(filterManager);
+		
 		chainOfLayers.deleteFilter(filterManager.getFilter());
 		mainWindow.deleteFilterManager(filterManager);
 		mainWindow.getGuiManager().refreshFrameOut();
@@ -172,11 +169,13 @@ public class GuiManager
 	}
 	
 	public void setOpacity(Filter opacityFilter, Float opacity) {	
+		sessionManager.updateOpacity(opacityFilter, opacity);
 		chainOfLayers.setOpacity(opacityFilter, opacity);
 		refreshFrameOut();
 	}	
 
 	public void setParametersAndSetHistory(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+		sessionManager.updateParameters(filterToSet, name, value);
 		chainOfLayers.setOneParameter (filterToSet, name, value);	
 		refreshFrameOut();
 		

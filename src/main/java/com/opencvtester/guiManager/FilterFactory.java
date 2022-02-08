@@ -4,6 +4,7 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
+import com.opencvtester.persistence.FilterData;
 
 public class FilterFactory {
 	private FiltersDataBase filtersDataBase;
@@ -15,26 +16,33 @@ public class FilterFactory {
 		this.guiManager=guiManager;
 	}
 	
-	public FilterManager createFilterFilterManager(int layerIndex, int filterIndex,String filterNamesInDataBase) {
-		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
+	public FilterManager createFilterManager(FilterData filterData) {
+		String filterNameInDataBase = filterData.filterNameInDataBase();
+		int layerIndex= filterData.layerIndex();
+		int filterIndex= filterData.filterIndex();
+
+		
+		FilterControlledByFloat newFilter = (FilterControlledByFloat) filtersDataBase.getFilter(filterNameInDataBase);
 		newFilter.setId(createFilterId(layerIndex,filterIndex));
+		
+		if (filterData.parameterValues()!=null) {
+			newFilter.setAllParameters(filterData.parameterValues());
+		}
+		
 		return new FilterManager((FilterControlledByFloat) newFilter, guiManager);
 	}
 	
-	public FilterManager createFilterManager(Id id,String filterNamesInDataBase) {
-		Filter newFilter = (Filter) filtersDataBase.getFilter(filterNamesInDataBase);
-		newFilter.setId(id.clone());
-		return new FilterManager((FilterControlledByFloat) newFilter, guiManager);
-	}
-	
-	public static Filter createFilter(Id id,String filterNamesInDataBase, FiltersDataBase db) {
-		Filter newFilter = (Filter)  db.getFilter(filterNamesInDataBase);
+	public static Filter createFilter(FilterData filterData, FiltersDataBase db) {
+		String filterNameInDataBase = filterData.filterNameInDataBase();
+		Id id= createFilterId(filterData.layerIndex(), filterData.filterIndex());
+		
+		Filter newFilter = (Filter)  db.getFilter(filterNameInDataBase);
 		newFilter.setId(id.clone());
 		return newFilter;
 	}
 	
 	
-	private Id createFilterId(int layerIndex, int filterIndex) {
+	private static Id createFilterId(int layerIndex, int filterIndex) {
 		Id id = new Id();
 		id.set(layerIndex, filterIndex);
 		return id;

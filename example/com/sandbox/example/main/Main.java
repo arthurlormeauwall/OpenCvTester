@@ -13,5 +13,7 @@ public class Main
 		
 		app.addFilterInDataBase("BGR Multiplier", new BlueGreenRedMultiplierFilter());
 		app.addFilterInDataBase("GrayScale", new GrayScaleFilter());	
+		
+		app.launch();
     }
 }

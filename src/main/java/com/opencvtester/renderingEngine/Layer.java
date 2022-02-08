@@ -6,9 +6,7 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.FrameInterface;
-import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.filtersDataBase.OpacityFilter;
-import com.opencvtester.guiManager.FilterFactory;
 import com.opencvtester.renderingEngine.renderer.LayerRenderer;
 
 public class Layer extends CompositeFilter

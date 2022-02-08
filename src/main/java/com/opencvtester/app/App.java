@@ -3,11 +3,13 @@ package com.opencvtester.app;
 import java.io.IOException;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.GuiManager;
 
 public class App
 {
-	private GuiManager guiManager;
+	private String fileName;
+	private FiltersDataBase filtersDataBase;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -15,14 +17,22 @@ public class App
 	public App (String fileName) throws IOException{
 		// Init open cv library
 		nu.pattern.OpenCV.loadLocally();
-		
-		guiManager= new GuiManager(fileName);
+		this.fileName=fileName;
+		filtersDataBase = new FiltersDataBase();
 	}	
 	
 	/*
 	 * FEATURES
 	 */
 	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
-		guiManager.addFilterInDatabase(name, filter);
+		filtersDataBase.addFilter(name, filter);
+	}
+	
+	public void launch() {
+		try {
+			new GuiManager(fileName, filtersDataBase);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

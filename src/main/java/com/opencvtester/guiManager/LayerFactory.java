@@ -4,6 +4,8 @@ import java.util.Stack;
 
 import com.opencvtester.baseClasses.Id;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
+import com.opencvtester.persistence.FilterData;
+import com.opencvtester.persistence.LayerData;
 import com.opencvtester.renderingEngine.Layer;
 
 public class LayerFactory {
@@ -30,8 +32,11 @@ public class LayerFactory {
 		return id;
 	}
 	
-	public LayerManager createLayerManager(int layerIndex, Stack<String> filterNames){
+	public LayerManager createLayerManager(LayerData layerData){
 		Stack<Id> id= new Stack<Id>();
+		int layerIndex=layerData.layerIndex();
+		Stack<String> filterNames=layerData.filterNames();
+		
 		id.push(createLayerId(layerIndex));
 		
 		if (filterNames!=null) {
@@ -46,7 +51,7 @@ public class LayerFactory {
 			int numberOfFilterToAdd = filterNames.size();
 
 			for (int i = 0; i < numberOfFilterToAdd; i++) {	
-				newLayer.addFilter(filtersFactory.createFilterManager(id.get(i + 1), filterNames.get(i)).getFilter());
+				newLayer.addFilter(filtersFactory.createFilterManager(new FilterData(id.get(i + 1).layerIndex(), id.get(i + 1).filterIndex(), filterNames.get(i), null)).getFilter());
 			}
 		}
 		
@@ -54,28 +59,34 @@ public class LayerFactory {
 		return layerManager;
 	}
 	
-	public LayerManager createEmptyLayerManager(int layerIndex){
+	public LayerManager createEmptyLayerManager(LayerData layerData){
+		int layerIndex=layerData.layerIndex();
+	
 		Layer newLayer= new Layer(layerIndex, filtersDataBase.getOpacityFilter());
 		return new LayerManager(newLayer, guiManager);
 	}
 	
-	public static Layer createLayer(int layerIndex, Stack<String> filterNames,FiltersDataBase filtersdb){
-		Stack<Id> id= new Stack<Id>();
-		id.push(createLayerId(layerIndex));
+	public static Layer createLayer(LayerData layerData, FiltersDataBase filtersdb){
+//		Stack<Id> id= new Stack<Id>();
 		
-		if (filterNames!=null) {
-			for (int i=0; i< filterNames.size(); i++) {
-				id.push(createFilterId(layerIndex, i));
-			}
-		}
+		int layerIndex=layerData.layerIndex();
+		Stack<String> filterNames=layerData.filterNames();
 		
-		Layer newLayer= new Layer(id.get(0).layerIndex(), filtersdb.getOpacityFilter());
+//		id.push(createLayerId(layerIndex));
+//		
+//		if (filterNames!=null) {
+//			for (int i=0; i< filterNames.size(); i++) {
+//				id.push(createFilterId(layerIndex, i));
+//			}
+//		}
+		
+		Layer newLayer= new Layer(layerIndex, filtersdb.getOpacityFilter());
 		
 		if (filterNames!=null) {
 			int numberOfFilterToAdd = filterNames.size();
 
 			for (int i = 0; i < numberOfFilterToAdd; i++) {	
-				newLayer.addFilter(FilterFactory.createFilter(id.get(i + 1), filterNames.get(i), filtersdb));
+				newLayer.addFilter(FilterFactory.createFilter(new FilterData(layerIndex, i+1, filterNames.get(i),null), filtersdb));
 			}
 		}
 		
@@ -83,7 +94,8 @@ public class LayerFactory {
 		return newLayer;
 	}
 	
-	public static Layer createEmptyLayer(int layerIndex, FiltersDataBase filtersdb){
+	public static Layer createEmptyLayer(LayerData layerData, FiltersDataBase filtersdb){
+		int layerIndex=layerData.layerIndex();
 		Layer newLayer= new Layer(layerIndex, filtersdb.getOpacityFilter());
 		return newLayer;
 	}
