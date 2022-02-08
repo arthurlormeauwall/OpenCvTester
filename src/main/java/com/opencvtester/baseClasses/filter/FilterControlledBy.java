@@ -27,9 +27,6 @@ public abstract class FilterControlledBy<T> extends Filter
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public void setIndex(String indexType, int newValue) {
-		id.setFilterOrLayer(indexType, newValue);
-	}
 
 	public void bypass(Boolean bypass){
 		setBypass(bypass);

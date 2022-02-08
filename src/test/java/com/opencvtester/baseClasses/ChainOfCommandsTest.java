@@ -1,10 +1,10 @@
 package com.opencvtester.baseClasses;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Random;
 import java.util.Stack;
-
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,11 +43,10 @@ class ChainOfCommandsTest {
 			//generate random layer and filter value between max and min value 
 			int randomLayerIndex= random.nextInt(layerIndexMaxValue-layerIndexMinValue + 1)+layerIndexMinValue;
 			int randomFilterIndex= random.nextInt(filterIndexMaxValue -layerIndexMinValue + 1)+filterIndexMinValue;
-		
-			Id id = new Id(randomLayerIndex,randomFilterIndex);
 	
-			layers.push(new Command(id));
-			filters.push(new Command(id));
+			layers.push(new Command(randomLayerIndex,randomFilterIndex));
+		
+			filters.push(new Command(randomLayerIndex,randomFilterIndex));
 		}
 	}
 	

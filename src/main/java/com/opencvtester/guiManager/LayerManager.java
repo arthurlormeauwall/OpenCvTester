@@ -24,7 +24,7 @@ public class LayerManager extends Command
 	public LayerManager(Layer layer, GuiManager guiManager) {
 		this.layer=layer;
 		this.guiManager=guiManager;
-		this.id.set(layer);
+		setLayerIndex(layer.layerIndex());
 		this.layerData=layer.getData();
 		
 		indexType="filter";

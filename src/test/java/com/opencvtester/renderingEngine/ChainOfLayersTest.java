@@ -1,6 +1,8 @@
 package com.opencvtester.renderingEngine;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Stack;
 
@@ -8,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.Frame;
@@ -132,12 +133,12 @@ class ChainOfLayersTest {
 	@Test
 	void testCheckAndActivateLayer() {
 		chainOfLayers.getLayer(0).deleteAllFilters();
-		filters.get(0).setId(new Id(0,0));
+		filters.get(0).setId(0,0);
 		chainOfLayers.getLayer(0).addFilter(filters.get(0));
 		
 		chainOfLayers.getLastLayer().deleteAllFilters();
-		filters.get(1).setId(new Id(0,1));
-		filters.get(2).setId(new Id(0,2));
+		filters.get(1).setId(0,1);
+		filters.get(2).setId(0,2);
 		chainOfLayers.getLastLayer().addFilter(filters.get(1));
 		chainOfLayers.getLastLayer().addFilter(filters.get(2));
 		
@@ -155,11 +156,11 @@ class ChainOfLayersTest {
 		chainOfLayers.getLastLayer().deleteAllFilters();
 		
 		///////////////// 
-		filters.get(0).setId(new Id(0,0));
+		filters.get(0).setId(0,0);
 		chainOfLayers.getLayer(0).addFilter(filters.get(0));
 		
-		filters.get(1).setId(new Id(1,1));
-		filters.get(2).setId(new Id(1,2));
+		filters.get(1).setId(1,1);
+		filters.get(2).setId(1,2);
 		chainOfLayers.getLastLayer().addFilter(filters.get(1));
 		chainOfLayers.getLastLayer().addFilter(filters.get(2));
 		
@@ -180,11 +181,11 @@ class ChainOfLayersTest {
 		chainOfLayers.getLastLayer().deleteAllFilters();
 		///////////////// 
 
-		filters.get(0).setId(new Id(0,0));
+		filters.get(0).setId(0,0);
 		chainOfLayers.getLayer(0).addFilter(filters.get(0));
 		
-		filters.get(1).setId(new Id(1,1));
-		filters.get(2).setId(new Id(1,2));
+		filters.get(1).setId(1,1);
+		filters.get(2).setId(1,2);
 		chainOfLayers.getLastLayer().addFilter(filters.get(1));
 		chainOfLayers.getLastLayer().addFilter(filters.get(2));
 		

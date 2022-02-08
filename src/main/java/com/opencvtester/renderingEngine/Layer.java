@@ -2,7 +2,6 @@ package com.opencvtester.renderingEngine;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.FrameInterface;
@@ -22,21 +21,16 @@ public class Layer extends CompositeFilter
 	public Layer (LayerData layerData, OpacityFilter opacityFilter) {
 		super();
 		this.layerData=layerData;
-		this.id.set(createLayerId(layerData.layerIndex()));
+		setLayerIndex(layerData.layerIndex());
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		this.opacityFilter = opacityFilter;
-		opacityFilter.setLayerIndex(id.layerIndex());
+		
+		opacityFilter.setLayerIndex(layerIndex());
 		opacityFilter.setFilterIndex(-1);
+		
 		renderer= new LayerRenderer(this);
 	}
-	
-	private Id createLayerId(int layerIndex) {	
-		Id id = new Id();
-		id.set(layerIndex, 0);
-		return id;
-	}	
-	
 	/*
 	 * GETTERS & SETTERS
 	 */
@@ -92,13 +86,13 @@ public class Layer extends CompositeFilter
 	}
 	
 	public void addFilter(Filter filter) {
-		if (filter.layerIndex()==id.layerIndex()) {
+		if (filter.layerIndex()==layerIndex()) {
 			add(filter);
 		}
 	}
 
 	public void deleteFilter(Filter filter) {
-		if (filter.layerIndex()==id.layerIndex()) {
+		if (filter.layerIndex()==layerIndex()) {
 			delete(filter);
 		}
 	}

@@ -2,56 +2,64 @@ package com.opencvtester.baseClasses;
 
 public class Command 
 {
-	protected Id id;
     protected Boolean isBypass;
     protected Boolean isBypassLocked;
+	private int layerIndex;
+	private int filterIndex;
     
     
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	public Command() {    
-		this.id = new Id ();   
-		this.id.initNULL();
 		isBypassLocked=false;
     } 
 	
-    public Command(Id id) {	
-    	this.id = new Id();
-    	this.id.set(id);
-	    isBypass = false;
-	    isBypassLocked=false;
-    } 
-	
+	public Command(int layerIndex, int filterIndex) {
+		isBypassLocked=false;
+		setId(layerIndex, filterIndex);
+	}
+
 	/*
 	 * GETTERS & SETTERS
 	 */
-    public void setId(Id id) {
-    	this.id=id;
-    }
+	public void setId(int layerIndex, int filterIndex) {
+		this.layerIndex=layerIndex;
+		this.filterIndex=filterIndex;
+	}
     
     public void setLayerIndex(int layerIndex) {
-    	id.setLayerIndex(layerIndex);
+    	this.layerIndex=layerIndex;
     }
     
     public void setFilterIndex(int filterIndex) {
-    	id.setFilterIndex(filterIndex);
+    	this.filterIndex=filterIndex;
     }
     
     public int layerIndex() {
-    	return id.layerIndex();
+    	return layerIndex;
     }
     
     public int filterIndex() {
-    	return id.filterIndex();
+    	return filterIndex;
     }
     
-    public int getIndex(String key) {
-    	return id.get(key);
+    public int getIndex(String indexType) {
+    	if (indexType=="layer") {
+    		return layerIndex;
+    	}
+    	else {
+    		return filterIndex;
+    	}
     }
 
     public void setIndex(String indexType, int newValue) {
-    	id.setFilterOrLayer(indexType, newValue);
+    	if (indexType=="layer") {
+    		layerIndex=newValue;
+    	}
+    	else {
+    		filterIndex=newValue;
+    	}
     }
     
     public Boolean isbypassLocked () {

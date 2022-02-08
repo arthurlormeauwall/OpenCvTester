@@ -1,6 +1,5 @@
 package com.opencvtester.dataAccess;
 
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
@@ -24,7 +23,7 @@ public class FilterFactory {
 
 		
 		FilterControlledByFloat newFilter = (FilterControlledByFloat) filtersDataBase.getFilter(filterNameInDataBase, filterData);
-		newFilter.setId(createFilterId(layerIndex,filterIndex));
+		newFilter.setId(layerIndex,filterIndex);
 		
 		if (filterData.parameterValues()!=null) {
 			newFilter.setAllParameters(filterData.parameterValues());
@@ -35,17 +34,9 @@ public class FilterFactory {
 	
 	public static Filter createFilter(FilterData filterData, FiltersDataBase db) {
 		String filterNameInDataBase = filterData.filterNameInDataBase();
-		Id id= createFilterId(filterData.layerIndex(), filterData.filterIndex());
 		
 		Filter newFilter = (Filter)  db.getFilter(filterNameInDataBase, filterData);
-		newFilter.setId(id.clone());
+		newFilter.setId(filterData.layerIndex(), filterData.filterIndex());
 		return newFilter;
-	}
-	
-	
-	private static Id createFilterId(int layerIndex, int filterIndex) {
-		Id id = new Id();
-		id.set(layerIndex, filterIndex);
-		return id;
 	}
 }

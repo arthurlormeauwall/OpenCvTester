@@ -3,7 +3,6 @@ package com.opencvtester.renderingEngine;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.Frame;
@@ -65,26 +64,7 @@ public class ChainOfLayers extends CompositeFilter
 	
 	/*
 	 * FEATURES
-	 */
-//	public Layer createLayer(Stack<Id> filterId, Stack<String> filterNames) {	
-//		if (!isIndexOutOfRange(filterId.get(0).layerIndex())) {
-//			Layer layer = LayerFactory.createLayer(filterId, filterNames, filtersDataBase);	
-//			return layer;
-//		}
-//		else {
-//			return null;
-//		}
-//	}	
-//	
-//	public Layer createEmptyLayer(int layerIndex) {	
-//		if (!isIndexOutOfRange(layerIndex)) {
-//			Layer layer = LayerFactory.createEmptyLayer(layerIndex,filtersDataBase);	
-//			return layer;
-//		}
-//		else {
-//			return null;
-//		}
-//	}	
+	 */	
 	
 	public void  addLayer(Layer newLayer) {
 		add(newLayer);
@@ -102,11 +82,6 @@ public class ChainOfLayers extends CompositeFilter
 		
 		execute();		
 	}  
-	
-//	public Filter createFilter(Id filterId, String filterName) {		
-//		return  ((Layer)chainOfFilters.getCommand(filterId.layerIndex())).createFilter(filterId, filterName);
-//	}
-//	
 	
 	public void addFilter(Filter filter) {
 		if (areIndexLegal(filter.layerIndex(), filter.filterIndex())) {
@@ -152,18 +127,7 @@ public class ChainOfLayers extends CompositeFilter
 			checkAndActivateFilter(filterToSet);
 			execute();	
 	}
-	
-	public void setBypass(Id id, Boolean bypass){
-		
-		if (areIndexLegal(id.layerIndex(), id.filterIndex())) {
-	
-			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(id.layerIndex())).getFilter(id.filterIndex()));
-			
-			filterToBypass.bypass(bypass);
-			checkAndActivateFilter(filterToBypass);			
-			execute();
-		}
-	}   
+	  
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass){
 		
 		if (areIndexLegal(layerIndex, filterIndex)) {

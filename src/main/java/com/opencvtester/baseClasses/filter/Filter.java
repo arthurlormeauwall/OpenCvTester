@@ -1,7 +1,6 @@
 package com.opencvtester.baseClasses.filter;
 
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 
@@ -17,13 +16,6 @@ public abstract class Filter extends Command
 	 * CONSTRUCTOR & INITS & ABSTRACT
 	 */
 	public Filter() {
-		activate= false;
-		frameIn = new Frame();
-		frameOut   = new Frame();
-	}
-	
-	public Filter(Id id) {
-		super (id);
 		activate= false;
 		frameIn = new Frame();
 		frameOut   = new Frame();

@@ -20,7 +20,7 @@ public class FilterManager extends Command {
 	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){
 		this.filterData=filter.getData();
 		this.filter=filter;
-		this.id.set(filter);
+		setId(filter.layerIndex(), filter.filterIndex());
 		filterWidget=new FilterWidget(filter, guiManager);
 	}
 	
