@@ -2,11 +2,8 @@ package com.opencvtester.dataAccess;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Stack;
 
-import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.filter.FilterControlledBy;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.FilterManager;
@@ -14,16 +11,12 @@ import com.opencvtester.guiManager.GuiManager;
 import com.opencvtester.guiManager.LayerManager;
 
 public class SessionManager {
-	private LayerFactory layerFactory;
-	private FilterFactory filterFactory;
 	private LayerDao layerDao;
 	private FilterDao filterDao;
 	private Session session;
 	
 	public SessionManager(FiltersDataBase filtersDataBase, GuiManager guiManager) {
 		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
-		
-		filterFactory=new FilterFactory(filtersDataBase, guiManager);
 		
 		layerDao=new LayerDao(new LayerFactory(filtersDataBase, guiManager));
 		layerDao.init(session);
@@ -41,7 +34,6 @@ public class SessionManager {
 		return layerDao.create(new LayerData(layerIndex, 100f, filterNames));
 	}
 
-	
 	public LayerManager createLayer(int layerIndex) {	
 		return layerDao.create(new LayerData(layerIndex, 100f, null));
 	}

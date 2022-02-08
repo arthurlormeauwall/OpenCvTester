@@ -1,14 +1,9 @@
 package com.opencvtester.guiManager;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.Stack;
 
-import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
-import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.dataAccess.SessionManager;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.MainWindow;

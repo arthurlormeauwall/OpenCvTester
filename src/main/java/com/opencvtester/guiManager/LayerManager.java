@@ -2,9 +2,7 @@ package com.opencvtester.guiManager;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
-import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.dataAccess.LayerData;
-import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.LayerWidget;
 import com.opencvtester.gui.LayerWindow;
 import com.opencvtester.renderingEngine.Layer;
