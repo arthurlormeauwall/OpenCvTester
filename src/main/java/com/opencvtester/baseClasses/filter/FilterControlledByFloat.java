@@ -2,17 +2,12 @@ package com.opencvtester.baseClasses.filter;
 
 import java.util.LinkedHashMap;
 
-import com.opencvtester.dataAccess.FilterData;
-
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 {
 	
 	/*
 	 * CONSTRUCTOR & INITS & ABSTRACT
 	 */
-
-	private FilterData filterData;
-
 	public FilterControlledByFloat() {
 		initFilterControlledByFloat();
 	} 
@@ -51,26 +46,5 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		flags.zeroEffectValues.put(name, zeroEffectValue);
 		flags.numberOfParameters ++;
 		flags.sliderScale.put(name, sliderScale);
-	}
-	
-	public void setFilterName(String name) {
-		flags.filterName=name;
-	}
-	
-	public String getFilterName() {
-		return flags.filterName;
-	}
-	
-	public void setEmptyFlags() {
-		flags.numberOfParameters=0;
-	}
-
-	public FilterData getData() {
-		
-		return filterData;
-	}
-
-	public void setData(FilterData filterData) {
-		this.filterData=filterData;		
 	}
 }

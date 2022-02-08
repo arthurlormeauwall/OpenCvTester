@@ -1,5 +1,11 @@
 package com.opencvtester.dataAccess;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Stack;
@@ -24,10 +30,43 @@ public class SessionManager {
 		filterDao.init(session);
 	}
 	
-	public void saveSession(String fileName, GuiManager guiManager) {	
+	public void saveSession(String fileName) {	
+		try(FileOutputStream out = new FileOutputStream(fileName);ObjectOutputStream os = new ObjectOutputStream(out)) {
+			os.writeObject(session); 
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 	}
 
-	public void reloadSession(String fileName, GuiManager guiManager) {	
+	public void reloadSession(String fileName) {
+		try(FileInputStream in = new FileInputStream(fileName);ObjectInputStream ins = new ObjectInputStream(in)) {
+			session = (Session)ins.readObject(); 	
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+	
+			e.printStackTrace();
+		} 
+	}
+	public void restoreSession(String fileName, GuiManager guiManager) {	
+		reloadSession(fileName);
+		guiManager.clearAll();
+		buildFromSession(guiManager);
+	}
+
+	private void buildFromSession(GuiManager guiManager) {
+		for (int i=0;i<session.layers().size();i++) {
+			guiManager.addLayer(layerDao.create(session.layers().get(i)));	
+		}
+		
+		for (int i=0;i<session.filters().size();i++) {
+			guiManager.addFilter(filterDao.create(session.filters().get(i)));
+		}
 	}
 
 	public LayerManager createLayer(int layerIndex, Stack<String> filterNames) {	

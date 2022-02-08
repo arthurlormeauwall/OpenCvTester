@@ -7,7 +7,6 @@ public class Command
 	private int layerIndex;
 	private int filterIndex;
     
-    
 	/*
 	 * CONSTRUCTOR & INITS
 	 */

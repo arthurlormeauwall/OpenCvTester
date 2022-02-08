@@ -157,6 +157,13 @@ public class MainWindow extends JFrame
 		this.pack();
 	}
 
+	public void clearAll() {
+		for (int i=chainOfLayerManagers.getNumberOfLayer()-1;i>=0;i--) {
+			chainOfLayerManagers.getLayerManager(i).deleteLayerWindow();
+			chainOfLayerManagers.deleteLayerManager(chainOfLayerManagers.getLayerManager(i));	
+		}
+	}
+
 }
 
 

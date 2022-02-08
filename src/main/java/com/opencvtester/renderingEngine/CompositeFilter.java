@@ -10,7 +10,6 @@ import com.opencvtester.renderingEngine.renderer.Renderer;
 public abstract class CompositeFilter extends Filter
 {
 	protected Stack<FrameInterface> frames;
-//	protected FiltersDataBase filtersDataBase;
 	protected ChainOfCommands chainOfFilters;
 	protected Renderer renderer;
 	protected String indexType;

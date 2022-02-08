@@ -52,15 +52,14 @@ public class GuiManager
 	 * FEATURES
 	 */	
 	
-	public void reload() {
-		
-		String fileName="src/main/ressources/session/session";
-		sessionManager.reloadSession(fileName, this);
+	public void reload() {		
+		String fileName="src/main/ressources/sessions/session";
+		sessionManager.restoreSession(fileName, this);
 	}
 
 	public void save() {
-		String fileName="src/main/ressources/session/session";
-		sessionManager.saveSession(fileName, this);	
+		String fileName="src/main/ressources/sessions/session";
+		sessionManager.saveSession(fileName);	
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex, Stack<String> filterNames) {
@@ -205,5 +204,12 @@ public class GuiManager
 	
 	public void store() {	
 		history.storeCurrentStateInHistory();
+	}
+
+
+	public void clearAll() {
+		chainOfLayers.clearAll();
+		mainWindow.clearAll();
+		refreshFrameOut();
 	}
 }

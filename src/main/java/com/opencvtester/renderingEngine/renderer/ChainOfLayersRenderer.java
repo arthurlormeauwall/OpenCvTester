@@ -33,8 +33,8 @@ public class ChainOfLayersRenderer extends Renderer {
 	/*
 	 * FEATURES
 	 */
-	public void execute(Stack<Command> chainOfFilters) {
-		dealFrames(chainOfFilters);	
+	public void execute(Stack<Command> chainOfLayers) {
+		dealFrames(chainOfLayers);	
 		dealFramesInLayers();
 		dealBackground();	
 		render();	

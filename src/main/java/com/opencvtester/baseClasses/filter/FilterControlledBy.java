@@ -5,12 +5,14 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.filtersDataBase.FilterFlags;
 
 public abstract class FilterControlledBy<T> extends Filter
 {
 	protected LinkedHashMap<String, T> currentParameters;
 	protected FilterFlags<T> flags;
+	protected FilterData filterData;
 	
 	/*
 	 * CONSTRUCTOR & INITS & ABSTRACT
@@ -52,6 +54,31 @@ public abstract class FilterControlledBy<T> extends Filter
 		return flags;
 	}
 	
+	public void setFilterName(String name) {
+		flags.filterName=name;
+	}
+	
+	public String getFilterName() {
+		return flags.filterName;
+	}
+	
+	public void setEmptyFlags() {
+		flags.numberOfParameters=0;
+	}
+
+	public FilterData getData() {
+		
+		return filterData;
+	}
+
+	public void setData(FilterData filterData) {
+		this.filterData=filterData;		
+	}
+	
+	
+	/*
+	 * FEATURES
+	 */
 	@SuppressWarnings("unchecked")
 	public void setParameter(String name, T value) {
 		LinkedHashMap<String, T> temp= new LinkedHashMap<String, T>();
@@ -84,4 +111,6 @@ public abstract class FilterControlledBy<T> extends Filter
 		activate();
 		
 	}
+
+	
 }

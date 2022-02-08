@@ -46,10 +46,6 @@ public class ChainOfLayers extends CompositeFilter
 	/*
 	 * GETTERS AND SETTERS
 	 */	
-//	public FiltersDataBase getFilterDataBase() {
-//		return filtersDataBase;
-//	}
-//	
 	public Layer getLastLayer(){
 		return (Layer)chainOfFilters.getCommand(chainOfFilters.getSize() - 1);
 	}   
@@ -96,10 +92,10 @@ public class ChainOfLayers extends CompositeFilter
 		((Layer)chainOfFilters.getCommand(filter.layerIndex())).deleteFilter(filter);
 		
 		if (this.getLayer(filter.layerIndex()).getNumberOfFilters()==0 || filter.filterIndex()==0) {
-			checkAndActivateLayer(this.getLayer(filter.layerIndex()));
+			checkAndActivateLayer(getLayer(filter.layerIndex()));
 		}
 		else {
-			checkAndActivateFilter(this.getLayer(filter.layerIndex()).getFilter(filter.filterIndex()-1));
+			checkAndActivateFilter(getLayer(filter.layerIndex()).getFilter(filter.filterIndex()-1));
 		}
 
 		execute();
@@ -167,5 +163,18 @@ public class ChainOfLayers extends CompositeFilter
 
 	public void execute() {
 		renderer.execute(chainOfFilters.getChain());
+	}
+
+	public void clearAll() {
+	
+		for (int i=getNumberOfLayers()-1;i>=0;i--) {
+			Layer layer= (Layer) chainOfFilters.getCommand(i);
+			delete(layer);
+			
+			if (layer.layerIndex()>0) {
+				checkAndActivateLayer(this.getLayer(layer.layerIndex()-1));
+			}
+		}		
+		execute();	
 	}
 }
