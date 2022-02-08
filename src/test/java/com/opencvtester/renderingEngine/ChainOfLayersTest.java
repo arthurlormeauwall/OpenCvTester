@@ -12,9 +12,9 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.dataAccess.FilterFactory;
+import com.opencvtester.dataAccess.LayerFactory;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
-import com.opencvtester.guiManager.FilterFactory;
-import com.opencvtester.guiManager.LayerFactory;
 
 class ChainOfLayersTest {
 

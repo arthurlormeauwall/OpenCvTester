@@ -1,6 +1,5 @@
-package com.opencvtester.persistence;
+package com.opencvtester.dataAccess;
 
-import com.opencvtester.guiManager.LayerFactory;
 import com.opencvtester.guiManager.LayerManager;
 
 public class LayerDao implements Dao<LayerManager> {
@@ -28,14 +27,14 @@ public class LayerDao implements Dao<LayerManager> {
 
 	@Override
 	public void add(LayerManager layerManager) {
-		
+		session.layers().add(layerManager.getData());
 		
 	}
 
 	@Override
 	public void delete(LayerManager layerManager) {
 		
-		
+		session.layers().remove(layerManager.getData());
 	}
 
 }

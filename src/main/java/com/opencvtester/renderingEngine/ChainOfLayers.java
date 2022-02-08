@@ -8,7 +8,7 @@ import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
-import com.opencvtester.guiManager.LayerFactory;
+import com.opencvtester.dataAccess.LayerFactory;
 import com.opencvtester.renderingEngine.renderer.ChainOfLayersRenderer;
 
 public class ChainOfLayers extends CompositeFilter

@@ -1,14 +1,14 @@
-package com.opencvtester.persistence;
+package com.opencvtester.dataAccess;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
-import com.opencvtester.guiManager.FilterFactory;
 import com.opencvtester.guiManager.FilterManager;
 import com.opencvtester.guiManager.GuiManager;
-import com.opencvtester.guiManager.LayerFactory;
 import com.opencvtester.guiManager.LayerManager;
 
 public class SessionManager {
@@ -19,63 +19,58 @@ public class SessionManager {
 	private Session session;
 	
 	public SessionManager(FiltersDataBase filtersDataBase, GuiManager guiManager) {
+		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		
 		filterFactory=new FilterFactory(filtersDataBase, guiManager);
 		
 		layerDao=new LayerDao(new LayerFactory(filtersDataBase, guiManager));
 		layerDao.init(session);
+		filterDao=new FilterDao(new FilterFactory(filtersDataBase, guiManager));
+		filterDao.init(session);
 	}
 	
-	public void saveSession(String fileName, GuiManager guiManager) {
-		// TODO Auto-generated method stub
-		
+	public void saveSession(String fileName, GuiManager guiManager) {	
 	}
 
-	public void reloadSession(String fileName, GuiManager guiManager) {
-		// TODO Auto-generated method stub
-		
+	public void reloadSession(String fileName, GuiManager guiManager) {	
 	}
 
-	public LayerManager createLayer(int layerIndex, Stack<String> filterNames) {
-		
+	public LayerManager createLayer(int layerIndex, Stack<String> filterNames) {	
 		return layerDao.create(new LayerData(layerIndex, 100f, filterNames));
 	}
 
-	public LayerManager createLayer(int layerIndex) {
-		
+	
+	public LayerManager createLayer(int layerIndex) {	
 		return layerDao.create(new LayerData(layerIndex, 100f, null));
 	}
 	
-	public void deleteLayer(LayerManager layerManager) {
-		
-		
-	}
 	
 	public void addLayer(LayerManager layerManager) {
-		// TODO Auto-generated method stub		
+		layerDao.add(layerManager);
 	}	
+	
+	public void deleteLayer(LayerManager layerManager) {
+		layerDao.delete(layerManager);	
+	}
+
+
+	public void updateOpacity(Filter opacityFilter, Float opacity) {	
+	}
 
 	public FilterManager createFilter(int layerIndex, int filterIndex, String filterName) {
-		
 		return filterDao.create(new FilterData(layerIndex,filterIndex, filterName, null));
 	}
 	
-	public void addFilter(FilterManager filterManager) {
-		
-		
+	public void addFilter(FilterManager filterManager) {	
+		filterDao.add(filterManager);
 	}
 	
 	public void deleteFilter(FilterManager filterManager) {
-		
+		filterDao.delete(filterManager);
 	}
 
-	public void updateOpacity(Filter opacityFilter, Float opacity) {
-		
-		
-	}
 
-	public void updateParameters(FilterControlledByFloat filterToSet, String name, Float value) {
-		// TODO Auto-generated method stub
-		
+	public void updateParameters(FilterControlledByFloat filterToSet, String name, Float value) {		
 	}
 
 }

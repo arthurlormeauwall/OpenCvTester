@@ -8,6 +8,8 @@ import java.util.Stack;
 
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.dataAccess.FilterData;
+import com.opencvtester.dataAccess.SessionManager;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.MainWindow;
 import com.opencvtester.historyManager.HistoryManager;
@@ -15,8 +17,6 @@ import com.opencvtester.historyManager.action.AddOrDeleteFilter;
 import com.opencvtester.historyManager.action.AddOrDeleteLayer;
 import com.opencvtester.historyManager.action.Functionalities;
 import com.opencvtester.historyManager.action.SetParameters;
-import com.opencvtester.persistence.FilterData;
-import com.opencvtester.persistence.SessionManager;
 import com.opencvtester.renderingEngine.ChainOfLayers;
 
 
@@ -92,7 +92,7 @@ public class GuiManager
 	}
 	
 	public void addLayer(LayerManager layerManager) {
-		 sessionManager.addLayer(layerManager);
+		sessionManager.addLayer(layerManager);
 		 
 		chainOfLayers.addLayer(layerManager.getLayer());			
 		mainWindow.addLayerManager(layerManager);
@@ -175,11 +175,9 @@ public class GuiManager
 	}	
 
 	public void setParametersAndSetHistory(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
-		sessionManager.updateParameters(filterToSet, name, value);
-		chainOfLayers.setOneParameter (filterToSet, name, value);	
-		refreshFrameOut();
 		
-		 setSetParameterHistory(filterToSet);
+		setParameters(filterToSet, name, value);
+		setSetParameterHistory(filterToSet);
 	}
 	
 	public void setSetParameterHistory(FilterControlledByFloat filter) {
@@ -188,6 +186,7 @@ public class GuiManager
 	}
 	
 	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+		sessionManager.updateParameters(filterToSet, name, value);
 		chainOfLayers.setOneParameter (filterToSet, name, value);	
 		refreshFrameOut();
 	}

@@ -6,6 +6,7 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.baseClasses.frame.FrameInterface;
+import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.filtersDataBase.OpacityFilter;
 import com.opencvtester.renderingEngine.renderer.LayerRenderer;
 
@@ -13,14 +14,15 @@ public class Layer extends CompositeFilter
 {
 	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;
+	protected LayerData layerData;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public Layer (int layerIndex, OpacityFilter opacityFilter) {
+	public Layer (LayerData layerData, OpacityFilter opacityFilter) {
 		super();
-		
-		this.id.set(createLayerId(layerIndex));
+		this.layerData=layerData;
+		this.id.set(createLayerId(layerData.layerIndex()));
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		this.opacityFilter = opacityFilter;
@@ -71,16 +73,6 @@ public class Layer extends CompositeFilter
 	/*
 	 * FEATURES
 	 */
-//	public Filter createFilter(Id  id,String filterNamesInDataBase) {
-//		return FilterFactory.createFilter(id, filterNamesInDataBase);
-//	}
-	
-//	public void createAndAdd(Id  id,String filterNamesInDataBase) {	
-//		if (!isIndexOutOfRange(id.filterIndex())) {
-//			Filter filter = createFilter(id, filterNamesInDataBase);		
-//			add(filter);
-//		}
-//	}
 	
 	public void execute() {	
 		renderer.execute(chainOfFilters.getChain());
@@ -91,7 +83,7 @@ public class Layer extends CompositeFilter
 	}
 	
 	public Command clone() {	
-		Layer newMaskedLayer= new Layer(id.layerIndex(), opacityFilter);
+		Layer newMaskedLayer= new Layer(layerData, opacityFilter);
 		
 		newMaskedLayer.setChain(chainOfFilters.clone());
 		newMaskedLayer.setBackGround(background);
@@ -116,5 +108,10 @@ public class Layer extends CompositeFilter
 		for (int i=size-1; i>=0;i--) {
 			deleteFilter(getLastFilter());
 		}
+	}
+
+	public LayerData getData() {
+		
+		return layerData;
 	}
 }

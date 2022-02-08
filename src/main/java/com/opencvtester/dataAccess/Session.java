@@ -1,4 +1,4 @@
-package com.opencvtester.persistence;
+package com.opencvtester.dataAccess;
 
 import java.util.List;
 

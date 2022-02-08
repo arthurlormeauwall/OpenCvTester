@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.dataAccess.FilterData;
 
 public class FiltersDataBase 
 {
@@ -23,8 +24,10 @@ public class FiltersDataBase
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public FilterControlledByFloat getFilter(String name){
-		return filters.get(name).createNew();	
+	public FilterControlledByFloat getFilter(String name, FilterData filterData){
+		FilterControlledByFloat filter = filters.get(name).createNew();	
+		filter.setData(filterData);
+		return filter;
 	}
 	
 	public void addFilter(String name, FilterControlledByFloat filter) {

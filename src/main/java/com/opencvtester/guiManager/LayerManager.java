@@ -2,6 +2,8 @@ package com.opencvtester.guiManager;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
+import com.opencvtester.dataAccess.FilterData;
+import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.LayerWidget;
 import com.opencvtester.gui.LayerWindow;
@@ -16,6 +18,7 @@ public class LayerManager extends Command
 	protected LayerWindow layerWindow;
 	protected GuiManager guiManager;
 	protected String indexType;
+	private LayerData layerData;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -24,6 +27,7 @@ public class LayerManager extends Command
 		this.layer=layer;
 		this.guiManager=guiManager;
 		this.id.set(layer);
+		this.layerData=layer.getData();
 		
 		indexType="filter";
 		chainOfFilterManager=new ChainOfCommands(indexType);
@@ -65,11 +69,6 @@ public class LayerManager extends Command
 		newFilterManager.getFilterWidget().setVisible(true);
 		return newFilterManager;
 	}
-	public FilterManager addFilterManager(int filterIndex, String filterName, FiltersDataBase filterDataBase) {
-		FilterManager filterManager = new FilterManager(filterDataBase.getFilter(filterName), guiManager);	
-		chainOfFilterManager.addCommand(filterManager);
-		return filterManager;
-	}
 	
 	public void deleteLayerWindow() {
 		layerWindow.setVisible(false);
@@ -79,5 +78,9 @@ public class LayerManager extends Command
 	public void createLayerWindow() {
 		layerWindow=new LayerWindow(this, this.guiManager);
 		layerWindow.setVisible(false);
+	}
+
+	public LayerData getData() {
+		return layerData;
 	}
 }

@@ -1,6 +1,5 @@
-package com.opencvtester.persistence;
+package com.opencvtester.dataAccess;
 
-import com.opencvtester.guiManager.FilterFactory;
 import com.opencvtester.guiManager.FilterManager;
 
 public class FilterDao implements Dao<FilterManager> {
@@ -25,14 +24,14 @@ public class FilterDao implements Dao<FilterManager> {
 	}
 
 	@Override
-	public FilterManager create(DataRecord data) {
+	public FilterManager create(DataRecord filterData) {
 		
-		return filterFactory.createFilterManager((FilterData)data);
+		return filterFactory.createFilterManager((FilterData)filterData);
 	}
 
 	@Override
 	public void add(FilterManager  filterManager) {
-		
+		session.filters().add(filterManager.getData());
 		
 	}
 
