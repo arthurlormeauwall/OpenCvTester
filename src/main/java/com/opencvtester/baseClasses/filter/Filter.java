@@ -8,9 +8,6 @@ import com.opencvtester.baseClasses.frame.FrameInterface;
 
 public abstract class Filter extends Command
 {
-	/**
-	 * 
-	 */
 	
 	protected FrameInterface frameIn;
 	protected FrameInterface frameOut;

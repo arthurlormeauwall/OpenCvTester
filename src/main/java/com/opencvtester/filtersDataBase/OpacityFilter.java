@@ -27,6 +27,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	 * GETTERS & SETTERS
 	 */
 	public void setParameterFlags() {	
+		flags.filterName="Opacity";
 		opacity=1f; 
 		addParameterFlag("Opacity", 1f,1f, 100); 
 	}

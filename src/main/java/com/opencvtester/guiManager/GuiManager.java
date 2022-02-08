@@ -168,7 +168,7 @@ public class GuiManager
 		history.setState(parameter);
 	}
 	
-	public void setOpacity(Filter opacityFilter, Float opacity) {	
+	public void setOpacity(FilterControlledByFloat opacityFilter, Float opacity) {	
 		sessionManager.updateOpacity(opacityFilter, opacity);
 		chainOfLayers.setOpacity(opacityFilter, opacity);
 		refreshFrameOut();
@@ -185,7 +185,7 @@ public class GuiManager
 		history.setState(parameter);	
 	}
 	
-	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) {
 		sessionManager.updateParameters(filterToSet, name, value);
 		chainOfLayers.setOneParameter (filterToSet, name, value);	
 		refreshFrameOut();

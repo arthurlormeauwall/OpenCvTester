@@ -16,7 +16,7 @@ public class LayerDao implements Dao<LayerManager> {
 	}
 
 	@Override
-	public void update(LayerManager layerManager) {
+	public void update(DataRecord layerData) {
 		
 	}
 

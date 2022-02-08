@@ -7,6 +7,7 @@ import java.util.Stack;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.baseClasses.filter.DummyFilter;
+import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.dataAccess.LayerFactory;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 
@@ -22,7 +23,7 @@ class LayerFactoryTest {
 		tempNames.push("test");
 		tempNames.push("test");
 		
-		Layer layer = LayerFactory.createLayer(1, tempNames, filterDb);
+		Layer layer = LayerFactory.createLayer(new LayerData(1, 100f, tempNames), filterDb);
 		
 		assertEquals(1, layer.layerIndex());
 		assertEquals("test", layer.getFilter(0).getFilterName());

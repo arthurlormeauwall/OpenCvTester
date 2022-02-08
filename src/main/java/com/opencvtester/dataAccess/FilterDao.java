@@ -18,21 +18,23 @@ public class FilterDao implements Dao<FilterManager> {
 	}
 
 	@Override
-	public void update(FilterManager filterManager) {
-		
-		
+	public void update(DataRecord filterData) {
+		FilterData data= (FilterData)filterData;	
+		for (int i=0;i<session.filters().size();i++) {
+			if(session.filters().get(i).layerIndex()==data.layerIndex() && session.filters().get(i).filterIndex()==data.filterIndex()) {
+				session.filters().set(i, data);
+			}
+		}
 	}
 
 	@Override
 	public FilterManager create(DataRecord filterData) {
-		
 		return filterFactory.createFilterManager((FilterData)filterData);
 	}
 
 	@Override
 	public void add(FilterManager  filterManager) {
-		session.filters().add(filterManager.getData());
-		
+		session.filters().add(filterManager.getData());	
 	}
 
 	@Override

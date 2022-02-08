@@ -12,7 +12,9 @@ import com.opencvtester.baseClasses.Id;
 import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.baseClasses.frame.Frame;
+import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.dataAccess.FilterFactory;
+import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.dataAccess.LayerFactory;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 
@@ -35,12 +37,12 @@ class ChainOfLayersTest {
 		layers= new Stack<Layer>();
 		filters= new Stack<Filter>();
 		
-		filters.push(FilterFactory.createFilter(new Id(1,0), "test", filterDb));
-		filters.push(FilterFactory.createFilter(new Id(1,1), "test", filterDb));
-		filters.push(FilterFactory.createFilter(new Id(1,2), "test", filterDb));
+		filters.push(FilterFactory.createFilter(new FilterData(1,0,"test",null), filterDb));
+		filters.push(FilterFactory.createFilter(new FilterData(1,1,"test",null), filterDb));
+		filters.push(FilterFactory.createFilter(new FilterData(1,2,"test",null), filterDb));
 		
-		layers.push(LayerFactory.createEmptyLayer(0, filterDb));
-		layers.push(LayerFactory.createEmptyLayer(1, filterDb));
+		layers.push(LayerFactory.createEmptyLayer(new LayerData(0, 100f, null), filterDb));
+		layers.push(LayerFactory.createEmptyLayer(new LayerData(1, 100f, null), filterDb));
 		
 		chainOfLayers = new ChainOfLayers(new Frame(10,10,127));
 
@@ -84,19 +86,19 @@ class ChainOfLayersTest {
 	
 	@Test
 	void testAddFilter() {
-		Filter newFilter =FilterFactory.createFilter(new Id(1,3), "test",filterDb);
+		Filter newFilter =FilterFactory.createFilter(new FilterData(1,3,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter);
 		
 		assertEquals(newFilter, chainOfLayers.getLastLayer().getLastFilter());	
 		
-		Filter newFilter2 =FilterFactory.createFilter(new Id(0,2), "test",filterDb);
+		Filter newFilter2 =FilterFactory.createFilter(new FilterData(0,2,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter2);
 		
 		assertEquals(0, chainOfLayers.getLayer(0).getNumberOfFilters());	
 		
-		Filter newFilter3 =FilterFactory.createFilter(new Id(0,0), "test",filterDb);
+		Filter newFilter3 =FilterFactory.createFilter(new FilterData(0,0,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter3);
 		
@@ -107,7 +109,7 @@ class ChainOfLayersTest {
 	
 	@Test
 	void testUpdateId() {	
-		Filter newFilter =FilterFactory.createFilter(new Id(1,1), "test",filterDb);
+		Filter newFilter =FilterFactory.createFilter(new FilterData(1,1,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter);
 		

@@ -34,6 +34,7 @@ public class FiltersDataBase
 		if (filter!=null) {
 			filter.setFilterName(name);
 		}
+	
 		filters.put(name, filter);
 	}
 	
