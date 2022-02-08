@@ -14,7 +14,8 @@ public class OpacityFilter extends FilterControlledByFloat
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public OpacityFilter() {
+	public OpacityFilter(String name) {
+		super(name);
 	}
 	
 	public void init(FrameInterface background) {
@@ -49,7 +50,7 @@ public class OpacityFilter extends FilterControlledByFloat
 	}
 	
 	public FilterControlledByFloat createNew() {	
-		return new OpacityFilter();
+		return new OpacityFilter(getFilterName());
 	}
 
 	/*

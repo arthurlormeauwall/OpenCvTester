@@ -4,11 +4,12 @@ import java.util.LinkedHashMap;
 
 public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 {
-	
+	protected String name;
 	/*
 	 * CONSTRUCTOR & INITS & ABSTRACT
 	 */
-	public FilterControlledByFloat() {
+	public FilterControlledByFloat(String name) {
+		this.name=name;
 		initFilterControlledByFloat();
 	} 
 	
@@ -22,6 +23,7 @@ public abstract class FilterControlledByFloat extends FilterControlledBy<Float>
 		currentParameters= new LinkedHashMap<String, Float>();
 	
 		setParameterFlags();
+		setFilterName(name);
 		setAllParameters((LinkedHashMap<String, Float>)flags.defaultValues.clone());
 	}
 	

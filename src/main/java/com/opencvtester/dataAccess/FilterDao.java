@@ -20,9 +20,9 @@ public class FilterDao implements Dao<FilterManager> {
 	@Override
 	public void update(DataRecord filterData) {
 		FilterData data= (FilterData)filterData;	
-		for (int i=0;i<session.filters().size();i++) {
-			if(session.filters().get(i).layerIndex()==data.layerIndex() && session.filters().get(i).filterIndex()==data.filterIndex()) {
-				session.filters().set(i, data);
+		for (int i=0;i<session.getFilters().size();i++) {
+			if(session.getFilters().get(i).getLayerIndex()==data.getLayerIndex() && session.getFilters().get(i).getFilterIndex()==data.getFilterIndex()) {
+				session.getFilters().set(i, data);
 			}
 		}
 	}
@@ -34,13 +34,12 @@ public class FilterDao implements Dao<FilterManager> {
 
 	@Override
 	public void add(FilterManager  filterManager) {
-		session.filters().add(filterManager.getData());	
+		session.getFilters().add(filterManager.getData());	
 	}
 
 	@Override
 	public void delete(FilterManager  filterManager) {
-		
-		
+		session.getFilters().remove(filterManager.getData());	
 	}
 
 }

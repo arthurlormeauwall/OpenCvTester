@@ -24,8 +24,8 @@ public class App
 	/*
 	 * FEATURES
 	 */
-	public void addFilterInDataBase(String name, FilterControlledByFloat filter) {
-		filtersDataBase.addFilter(name, filter);
+	public void addFilterInDataBase(FilterControlledByFloat filter) {
+		filtersDataBase.addFilter(filter.getFilterName(), filter);
 	}
 	
 	public void launch() {

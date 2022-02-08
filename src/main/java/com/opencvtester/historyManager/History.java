@@ -85,5 +85,10 @@ public class History {
 	
 	public void clearRedoHistory() {
 		redoStack.clear();
+	}
+
+	public void clearUndoHistory() {
+		undoStack.clear();
+		
 	}	
 }

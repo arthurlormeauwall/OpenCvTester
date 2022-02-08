@@ -1,5 +1,6 @@
 package com.opencvtester.dataAccess;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,17 +21,32 @@ public class SessionManager {
 	private LayerDao layerDao;
 	private FilterDao filterDao;
 	private Session session;
+	private FiltersDataBase filtersDataBase;
+	private GuiManager guiManager;
+	private boolean recordInSession;
 	
 	public SessionManager(FiltersDataBase filtersDataBase, GuiManager guiManager) {
+		this.filtersDataBase=filtersDataBase;
+		this.guiManager= guiManager;
 		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
-		
+		recordInSession=true;
+		init();
+	}
+	
+	public void init() {
+	
 		layerDao=new LayerDao(new LayerFactory(filtersDataBase, guiManager));
 		layerDao.init(session);
 		filterDao=new FilterDao(new FilterFactory(filtersDataBase, guiManager));
 		filterDao.init(session);
 	}
 	
-	public void saveSession(String fileName) {	
+	public void saveSession(String fileName) {
+		File file= new File(fileName);
+		if (file.exists()) {
+			file.delete();
+		}
+		
 		try(FileOutputStream out = new FileOutputStream(fileName);ObjectOutputStream os = new ObjectOutputStream(out)) {
 			os.writeObject(session); 
 		} catch (FileNotFoundException e) {
@@ -39,10 +55,20 @@ public class SessionManager {
 			e.printStackTrace();
 		} 
 	}
+	
+	public void restoreSession(String fileName, GuiManager guiManager) {	
+		reloadSession(fileName);
+		guiManager.clearAll();
+		buildFromSession(guiManager);
+	}
 
 	public void reloadSession(String fileName) {
+		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		
 		try(FileInputStream in = new FileInputStream(fileName);ObjectInputStream ins = new ObjectInputStream(in)) {
-			session = (Session)ins.readObject(); 	
+			Session sessionTemp = (Session)ins.readObject(); 	
+			session = (Session) sessionTemp.clone();
+			init();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -52,21 +78,22 @@ public class SessionManager {
 	
 			e.printStackTrace();
 		} 
-	}
-	public void restoreSession(String fileName, GuiManager guiManager) {	
-		reloadSession(fileName);
-		guiManager.clearAll();
-		buildFromSession(guiManager);
+		
 	}
 
+
 	private void buildFromSession(GuiManager guiManager) {
-		for (int i=0;i<session.layers().size();i++) {
-			guiManager.addLayer(layerDao.create(session.layers().get(i)));	
+		int numberOfLayer= session.getLayers().size();
+		recordInSession=false;
+		for (int i=0;i<numberOfLayer;i++) {
+			
+			guiManager.addLayer(layerDao.create(session.getLayers().get(i)));	
 		}
-		
-		for (int i=0;i<session.filters().size();i++) {
-			guiManager.addFilter(filterDao.create(session.filters().get(i)));
+		int numberOfFilter= session.getFilters().size();
+		for (int i=0;i<numberOfFilter;i++) {
+			guiManager.addFilter(filterDao.create(session.getFilters().get(i)));
 		}
+		recordInSession=true;
 	}
 
 	public LayerManager createLayer(int layerIndex, Stack<String> filterNames) {	
@@ -79,18 +106,24 @@ public class SessionManager {
 	
 	
 	public void addLayer(LayerManager layerManager) {
-		layerDao.add(layerManager);
+		if (recordInSession) {
+			layerDao.add(layerManager);
+		}
 	}	
 	
 	public void deleteLayer(LayerManager layerManager) {
-		layerDao.delete(layerManager);	
+		if (recordInSession) {
+			layerDao.delete(layerManager);	
+		}
 	}
 
 
 	public void updateOpacity(FilterControlledByFloat opacityFilter, Float opacity) {
-		LinkedHashMap<String, Float> parameters= new LinkedHashMap<String, Float>();
-		parameters.put("Opacity", opacity);
-		filterDao.update(new FilterData(opacityFilter.layerIndex(), opacityFilter.filterIndex(), opacityFilter.getFilterName(), parameters));
+		if (recordInSession) {
+			LinkedHashMap<String, Float> parameters= new LinkedHashMap<String, Float>();
+			parameters.put("Opacity", opacity);
+			filterDao.update(new FilterData(opacityFilter.layerIndex(), opacityFilter.filterIndex(), opacityFilter.getFilterName(), parameters));
+		}
 	}
 
 	public FilterManager createFilter(int layerIndex, int filterIndex, String filterName) {
@@ -98,18 +131,27 @@ public class SessionManager {
 	}
 	
 	public void addFilter(FilterManager filterManager) {	
-		filterDao.add(filterManager);
+		if (recordInSession) {
+			filterDao.add(filterManager);
+		}
 	}
 	
 	public void deleteFilter(FilterManager filterManager) {
-		filterDao.delete(filterManager);
+		if (recordInSession) {
+			filterDao.delete(filterManager);
+		}
 	}
 
 
 	public void updateParameters(FilterControlledByFloat filterToSet, String name, Float value) {
-		LinkedHashMap<String, Float> parameters= new LinkedHashMap<String, Float>();
-		parameters.put(name, value);
-		filterDao.update(new FilterData(filterToSet.layerIndex(), filterToSet.filterIndex(), filterToSet.getFilterName(), parameters));
+		if (recordInSession) {
+			LinkedHashMap<String, Float> parameters= filterToSet.getParameters();
+			parameters.put(name, value);
+			
+			filterDao.update(new FilterData(filterToSet.layerIndex(), filterToSet.filterIndex(), filterToSet.getFilterName(), parameters));
+		}
 	}
+	
+
 
 }

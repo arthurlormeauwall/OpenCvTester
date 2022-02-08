@@ -27,8 +27,8 @@ public class LayerFactory {
 	
 	public static Layer createLayer(LayerData layerData, FiltersDataBase filtersdb){
 		
-		int layerIndex=layerData.layerIndex();
-		Stack<String> filterNames=layerData.filterNames();
+		int layerIndex=layerData.getLayerIndex();
+		Stack<String> filterNames=layerData.getFilterNames();
 
 		
 		Layer newLayer= new Layer(layerData, filtersdb.getOpacityFilter());

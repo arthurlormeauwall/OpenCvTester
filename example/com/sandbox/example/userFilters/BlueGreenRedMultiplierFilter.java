@@ -4,18 +4,20 @@ import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 
 public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat 
 {
-	public BlueGreenRedMultiplierFilter() {		
+	public BlueGreenRedMultiplierFilter(String name) {		
+		super(name);
 	}
 
-	public void setParameterFlags() {	
-
+	public void setParameterFlags() {		
 		addParameterFlag("BlueMult", 1f, 1f, 130);
 		addParameterFlag("GreenMult", 1f, 1f, 130);
 		addParameterFlag("RedMult", 1f, 1f, 130);
 	}
 	
 	public BlueGreenRedMultiplierFilter createNew() {	
-		return new BlueGreenRedMultiplierFilter();
+		 BlueGreenRedMultiplierFilter temp= new BlueGreenRedMultiplierFilter(getFilterName());
+		 temp.setParameterFlags();
+		 return temp;
 	}
 
 	public void execute() {	

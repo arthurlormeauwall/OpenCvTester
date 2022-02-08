@@ -39,7 +39,7 @@ public class FiltersDataBase
 	}
 	
 	public OpacityFilter getOpacityFilter(){
-		return new OpacityFilter();
+		return new OpacityFilter("Opacity");
 	}
 	
 	public FilterFlags<Float> getFlags(String name){

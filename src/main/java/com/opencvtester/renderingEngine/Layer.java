@@ -21,7 +21,7 @@ public class Layer extends CompositeFilter
 	public Layer (LayerData layerData, OpacityFilter opacityFilter) {
 		super();
 		this.layerData=layerData;
-		setLayerIndex(layerData.layerIndex());
+		setLayerIndex(layerData.getLayerIndex());
 		indexType="filter";
 		chainOfFilters = new ChainOfCommands (this.indexType);	
 		this.opacityFilter = opacityFilter;

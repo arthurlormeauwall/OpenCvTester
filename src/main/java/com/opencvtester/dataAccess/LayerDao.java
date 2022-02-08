@@ -11,7 +11,7 @@ public class LayerDao implements Dao<LayerManager> {
 		this.layerFactory=layerFactory;
 	}
 	@Override
-	public void init(Session session ) {
+	public void init(Session session) {
 		this.session=session;
 	}
 
@@ -27,14 +27,17 @@ public class LayerDao implements Dao<LayerManager> {
 
 	@Override
 	public void add(LayerManager layerManager) {
-		session.layers().add(layerManager.getData());
-		
+		session.getLayers().add(layerManager.getData());
 	}
 
 	@Override
 	public void delete(LayerManager layerManager) {
-		
-		session.layers().remove(layerManager.getData());
+		session.getLayers().remove(layerManager.getData());
+		for (int i=0;i<session.getFilters().size();i++) {
+			if(session.getFilters().get(i).getLayerIndex()==layerManager.layerIndex()) {
+				session.getFilters().remove(i);
+			}
+		}
 	}
 
 }

@@ -17,26 +17,30 @@ public class FilterFactory {
 	}
 	
 	public FilterManager createFilterManager(FilterData filterData) {
-		String filterNameInDataBase = filterData.filterNameInDataBase();
-		int layerIndex= filterData.layerIndex();
-		int filterIndex= filterData.filterIndex();
+		String filterNameInDataBase = filterData.getFilterNameInDataBase();
+		int layerIndex= filterData.getLayerIndex();
+		int filterIndex= filterData.getFilterIndex();
 
 		
 		FilterControlledByFloat newFilter = (FilterControlledByFloat) filtersDataBase.getFilter(filterNameInDataBase, filterData);
 		newFilter.setId(layerIndex,filterIndex);
 		
-		if (filterData.parameterValues()!=null) {
-			newFilter.setAllParameters(filterData.parameterValues());
+		if (filterData.getParameterValues()!=null) {
+			newFilter.setAllParameters(filterData.getParameterValues());
+		}
+		else {
+			
+			filterData=new FilterData(filterData.getLayerIndex(), filterData.getFilterIndex(),filterData.getFilterNameInDataBase(),newFilter.getFlags().defaultValues);
 		}
 		
 		return new FilterManager((FilterControlledByFloat) newFilter, guiManager);
 	}
 	
 	public static Filter createFilter(FilterData filterData, FiltersDataBase db) {
-		String filterNameInDataBase = filterData.filterNameInDataBase();
+		String filterNameInDataBase = filterData.getFilterNameInDataBase();
 		
 		Filter newFilter = (Filter)  db.getFilter(filterNameInDataBase, filterData);
-		newFilter.setId(filterData.layerIndex(), filterData.filterIndex());
+		newFilter.setId(filterData.getLayerIndex(), filterData.getFilterIndex());
 		return newFilter;
 	}
 }

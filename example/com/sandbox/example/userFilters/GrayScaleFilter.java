@@ -4,7 +4,8 @@ import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 
 public class GrayScaleFilter extends FilterControlledByFloat 
 {
-	public GrayScaleFilter() {
+	public GrayScaleFilter(String name) {
+		super(name);
 	}
 	
 	public void setParameterFlags() {
@@ -15,7 +16,7 @@ public class GrayScaleFilter extends FilterControlledByFloat
 	}
 	
 	public GrayScaleFilter createNew() {	
-		return new GrayScaleFilter();
+		return new GrayScaleFilter(getFilterName());
 	}
 
 	public void execute() {

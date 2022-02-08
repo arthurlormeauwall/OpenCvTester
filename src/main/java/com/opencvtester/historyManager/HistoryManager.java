@@ -99,5 +99,11 @@ public class HistoryManager
 			return history.undoIsNotEmpty();
 		}
 	}
+
+	public void clearAll() {
+		history.clearRedoHistory();
+		history.clearUndoHistory();
+		
+	}
 }
 

@@ -210,6 +210,7 @@ public class GuiManager
 	public void clearAll() {
 		chainOfLayers.clearAll();
 		mainWindow.clearAll();
+		history.clearAll();
 		refreshFrameOut();
 	}
 }
