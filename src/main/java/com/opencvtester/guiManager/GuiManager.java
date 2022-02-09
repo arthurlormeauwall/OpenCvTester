@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.dataAccess.FilterFactory;
+import com.opencvtester.dataAccess.LayerFactory;
 import com.opencvtester.dataAccess.SessionManager;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.gui.MainWindow;
@@ -23,6 +25,8 @@ public class GuiManager
 	private FrameWindowManager frameOutWindow;
 	private FiltersDataBase filtersDataBase;
 	private SessionManager sessionManager;
+	private LayerFactory layerFactory;
+	private FilterFactory filterFactory;
 
 	/*
 	 * CONSTRUCTOR & INITS
@@ -36,6 +40,8 @@ public class GuiManager
 		frameOutWindow=new FrameWindowManager(chainOfLayers.getFrameOut());
 
 		sessionManager= new SessionManager(filtersDataBase, this);
+		layerFactory=new LayerFactory(filtersDataBase,this);
+		filterFactory=new FilterFactory(filtersDataBase,this);
 	}
 
 	
@@ -63,13 +69,13 @@ public class GuiManager
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex, Stack<String> filterNames) {
-		LayerManager layerManager = sessionManager.createLayer(layerIndex,filterNames);
+		LayerManager layerManager = layerFactory.createLayerManager(sessionManager.createLayerData(layerIndex,filterNames));
 		addLayer(layerManager);
 		setAddLayerHistory(layerManager);
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex) {
-		LayerManager layerManager = sessionManager.createLayer(layerIndex);
+		LayerManager layerManager = layerFactory.createLayerManager(sessionManager.createLayerData(layerIndex));
 		addLayer(layerManager);
 		setAddLayerHistory(layerManager);
 	}
@@ -117,7 +123,7 @@ public class GuiManager
 	///////////////////////////////////////////////////////////
 	
 	public void createAddFilterAndSetHistory(int layerIndex, int filterIndex, String filterName) {
-		FilterManager filterManager = sessionManager.createFilter(layerIndex, filterIndex, filterName);
+		FilterManager filterManager = filterFactory.createFilterManager(sessionManager.createFilter(layerIndex, filterIndex, filterName));
 		addFilter( filterManager);
 		setAddFilterHistory(filterManager);
 	}	

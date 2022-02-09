@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Session implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4641469352932119900L;
+	
 	private String title;
 	private List<LayerData> layers;
 	private List<FilterData> filters;

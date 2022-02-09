@@ -4,7 +4,12 @@ import java.io.Serializable;
 import java.util.Stack;
 
 public class LayerData  implements DataRecord, Serializable {
-	 private int layerIndex;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3016033995294210177L;
+	
+	private int layerIndex;
 	 private Float opacityValue;
 	 private Stack<String> filterNames;
 	 
