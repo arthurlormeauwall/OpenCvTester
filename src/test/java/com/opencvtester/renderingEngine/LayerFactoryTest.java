@@ -15,7 +15,7 @@ class LayerFactoryTest {
 
 	@Test
 	void testCreateLayer() {
-		DummyFilter filter= new DummyFilter();
+		DummyFilter filter= new DummyFilter("test");
 		FiltersDataBase filterDb =new FiltersDataBase();
 		filterDb.addFilter("test", filter);
 		

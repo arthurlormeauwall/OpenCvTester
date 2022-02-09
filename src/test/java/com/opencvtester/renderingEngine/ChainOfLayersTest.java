@@ -29,7 +29,7 @@ class ChainOfLayersTest {
 	
 	public ChainOfLayersTest() {
 		
-		filter= new DummyFilter();
+		filter= new DummyFilter("test");
 		filterDb =new FiltersDataBase();
 		
 		

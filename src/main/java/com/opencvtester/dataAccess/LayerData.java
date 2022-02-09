@@ -13,7 +13,7 @@ public class LayerData  implements DataRecord, Serializable {
 	 private Float opacityValue;
 	 private Stack<String> filterNames;
 	 
-	 LayerData(int layerIndex,  Float opacityValue,Stack<String> filterNames){
+	 public LayerData(int layerIndex,  Float opacityValue,Stack<String> filterNames){
 		 this.layerIndex=layerIndex;
 		 this.opacityValue=opacityValue;
 		 this.filterNames=filterNames;

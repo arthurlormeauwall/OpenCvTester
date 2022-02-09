@@ -15,7 +15,7 @@ class FilterControlledByFloatTest {
 	
 	@BeforeEach
 	public void setup() {
-		filter= new DummyFilter();
+		filter= new DummyFilter("test");
 	}
 	
 	@Test

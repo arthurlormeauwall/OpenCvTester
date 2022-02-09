@@ -5,13 +5,13 @@ public class DummyFilter extends FilterControlledByFloat{
 	@SuppressWarnings("unused")
 	private String log;
 	
-	public DummyFilter() {
-		setFilterName("test");
+	public DummyFilter(String fileName) {
+		super(fileName);
 	}
 	@Override
 	public FilterControlledByFloat createNew() {
 		
-		return new DummyFilter();
+		return new DummyFilter(getFilterName());
 	}
 
 	@Override

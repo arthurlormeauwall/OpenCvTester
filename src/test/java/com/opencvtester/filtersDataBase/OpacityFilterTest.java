@@ -18,7 +18,7 @@ class OpacityFilterTest {
 	public void setup() {
 		background = new Frame();
 		background.createPlainGrayFrame(100, 100, 0);
-		filter = new OpacityFilter ();
+		filter = new OpacityFilter ("Opacity");
 		filter.init(background);
 	}
 	

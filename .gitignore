@@ -28,4 +28,5 @@ assets
 .settings
 bin
 /target/
+/src/main/ressources/sessions
 
