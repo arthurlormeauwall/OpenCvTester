@@ -3,18 +3,12 @@ package com.opencvtester.dataAccess;
 import com.opencvtester.guiManager.FilterManager;
 
 public class FilterDao implements Dao<FilterManager> {
-
-	private FilterFactory filterFactory;
+	
 	private Session session;
-
-	public FilterDao(FilterFactory filterFactory) {
-		this.filterFactory=filterFactory;
-	}
 	
 	@Override
 	public void init(Session session) {
-		this.session=session;
-		
+		this.session=session;	
 	}
 
 	@Override
@@ -25,11 +19,6 @@ public class FilterDao implements Dao<FilterManager> {
 				session.getFilters().set(i, data);
 			}
 		}
-	}
-
-	@Override
-	public FilterManager create(DataRecord filterData) {
-		return filterFactory.createFilterManager((FilterData)filterData);
 	}
 
 	@Override

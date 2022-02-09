@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.Stack;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.dataAccess.FilterFactory;
+import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.dataAccess.LayerFactory;
 import com.opencvtester.dataAccess.SessionManager;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
@@ -69,15 +71,19 @@ public class GuiManager
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex, Stack<String> filterNames) {
-		LayerManager layerManager = layerFactory.createLayerManager(sessionManager.createLayerData(layerIndex,filterNames));
+		LayerManager layerManager = createLayerManager(sessionManager.createLayerData(layerIndex,filterNames));
 		addLayer(layerManager);
 		setAddLayerHistory(layerManager);
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex) {
-		LayerManager layerManager = layerFactory.createLayerManager(sessionManager.createLayerData(layerIndex));
+		LayerManager layerManager = createLayerManager(sessionManager.createLayerData(layerIndex));
 		addLayer(layerManager);
 		setAddLayerHistory(layerManager);
+	}
+	
+	public LayerManager createLayerManager(LayerData layerData) {
+		return layerFactory.createLayerManager(layerData);
 	}
 
 	public boolean deleteLayerAndSetHistory(LayerManager layerManager) {		
@@ -123,10 +129,14 @@ public class GuiManager
 	///////////////////////////////////////////////////////////
 	
 	public void createAddFilterAndSetHistory(int layerIndex, int filterIndex, String filterName) {
-		FilterManager filterManager = filterFactory.createFilterManager(sessionManager.createFilter(layerIndex, filterIndex, filterName));
+		FilterManager filterManager = createFilterManager(sessionManager.createFilter(layerIndex, filterIndex, filterName));
 		addFilter( filterManager);
 		setAddFilterHistory(filterManager);
 	}	
+	
+	public FilterManager createFilterManager(FilterData filterData) {
+		return filterFactory.createFilterManager(filterData);
+	}
 
 	public boolean deleteFilterAndSetHistory(FilterManager filterManager) {		
 		if (filterManager!=null) {

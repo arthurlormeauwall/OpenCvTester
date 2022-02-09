@@ -1,12 +1,5 @@
 package com.opencvtester.dataAccess;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Stack;
@@ -21,13 +14,10 @@ public class SessionManager {
 	private LayerDao layerDao;
 	private FilterDao filterDao;
 	private Session session;
-	private FiltersDataBase filtersDataBase;
-	private GuiManager guiManager;
+	
 	private SessionPersistenceDriver sessionPersistenceDriver;
 	
 	public SessionManager(FiltersDataBase filtersDataBase, GuiManager guiManager) {
-		this.filtersDataBase=filtersDataBase;
-		this.guiManager= guiManager;
 		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
 		sessionPersistenceDriver = new SessionFileDriver();
 		init();
@@ -35,9 +25,9 @@ public class SessionManager {
 	
 	public void init() {
 		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
-		layerDao=new LayerDao(new LayerFactory(filtersDataBase, guiManager));
+		layerDao=new LayerDao();
 		layerDao.init(session);
-		filterDao=new FilterDao(new FilterFactory(filtersDataBase, guiManager));
+		filterDao=new FilterDao();
 		filterDao.init(session);
 	}
 	
@@ -56,11 +46,11 @@ public class SessionManager {
 	private void buildFromSession(GuiManager guiManager, Session sessionTemp) {
 		int numberOfLayer= sessionTemp.getLayers().size();
 		for (int i=0;i<numberOfLayer;i++) {
-			guiManager.addLayer(layerDao.create(sessionTemp.getLayers().get(i)));	
+			guiManager.addLayer(guiManager.createLayerManager(sessionTemp.getLayers().get(i)));	
 		}
 		int numberOfFilter= sessionTemp.getFilters().size();
 		for (int i=0;i<numberOfFilter;i++) {
-			guiManager.addFilter(filterDao.create(sessionTemp.getFilters().get(i)));
+			guiManager.addFilter(guiManager.createFilterManager(sessionTemp.getFilters().get(i)));
 		}
 	}
 
@@ -80,8 +70,7 @@ public class SessionManager {
 		layerDao.delete(layerManager);	
 	}
 
-	public void updateOpacity(FilterControlledByFloat opacityFilter, Float opacity) {
-		
+	public void updateOpacity(FilterControlledByFloat opacityFilter, Float opacity) {	
 		LinkedHashMap<String, Float> parameters= new LinkedHashMap<String, Float>();
 		parameters.put("Opacity", opacity);
 		filterDao.update(new FilterData(opacityFilter.layerIndex(), opacityFilter.filterIndex(), opacityFilter.getFilterName(), parameters));
