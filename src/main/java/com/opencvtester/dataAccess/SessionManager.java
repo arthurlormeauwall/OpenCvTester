@@ -23,11 +23,13 @@ public class SessionManager {
 	private Session session;
 	private FiltersDataBase filtersDataBase;
 	private GuiManager guiManager;
+	private SessionPersistenceDriver sessionPersistenceDriver;
 	
 	public SessionManager(FiltersDataBase filtersDataBase, GuiManager guiManager) {
 		this.filtersDataBase=filtersDataBase;
 		this.guiManager= guiManager;
 		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		sessionPersistenceDriver = new SessionFileDriver();
 		init();
 	}
 	
@@ -40,40 +42,14 @@ public class SessionManager {
 	}
 	
 	public void saveSession(String fileName) {
-		File file= new File(fileName);
-		if (file.exists()) {
-			file.delete();
-		}
-		
-		try(FileOutputStream out = new FileOutputStream(fileName);ObjectOutputStream os = new ObjectOutputStream(out)) {
-			os.writeObject(session); 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		sessionPersistenceDriver.saveSession(session, fileName);	
 	}
 	
-	public void restoreSession(String fileName, GuiManager guiManager) {	
-		Session sessionTemp = reloadSession(fileName);
+	public void restoreSession(String fileName, GuiManager guiManager) {
+		init();
+		Session sessionTemp = sessionPersistenceDriver.reloadSession(session, fileName);
 		guiManager.clearAll();
 		buildFromSession(guiManager, sessionTemp);
-	}
-
-	public Session reloadSession(String fileName) {
-		init();
-		Session sessionTemp = null;
-		try(FileInputStream in = new FileInputStream(fileName);ObjectInputStream ins = new ObjectInputStream(in)) {
-			sessionTemp = (Session)ins.readObject(); 	
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} 
-		return sessionTemp;	
 	}
 
 
@@ -122,7 +98,6 @@ public class SessionManager {
 	public void deleteFilter(FilterManager filterManager) {
 		filterDao.delete(filterManager);
 	}
-
 
 	public void updateParameters(FilterControlledByFloat filterToSet, String name, Float value) {
 		LinkedHashMap<String, Float> parameters= filterToSet.getParameters();
