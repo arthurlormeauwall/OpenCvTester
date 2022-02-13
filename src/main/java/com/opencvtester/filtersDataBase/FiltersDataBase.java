@@ -26,7 +26,13 @@ public class FiltersDataBase
 	 */
 	public FilterControlledByFloat getFilter(String name, FilterData filterData){
 		FilterControlledByFloat filter = filters.get(name).createNew();	
+		
+		if (filterData.getParameterValues()==null) {
+			filterData.setParameterValues(filter.getFlags().defaultValues);	
+		}
+
 		filter.setData(filterData);
+		filter.setAllParameters(filter.getFlags().defaultValues);
 		return filter;
 	}
 	

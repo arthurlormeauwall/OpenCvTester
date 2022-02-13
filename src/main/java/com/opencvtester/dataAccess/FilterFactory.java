@@ -25,14 +25,8 @@ public class FilterFactory {
 		FilterControlledByFloat newFilter = (FilterControlledByFloat) filtersDataBase.getFilter(filterNameInDataBase, filterData);
 		newFilter.setId(layerIndex,filterIndex);
 		
-		if (filterData.getParameterValues()!=null) {
-			newFilter.setAllParameters(filterData.getParameterValues());
-		}
-		else {
-			
-			filterData=new FilterData(filterData.getLayerIndex(), filterData.getFilterIndex(),filterData.getFilterNameInDataBase(),newFilter.getFlags().defaultValues);
-		}
-		
+		newFilter.setAllParameters(filterData.getParameterValues());
+
 		return new FilterManager((FilterControlledByFloat) newFilter, guiManager);
 	}
 	
