@@ -2,11 +2,11 @@ package com.opencvtester.filtersDataBase;
 import java.util.LinkedHashMap;
 
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 
 
-public class OpacityFilter extends FilterControlledByFloat 
+public class OpacityFilter extends ControlledFilter 
 {
 	protected FrameInterface background;
 	private Float opacity;	
@@ -49,7 +49,7 @@ public class OpacityFilter extends FilterControlledByFloat
 		return opacity;
 	}
 	
-	public FilterControlledByFloat createNew() {	
+	public ControlledFilter createNew() {	
 		return new OpacityFilter(getFilterName());
 	}
 

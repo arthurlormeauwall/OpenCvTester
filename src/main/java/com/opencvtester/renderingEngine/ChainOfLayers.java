@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.baseClasses.frame.Frame;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.dataAccess.LayerFactory;
@@ -147,7 +147,7 @@ public class ChainOfLayers extends CompositeFilter
 		}
 	}  
 	
-	public void setAllFilterParameters(FilterControlledByFloat adjustControlToSet, LinkedHashMap<String,Float> parameters){
+	public void setAllFilterParameters(ControlledFilter adjustControlToSet, LinkedHashMap<String,Float> parameters){
 		
 			adjustControlToSet.setAllParameters(parameters);
 			
@@ -155,7 +155,7 @@ public class ChainOfLayers extends CompositeFilter
 			execute();
 	} 
 	
-	public void setOneParameter(FilterControlledByFloat filterToSet, String name, Float value) {
+	public void setOneParameter(ControlledFilter filterToSet, String name, Float value) {
 			filterToSet.setParameter(name, value);
 			checkAndActivateFilter(filterToSet);
 			execute();	
@@ -165,7 +165,7 @@ public class ChainOfLayers extends CompositeFilter
 		
 		if (areIndexLegal(layerIndex, filterIndex)) {
 	
-			FilterControlledByFloat filterToBypass = ((FilterControlledByFloat)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(filterIndex));
+			ControlledFilter filterToBypass = ((ControlledFilter)((Layer)chainOfFilters.getCommand(layerIndex)).getFilter(filterIndex));
 			
 			filterToBypass.bypass(bypass);
 			checkAndActivateFilter(filterToBypass);			

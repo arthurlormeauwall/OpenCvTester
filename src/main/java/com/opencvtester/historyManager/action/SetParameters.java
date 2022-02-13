@@ -2,7 +2,7 @@ package com.opencvtester.historyManager.action;
 
 import java.util.LinkedHashMap;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.guiManager.ChainOfLayerManagers;
 import com.opencvtester.guiManager.GuiManager;
 import com.opencvtester.renderingEngine.ChainOfLayers;
@@ -10,7 +10,7 @@ import com.opencvtester.renderingEngine.ChainOfLayers;
 public class SetParameters implements Action {
 
 	
-	private FilterControlledByFloat filter;
+	private ControlledFilter filter;
 	private ChainOfLayers chainOfLayers;
 	private ChainOfLayerManagers chainOfLayerManager;
 	private LinkedHashMap<String, Float> parameters;
@@ -22,10 +22,10 @@ public class SetParameters implements Action {
 	 * CONSTRUCTOR & INITS
 	 */
 	@SuppressWarnings("unchecked")
-	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager,FilterControlledByFloat filter){
+	public SetParameters(GuiManager guiManager, ChainOfLayers chainOfLayers, ChainOfLayerManagers chainOfLayerManager,ControlledFilter filter){
 		this.guiManager=guiManager;
 		this.filter=filter;
-		parameters= (LinkedHashMap<String, Float>)((FilterControlledByFloat)filter).getParameters().clone();
+		parameters= (LinkedHashMap<String, Float>)((ControlledFilter)filter).getParameters().clone();
 		this.chainOfLayers=chainOfLayers;
 		this.chainOfLayerManager=chainOfLayerManager;
 		this.natureOfAction=NatureOfAction.PARAMETER_SETTING;

@@ -1,8 +1,8 @@
 package com.sandbox.example.userFilters;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 
-public class GrayScaleFilter extends FilterControlledByFloat 
+public class GrayScaleFilter extends ControlledFilter 
 {
 	public GrayScaleFilter(String name) {
 		super(name);

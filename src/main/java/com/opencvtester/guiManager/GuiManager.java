@@ -3,7 +3,7 @@ package com.opencvtester.guiManager;
 import java.io.IOException;
 import java.util.Stack;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.dataAccess.FilterFactory;
 import com.opencvtester.dataAccess.LayerData;
@@ -173,7 +173,7 @@ public class GuiManager
 		history.setState(parameter);
 	}
 	
-	public void setOpacity(FilterControlledByFloat opacityFilter, Float opacity) {	
+	public void setOpacity(ControlledFilter opacityFilter, Float opacity) {	
 		sessionManager.updateOpacity(opacityFilter, opacity);
 		chainOfLayers.setOpacity(opacityFilter, opacity);
 		mainWindow.setOpacity(opacityFilter.layerIndex(), opacity);
@@ -181,25 +181,25 @@ public class GuiManager
 	}	
 	
 	public void setOpacity(int layerIndex, Float opacity) {
-		FilterControlledByFloat opacityFilter= chainOfLayers.getLayer(layerIndex).getOpacityFilter();
+		ControlledFilter opacityFilter= chainOfLayers.getLayer(layerIndex).getOpacityFilter();
 		sessionManager.updateOpacity(opacityFilter, opacity);
 		chainOfLayers.setOpacity(opacityFilter, opacity);
 		mainWindow.setOpacity(opacityFilter.layerIndex(), opacity);
 		refreshFrameOut();
 	}
 
-	public void setParametersAndSetHistory(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
+	public void setParametersAndSetHistory(ControlledFilter filterToSet, String name, Float value) throws IOException {
 		
 		setParameters(filterToSet, name, value);
 		setSetParameterHistory(filterToSet);
 	}
 	
-	public void setSetParameterHistory(FilterControlledByFloat filter) {
+	public void setSetParameterHistory(ControlledFilter filter) {
 		SetParameters parameter= new SetParameters(this, chainOfLayers, mainWindow.getChainOfLayerManagers(), filter);
 		history.setState(parameter);	
 	}
 	
-	public void setParameters(FilterControlledByFloat filterToSet, String name, Float value) {
+	public void setParameters(ControlledFilter filterToSet, String name, Float value) {
 		sessionManager.updateParameters(filterToSet, name, value);
 		chainOfLayers.setOneParameter (filterToSet, name, value);	
 		refreshFrameOut();

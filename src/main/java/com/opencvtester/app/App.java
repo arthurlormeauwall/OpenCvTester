@@ -2,7 +2,7 @@ package com.opencvtester.app;
 
 import java.io.IOException;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.GuiManager;
 
@@ -24,7 +24,7 @@ public class App
 	/*
 	 * FEATURES
 	 */
-	public void addFilterInDataBase(FilterControlledByFloat filter) {
+	public void addFilterInDataBase(ControlledFilter filter) {
 		filtersDataBase.addFilter(filter.getFilterName(), filter);
 	}
 	

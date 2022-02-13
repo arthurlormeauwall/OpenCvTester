@@ -1,8 +1,8 @@
 package com.sandbox.example.userFilters;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 
-public class BlueGreenRedMultiplierFilter extends FilterControlledByFloat 
+public class BlueGreenRedMultiplierFilter extends ControlledFilter 
 {
 	public BlueGreenRedMultiplierFilter(String name) {		
 		super(name);

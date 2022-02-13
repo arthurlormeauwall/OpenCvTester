@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.guiManager.GuiManager;
 
 public class LabelledSlider extends JPanel
@@ -22,7 +22,7 @@ public class LabelledSlider extends JPanel
 	protected JSlider slider;
 	protected int currentValue;
 	protected JLabel  nameWidget;
-	protected FilterControlledByFloat filterToUpdate;
+	protected ControlledFilter filterToUpdate;
 	protected JLabel value;
 	protected Boolean emitSignal;
 
@@ -31,7 +31,7 @@ public class LabelledSlider extends JPanel
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LabelledSlider (String name, Float defaultValue, FilterControlledByFloat filterToUpdate, GuiManager actionHistoryManager){
+	public LabelledSlider (String name, Float defaultValue, ControlledFilter filterToUpdate, GuiManager actionHistoryManager){
 		emitSignal=true;
 		this.filterToUpdate=filterToUpdate;
 		this.guiManager=actionHistoryManager;

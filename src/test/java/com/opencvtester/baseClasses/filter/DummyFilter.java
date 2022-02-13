@@ -1,6 +1,6 @@
 package com.opencvtester.baseClasses.filter;
 
-public class DummyFilter extends FilterControlledByFloat{
+public class DummyFilter extends ControlledFilter{
 
 	@SuppressWarnings("unused")
 	private String log;
@@ -9,7 +9,7 @@ public class DummyFilter extends FilterControlledByFloat{
 		super(fileName);
 	}
 	@Override
-	public FilterControlledByFloat createNew() {
+	public ControlledFilter createNew() {
 		
 		return new DummyFilter(getFilterName());
 	}

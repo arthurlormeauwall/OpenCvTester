@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.dataAccess.FilterData;
 import com.opencvtester.gui.FilterWidget;
 
@@ -17,7 +17,7 @@ public class FilterManager extends Command {
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public FilterManager(FilterControlledByFloat filter, GuiManager guiManager){
+	public FilterManager(ControlledFilter filter, GuiManager guiManager){
 		this.filterData=filter.getData();
 		this.filter=filter;
 		setId(filter.layerIndex(), filter.filterIndex());

@@ -3,7 +3,7 @@ package com.opencvtester.dataAccess;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.FilterManager;
 import com.opencvtester.guiManager.GuiManager;
@@ -78,7 +78,7 @@ public class SessionManager {
 		layerDao.delete(layerManager);	
 	}
 
-	public void updateOpacity(FilterControlledByFloat opacityFilter, Float opacity) {	
+	public void updateOpacity(ControlledFilter opacityFilter, Float opacity) {	
 		LinkedHashMap<String, Float> parameters= new LinkedHashMap<String, Float>();
 		parameters.put("Opacity", opacity);
 		layerDao.update(new LayerData(opacityFilter.layerIndex(), opacity));
@@ -96,7 +96,7 @@ public class SessionManager {
 		filterDao.delete(filterManager);
 	}
 
-	public void updateParameters(FilterControlledByFloat filterToSet, String name, Float value) {
+	public void updateParameters(ControlledFilter filterToSet, String name, Float value) {
 		LinkedHashMap<String, Float> parameters= filterToSet.getParameters();
 		parameters.put(name, value);
 		filterDao.update(new FilterData(filterToSet.layerIndex(), filterToSet.filterIndex(), filterToSet.getFilterName(), parameters));

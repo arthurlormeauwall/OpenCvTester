@@ -6,37 +6,36 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Stack;
 
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.dataAccess.FilterData;
 
 public class FiltersDataBase 
 {
-	protected LinkedHashMap<String, FilterControlledByFloat> filters;
+	protected LinkedHashMap<String, ControlledFilter> filters;
 	protected OpacityFilter alphaFilter;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	public FiltersDataBase() {
-		filters= new LinkedHashMap<String, FilterControlledByFloat>();
+		filters= new LinkedHashMap<String, ControlledFilter>();
 	}
 	
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public FilterControlledByFloat getFilter(String name, FilterData filterData){
-		FilterControlledByFloat filter = filters.get(name).createNew();	
+	public ControlledFilter getFilter(String name, FilterData filterData){
+		ControlledFilter filter = filters.get(name).createNew();	
 		
 		if (filterData.getParameterValues()==null) {
 			filterData.setParameterValues(filter.getFlags().defaultValues);	
 		}
 
 		filter.setData(filterData);
-		filter.setAllParameters(filter.getFlags().defaultValues);
 		return filter;
 	}
 	
-	public void addFilter(String name, FilterControlledByFloat filter) {
+	public void addFilter(String name, ControlledFilter filter) {
 		if (filter!=null) {
 			filter.setFilterName(name);
 		}
@@ -57,10 +56,10 @@ public class FiltersDataBase
 	 */
 	public Stack<String> getFiltersName() {
 		Stack<String> filtersName= new Stack<String>();
-		Iterator<Entry<String, FilterControlledByFloat>> new_Iterator= filters.entrySet().iterator();
+		Iterator<Entry<String, ControlledFilter>> new_Iterator= filters.entrySet().iterator();
 		
 	    while (new_Iterator.hasNext()) {
-	    	HashMap.Entry<String, FilterControlledByFloat> filterItem= (HashMap.Entry<String, FilterControlledByFloat>) new_Iterator.next();
+	    	HashMap.Entry<String, ControlledFilter> filterItem= (HashMap.Entry<String, ControlledFilter>) new_Iterator.next();
 	    	filtersName.push(filterItem.getKey());
 	    }    
 	    return filtersName;

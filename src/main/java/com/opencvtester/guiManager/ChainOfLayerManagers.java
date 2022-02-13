@@ -10,14 +10,12 @@ public class ChainOfLayerManagers {
 	
 	private Stack<LayerManager> layerManagers;
 	private MainWindow mainWindow;
-	private String indexType;
-	
+
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	public ChainOfLayerManagers (MainWindow gui){	
 		this.mainWindow=gui;
-		indexType="layer";
 		layerManagers= new Stack<LayerManager>();
 	}
 	
@@ -51,7 +49,7 @@ public class ChainOfLayerManagers {
 	}
 
 	public void deleteLayerManager(LayerManager layerManager) {
-		layerManagers.remove(layerManager.getIndex(indexType));	
+		layerManagers.remove(layerManager.layerIndex());	
 		mainWindow.updateGui();
 	}
 

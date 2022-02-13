@@ -3,7 +3,7 @@ package com.opencvtester.renderingEngine;
 import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
+import com.opencvtester.baseClasses.filter.ControlledFilter;
 import com.opencvtester.baseClasses.frame.FrameInterface;
 import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.filtersDataBase.OpacityFilter;
@@ -59,8 +59,8 @@ public class Layer extends CompositeFilter
 		return (getNumberOfFilters()!=0);
 	}
 
-	public FilterControlledByFloat getFilter(int index) {
-		return (FilterControlledByFloat)chainOfFilters.getCommand(index);
+	public ControlledFilter getFilter(int index) {
+		return (ControlledFilter)chainOfFilters.getCommand(index);
 	}
 
 	
