@@ -42,8 +42,8 @@ class ChainOfLayersTest {
 		filters.push(FilterFactory.createFilter(new FilterData(1,1,"test",null), filterDb));
 		filters.push(FilterFactory.createFilter(new FilterData(1,2,"test",null), filterDb));
 		
-		layers.push(LayerFactory.createEmptyLayer(new LayerData(0, 100f, null), filterDb));
-		layers.push(LayerFactory.createEmptyLayer(new LayerData(1, 100f, null), filterDb));
+		layers.push(LayerFactory.createEmptyLayer(new LayerData(0, 1f), filterDb));
+		layers.push(LayerFactory.createEmptyLayer(new LayerData(1, 1f), filterDb));
 		
 		chainOfLayers = new ChainOfLayers(new Frame(10,10,127));
 

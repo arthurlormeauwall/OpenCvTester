@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -31,7 +32,13 @@ public class MainWindow extends JFrame
 	private JButton redoButton;  
 	private JButton saveButton;
 	private JButton reloadButton;
+	private JFileChooser fileChooser;
+	
 	public Stack<LayerWindow> test;
+
+	private JButton saveAsButton;
+
+	private JButton openImageButton;
 	
 	/*
 	 * CONSTRUCTOR & INITS
@@ -61,27 +68,43 @@ public class MainWindow extends JFrame
 		undoButton = new JButton("Undo");
 		redoButton = new JButton("Redo");
 		saveButton = new JButton("save");
-		reloadButton = new JButton ("reload");
+		saveAsButton = new JButton("save as");
+		reloadButton = new JButton ("open project");
+		openImageButton = new JButton ("open image");
+		
 		buttonPanel.add(addLayerButton);
 		buttonPanel.add(delLayerButton);
 		buttonPanel.add(undoButton);
 		buttonPanel.add(redoButton);
 		buttonPanel.add(saveButton);
+		buttonPanel.add(saveAsButton);
 		buttonPanel.add(reloadButton);
+		buttonPanel.add(openImageButton);
 		
 		addListeners();
+		
+		fileChooser = new JFileChooser(System.getProperty("project.dir"));
+		
 		 
 		this.pack();
 		this.setVisible(true);
 	}
 	
 	public void addListeners() {
+		 openImageButton.addActionListener((ActionEvent event)->{
+	    	  MainWindow.this.openImage();
+	     });
+		 
 		 saveButton.addActionListener((ActionEvent event)->{
 	    	  MainWindow.this.guiManager.save();
 	     });
+		 
+		 saveAsButton.addActionListener((ActionEvent event)->{
+	    	  MainWindow.this.saveSessionAs();
+	     });
 	 
 		 reloadButton.addActionListener((ActionEvent event)->{
-	    	  MainWindow.this.guiManager.reload();
+	    	  MainWindow.this.openSession();
 	     });
 		 undoButton.addActionListener((ActionEvent event)->{
 		    	  MainWindow.this.guiManager.undo();
@@ -104,6 +127,13 @@ public class MainWindow extends JFrame
 	}
 
 
+	private void openImage() {
+		int response = fileChooser.showOpenDialog(this);
+		if (response==0) {
+			guiManager.openImage(fileChooser.getSelectedFile().getPath());
+		}
+	}
+
 	/*
 	 * GETTERS & SETTERS
 	 */
@@ -118,6 +148,11 @@ public class MainWindow extends JFrame
 	/*
 	 * FEATURES
 	 */
+	
+	public void setOpacity(int layerIndex, Float opacity) {
+		chainOfLayerManagers.getLayerManager(layerIndex).getLayerWidget().setOpacitySlider(opacity);
+	}
+	
 	public void addFilterManager(FilterManager filterManager) {
 		chainOfLayerManagers.addFilterManager(filterManager);
 	}
@@ -161,6 +196,21 @@ public class MainWindow extends JFrame
 		for (int i=chainOfLayerManagers.getNumberOfLayer()-1;i>=0;i--) {
 			chainOfLayerManagers.getLayerManager(i).deleteLayerWindow();
 			chainOfLayerManagers.deleteLayerManager(chainOfLayerManagers.getLayerManager(i));	
+		}
+	}
+
+	public void saveSessionAs() {
+	
+		int response = fileChooser.showSaveDialog(this);
+		if (response==0) {
+			guiManager.saveSessionAs(fileChooser.getSelectedFile().getPath());
+		}
+	}
+	
+	private void openSession() {
+		int response = fileChooser.showOpenDialog(this);
+		if (response==0) {
+			guiManager.openSession(fileChooser.getSelectedFile().getPath());
 		}
 	}
 

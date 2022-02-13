@@ -9,6 +9,26 @@ public class FilterData implements DataRecord, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+
+	private int layerIndex;
+	private int filterIndex;
+	private String filterNameInDataBase;
+	private LinkedHashMap<String, Float> parameterValues;
+	
+	public FilterData(int layerIndex, int filterIndex, String filterNameInDataBase) {
+		this.layerIndex=layerIndex;
+		this.filterIndex=filterIndex;
+		this.filterNameInDataBase=filterNameInDataBase;
+		this.parameterValues=null;
+	}
+	
+	public FilterData(int layerIndex, int filterIndex, String filterNameInDataBase, LinkedHashMap<String, Float> parameterValues) {
+		this.layerIndex=layerIndex;
+		this.filterIndex=filterIndex;
+		this.filterNameInDataBase=filterNameInDataBase;
+		this.parameterValues=parameterValues;
+	}
+	
 	public int getLayerIndex() {
 		return layerIndex;
 	}
@@ -41,15 +61,4 @@ public class FilterData implements DataRecord, Serializable {
 		this.parameterValues = parameterValues;
 	}
 
-	int layerIndex;
-	int filterIndex;
-	String filterNameInDataBase;
-	LinkedHashMap<String, Float> parameterValues;
-	
-	public FilterData(int layerIndex, int filterIndex, String filterNameInDataBase, LinkedHashMap<String, Float> parameterValues) {
-		this.layerIndex=layerIndex;
-		this.filterIndex=filterIndex;
-		this.filterNameInDataBase=filterNameInDataBase;
-		this.parameterValues=parameterValues;
-	}
 }

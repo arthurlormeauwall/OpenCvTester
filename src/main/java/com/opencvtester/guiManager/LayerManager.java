@@ -1,6 +1,7 @@
 package com.opencvtester.guiManager;
 
-import com.opencvtester.baseClasses.ChainOfCommands;
+import java.util.Stack;
+
 import com.opencvtester.baseClasses.Command;
 import com.opencvtester.dataAccess.LayerData;
 import com.opencvtester.gui.LayerWidget;
@@ -10,7 +11,7 @@ import com.opencvtester.renderingEngine.Layer;
 
 public class LayerManager extends Command
 {
-	protected ChainOfCommands chainOfFilterManager;
+	protected Stack<FilterManager> chainOfFilterManager;
 	protected Layer layer;
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
@@ -28,7 +29,7 @@ public class LayerManager extends Command
 		this.layerData=layer.getData();
 		
 		indexType="filter";
-		chainOfFilterManager=new ChainOfCommands(indexType);
+		chainOfFilterManager=new Stack<FilterManager>();
 		layerWidget=new LayerWidget(this, this.guiManager);
 		layerWindow=new LayerWindow(this, this.guiManager);		
 	}
@@ -37,7 +38,7 @@ public class LayerManager extends Command
 	 * GETTERS & SETTERS
 	 */
 	public FilterManager getFilterManager(int index) {
-		return  (FilterManager)chainOfFilterManager.getCommand(index);
+		return  (FilterManager)chainOfFilterManager.get(index);
 	}
 	
 	public void updateGui() {
@@ -59,11 +60,11 @@ public class LayerManager extends Command
 	 * FEATURES
 	 */	
 	public FilterManager deleteFilterWidget(Command command) {
-		return (FilterManager)chainOfFilterManager.delCommand(command.getIndex(indexType));
+		return (FilterManager)chainOfFilterManager.remove(command.getIndex(indexType));
 	}
 
 	public FilterManager addFilterManager(FilterManager newFilterManager) {
-		chainOfFilterManager.addCommand(newFilterManager);
+		chainOfFilterManager.add(newFilterManager);
 		newFilterManager.getFilterWidget().setVisible(true);
 		return newFilterManager;
 	}

@@ -12,7 +12,8 @@ public class LayerDao implements Dao<LayerManager> {
 	}
 
 	@Override
-	public void update(DataRecord layerData) {		
+	public void update(DataRecord layerData) {	
+		session.getLayers().get(((LayerData)layerData).getLayerIndex()).setOpacityValue(((LayerData)layerData).getOpacityValue());
 	}
 	
 	@Override

@@ -23,7 +23,7 @@ class LayerFactoryTest {
 		tempNames.push("test");
 		tempNames.push("test");
 		
-		Layer layer = LayerFactory.createLayer(new LayerData(1, 100f, tempNames), filterDb);
+		Layer layer = LayerFactory.createLayer(new LayerData(1,1f, tempNames), filterDb);
 		
 		assertEquals(1, layer.layerIndex());
 		assertEquals("test", layer.getFilter(0).getFilterName());

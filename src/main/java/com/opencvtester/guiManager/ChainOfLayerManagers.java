@@ -1,14 +1,14 @@
 package com.opencvtester.guiManager;
 
 import java.util.LinkedHashMap;
+import java.util.Stack;
 
-import com.opencvtester.baseClasses.ChainOfCommands;
 import com.opencvtester.baseClasses.filter.Filter;
 import com.opencvtester.gui.MainWindow;
 
 public class ChainOfLayerManagers {
 	
-	private ChainOfCommands layerManagers;
+	private Stack<LayerManager> layerManagers;
 	private MainWindow mainWindow;
 	private String indexType;
 	
@@ -18,17 +18,17 @@ public class ChainOfLayerManagers {
 	public ChainOfLayerManagers (MainWindow gui){	
 		this.mainWindow=gui;
 		indexType="layer";
-		layerManagers= new ChainOfCommands(indexType);
+		layerManagers= new Stack<LayerManager>();
 	}
 	
 	/*
 	 * GETTERS & SETTERS
 	 */
 	public LayerManager getLayerManager (int i) {
-		return (LayerManager)layerManagers.getCommand(i);
+		return (LayerManager)layerManagers.get(i);
 	}
 	
-	public ChainOfCommands getChainOfCommands () {
+	public Stack<LayerManager> getChainOfCommands () {
 		return layerManagers;
 	}
 	
@@ -36,22 +36,22 @@ public class ChainOfLayerManagers {
 	 * FEATURES
 	 */
 	public void addFilterManager(FilterManager filterManager) {
-		((LayerManager)layerManagers.getCommand(filterManager.layerIndex())).addFilterManager(filterManager);
+		((LayerManager)layerManagers.get(filterManager.layerIndex())).addFilterManager(filterManager);
 		mainWindow.updateGui();
 	}
 	
 	public void deleteFilterManager(FilterManager filterManager) {
-		((LayerManager)layerManagers.getCommand(filterManager.layerIndex())).deleteFilterWidget(filterManager);
+		((LayerManager)layerManagers.get(filterManager.layerIndex())).deleteFilterWidget(filterManager);
 		mainWindow.updateGui();
 	}
 
 	public void addLayerManager(LayerManager layerController) {
-		layerManagers.addCommand(layerController);	
+		layerManagers.add(layerController);	
 		mainWindow.updateGui();
 	}
 
 	public void deleteLayerManager(LayerManager layerManager) {
-		layerManagers.delCommand(layerManager.getIndex(indexType));	
+		layerManagers.remove(layerManager.getIndex(indexType));	
 		mainWindow.updateGui();
 	}
 
@@ -64,12 +64,12 @@ public class ChainOfLayerManagers {
 	}
 	
 	public int getNumberOfLayer(){
-		return layerManagers.getSize();
+		return layerManagers.size();
 	}
 
 	public void updateGui() {
 		for (int i=0;i<getNumberOfLayer();i++) {
-			((LayerManager)layerManagers.getCommand(i)).updateGui();
+			((LayerManager)layerManagers.get(i)).updateGui();
 		}	
 	}
 }

@@ -16,6 +16,7 @@ public class LayerWidget extends JPanel
 {
 	private LayerManager layerController;
 	private JButton layerButton;
+	private OpacitySlider  opacitySlider;
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -34,7 +35,7 @@ public class LayerWidget extends JPanel
 		
 		JPanel insidePanel = new JPanel();
 		insidePanel.setLayout(new BoxLayout(insidePanel, BoxLayout.LINE_AXIS));
-        OpacitySlider  opacitySlider= new OpacitySlider("Opacity", 1f, layerController.getLayer().getOpacityFilter(), actionHistoryManager);
+        opacitySlider= new OpacitySlider("Opacity", 1f, layerController.getLayer().getOpacityFilter(), actionHistoryManager);
         insidePanel.add(opacitySlider);      
 
 	    add(insidePanel);
@@ -50,5 +51,9 @@ public class LayerWidget extends JPanel
 		 layerButton.addActionListener((ActionEvent event)->{
 		    	  LayerWidget.this.layerController.getLayerWindow().setVisible(true);    	
 		     });	
+	}
+	
+	public void setOpacitySlider(Float opacity) {
+		opacitySlider.getSlider().setValue((int)(opacity*100));
 	}
 }

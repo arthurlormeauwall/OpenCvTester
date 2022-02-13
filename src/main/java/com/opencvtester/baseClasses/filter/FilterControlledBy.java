@@ -73,6 +73,9 @@ public abstract class FilterControlledBy<T> extends Filter
 
 	public void setData(FilterData filterData) {
 		this.filterData=filterData;		
+		setFilterIndex(filterData.getFilterIndex());
+		setLayerIndex(filterData.getLayerIndex());
+		
 	}
 	
 	

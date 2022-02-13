@@ -2,7 +2,6 @@ package com.opencvtester.dataAccess;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Stack;
 
 import com.opencvtester.baseClasses.filter.FilterControlledByFloat;
 import com.opencvtester.filtersDataBase.FiltersDataBase;
@@ -16,28 +15,40 @@ public class SessionManager {
 	private Session session;
 	
 	private SessionPersistenceDriver sessionPersistenceDriver;
+	private GuiManager guiManager;
 	
 	public SessionManager(FiltersDataBase filtersDataBase, GuiManager guiManager) {
-		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		session=new Session(new ArrayList<LayerData>(), new ArrayList<FilterData>());
 		sessionPersistenceDriver = new SessionFileDriver();
+		this.guiManager= guiManager;
 		init();
 	}
 	
 	public void init() {
-		session=new Session("temp", new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		session=new Session(new ArrayList<LayerData>(), new ArrayList<FilterData>());
 		layerDao=new LayerDao();
 		layerDao.init(session);
 		filterDao=new FilterDao();
 		filterDao.init(session);
 	}
 	
-	public void saveSession(String fileName) {
-		sessionPersistenceDriver.saveSession(session, fileName);	
+	public void saveSessionAs(String fileName) {
+		sessionPersistenceDriver.saveSessionAs(session, fileName);	
+	}
+	
+	public void saveSession() {
+		
+		try{
+			sessionPersistenceDriver.saveSession(session);	
+		}catch (FileNotCreatedException e){
+			guiManager.launchSaveSessionAs();
+		}
 	}
 	
 	public void restoreSession(String fileName, GuiManager guiManager) {
 		init();
 		Session sessionTemp = sessionPersistenceDriver.reloadSession(session, fileName);
+		session.setTitle(sessionTemp.getTitle());
 		guiManager.clearAll();
 		buildFromSession(guiManager, sessionTemp);
 	}
@@ -47,6 +58,7 @@ public class SessionManager {
 		int numberOfLayer= sessionTemp.getLayers().size();
 		for (int i=0;i<numberOfLayer;i++) {
 			guiManager.addLayer(guiManager.createLayerManager(sessionTemp.getLayers().get(i)));	
+			guiManager.setOpacity(sessionTemp.getLayers().get(i).getLayerIndex(),sessionTemp.getLayers().get(i).getOpacityValue());
 		}
 		int numberOfFilter= sessionTemp.getFilters().size();
 		for (int i=0;i<numberOfFilter;i++) {
@@ -54,13 +66,9 @@ public class SessionManager {
 		}
 	}
 
-	public LayerData createLayerData(int layerIndex, Stack<String> filterNames) {	
-		return new LayerData(layerIndex, 100f, filterNames);
-	}
-
 	public LayerData createLayerData(int layerIndex) {	
-		return new LayerData(layerIndex, 100f, null);
-	}	
+		return new LayerData(layerIndex, 1f);
+	}
 	
 	public void addLayer(LayerManager layerManager) {
 		layerDao.add(layerManager);
@@ -73,7 +81,7 @@ public class SessionManager {
 	public void updateOpacity(FilterControlledByFloat opacityFilter, Float opacity) {	
 		LinkedHashMap<String, Float> parameters= new LinkedHashMap<String, Float>();
 		parameters.put("Opacity", opacity);
-		filterDao.update(new FilterData(opacityFilter.layerIndex(), opacityFilter.filterIndex(), opacityFilter.getFilterName(), parameters));
+		layerDao.update(new LayerData(opacityFilter.layerIndex(), opacity));
 	}
 
 	public FilterData createFilter(int layerIndex, int filterIndex, String filterName) {

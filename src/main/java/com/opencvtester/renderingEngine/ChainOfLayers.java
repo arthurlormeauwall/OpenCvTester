@@ -18,30 +18,30 @@ public class ChainOfLayers extends CompositeFilter
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	
 	public ChainOfLayers (FrameInterface frameIn) {
-	super();
-	this.background = new Frame();
-	frameIn.copyTo(this.frameIn);
-	this.frameIn.copyTo(this.frameOut);
-	this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
-	
-	indexType="layer";
-	chainOfFilters = new ChainOfCommands (this.indexType);	
-	renderer=new ChainOfLayersRenderer(this, background);
-}
+		super();
+		this.background = new Frame();
+		frameIn.copyTo(this.frameIn);
+		this.frameIn.copyTo(this.frameOut);
+		this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
+		
+		indexType="layer";
+		chainOfFilters = new ChainOfCommands (this.indexType);	
+		renderer=new ChainOfLayersRenderer(this, background);
+	}
 	
 	public ChainOfLayers (String fileName) {
-	super();
-	this.background = new Frame();
-	frameIn.readFromFile(fileName);
-	frameIn.copyTo(frameOut);
-	this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
-	
-	indexType="layer";
-	chainOfFilters = new ChainOfCommands (this.indexType);	
-	renderer=new ChainOfLayersRenderer(this, background);
-}
+		super();
+		this.background = new Frame();
+		
+		openImage(fileName);
+		
+		this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
+		
+		indexType="layer";
+		chainOfFilters = new ChainOfCommands (this.indexType);	
+		renderer=new ChainOfLayersRenderer(this, background);
+	}
 	
 	/*
 	 * GETTERS AND SETTERS
@@ -55,9 +55,46 @@ public class ChainOfLayers extends CompositeFilter
 	}
 	
 	public int getNumberOfLayers() {
-		return chainOfFilters.getSize();
+		if (chainOfFilters!=null) {
+			return chainOfFilters.getSize();
+		}else {
+			return 0;
+		}
+		
 	}	
 	
+	public void setFrameIn(String fileName) {
+		try {
+			frameIn.readFromFile(fileName);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.exit(1);
+		}
+	}
+	
+
+	public void openImage(String fileName) {
+		setFrameIn(fileName);
+		frameIn.copyTo(frameOut);
+		background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
+		if (renderer!=null && chainOfFilters!=null) {
+			if(getNumberOfLayers()>0) {
+				checkAndActivateLayer(getLayer(0));
+			}
+			deleteAllIntermediateFrames();
+		}
+	}
+			
+	
+	
+	public void deleteAllIntermediateFrames() {
+		renderer.deleteAllIntermediateFrames();
+		for (int i=0;i<getNumberOfLayers();i++) {
+			getLayer(i).deleteAllIntermediateFrames();
+		}
+	}
+
 	/*
 	 * FEATURES
 	 */	
@@ -177,4 +214,5 @@ public class ChainOfLayers extends CompositeFilter
 		}		
 		execute();	
 	}
+
 }

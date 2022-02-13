@@ -24,7 +24,8 @@ public class FrameWindowManager {
 	
 	FrameWindowManager(FrameInterface frameOut){
 		frameWindow= new JFrame("Image");
-		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
+		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		refresh(frameOut);
 	}
 	
@@ -35,6 +36,7 @@ public class FrameWindowManager {
 		    int x = bounds.width/2-frameWindow.getWidth()/2;
 		    int y = bounds.height/2 -frameWindow.getHeight()/2;
 		    frameWindow.setLocation(x, y);
+
 	}
 	/*
 	 * FEATURES
@@ -43,7 +45,7 @@ public class FrameWindowManager {
 		frameWindow.getContentPane().removeAll();
 		frameWindow.getContentPane().add(new JLabel(new ImageIcon(frameOut.getBufferedImage())));
 		frameWindow.pack();
-		setInMiddleOfScreen();
+		
 		frameWindow.setVisible(true);
 	}
 }

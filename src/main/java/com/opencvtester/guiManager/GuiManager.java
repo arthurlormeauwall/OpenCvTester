@@ -37,9 +37,11 @@ public class GuiManager
 		
 		this.filtersDataBase = filtersDataBase;
 		chainOfLayers = new ChainOfLayers(fileName);
+		
 		mainWindow = new MainWindow(this);		
 		history=new HistoryManager();
 		frameOutWindow=new FrameWindowManager(chainOfLayers.getFrameOut());
+		frameOutWindow.setInMiddleOfScreen();
 
 		sessionManager= new SessionManager(filtersDataBase, this);
 		layerFactory=new LayerFactory(filtersDataBase,this);
@@ -66,14 +68,7 @@ public class GuiManager
 	}
 
 	public void save() {
-		String fileName="src/main/ressources/sessions/session";
-		sessionManager.saveSession(fileName);	
-	}
-	
-	public void createAddLayerAndSetHistory(int layerIndex, Stack<String> filterNames) {
-		LayerManager layerManager = createLayerManager(sessionManager.createLayerData(layerIndex,filterNames));
-		addLayer(layerManager);
-		setAddLayerHistory(layerManager);
+		sessionManager.saveSession();	
 	}
 	
 	public void createAddLayerAndSetHistory(int layerIndex) {
@@ -181,8 +176,17 @@ public class GuiManager
 	public void setOpacity(FilterControlledByFloat opacityFilter, Float opacity) {	
 		sessionManager.updateOpacity(opacityFilter, opacity);
 		chainOfLayers.setOpacity(opacityFilter, opacity);
+		mainWindow.setOpacity(opacityFilter.layerIndex(), opacity);
 		refreshFrameOut();
 	}	
+	
+	public void setOpacity(int layerIndex, Float opacity) {
+		FilterControlledByFloat opacityFilter= chainOfLayers.getLayer(layerIndex).getOpacityFilter();
+		sessionManager.updateOpacity(opacityFilter, opacity);
+		chainOfLayers.setOpacity(opacityFilter, opacity);
+		mainWindow.setOpacity(opacityFilter.layerIndex(), opacity);
+		refreshFrameOut();
+	}
 
 	public void setParametersAndSetHistory(FilterControlledByFloat filterToSet, String name, Float value) throws IOException {
 		
@@ -227,6 +231,31 @@ public class GuiManager
 		chainOfLayers.clearAll();
 		mainWindow.clearAll();
 		history.clearAll();
+		refreshFrameOut();
+	}
+
+	public void saveSession() {
+		sessionManager.saveSession();
+	}
+	
+	public void saveSessionAs(String fileName) {
+		sessionManager.saveSessionAs(fileName);
+	}
+	
+	public void launchSaveSessionAs() {
+		mainWindow.saveSessionAs();
+	}
+
+
+	public void openSession(String fileName) {
+		sessionManager.restoreSession(fileName, this);
+		
+	}
+
+	public void openImage(String fileName) {
+		chainOfLayers.openImage(fileName);
+		frameOutWindow.setInMiddleOfScreen();
+		chainOfLayers.execute();
 		refreshFrameOut();
 	}
 }

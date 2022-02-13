@@ -14,11 +14,10 @@ public class Session implements Serializable {
 	private List<LayerData> layers;
 	private List<FilterData> filters;
 
-	public Session(String title, List<LayerData> layers, List<FilterData> filters) {
-		this.title=title;
+	public Session(List<LayerData> layers, List<FilterData> filters) {
+		this.title=null;
 		this.layers=layers;
 		this.filters=filters;
-		
 	}
 
 	public String getTitle() {
@@ -45,7 +44,7 @@ public class Session implements Serializable {
 		this.filters = filters;
 	}
 	public Session clone() {
-		Session sessionTemp= new Session(getTitle(), new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		Session sessionTemp= new Session(new ArrayList<LayerData>(), new ArrayList<FilterData>());
 		for (int i=0;i<getLayers().size();i++) {
 			sessionTemp.getLayers().add(getLayers().get(i));
 		}

@@ -9,14 +9,20 @@ public class LayerData  implements DataRecord, Serializable {
 	 */
 	private static final long serialVersionUID = 3016033995294210177L;
 	
-	private int layerIndex;
+	 private int layerIndex;
 	 private Float opacityValue;
 	 private Stack<String> filterNames;
 	 
-	 public LayerData(int layerIndex,  Float opacityValue,Stack<String> filterNames){
+	 public LayerData(int layerIndex,  Float opacityValue){
 		 this.layerIndex=layerIndex;
 		 this.opacityValue=opacityValue;
-		 this.filterNames=filterNames;
+          this.setFilterNames(null);
+	 }
+	 
+	 public LayerData(int layerIndex,  Float opacityValue, Stack<String> filterNames){
+		 this.layerIndex=layerIndex;
+		 this.opacityValue=opacityValue;
+          this.setFilterNames(filterNames);
 	 }
 
 	public int getLayerIndex() {
@@ -42,7 +48,4 @@ public class LayerData  implements DataRecord, Serializable {
 	public void setFilterNames(Stack<String> filterNames) {
 		this.filterNames = filterNames;
 	}
-	 
-	 
-
 }

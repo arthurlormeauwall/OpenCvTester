@@ -120,4 +120,8 @@ public abstract class Renderer {
 			this.chainOfFilters.push((Filter)chainOfFilters.get(i));
 		}		
 	}
+
+	public void deleteAllIntermediateFrames() {
+		frames.clear();	
+	}
 }

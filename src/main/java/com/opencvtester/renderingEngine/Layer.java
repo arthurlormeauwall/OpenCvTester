@@ -108,4 +108,7 @@ public class Layer extends CompositeFilter
 		
 		return layerData;
 	}
+	public void deleteAllIntermediateFrames() {
+		renderer.deleteAllIntermediateFrames();
+	}
 }

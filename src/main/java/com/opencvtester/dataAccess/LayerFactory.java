@@ -1,7 +1,5 @@
 package com.opencvtester.dataAccess;
 
-import java.util.Stack;
-
 import com.opencvtester.filtersDataBase.FiltersDataBase;
 import com.opencvtester.guiManager.GuiManager;
 import com.opencvtester.guiManager.LayerManager;
@@ -26,22 +24,22 @@ public class LayerFactory {
 	}
 	
 	public static Layer createLayer(LayerData layerData, FiltersDataBase filtersdb){
-		
-		int layerIndex=layerData.getLayerIndex();
-		Stack<String> filterNames=layerData.getFilterNames();
-
-		
-		Layer newLayer= new Layer(layerData, filtersdb.getOpacityFilter());
-		
-		if (filterNames!=null) {
-			int numberOfFilterToAdd = filterNames.size();
-
-			for (int i = 0; i < numberOfFilterToAdd; i++) {	
-				newLayer.addFilter(FilterFactory.createFilter(new FilterData(layerIndex, i, filterNames.get(i),null), filtersdb));
+		if (layerData.getFilterNames()==null) {
+			return createEmptyLayer(layerData, filtersdb);
+		}else {
+			Layer newLayer= new Layer(layerData, filtersdb.getOpacityFilter());
+			
+			for (int i=0;i<layerData.getFilterNames().size();i++) {
+				newLayer.addFilter(
+						filtersdb.getFilter(
+								layerData.getFilterNames().get(i), new FilterData(
+																			layerData.getLayerIndex(), i,layerData.getFilterNames().get(i)
+																			)
+								 )
+						 );
 			}
+			return newLayer;
 		}
-		
-		return newLayer;
 	}
 	
 	public static Layer createEmptyLayer(LayerData layerData, FiltersDataBase filtersdb){
