@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+import com.opencvtester.entity.Frame;
+
 class FrameTest {
 
 	Frame frame;

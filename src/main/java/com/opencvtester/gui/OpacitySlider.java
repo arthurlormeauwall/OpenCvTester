@@ -5,8 +5,8 @@ import java.text.DecimalFormat;
 
 import javax.swing.event.ChangeEvent;
 
-import com.opencvtester.baseClasses.filter.ControlledFilter;
-import com.opencvtester.guiManager.GuiManager;
+import com.opencvtester.controller.MainController;
+import com.opencvtester.controller.filter.ControlledFilter;
 
 public class OpacitySlider extends LabelledSlider {
 
@@ -16,7 +16,7 @@ public class OpacitySlider extends LabelledSlider {
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public OpacitySlider(String name, Float defaultValue, ControlledFilter widgetToUpdate, GuiManager actionHistoryManager) {
+	public OpacitySlider(String name, Float defaultValue, ControlledFilter widgetToUpdate, MainController actionHistoryManager) {
 		super(name, defaultValue, widgetToUpdate, actionHistoryManager);
 	}
 	

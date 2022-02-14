@@ -8,16 +8,16 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.opencvtester.guiManager.FilterManager;
-import com.opencvtester.guiManager.GuiManager;
-import com.opencvtester.guiManager.LayerManager;
+import com.opencvtester.controller.MainController;
+import com.opencvtester.controller.filter.FilterManager;
+import com.opencvtester.controller.layer.LayerController;
 
 public class LayerWindow  extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	private LayerManager layerManager;
+	private LayerController layerManager;
 	private JPanel filterPanel;
-	private GuiManager guiManager;
+	private MainController guiManager;
 	private JList<String> filtersList;
     
 	private JButton addFilterButton;
@@ -28,7 +28,7 @@ public class LayerWindow  extends JFrame
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayerWindow (LayerManager layerManager, GuiManager actionHistoryManager){
+	public LayerWindow (LayerController layerManager, MainController actionHistoryManager){
 		super("Layer");
 		
 		

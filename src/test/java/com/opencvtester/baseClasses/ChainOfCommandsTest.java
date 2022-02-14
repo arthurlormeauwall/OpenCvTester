@@ -9,6 +9,9 @@ import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.opencvtester.controller.ChainOfCommands;
+import com.opencvtester.entity.Command;
+
 class ChainOfCommandsTest {
 
 	private int NUMBER_OF_TEST;

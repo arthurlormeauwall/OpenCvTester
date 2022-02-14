@@ -1,6 +1,6 @@
 package com.sandbox.example.userFilters;
 
-import com.opencvtester.baseClasses.filter.ControlledFilter;
+import com.opencvtester.controller.filter.ControlledFilter;
 
 public class BlueGreenRedMultiplierFilter extends ControlledFilter 
 {

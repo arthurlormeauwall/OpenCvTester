@@ -2,9 +2,9 @@ package com.opencvtester.app;
 
 import java.io.IOException;
 
-import com.opencvtester.baseClasses.filter.ControlledFilter;
-import com.opencvtester.filtersDataBase.FiltersDataBase;
-import com.opencvtester.guiManager.GuiManager;
+import com.opencvtester.controller.FiltersDataBase;
+import com.opencvtester.controller.MainController;
+import com.opencvtester.controller.filter.ControlledFilter;
 
 public class App
 {
@@ -30,7 +30,7 @@ public class App
 	
 	public void launch() {
 		try {
-			new GuiManager(fileName, filtersDataBase);
+			new MainController(fileName, filtersDataBase);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

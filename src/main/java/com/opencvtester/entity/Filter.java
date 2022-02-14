@@ -1,0 +1,53 @@
+package com.opencvtester.entity;
+
+import com.opencvtester.entity.interfaces.FrameInterface;
+
+public abstract class Filter extends Command
+{
+	
+	protected FrameInterface frameIn;
+	protected FrameInterface frameOut;
+	protected Boolean activate;
+	
+	/*
+	 * CONSTRUCTOR & INITS & ABSTRACT
+	 */
+	public Filter() {
+		activate= false;
+		frameIn = new Frame();
+		frameOut   = new Frame();
+	}
+	
+	public abstract void execute();
+	
+	/*
+	 * GETTERS & SETTERS
+	 */
+	public FrameInterface getFrameIn(){
+		return frameIn;
+	}
+	
+	public void setFrameIn(FrameInterface frameIn){
+		this.frameIn=frameIn;
+	}
+	
+	public FrameInterface getFrameOut()        {
+		return frameOut;
+	}
+	
+	public void setFrameOut(FrameInterface frameOut)  {	
+		this.frameOut=frameOut;
+	}
+
+	public Boolean isActivate() {
+		return activate;
+	}
+	
+	public void desactivate() {
+		activate=false;
+	}
+
+	public void activate() {
+		activate=true;		
+	}
+}

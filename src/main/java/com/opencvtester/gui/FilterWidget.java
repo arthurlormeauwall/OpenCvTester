@@ -17,14 +17,14 @@ import javax.swing.border.Border;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
-import com.opencvtester.baseClasses.filter.ControlledFilter;
-import com.opencvtester.guiManager.GuiManager;
+import com.opencvtester.controller.MainController;
+import com.opencvtester.controller.filter.ControlledFilter;
 
 public class FilterWidget extends JPanel
 {
 	private ControlledFilter sourceFilter;
 	private JCheckBox bypassBox;
-	private GuiManager actionHistoryManager;
+	private MainController actionHistoryManager;
 	private Boolean bypass;
 	private LinkedHashMap<String, LabelledSlider> sliders;
 	
@@ -33,7 +33,7 @@ public class FilterWidget extends JPanel
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public FilterWidget (ControlledFilter sourceFilter, GuiManager actionHistoryManager){
+	public FilterWidget (ControlledFilter sourceFilter, MainController actionHistoryManager){
 		sliders= new LinkedHashMap<String, LabelledSlider>();
 		bypass=sourceFilter.isbypassLocked();
 		this.sourceFilter= sourceFilter;

@@ -9,12 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.opencvtester.guiManager.GuiManager;
-import com.opencvtester.guiManager.LayerManager;
+import com.opencvtester.controller.MainController;
+import com.opencvtester.controller.layer.LayerController;
 
 public class LayerWidget extends JPanel 
 {
-	private LayerManager layerController;
+	private LayerController layerController;
 	private JButton layerButton;
 	private OpacitySlider  opacitySlider;
 	
@@ -23,7 +23,7 @@ public class LayerWidget extends JPanel
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayerWidget (LayerManager layerController, GuiManager actionHistoryManager){
+	public LayerWidget (LayerController layerController, MainController actionHistoryManager){
 		this.layerController=layerController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		

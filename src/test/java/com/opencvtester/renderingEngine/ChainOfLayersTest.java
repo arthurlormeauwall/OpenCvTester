@@ -9,15 +9,17 @@ import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.baseClasses.Command;
 import com.opencvtester.baseClasses.filter.DummyFilter;
-import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.baseClasses.frame.Frame;
-import com.opencvtester.dataAccess.FilterData;
-import com.opencvtester.dataAccess.FilterFactory;
-import com.opencvtester.dataAccess.LayerData;
-import com.opencvtester.dataAccess.LayerFactory;
-import com.opencvtester.filtersDataBase.FiltersDataBase;
+import com.opencvtester.controller.FiltersDataBase;
+import com.opencvtester.entity.Command;
+import com.opencvtester.entity.Filter;
+import com.opencvtester.entity.FilterData;
+import com.opencvtester.entity.Frame;
+import com.opencvtester.entity.LayerData;
+import com.opencvtester.factory.FilterFactory;
+import com.opencvtester.factory.LayerFactory;
+import com.opencvtester.renderer.ChainOfLayers;
+import com.opencvtester.renderer.Layer;
 
 class ChainOfLayersTest {
 

@@ -12,19 +12,19 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.opencvtester.baseClasses.filter.Filter;
-import com.opencvtester.guiManager.ChainOfLayerManagers;
-import com.opencvtester.guiManager.FilterManager;
-import com.opencvtester.guiManager.GuiManager;
-import com.opencvtester.guiManager.LayerManager;
+import com.opencvtester.controller.MainController;
+import com.opencvtester.controller.filter.FilterManager;
+import com.opencvtester.controller.layer.LayerController;
+import com.opencvtester.controller.layer.LayersController;
+import com.opencvtester.entity.Filter;
 
 
 public class MainWindow extends JFrame
 {
 	private static final long serialVersionUID = 1L;
 	
-	private ChainOfLayerManagers chainOfLayerManagers;
-	private GuiManager guiManager;
+	private LayersController chainOfLayerManagers;
+	private MainController guiManager;
 	private JPanel layerPanel;
 	private JButton addLayerButton; 
 	private JButton delLayerButton; 
@@ -43,7 +43,7 @@ public class MainWindow extends JFrame
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public MainWindow(GuiManager guiManager) {
+	public MainWindow(MainController guiManager) {
 		super("OpenCV tester");
 		
 		test= new Stack<LayerWindow>();
@@ -51,7 +51,7 @@ public class MainWindow extends JFrame
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.guiManager=guiManager;	
-		chainOfLayerManagers= new ChainOfLayerManagers(this);
+		chainOfLayerManagers= new LayersController(this);
 		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -137,11 +137,11 @@ public class MainWindow extends JFrame
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public GuiManager getGuiManager() {
+	public MainController getGuiManager() {
 		return guiManager;
 	}
 
-	public ChainOfLayerManagers getChainOfLayerManagers() {
+	public LayersController getChainOfLayerManagers() {
 		return chainOfLayerManagers;
 	}	
 	
@@ -161,12 +161,12 @@ public class MainWindow extends JFrame
 		chainOfLayerManagers.deleteFilterManager(filterManager);	
 	}
 
-	public void addLayerManager(LayerManager layerManager) {
+	public void addLayerManager(LayerController layerManager) {
 		layerManager.createLayerWindow();
 		chainOfLayerManagers.addLayerManager(layerManager);	
 	}
 	
-	public void deleteLayerManager(LayerManager layerManager) {
+	public void deleteLayerManager(LayerController layerManager) {
 		layerManager.deleteLayerWindow();
 		chainOfLayerManagers.deleteLayerManager(layerManager);		
 	}
