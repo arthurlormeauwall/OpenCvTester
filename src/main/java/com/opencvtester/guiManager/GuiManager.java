@@ -61,11 +61,6 @@ public class GuiManager
 	/*
 	 * FEATURES
 	 */	
-	
-	public void reload() {		
-		String fileName="src/main/ressources/sessions/session";
-		sessionManager.restoreSession(fileName, this);
-	}
 
 	public void save() {
 		sessionManager.saveSession();	

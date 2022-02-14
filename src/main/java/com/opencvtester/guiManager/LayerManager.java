@@ -44,6 +44,7 @@ public class LayerManager extends Command
 	public void updateGui() {
 		layerWindow.updateGui();	
 	}
+	
 	public Layer getLayer() {
 		return layer;
 	}
