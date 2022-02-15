@@ -2,9 +2,9 @@ package com.opencvtester.app;
 
 import java.io.IOException;
 
-import com.opencvtester.controller.FiltersDataBase;
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.filter.ControlledFilter;
+import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.FiltersDataBase;
 
 public class App
 {

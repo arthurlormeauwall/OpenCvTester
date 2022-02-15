@@ -2,8 +2,10 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.entity.Command;
-import com.opencvtester.entity.interfaces.FrameInterface;
+import com.opencvtester.data.Command;
+import com.opencvtester.data.CompositeFilter;
+import com.opencvtester.data.Layer;
+import com.opencvtester.renderer.interfaces.FrameInterface;
 
 public class ChainOfLayersRenderer extends Renderer {
 

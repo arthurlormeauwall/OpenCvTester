@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.opencvtester.entity.interfaces.FrameInterface;
+import com.opencvtester.renderer.interfaces.FrameInterface;
 
 public class FrameWindowController {
 

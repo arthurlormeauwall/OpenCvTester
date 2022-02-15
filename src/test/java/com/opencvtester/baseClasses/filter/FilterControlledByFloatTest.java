@@ -7,8 +7,8 @@ import java.util.LinkedHashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.controller.filter.ControlledFilter;
-import com.opencvtester.entity.Frame;
+import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.Frame;
 
 class FilterControlledByFloatTest {
 	ControlledFilter filter;

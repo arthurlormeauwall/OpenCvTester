@@ -9,8 +9,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.filter.FilterManager;
 import com.opencvtester.controller.layer.LayerController;
+import com.opencvtester.filterController.FilterController;
 
 public class LayerWindow  extends JFrame 
 {
@@ -86,7 +86,7 @@ public class LayerWindow  extends JFrame
 		 delFilterButton.addActionListener((ActionEvent event) -> {
 		    	int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-1;
 				if(indexOfFitlerToDel>=0) {
-					FilterManager filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
+					FilterController filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
 					filterToDel.getFilterWidget().setVisible(false);
 					 LayerWindow.this.pack();
 					 LayerWindow.this.guiManager.deleteFilterAndSetHistory(filterToDel);

@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.entity.Frame;
+import com.opencvtester.renderer.Frame;
 import com.opencvtester.renderer.OpacityFilter;
 
 

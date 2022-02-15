@@ -9,8 +9,8 @@ import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.controller.ChainOfCommands;
-import com.opencvtester.entity.Command;
+import com.opencvtester.data.ChainOfCommands;
+import com.opencvtester.data.Command;
 
 class ChainOfCommandsTest {
 
@@ -57,8 +57,8 @@ class ChainOfCommandsTest {
 	void testAddCommand() {
 		
 		for(int i=0;i< NUMBER_OF_TEST;i++){	        
-			chainOfLayer.addCommand(layers.get(i));
-			chainOfFilter.addCommand(filters.get(i));
+			chainOfLayer.add(layers.get(i));
+			chainOfFilter.add(filters.get(i));
 		}
 		
 		Stack<Command> resultChainOfLayer= chainOfLayer.getChain();
@@ -76,16 +76,16 @@ class ChainOfCommandsTest {
 	@Test
 	void testDelCommand() {
 		for(int i=0;i< NUMBER_OF_TEST;i++){	        
-			chainOfLayer.addCommand(layers.get(i));
-			chainOfFilter.addCommand(filters.get(i));
+			chainOfLayer.add(layers.get(i));
+			chainOfFilter.add(filters.get(i));
 		}
 		
 		Stack<Command> stackOfLayer = new Stack<Command>();
 		Stack<Command> stackOfFilter = new Stack<Command>();
 		
 		for(int i=0; i<NUMBER_OF_TEST; i++) {
-			stackOfLayer.push(chainOfLayer.delCommand(i));
-			stackOfFilter.push(chainOfFilter.delCommand(i));
+			stackOfLayer.push(chainOfLayer.delete(i));
+			stackOfFilter.push(chainOfFilter.delete(i));
 		}
 		
 		for(int i=0;i< NUMBER_OF_TEST;i++){

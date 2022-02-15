@@ -7,10 +7,10 @@ import java.util.Stack;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.baseClasses.filter.DummyFilter;
-import com.opencvtester.controller.FiltersDataBase;
-import com.opencvtester.entity.LayerData;
-import com.opencvtester.factory.LayerFactory;
-import com.opencvtester.renderer.Layer;
+import com.opencvtester.data.Layer;
+import com.opencvtester.data.LayerData;
+import com.opencvtester.renderer.FiltersDataBase;
+import com.opencvtester.renderer.LayerFactory;
 
 class LayerFactoryTest {
 

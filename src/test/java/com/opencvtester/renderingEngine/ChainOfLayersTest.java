@@ -10,24 +10,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.baseClasses.filter.DummyFilter;
-import com.opencvtester.controller.FiltersDataBase;
-import com.opencvtester.entity.Command;
-import com.opencvtester.entity.Filter;
-import com.opencvtester.entity.FilterData;
-import com.opencvtester.entity.Frame;
-import com.opencvtester.entity.LayerData;
-import com.opencvtester.factory.FilterFactory;
-import com.opencvtester.factory.LayerFactory;
-import com.opencvtester.renderer.ChainOfLayers;
-import com.opencvtester.renderer.Layer;
+import com.opencvtester.data.Command;
+import com.opencvtester.data.FilterData;
+import com.opencvtester.data.Layer;
+import com.opencvtester.data.LayerData;
+import com.opencvtester.data.interfacesImp.DataCtrlImp;
+import com.opencvtester.renderer.IOFrame;
+import com.opencvtester.renderer.FilterFactory;
+import com.opencvtester.renderer.FiltersDataBase;
+import com.opencvtester.renderer.Frame;
+import com.opencvtester.renderer.LayerFactory;
 
 class ChainOfLayersTest {
 
-	private ChainOfLayers chainOfLayers;
+	private DataCtrlImp chainOfLayers;
 	private DummyFilter filter;
 	private FiltersDataBase filterDb;
 	private Stack<Layer> layers;
-	private Stack<Filter> filters;
+	private Stack<IOFrame> filters;
 	
 	public ChainOfLayersTest() {
 		
@@ -38,7 +38,7 @@ class ChainOfLayersTest {
 		filterDb.addFilter("test", filter);
 		
 		layers= new Stack<Layer>();
-		filters= new Stack<Filter>();
+		filters= new Stack<IOFrame>();
 		
 		filters.push(FilterFactory.createFilter(new FilterData(1,0,"test",null), filterDb));
 		filters.push(FilterFactory.createFilter(new FilterData(1,1,"test",null), filterDb));
@@ -47,7 +47,7 @@ class ChainOfLayersTest {
 		layers.push(LayerFactory.createEmptyLayer(new LayerData(0, 1f), filterDb));
 		layers.push(LayerFactory.createEmptyLayer(new LayerData(1, 1f), filterDb));
 		
-		chainOfLayers = new ChainOfLayers(new Frame(10,10,127));
+		chainOfLayers = new DataCtrlImp(new Frame(10,10,127));
 
 	}
 	
@@ -89,19 +89,19 @@ class ChainOfLayersTest {
 	
 	@Test
 	void testAddFilter() {
-		Filter newFilter =FilterFactory.createFilter(new FilterData(1,3,"test",null),filterDb);
+		IOFrame newFilter =FilterFactory.createFilter(new FilterData(1,3,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter);
 		
 		assertEquals(newFilter, chainOfLayers.getLastLayer().getLastFilter());	
 		
-		Filter newFilter2 =FilterFactory.createFilter(new FilterData(0,2,"test",null),filterDb);
+		IOFrame newFilter2 =FilterFactory.createFilter(new FilterData(0,2,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter2);
 		
 		assertEquals(0, chainOfLayers.getLayer(0).getNumberOfFilters());	
 		
-		Filter newFilter3 =FilterFactory.createFilter(new FilterData(0,0,"test",null),filterDb);
+		IOFrame newFilter3 =FilterFactory.createFilter(new FilterData(0,0,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter3);
 		
@@ -112,7 +112,7 @@ class ChainOfLayersTest {
 	
 	@Test
 	void testUpdateId() {	
-		Filter newFilter =FilterFactory.createFilter(new FilterData(1,1,"test",null),filterDb);
+		IOFrame newFilter =FilterFactory.createFilter(new FilterData(1,1,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter);
 		

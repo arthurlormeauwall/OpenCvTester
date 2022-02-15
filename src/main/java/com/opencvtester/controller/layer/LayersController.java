@@ -3,19 +3,19 @@ package com.opencvtester.controller.layer;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import com.opencvtester.controller.filter.FilterManager;
-import com.opencvtester.entity.Filter;
-import com.opencvtester.gui.MainWindow;
+import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.filterController.FilterController;
+import com.opencvtester.gui.interfacesImp.MainWindowSwing;
 
 public class LayersController {
 	
 	private Stack<LayerController> layerManagers;
-	private MainWindow mainWindow;
+	private MainWindowSwing mainWindow;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayersController (MainWindow gui){	
+	public LayersController (MainWindowSwing gui){	
 		this.mainWindow=gui;
 		layerManagers= new Stack<LayerController>();
 	}
@@ -34,12 +34,12 @@ public class LayersController {
 	/*
 	 * FEATURES
 	 */
-	public void addFilterManager(FilterManager filterManager) {
+	public void addFilterManager(FilterController filterManager) {
 		((LayerController)layerManagers.get(filterManager.layerIndex())).addFilterManager(filterManager);
 		mainWindow.updateGui();
 	}
 	
-	public void deleteFilterManager(FilterManager filterManager) {
+	public void deleteFilterManager(FilterController filterManager) {
 		((LayerController)layerManagers.get(filterManager.layerIndex())).deleteFilterWidget(filterManager);
 		mainWindow.updateGui();
 	}
@@ -58,7 +58,7 @@ public class LayersController {
 		mainWindow.updateOpacityValue(layerIndex,opacity);
 	}
 
-	public void setParameters(Filter filter, LinkedHashMap<String, Float> parameters) {
+	public void setParameters(ControlledFilter filter, LinkedHashMap<String, Float> parameters) {
 		mainWindow.updateParametersValues(filter, parameters);
 	}
 	

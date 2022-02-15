@@ -6,7 +6,7 @@ import java.util.Stack;
 
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.controller.FiltersDataBase;
+import com.opencvtester.renderer.FiltersDataBase;
 
 class FiltersDataBaseTest {
 
