@@ -3,9 +3,9 @@ package com.opencvtester.controller.layer;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.interfacesImp.MainWindowSwing;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class LayersController {
 	

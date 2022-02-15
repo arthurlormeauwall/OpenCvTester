@@ -3,8 +3,9 @@ package com.opencvtester.controller.interfaces;
 import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.data.FilterData;
 import com.opencvtester.data.LayerData;
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.filterController.FilterController;
+import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.interfaces.IOFrame;
 
 public interface DataController {
 
@@ -20,11 +21,21 @@ public interface DataController {
 
 	void deleteFilter(FilterController filterManager);
 
-	void updateOpacity(ControlledFilter opacityFilter, Float opacity);
+	void layerIndex(int layerIndex, Float opacity);
 
-	void updateParameters(ControlledFilter filterToSet, String name, Float value);
+	void setParameters(ControlledFilter filterToSet, String name, Float value);
 
 	void setBypass(int layerIndex, int filterIndex, Boolean bypass);
 
 	void clearAll();
+
+	void setOpacity(int layerIndex, Float opacity);
+
+	void checkAndActivateFilter(int layerIndex, int filterIndex);
+
+	void checkAndActivateLayer(int layerIndex);
+	
+	int getNumberOfLayers();
+	
+	int getNumberOfFilters(int layerIndex);
 }

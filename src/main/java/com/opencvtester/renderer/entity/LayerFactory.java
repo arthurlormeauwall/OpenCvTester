@@ -1,10 +1,10 @@
-package com.opencvtester.renderer;
+package com.opencvtester.renderer.entity;
 
 import com.opencvtester.controller.MainController;
 import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.data.FilterData;
-import com.opencvtester.data.Layer;
 import com.opencvtester.data.LayerData;
+import com.opencvtester.renderer.FiltersDataBase;
 
 public class LayerFactory {
 	
@@ -24,11 +24,11 @@ public class LayerFactory {
 		return new LayerController(createEmptyLayer(layerData,filtersDataBase), guiManager);
 	}
 	
-	public static Layer createLayer(LayerData layerData, FiltersDataBase filtersdb){
+	public static LayerData createLayer(LayerData layerData, FiltersDataBase filtersdb){
 		if (layerData.getFilterNames()==null) {
 			return createEmptyLayer(layerData, filtersdb);
 		}else {
-			Layer newLayer= new Layer(layerData, filtersdb.getOpacityFilter());
+			LayerData newLayer= new LayerData(layerData, filtersdb.getOpacityFilter());
 			
 			for (int i=0;i<layerData.getFilterNames().size();i++) {
 				newLayer.addFilter(
@@ -43,9 +43,9 @@ public class LayerFactory {
 		}
 	}
 	
-	public static Layer createEmptyLayer(LayerData layerData, FiltersDataBase filtersdb){
+	public static LayerData createEmptyLayer(LayerData layerData, FiltersDataBase filtersdb){
 
-		Layer newLayer= new Layer(layerData, filtersdb.getOpacityFilter());
+		LayerData newLayer= new LayerData(layerData, filtersdb.getOpacityFilter());
 		return newLayer;
 	}
 }

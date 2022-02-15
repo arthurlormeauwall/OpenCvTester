@@ -12,7 +12,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class LabelledSlider extends JPanel
 {

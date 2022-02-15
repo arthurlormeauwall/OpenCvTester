@@ -16,9 +16,9 @@ import com.opencvtester.controller.MainController;
 import com.opencvtester.controller.interfaces.MainWindow;
 import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.controller.layer.LayersController;
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.LayerWindow;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 
 public class MainWindowSwing extends JFrame implements MainWindow

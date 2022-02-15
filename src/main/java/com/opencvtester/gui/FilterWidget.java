@@ -18,7 +18,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class FilterWidget extends JPanel
 {

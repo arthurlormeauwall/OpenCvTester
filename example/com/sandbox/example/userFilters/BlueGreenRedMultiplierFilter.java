@@ -1,6 +1,6 @@
 package com.sandbox.example.userFilters;
 
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class BlueGreenRedMultiplierFilter extends ControlledFilter 
 {
@@ -20,7 +20,7 @@ public class BlueGreenRedMultiplierFilter extends ControlledFilter
 		 return temp;
 	}
 
-	public void execute() {	
+	public void render() {	
 		if (isBypass) {
 			frameIn.copyTo(frameOut);
 		}

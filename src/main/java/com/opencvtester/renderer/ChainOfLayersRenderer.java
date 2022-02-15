@@ -2,10 +2,9 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.data.Command;
-import com.opencvtester.data.CompositeFilter;
-import com.opencvtester.data.Layer;
+import com.opencvtester.renderer.entity.Layer;
 import com.opencvtester.renderer.interfaces.FrameInterface;
+import com.opencvtester.renderer.interfaces.IOFrame;
 
 public class ChainOfLayersRenderer extends Renderer {
 
@@ -14,26 +13,26 @@ public class ChainOfLayersRenderer extends Renderer {
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public ChainOfLayersRenderer(CompositeFilter compositeFilters, FrameInterface background) {
-		super(compositeFilters);
+	public ChainOfLayersRenderer(IOFrame mainFilter, FrameInterface background) {
+		super(mainFilter);
 		this.background=background;
 	}
 	
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public Command getLastFilter(){
-		return chainOfFilters.get(chainOfFilters.size() - 1);
+	public IOFrame getLastFilter(){
+		return chainOfIOFrame.get(chainOfIOFrame.size() - 1);
 	}   
 	
 	public int getNumberOfFiltersPlusOpacity() {
-		return chainOfFilters.size();
+		return chainOfIOFrame.size();
 	}
 	
 	/*
 	 * FEATURES
 	 */
-	public void execute(Stack<Command> chainOfLayers) {
+	public void execute(Stack<IOFrame> chainOfLayers) {
 		dealFrames(chainOfLayers);	
 		dealFramesInLayers();
 		dealBackground();	
@@ -41,19 +40,19 @@ public class ChainOfLayersRenderer extends Renderer {
 	}
 
 	public void dealBackground(){
-		int numberOfLayers = chainOfFilters.size();
+		int numberOfLayers = chainOfIOFrame.size();
 		
 		if (numberOfLayers>0) {
-			((Layer)chainOfFilters.get(0)).setBackGround(background);
+			((Layer)chainOfIOFrame.get(0)).setBackground(background);
 			for (int i = 1; i < numberOfLayers; i++) {
-				((Layer)chainOfFilters.get(i)).setBackGround(((Layer)chainOfFilters.get(i - 1)).getFrameOut());
+				((Layer)chainOfIOFrame.get(i)).setBackground(((Layer)chainOfIOFrame.get(i - 1)).getFrameOut());
 			}
 		}	
 	}   
 	
 	public void dealFramesInLayers(){
-		for (int i = 0; i < chainOfFilters.size(); i++) {
-			 ((Layer)chainOfFilters.get(i)).dealFrames();	
+		for (int i = 0; i < chainOfIOFrame.size(); i++) {
+			 ((Layer)chainOfIOFrame.get(i)).dealFrames();	
 		}
 	}
 }

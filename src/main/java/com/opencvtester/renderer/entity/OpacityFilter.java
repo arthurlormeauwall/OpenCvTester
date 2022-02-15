@@ -1,7 +1,6 @@
-package com.opencvtester.renderer;
+package com.opencvtester.renderer.entity;
 import java.util.LinkedHashMap;
 
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.renderer.interfaces.FrameInterface;
 
 
@@ -20,14 +19,14 @@ public class OpacityFilter extends ControlledFilter
 	public void init(FrameInterface background) {
 		setBackGround(background);
 		setParameterFlags();
-		setOpacity(flags.defaultValues.get("Opacity"));
+		setOpacity(data.getDefaultValues().get("Opacity"));
 	}
 	
 	/*
 	 * GETTERS & SETTERS
 	 */
 	public void setParameterFlags() {	
-		flags.filterName="Opacity";
+		data.setName("Opacity");
 		opacity=1f; 
 		addParameterFlag("Opacity", 1f,1f, 100); 
 	}
@@ -56,10 +55,10 @@ public class OpacityFilter extends ControlledFilter
 	 * FEATURES
 	 */
 	public void execute() {
-		if (isBypass) {
+		if (data.isBypass()) {
 			frameIn.copyTo(frameOut);
 		}
-		else if (!isBypass) {
+		else if (!data.isBypass()) {
 			
 			Float opacity = getParameter("Opacity");
 			

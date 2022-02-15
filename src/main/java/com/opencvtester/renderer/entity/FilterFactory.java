@@ -1,9 +1,9 @@
-package com.opencvtester.renderer;
+package com.opencvtester.renderer.entity;
 
 import com.opencvtester.controller.MainController;
 import com.opencvtester.data.FilterData;
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.filterController.FilterController;
+import com.opencvtester.renderer.FiltersDataBase;
 
 public class FilterFactory {
 	private FiltersDataBase filtersDataBase;

@@ -1,6 +1,6 @@
 package com.sandbox.example.userFilters;
 
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class GrayScaleFilter extends ControlledFilter 
 {
@@ -19,7 +19,7 @@ public class GrayScaleFilter extends ControlledFilter
 		return new GrayScaleFilter(getFilterName());
 	}
 
-	public void execute() {
+	public void render() {
 		if (isBypass) {
 			frameIn.copyTo(frameOut);
 		}

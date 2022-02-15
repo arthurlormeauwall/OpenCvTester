@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.renderer.Frame;
-import com.opencvtester.renderer.OpacityFilter;
+import com.opencvtester.renderer.entity.OpacityFilter;
 
 
 class OpacityFilterTest {
@@ -54,7 +54,7 @@ class OpacityFilterTest {
 		for (Float opacity=0f;opacity<1; opacity+=0.05f) {
 			filter.setOpacity(opacity);
 			filter.setBypass(false);
-			filter.execute();
+			filter.render();
 			
 			Frame result=new Frame();
 			result.createPlainGrayFrame(100, 100, Math.round(255*opacity));

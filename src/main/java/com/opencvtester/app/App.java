@@ -3,8 +3,8 @@ package com.opencvtester.app;
 import java.io.IOException;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.renderer.FiltersDataBase;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class App
 {

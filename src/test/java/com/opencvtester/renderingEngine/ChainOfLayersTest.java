@@ -12,21 +12,21 @@ import org.junit.jupiter.api.Test;
 import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.data.Command;
 import com.opencvtester.data.FilterData;
-import com.opencvtester.data.Layer;
+import com.opencvtester.data.LayerData;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
-import com.opencvtester.renderer.IOFrame;
-import com.opencvtester.renderer.FilterFactory;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Frame;
-import com.opencvtester.renderer.LayerFactory;
+import com.opencvtester.renderer.entity.FilterFactory;
+import com.opencvtester.renderer.entity.LayerFactory;
+import com.opencvtester.renderer.interfaces.IOFrame;
 
 class ChainOfLayersTest {
 
 	private DataCtrlImp chainOfLayers;
 	private DummyFilter filter;
 	private FiltersDataBase filterDb;
-	private Stack<Layer> layers;
+	private Stack<LayerData> layers;
 	private Stack<IOFrame> filters;
 	
 	public ChainOfLayersTest() {
@@ -37,7 +37,7 @@ class ChainOfLayersTest {
 		
 		filterDb.addFilter("test", filter);
 		
-		layers= new Stack<Layer>();
+		layers= new Stack<LayerData>();
 		filters= new Stack<IOFrame>();
 		
 		filters.push(FilterFactory.createFilter(new FilterData(1,0,"test",null), filterDb));
@@ -65,8 +65,8 @@ class ChainOfLayersTest {
 	void testAddLayer() {
 
 		Stack<Command> result= chainOfLayers.getChain().getChain();
-		Layer layer1= (Layer)result.get(0);
-		Layer layer2= (Layer)result.get(1);
+		LayerData layer1= (LayerData)result.get(0);
+		LayerData layer2= (LayerData)result.get(1);
 		
 		assertEquals(layer1, layers.get(0));
 		assertEquals(layer2, layers.get(1));

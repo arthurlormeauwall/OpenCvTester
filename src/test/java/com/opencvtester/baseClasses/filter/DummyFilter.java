@@ -1,6 +1,6 @@
 package com.opencvtester.baseClasses.filter;
 
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class DummyFilter extends ControlledFilter{
 
@@ -24,7 +24,7 @@ public class DummyFilter extends ControlledFilter{
 	}
 
 	@Override
-	public void execute() {
+	public void render() {
 		log = "dymmy filter is executing";	
 	}
 

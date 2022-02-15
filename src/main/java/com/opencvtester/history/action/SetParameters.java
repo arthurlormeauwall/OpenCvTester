@@ -6,9 +6,9 @@ import com.opencvtester.controller.MainController;
 import com.opencvtester.controller.interfaces.RendererController;
 import com.opencvtester.controller.layer.LayersController;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.history.Action;
 import com.opencvtester.history.NatureOfAction;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class SetParameters implements Action {
 

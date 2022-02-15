@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.opencvtester.data.SessionController;
 import com.opencvtester.dataPersistence.interfaces.SessionPersistenceDriver;
 
 class FileNotCreatedException extends RuntimeException{

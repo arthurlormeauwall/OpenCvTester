@@ -2,27 +2,27 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.data.Command;
-import com.opencvtester.data.CompositeFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 import com.opencvtester.renderer.interfaces.FrameInterface;
+import com.opencvtester.renderer.interfaces.IOFrame;
 
 public abstract class Renderer {
 	
 	protected Stack<FrameInterface> frames;
-	protected Stack<IOFrame> chainOfFilters;
-	protected CompositeFilter compositeFilters;
+	protected Stack<IOFrame> chainOfIOFrame;
+	protected IOFrame mainFilter;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public Renderer(CompositeFilter compositeFilters) {
-		this.compositeFilters=compositeFilters;	
-		chainOfFilters=new Stack<IOFrame>();
+	public Renderer(IOFrame mainFilter) {
+		this.mainFilter=mainFilter;	
+		chainOfIOFrame=new Stack<IOFrame>();
 		frames= new Stack<FrameInterface>();
 	}
 	
-	public abstract void execute(Stack<Command> chainOfFilters);
-	public abstract Command getLastFilter();
+	public abstract void execute(Stack<IOFrame> chainOfFilters);
+	public abstract IOFrame getLastFilter();
 	public abstract int getNumberOfFiltersPlusOpacity();
 
 	/*
@@ -39,7 +39,7 @@ public abstract class Renderer {
 			{
 				frames.push(new Frame());
 				if (i==0) {		
-					compositeFilters.getFrameOut().copyTo(frames.get(i));
+					mainFilter.getFrameOut().copyTo(frames.get(i));
 				}
 				else {
 					frames.get(i-1).copyTo(frames.get(i));
@@ -57,7 +57,7 @@ public abstract class Renderer {
 			}		
 		}
 	
-	public void dealFrames(Stack<Command> chainOfFilters) {
+	public void dealFrames(Stack<IOFrame> chainOfFilters) {
 		setChain(chainOfFilters);
 		
 		int numberOfFilters = getNumberOfFiltersPlusOpacity();
@@ -66,56 +66,56 @@ public abstract class Renderer {
 		int lastFrameIndex = frames.size() - 1;
 
 		if (numberOfFilters>0) {
-			Command lastFilter =  getLastFilter();
+			IOFrame lastFilter =  getLastFilter();
 
 
 			if (numberOfFilters == 1) {
-				((IOFrame)lastFilter).setFrameIn(compositeFilters.getFrameIn());
-				((IOFrame)lastFilter).setFrameOut(compositeFilters.getFrameOut());
+				lastFilter.setFrameIn(mainFilter.getFrameIn());
+				lastFilter.setFrameOut(mainFilter.getFrameOut());
 			}
 			else if (numberOfFilters >= 2) {
 
-				((IOFrame)chainOfFilters.get(0)).setFrameIn(compositeFilters.getFrameIn());
-				((IOFrame)chainOfFilters.get(0)).setFrameOut(frames.get(0));
+				chainOfFilters.get(0).setFrameIn(mainFilter.getFrameIn());
+				chainOfFilters.get(0).setFrameOut(frames.get(0));
 
 				for (int j = 1; j < numberOfFilters - 1; j++) {
-					((IOFrame)chainOfFilters.get(j)).setFrameIn(frames.get(j - 1));
-					((IOFrame)chainOfFilters.get(j)).setFrameOut(frames.get(j));
+					chainOfFilters.get(j).setFrameIn(frames.get(j - 1));
+					chainOfFilters.get(j).setFrameOut(frames.get(j));
 				}
-				((IOFrame)lastFilter).setFrameIn(frames.get(lastFrameIndex));
-				((IOFrame)lastFilter).setFrameOut(compositeFilters.getFrameOut());
+				lastFilter.setFrameIn(frames.get(lastFrameIndex));
+				lastFilter.setFrameOut(mainFilter.getFrameOut());
 			}
-			compositeFilters.setFrameOut(((IOFrame)lastFilter).getFrameOut());
+			mainFilter.setFrameOut(((IOFrame)lastFilter).getFrameOut());
 		}
 		else {
-			compositeFilters.getFrameIn().copyTo(compositeFilters.getFrameOut());
+			mainFilter.getFrameIn().copyTo(mainFilter.getFrameOut());
 		}
 	}
 	
 	public void render() {
 		Boolean checkIfActivate=true;
 		
-		int numberOfFilters = chainOfFilters.size();
+		int numberOfFilters = chainOfIOFrame.size();
 		
 		for (int i =0; i < numberOfFilters; i++) {
 			if (checkIfActivate) {
-				if (chainOfFilters.get(i).isActivate())
+				if (chainOfIOFrame.get(i).isActivate())
 				{
-					((IOFrame)chainOfFilters.get(i)).execute();	
-					chainOfFilters.get(i).desactivate();
+					((ControlledFilter)chainOfIOFrame.get(i)).execute();	
+					chainOfIOFrame.get(i).desactivate();
 					checkIfActivate=false;
 				}
 			}
 			else {
-				((IOFrame)chainOfFilters.get(i)).execute();	
+				((ControlledFilter)chainOfIOFrame.get(i)).execute();	
 			}		
 		}	
 	}
 	
-	protected void setChain(Stack<Command> chainOfFilters) {
-		this.chainOfFilters.clear();
+	protected void setChain(Stack<IOFrame> chainOfFilters) {
+		this.chainOfIOFrame.clear();
 		for (int i=0; i<chainOfFilters.size();i++) {
-			this.chainOfFilters.push((IOFrame)chainOfFilters.get(i));
+			this.chainOfIOFrame.push((IOFrame)chainOfFilters.get(i));
 		}		
 	}
 

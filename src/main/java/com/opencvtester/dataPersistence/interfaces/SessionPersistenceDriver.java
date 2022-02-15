@@ -1,6 +1,6 @@
 package com.opencvtester.dataPersistence.interfaces;
 
-import com.opencvtester.data.SessionController;
+import com.opencvtester.dataPersistence.SessionController;
 
 public interface SessionPersistenceDriver {	
 	public void saveSessionAs(SessionController session, String fileName);

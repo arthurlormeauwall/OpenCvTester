@@ -6,7 +6,7 @@ import java.text.DecimalFormat;
 import javax.swing.event.ChangeEvent;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
 
 public class OpacitySlider extends LabelledSlider {
 

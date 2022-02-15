@@ -7,8 +7,8 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import com.opencvtester.data.FilterData;
-import com.opencvtester.data.FilterFlags;
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.entity.OpacityFilter;
 
 public class FiltersDataBase 
 {
@@ -29,7 +29,7 @@ public class FiltersDataBase
 		ControlledFilter filter = filters.get(name).createNew();	
 		
 		if (filterData.getParameterValues()==null) {
-			filterData.setParameterValues(filter.getFlags().defaultValues);	
+			filterData.setParameterValues(filterData.getDefaultValues());	
 		}
 		return filter;
 	}
@@ -45,11 +45,6 @@ public class FiltersDataBase
 	public OpacityFilter getOpacityFilter(){
 		return new OpacityFilter("Opacity");
 	}
-	
-	public FilterFlags<Float> getFlags(String name){
-			return filters.get(name).getFlags();
-	}
-	
 	/*
 	 * FEATURES
 	 */

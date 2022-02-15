@@ -10,6 +10,4 @@ public interface RendererController {
 	void openImage(String fileName);
 
 	void render();
-
-	void clearAll();
 }

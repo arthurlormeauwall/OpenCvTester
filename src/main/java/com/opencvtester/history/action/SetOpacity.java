@@ -4,7 +4,7 @@ import com.opencvtester.controller.layer.LayersController;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
 import com.opencvtester.history.Action;
 import com.opencvtester.history.NatureOfAction;
-import com.opencvtester.renderer.OpacityFilter;
+import com.opencvtester.renderer.entity.OpacityFilter;
 
 public class SetOpacity implements Action {
 

@@ -1,11 +1,14 @@
-package com.opencvtester.filterController;
+package com.opencvtester.renderer.entity;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-public abstract class ControlledFilter 
+import com.opencvtester.filterController.FilterDataInterface;
+import com.opencvtester.renderer.interfaces.IOFrame;
+
+public abstract class ControlledFilter extends IOFrame
 {	
 	FilterDataInterface data;
 	
@@ -34,6 +37,7 @@ public abstract class ControlledFilter
 
 	public abstract ControlledFilter createNew();
 	public abstract void setParameterFlags();
+	public abstract void execute();
 	
 	public void bypass(Boolean bypass){
 		data.setBypass(bypass);

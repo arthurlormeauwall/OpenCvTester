@@ -6,12 +6,12 @@ import com.opencvtester.controller.interfaces.DataController;
 import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.data.ChainOfCommands;
 import com.opencvtester.data.FilterData;
-import com.opencvtester.data.Layer;
 import com.opencvtester.data.LayerData;
-import com.opencvtester.filterController.ControlledFilter;
+import com.opencvtester.data.LayerData;
 import com.opencvtester.filterController.FilterController;
-import com.opencvtester.renderer.IOFrame;
-import com.opencvtester.renderer.LayerFactory;
+import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.entity.LayerFactory;
+import com.opencvtester.renderer.interfaces.IOFrame;
 
 public class DataCtrlImp extends ChainOfCommands implements DataController
 {
@@ -21,7 +21,7 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 		super("layer", -2, -2);
 	}
 
-	public void  addLayer(Layer newLayer) {
+	public void  addLayer(LayerData newLayer) {
 		add(newLayer);
 		
 		checkAndActivateLayer(newLayer);
@@ -39,7 +39,7 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 		return null;
 	}
 
-	public void deleteLayer(Layer layer){
+	public void deleteLayer(LayerData layer){
 		delete(layer.layerIndex());
 		
 		if (layer.layerIndex()>0) {
@@ -56,14 +56,14 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 	
 	public void addFilter(ControlledFilter filter) {
 		if (areIndexLegal(filter.layerIndex(), filter.filterIndex())) {
-			((Layer)getCommand(filter.layerIndex())).add(filter);
+			((LayerData)getCommand(filter.layerIndex())).add(filter);
 			
 			checkAndActivateFilter(filter);
 		}
 	}
 	
 	public void deleteFilter(ControlledFilter filter){
-		((Layer)getCommand(filter.layerIndex())).delete(filter.filterIndex());
+		((LayerData)getCommand(filter.layerIndex())).delete(filter.filterIndex());
 		
 		if (this.getLayer(filter.layerIndex()).getNumberOfFilters()==0 || filter.filterIndex()==0) {
 			checkAndActivateLayer(getLayer(filter.layerIndex()));
@@ -75,7 +75,7 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 	
 	public void setOpacity(ControlledFilter opacityFilter, Float opacity){
 		if (getNumberOfLayers() >opacityFilter.layerIndex()) {
-			((Layer)getCommand(opacityFilter.layerIndex())).setOpacity(opacity);
+			((LayerData)getCommand(opacityFilter.layerIndex())).setOpacity(opacity);
 			
 			checkAndActivateLayer(getLayer(opacityFilter.layerIndex()));
 		}
@@ -90,18 +90,18 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 		
 		if (areIndexLegal(layerIndex, filterIndex)) {
 	
-			ControlledFilter filterToBypass = ((ControlledFilter)((Layer)getCommand(layerIndex)).getFilter(filterIndex));
+			ControlledFilter filterToBypass = ((ControlledFilter)((LayerData)getCommand(layerIndex)).getFilter(filterIndex));
 			filterToBypass.bypass(bypass);
 			checkAndActivateFilter(filterToBypass);			
 		}
 	}
 	
-	public Layer getLayer(int layerIndex) {
-		return (Layer)getCommand(layerIndex);
+	public LayerData getLayer(int layerIndex) {
+		return (LayerData)getCommand(layerIndex);
 	}
 
-	public Layer getLastLayer(){
-		return (Layer)getCommand(getSize() - 1);
+	public LayerData getLastLayer(){
+		return (LayerData)getCommand(getSize() - 1);
 	}   
 	
 	public int getNumberOfLayers() {
@@ -115,10 +115,10 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 	} 
 		
 	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
-		return getNumberOfLayers() > layerIndex && ((Layer)getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;
+		return getNumberOfLayers() > layerIndex && ((LayerData)getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;
 	}
 
-	public void checkAndActivateLayer (Layer layer) {		
+	public void checkAndActivateLayer (LayerData layer) {		
 		layer.activate();
 		if (layer.getNumberOfFilters()>0) {
 			layer.getFirstFilter().activate();
@@ -159,17 +159,18 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 	}
 
 	@Override
-	public void updateOpacity(ControlledFilter opacityFilter, Float opacity) {
-		// TODO Auto-generated method stub		
-	}
-
-	@Override
-	public void updateParameters(ControlledFilter filterToSet, String name, Float value) {
+	public void setParameters(ControlledFilter filterToSet, String name, Float value) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void checkAndActivateFilter(IOFrame newFilter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearAll() {
 		// TODO Auto-generated method stub
 		
 	}

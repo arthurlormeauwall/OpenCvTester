@@ -4,7 +4,7 @@ import java.util.Stack;
 
 import com.opencvtester.controller.MainController;
 import com.opencvtester.data.Command;
-import com.opencvtester.data.Layer;
+import com.opencvtester.data.LayerData;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.LayerWidget;
@@ -14,7 +14,7 @@ import com.opencvtester.gui.LayerWindow;
 public class LayerController extends Command
 {
 	protected Stack<FilterController> chainOfFilterManager;
-	protected Layer layer;
+	protected LayerData layer;
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
 	protected MainController guiManager;
@@ -24,7 +24,7 @@ public class LayerController extends Command
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayerController(Layer layer, MainController guiManager) {
+	public LayerController(LayerData layer, MainController guiManager) {
 		this.layer=layer;
 		this.guiManager=guiManager;
 		setLayerIndex(layer.layerIndex());
@@ -47,7 +47,7 @@ public class LayerController extends Command
 		layerWindow.updateGui();	
 	}
 	
-	public Layer getLayer() {
+	public LayerData getLayer() {
 		return layer;
 	}
 

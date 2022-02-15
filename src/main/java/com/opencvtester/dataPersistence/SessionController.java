@@ -1,8 +1,11 @@
-package com.opencvtester.data;
+package com.opencvtester.dataPersistence;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.opencvtester.data.FilterData;
+import com.opencvtester.data.LayerData;
 
 public class SessionController implements Serializable {
 

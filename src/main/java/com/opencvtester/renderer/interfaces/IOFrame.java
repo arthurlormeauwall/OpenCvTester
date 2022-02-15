@@ -1,9 +1,8 @@
-package com.opencvtester.renderer;
+package com.opencvtester.renderer.interfaces;
 
-import com.opencvtester.data.Command;
-import com.opencvtester.renderer.interfaces.FrameInterface;
+import com.opencvtester.renderer.Frame;
 
-public abstract class IOFrame extends Command
+public abstract class IOFrame 
 {
 	
 	protected FrameInterface frameIn;
@@ -18,8 +17,6 @@ public abstract class IOFrame extends Command
 		frameIn = new Frame();
 		frameOut   = new Frame();
 	}
-	
-	public abstract void execute();
 	
 	/*
 	 * GETTERS & SETTERS

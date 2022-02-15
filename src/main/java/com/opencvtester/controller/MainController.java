@@ -12,7 +12,6 @@ import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.data.FilterData;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
-import com.opencvtester.filterController.ControlledFilter;
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.interfacesImp.MainWindowSwing;
 import com.opencvtester.history.Functionalities;
@@ -20,9 +19,10 @@ import com.opencvtester.history.action.AddOrDeleteFilter;
 import com.opencvtester.history.action.AddOrDeleteLayer;
 import com.opencvtester.history.action.SetParameters;
 import com.opencvtester.history.interfacesImp.HistoryCtrlImp;
-import com.opencvtester.renderer.FilterFactory;
 import com.opencvtester.renderer.FiltersDataBase;
-import com.opencvtester.renderer.LayerFactory;
+import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.entity.FilterFactory;
+import com.opencvtester.renderer.entity.LayerFactory;
 import com.opencvtester.renderer.interfacesImp.RendererImp;
 
 
@@ -182,17 +182,8 @@ public class MainController
 		historyController.setState(parameter);
 	}
 	
-	public void setOpacity(ControlledFilter opacityFilter, Float opacity) {	
-		dataController.updateOpacity(opacityFilter, opacity);
-		
-		rendererController.render();
-		mainWindow.updateGui();
-		refreshFrameOut();
-	}	
-	
 	public void setOpacity(int layerIndex, Float opacity) {
-		ControlledFilter opacityFilter= rendererController.getLayer(layerIndex).getOpacityFilter();
-		dataController.updateOpacity(opacityFilter, opacity);
+		dataController.setOpacity(layerIndex, opacity);
 		
 		rendererController.render();
 		mainWindow.updateGui();
@@ -211,7 +202,7 @@ public class MainController
 	}
 	
 	public void setParameters(ControlledFilter filterToSet, String name, Float value) {
-		dataController.updateParameters(filterToSet, name, value);
+		dataController.setParameters(filterToSet, name, value);
 		
 		rendererController.render();
 		mainWindow.updateGui();
@@ -267,7 +258,7 @@ public class MainController
 		
 		mainWindow.clearAll();
 		historyController.clearAll();
-		rendererController.clearAll();
+		rendererController.render();
 		
 		refreshFrameOut();
 	}
