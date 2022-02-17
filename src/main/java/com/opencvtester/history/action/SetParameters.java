@@ -3,12 +3,12 @@ package com.opencvtester.history.action;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.interfaces.RendererController;
+import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.controller.layer.LayersController;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
 import com.opencvtester.history.Action;
 import com.opencvtester.history.NatureOfAction;
-import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.ControlledFilter;
 
 public class SetParameters implements Action {
 
@@ -25,7 +25,7 @@ public class SetParameters implements Action {
 	 * CONSTRUCTOR & INITS
 	 */
 	@SuppressWarnings("unchecked")
-	public SetParameters(MainController guiManager, RendererController chainOfLayers, LayersController chainOfLayerManager,ControlledFilter filter){
+	public SetParameters(MainController guiManager, Renderer chainOfLayers, LayersController chainOfLayerManager,ControlledFilter filter){
 		this.guiManager=guiManager;
 		this.filter=filter;
 		parameters= (LinkedHashMap<String, Float>)((ControlledFilter)filter).getParameters().clone();

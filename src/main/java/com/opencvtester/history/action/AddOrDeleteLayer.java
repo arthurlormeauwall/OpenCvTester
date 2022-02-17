@@ -2,7 +2,6 @@ package com.opencvtester.history.action;
 
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.history.Action;
 import com.opencvtester.history.Functionalities;
 import com.opencvtester.history.NatureOfAction;
@@ -10,16 +9,16 @@ import com.opencvtester.history.NatureOfAction;
 public class AddOrDeleteLayer implements Action 
 {
 	private Functionalities addOrDelete;
-	private LayerController layerManager;
+	private int layerIndex;
 	private MainController guiManager;
 	private NatureOfAction natureOfAction;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public AddOrDeleteLayer(MainController guiManager, LayerController layerManager){
+	public AddOrDeleteLayer(MainController guiManager, int layerIndex){
 		this.guiManager = guiManager;
-		this.layerManager=layerManager;
+		this.layerIndex=layerIndex;
 		this.natureOfAction=NatureOfAction.ADD_OR_DELETE;
 	}
 	
@@ -41,13 +40,11 @@ public class AddOrDeleteLayer implements Action
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {			
-			guiManager.addLayer(layerManager);
+			guiManager.addLayer(layerIndex);
 			
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			if (layerManager!=null) {
-				guiManager.deleteLayer(layerManager);
-			}
+			guiManager.deleteLayer(layerIndex);
 		}	
 	}
 	
@@ -56,7 +53,7 @@ public class AddOrDeleteLayer implements Action
 	}
 	
 	public Action clone() {
-		AddOrDeleteLayer newAction = new AddOrDeleteLayer(guiManager, layerManager);
+		AddOrDeleteLayer newAction = new AddOrDeleteLayer(guiManager, layerIndex);
 		newAction.setAddOrDelete(addOrDelete);
 		return newAction;
 	}

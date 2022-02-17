@@ -3,17 +3,19 @@ package com.opencvtester.data;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-import com.opencvtester.filterController.FilterDataInterface;
+import com.opencvtester.data.interfaces.FilterDataInterface;
 
-public class FilterData extends Command implements Serializable, FilterDataInterface{
+public class FilterData extends Index implements Serializable, FilterDataInterface{
 	
 	private static final long serialVersionUID = 1L;
 	
-	FilterFlags flags;
+	protected FilterFlags flags;
 	private LinkedHashMap<String, Float> parameterValues;
+
 	
-	public FilterData(int layerIndex, int filterIndex, String filterNameInDataBase) {
-		super(layerIndex, filterIndex);
+	public FilterData(int layerIndex, int filterIndex, String name) {
+		this.layerIndex=layerIndex;
+		this.filterIndex=filterIndex;
 	}
 
 	@Override
@@ -93,7 +95,5 @@ public class FilterData extends Command implements Serializable, FilterDataInter
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
-
 
 }

@@ -2,16 +2,19 @@ package com.opencvtester.dataPersistence.interfacesImp;
 
 import java.util.ArrayList;
 
+
 import com.opencvtester.controller.MainController;
 import com.opencvtester.controller.interfaces.PersistenceController;
 import com.opencvtester.data.FilterData;
 import com.opencvtester.data.LayerData;
-import com.opencvtester.dataPersistence.FileNotCreatedException;
 import com.opencvtester.dataPersistence.SessionController;
 import com.opencvtester.dataPersistence.SessionFileDriver;
 import com.opencvtester.dataPersistence.interfaces.SessionPersistenceDriver;
 import com.opencvtester.renderer.FiltersDataBase;
 
+class FileNotCreatedException extends RuntimeException{
+	private static final long serialVersionUID = 9222458802487115627L;	
+}
 public class PersistenceCtrlImp implements PersistenceController{
 	
 	private SessionController session;

@@ -10,16 +10,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.baseClasses.filter.DummyFilter;
-import com.opencvtester.data.Command;
+import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.data.FilterData;
+import com.opencvtester.data.FilterFactory;
 import com.opencvtester.data.LayerData;
-import com.opencvtester.data.LayerData;
+import com.opencvtester.data.LayerFactory;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Frame;
-import com.opencvtester.renderer.entity.FilterFactory;
-import com.opencvtester.renderer.entity.LayerFactory;
-import com.opencvtester.renderer.interfaces.IOFrame;
+
+import aaaaaaaaaapoubelle.Command;
 
 class ChainOfLayersTest {
 
@@ -27,7 +27,7 @@ class ChainOfLayersTest {
 	private DummyFilter filter;
 	private FiltersDataBase filterDb;
 	private Stack<LayerData> layers;
-	private Stack<IOFrame> filters;
+	private Stack<Renderer> filters;
 	
 	public ChainOfLayersTest() {
 		
@@ -38,7 +38,7 @@ class ChainOfLayersTest {
 		filterDb.addFilter("test", filter);
 		
 		layers= new Stack<LayerData>();
-		filters= new Stack<IOFrame>();
+		filters= new Stack<Renderer>();
 		
 		filters.push(FilterFactory.createFilter(new FilterData(1,0,"test",null), filterDb));
 		filters.push(FilterFactory.createFilter(new FilterData(1,1,"test",null), filterDb));
@@ -89,30 +89,30 @@ class ChainOfLayersTest {
 	
 	@Test
 	void testAddFilter() {
-		IOFrame newFilter =FilterFactory.createFilter(new FilterData(1,3,"test",null),filterDb);
+		Renderer newFilter =FilterFactory.createFilter(new FilterData(1,3,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter);
 		
-		assertEquals(newFilter, chainOfLayers.getLastLayer().getLastFilter());	
+		assertEquals(newFilter, chainOfLayers.getLastLayer().getLast());	
 		
-		IOFrame newFilter2 =FilterFactory.createFilter(new FilterData(0,2,"test",null),filterDb);
+		Renderer newFilter2 =FilterFactory.createFilter(new FilterData(0,2,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter2);
 		
 		assertEquals(0, chainOfLayers.getLayer(0).getNumberOfFilters());	
 		
-		IOFrame newFilter3 =FilterFactory.createFilter(new FilterData(0,0,"test",null),filterDb);
+		Renderer newFilter3 =FilterFactory.createFilter(new FilterData(0,0,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter3);
 		
 		assertEquals(1, chainOfLayers.getLayer(0).getNumberOfFilters());
 		assertEquals(newFilter3, chainOfLayers.getLayer(0).getFilter(0));
-		assertEquals(newFilter3, chainOfLayers.getLayer(0).getLastFilter());
+		assertEquals(newFilter3, chainOfLayers.getLayer(0).getLast());
 	}
 	
 	@Test
 	void testUpdateId() {	
-		IOFrame newFilter =FilterFactory.createFilter(new FilterData(1,1,"test",null),filterDb);
+		Renderer newFilter =FilterFactory.createFilter(new FilterData(1,1,"test",null),filterDb);
 		
 		chainOfLayers.addFilter(newFilter);
 		

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.opencvtester.renderer.Frame;
-import com.opencvtester.renderer.entity.OpacityFilter;
+import com.opencvtester.renderer.OpacityFilter;
 
 
 class OpacityFilterTest {

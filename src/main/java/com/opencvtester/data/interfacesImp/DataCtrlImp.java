@@ -1,171 +1,144 @@
 package com.opencvtester.data.interfacesImp;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.opencvtester.controller.interfaces.DataController;
-import com.opencvtester.controller.layer.LayerController;
-import com.opencvtester.data.ChainOfCommands;
-import com.opencvtester.data.FilterData;
-import com.opencvtester.data.LayerData;
-import com.opencvtester.data.LayerData;
-import com.opencvtester.filterController.FilterController;
-import com.opencvtester.renderer.entity.ControlledFilter;
-import com.opencvtester.renderer.entity.LayerFactory;
-import com.opencvtester.renderer.interfaces.IOFrame;
+import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.data.interfaces.LayerDataInterface;
+import com.opencvtester.renderer.ControlledFilter;
+import com.opencvtester.renderer.Layer;
 
-public class DataCtrlImp extends ChainOfCommands implements DataController
+public class DataCtrlImp implements DataController
 {
-	protected LayerFactory layersFactory;
 	
-	public DataCtrlImp () {
-		super("layer", -2, -2);
+	protected List<Layer> layers;
+	protected List<ArrayList<ControlledFilter>> filters;
+	
+	public DataCtrlImp() {
+		layers=new ArrayList<Layer>();
+		filters=new ArrayList<ArrayList<ControlledFilter>>();
 	}
-
-	public void  addLayer(LayerData newLayer) {
-		add(newLayer);
+	
+	public void udpateIndex() {
+		int numberOfLayers = layers.size();
 		
-		checkAndActivateLayer(newLayer);
-	}
-
-	@Override
-	public void addLayer(LayerController layerManager) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public LayerData createLayerData(int layerIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void deleteLayer(LayerData layer){
-		delete(layer.layerIndex());
-		
-		if (layer.layerIndex()>0) {
-			checkAndActivateLayer(this.getLayer(layer.layerIndex()-1));
-		}	
-	}  
-
-
-	@Override
-	public void deleteLayer(LayerController layerManager) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void addFilter(ControlledFilter filter) {
-		if (areIndexLegal(filter.layerIndex(), filter.filterIndex())) {
-			((LayerData)getCommand(filter.layerIndex())).add(filter);
-			
-			checkAndActivateFilter(filter);
-		}
-	}
-	
-	public void deleteFilter(ControlledFilter filter){
-		((LayerData)getCommand(filter.layerIndex())).delete(filter.filterIndex());
-		
-		if (this.getLayer(filter.layerIndex()).getNumberOfFilters()==0 || filter.filterIndex()==0) {
-			checkAndActivateLayer(getLayer(filter.layerIndex()));
-		}
-		else {
-			checkAndActivateFilter(getLayer(filter.layerIndex()).getFilter(filter.filterIndex()-1));
-		}
-	}  
-	
-	public void setOpacity(ControlledFilter opacityFilter, Float opacity){
-		if (getNumberOfLayers() >opacityFilter.layerIndex()) {
-			((LayerData)getCommand(opacityFilter.layerIndex())).setOpacity(opacity);
-			
-			checkAndActivateLayer(getLayer(opacityFilter.layerIndex()));
-		}
-	} 
-	
-	public void setOneParameter(ControlledFilter filterToSet, String name, Float value) {
-		filterToSet.setParameter(name, value);
-		checkAndActivateFilter(filterToSet);
-	}
-	
-	public void setBypass(int layerIndex, int filterIndex, Boolean bypass){
-		
-		if (areIndexLegal(layerIndex, filterIndex)) {
-	
-			ControlledFilter filterToBypass = ((ControlledFilter)((LayerData)getCommand(layerIndex)).getFilter(filterIndex));
-			filterToBypass.bypass(bypass);
-			checkAndActivateFilter(filterToBypass);			
-		}
-	}
-	
-	public LayerData getLayer(int layerIndex) {
-		return (LayerData)getCommand(layerIndex);
-	}
-
-	public LayerData getLastLayer(){
-		return (LayerData)getCommand(getSize() - 1);
-	}   
-	
-	public int getNumberOfLayers() {
-		return getSize();
-	}	
-
-	
-	public void setAllFilterParameters(ControlledFilter adjustControlToSet, LinkedHashMap<String,Float> parameters){
-			adjustControlToSet.setAllParameters(parameters);
-			checkAndActivateFilter(adjustControlToSet);
-	} 
-		
-	public Boolean areIndexLegal(int layerIndex, int filterIndex) {
-		return getNumberOfLayers() > layerIndex && ((LayerData)getCommand(layerIndex)).getNumberOfFilters()  >= filterIndex;
-	}
-
-	public void checkAndActivateLayer (LayerData layer) {		
-		layer.activate();
-		if (layer.getNumberOfFilters()>0) {
-			layer.getFirstFilter().activate();
-		}
-		for (int i= layer.layerIndex(); i<getNumberOfLayers() ; i++) {
-			getLayer(i).activate();
-			if (getLayer(i).getNumberOfFilters()>0) {
-				getLayer(i).getFirstFilter().activate();
+		for (int i=0;i<numberOfLayers;i++) {
+			layers.get(i).getData().setLayerIndex(i);
+			int numberOfFilters = filters.get(i).size();
+			for (int j=0;j<numberOfFilters;j++) {
+				filters.get(i).get(j).getData().setFilterIndex(j);
+				filters.get(i).get(j).getData().setLayerIndex(i);			
 			}
 		}
 	}
-	
-	public void checkAndActivateFilter (ControlledFilter filter) {	
-		getLayer(filter.layerIndex()).activate();
-		filter.activate();
-		for (int i=filter.layerIndex()+1; i<getNumberOfLayers() ; i++) {
-			checkAndActivateLayer(getLayer(i));
-		}
-	}
-
 
 	@Override
-	public FilterData createFilter(int layerIndex, int filterIndex, String filterName) {
+	public void addLayer(int layerIndex) {
+		Layer layer = createLayerData(layerIndex);
+		addLayer(layer);		
+	}
+	
+	private Layer createLayerData(int layerIndex) {
+		return null;
+	}
+	
+	public void addLayer(Layer layer) {
+		filters.add(new ArrayList<ControlledFilter>());
+		layers.add(layer);
+		
+		udpateIndex();
+		checkAndActivateLayer(layer.getData().layerIndex());
+	}
+
+	@Override
+	public void deleteLayer(int layerIndex) {
+		layers.remove(layerIndex);
+		filters.remove(layerIndex);
+		
+		udpateIndex();
+		if (layerIndex>0) {
+			checkAndActivateLayer(getLayer(layerIndex-1).getData().layerIndex());
+		}
+		
+	}
+	
+	public Layer getLayer(int layerIndex) {
+	return layers.get(layerIndex);
+}
+	
+	@Override
+	public void addFilter(ControlledFilter filterManager) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public ControlledFilter addFilter(int layerIndex, int filterIndex, String name) {
+		ControlledFilter filter = createFilter(layerIndex, filterIndex, name);
+		addFilter(filter);	
+		return filter;
+	}
+	
+	private ControlledFilter createFilter(int layerIndex, int filterIndex, String name) {
 		return null;
 	}
 
 	@Override
-	public void addFilter(FilterController filterManager) {
+	public void deleteFilter(int layerIndex, int filterInex) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public void deleteFilter(FilterController filterManager) {
-		// TODO Auto-generated method stub
+	
+	public void deleteFilter(ControlledFilter filter) {
+		int layerIndex=filter.layerIndex();
+		int filterIndex=filter.filterIndex();
 		
+		filters.get(layerIndex).remove(filterIndex);		
+		
+		udpateIndex();
+		
+		if (this.getLayer(layerIndex).getNumberOfFilters()==0 || filterIndex==0) {
+			checkAndActivateLayer(getLayer(layerIndex).getData().layerIndex());
+		}
+		else {
+			checkAndActivateFilter(layerIndex, filterIndex-1);
+		}
+	}
+	
+	public void checkAndActivateFilter (int layerIndex, int filterIndex) {	
+		layers.get(layerIndex).getData().activate();
+		getFilter(layerIndex, filterIndex).getData().activate();
+		for (int i=layerIndex+1; i<getNumberOfLayers() ; i++) {
+			checkAndActivateLayer(getLayer(i).getData().layerIndex());
+		}
+	}
+	
+	public ControlledFilter getFilter(int layerIndex, int filterIndex) {
+		return filters.get(layerIndex).get(filterIndex);
+	}
+	
+	public int getNumberOfLayers() {
+		return layers.size();
 	}
 
 	@Override
 	public void setParameters(ControlledFilter filterToSet, String name, Float value) {
-		// TODO Auto-generated method stub
+		filterToSet.setParameter(name, value);
+		checkAndActivateFilter(filterToSet.layerIndex(), filterToSet.filterIndex());	
+		
 	}
 
 	@Override
-	public void checkAndActivateFilter(IOFrame newFilter) {
-		// TODO Auto-generated method stub
+	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
+		((FilterDataInterface)getFilter(layerIndex,filterIndex).getData()).setBypass(bypass);
+		checkAndActivateFilter(layerIndex, filterIndex);		
+	}
+
+	@Override
+	public void setOpacity(int layerIndex, Float opacity) {
+		layers.get(layerIndex).getOpacityFilter().setOpacity(opacity);	
+		checkAndActivateLayer(layerIndex);
 		
 	}
 
@@ -175,5 +148,52 @@ public class DataCtrlImp extends ChainOfCommands implements DataController
 		
 	}
 
-	
+	@Override
+	public List<Layer> getLayers() {
+		return layers;
+	}
+
+	@Override
+	public ArrayList<ControlledFilter> getFilters(int layerIndex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void checkAndActivateLayer(int layerIndex) {
+		LayerDataInterface layer= (LayerDataInterface) layers.get(layerIndex);
+		layer.activate();
+		
+		if (layer.getNumberOfFilters()>0) {
+			getFilter(layerIndex,0).getData().activate();
+		}
+		for (int i= layerIndex; i< layers.size() ; i++) {
+			LayerDataInterface currentLayer= (LayerDataInterface) layers.get(i);
+			currentLayer.activate();
+			if (currentLayer.getNumberOfFilters()>0) {
+				getFilter(i,0).getData().activate();
+			}
+		}
+		
+	}
+
+//	public void deleteLayer(Layer layer) {
+//		deleteLayer(layer.getData().layerIndex());
+//	}
+
+//	public void addFilter(ControlledFilter filter) {
+//		filters.get(filter.layerIndex()).add(filter);		
+//		udpateIndex();
+//		checkAndActivateFilter(filter.layerIndex(),filter.filterIndex());
+//	}
+
+
+//	public Layer getLastLayer(){
+//		return layers.get(getNumberOfLayers() - 1);
+//	}   
+
+//	public void setAllFilterParameters(ControlledFilter adjustControlToSet, LinkedHashMap<String,Float> parameters){
+//			adjustControlToSet.setAllParameters(parameters);
+//			checkAndActivateFilter(adjustControlToSet.layerIndex(),adjustControlToSet.filterIndex());
+//	} 
 }

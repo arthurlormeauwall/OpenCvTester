@@ -1,25 +1,28 @@
-package com.opencvtester.data;
+package aaaaaaaaaapoubelle;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
-public class ChainOfCommands extends Command 
+import com.opencvtester.data.interfaces.IndexInterface;
+
+public class ChainOfCommands 
 {
-	protected Stack<Command> commands;
+	protected List<IndexInterface> commands;
     protected String indexType;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-    public ChainOfCommands(String indexType, int layerIndex, int filterIndex) { 
-    	super(layerIndex, filterIndex);
-    	commands = new Stack<Command>();
+    public ChainOfCommands(String indexType) { 
+    	commands = new ArrayList<IndexInterface>();
     	this.indexType=indexType;
     }
       
     /*
 	 * GETTERS & SETTERS
 	 */
-    public void setCommandChain(Stack<Command> commandChain) {   	
+    public void setCommandChain(Stack<IndexInterface> commandChain) {   	
     	commands=commandChain;
     }
 
@@ -27,11 +30,11 @@ public class ChainOfCommands extends Command
         return commands.size();
     }
 
-	public Stack<Command> getChain() {
+	public List<IndexInterface> getChain() {
 		return commands;
 	} 
 	
-    public Command getCommand(int index){
+    public IndexInterface get(int index){
     	if (index>=0 && index < commands.size()) {
     		return commands.get(index);
     	}
@@ -40,24 +43,20 @@ public class ChainOfCommands extends Command
     	}
     }
 
-    public void add(Command command) {  
+    public void add(IndexInterface command) {  
     	int index = command.getIndex(indexType);
-        if (commands.size() == 0) {
-        	commands.push(command);
-        }
-        else {
-        	index=Math.max(Math.min(commands.size(), index),0);
-        	commands.add(index, command);     
-        	updateAllId(index);
-        }      
+    	index=Math.max(Math.min(commands.size(), index),0);
+    	commands.add(index, command);     
+    	updateAllId(index);
+            
     }
 
-    public Command delete(int index) {
+    public IndexInterface delete(int index) {
         int lastCommandIndex= commands.size()-1;
         
         index=Math.min(lastCommandIndex,index);
 
-        Command erasedCommand =commands.remove(index);
+        IndexInterface erasedCommand =commands.remove(index);
         updateAllId(index);
         return erasedCommand;
     }
@@ -68,4 +67,10 @@ public class ChainOfCommands extends Command
         	commands.get(i).setIndex(indexType, i);
         }
     }
+    
+    public List<IndexInterface> get(){
+    	return commands;
+    }
+
+	
 }

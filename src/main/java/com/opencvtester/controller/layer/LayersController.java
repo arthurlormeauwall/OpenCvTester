@@ -5,7 +5,7 @@ import java.util.Stack;
 
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.interfacesImp.MainWindowSwing;
-import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.ControlledFilter;
 
 public class LayersController {
 	
@@ -39,8 +39,8 @@ public class LayersController {
 		mainWindow.updateGui();
 	}
 	
-	public void deleteFilterManager(FilterController filterManager) {
-		((LayerController)layerManagers.get(filterManager.layerIndex())).deleteFilterWidget(filterManager);
+	public void deleteFilterManager(int layerIndex, int filterIndex) {
+		((LayerController)layerManagers.get(layerIndex)).deleteFilterWidget(filterIndex);
 		mainWindow.updateGui();
 	}
 

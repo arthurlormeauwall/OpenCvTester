@@ -1,8 +1,8 @@
-package com.opencvtester.filterController;
+package com.opencvtester.data.interfaces;
 
 import java.util.LinkedHashMap;
 
-public interface FilterDataInterface {
+public interface FilterDataInterface extends IndexInterface {
 
 	void setBypass(boolean b);
 
@@ -30,9 +30,9 @@ public interface FilterDataInterface {
 
 	boolean isBypassLocked();	
 	
-	int filterIndex();
 	
-	int layerIndex();
+	public Boolean isActivate();
+	public void activate() ;
 	
-	void activate();
+	public void desactivate() ;
 }

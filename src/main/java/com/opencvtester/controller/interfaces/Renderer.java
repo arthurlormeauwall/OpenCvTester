@@ -1,32 +1,41 @@
-package com.opencvtester.renderer.interfaces;
+package com.opencvtester.controller.interfaces;
 
+import com.opencvtester.data.interfaces.IndexInterface;
 import com.opencvtester.renderer.Frame;
+import com.opencvtester.renderer.interfaces.FrameInterface;
 
-public abstract class IOFrame 
+public abstract class Renderer 
 {
 	
 	protected FrameInterface frameIn;
 	protected FrameInterface frameOut;
-	protected Boolean activate;
+	protected Boolean isActivate;
 	
+
 	/*
 	 * CONSTRUCTOR & INITS & ABSTRACT
 	 */
-	public IOFrame() {
-		activate= false;
+	public Renderer() {
 		frameIn = new Frame();
 		frameOut   = new Frame();
 	}
 	
-	/*
-	 * GETTERS & SETTERS
-	 */
+	public abstract void render();
+	
 	public FrameInterface getFrameIn(){
 		return frameIn;
 	}
 	
 	public void setFrameIn(FrameInterface frameIn){
 		this.frameIn=frameIn;
+	}
+	
+	public void setFrameIn(String fileName){
+		try {
+			this.frameIn.readFromFile(fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public FrameInterface getFrameOut()        {
@@ -37,15 +46,4 @@ public abstract class IOFrame
 		this.frameOut=frameOut;
 	}
 
-	public Boolean isActivate() {
-		return activate;
-	}
-	
-	public void desactivate() {
-		activate=false;
-	}
-
-	public void activate() {
-		activate=true;		
-	}
 }

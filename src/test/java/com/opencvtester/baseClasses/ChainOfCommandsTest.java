@@ -9,8 +9,8 @@ import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.data.ChainOfCommands;
-import com.opencvtester.data.Command;
+import aaaaaaaaaapoubelle.ChainOfCommands;
+import aaaaaaaaaapoubelle.Command;
 
 class ChainOfCommandsTest {
 

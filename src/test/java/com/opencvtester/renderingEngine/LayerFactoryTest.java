@@ -8,9 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import com.opencvtester.baseClasses.filter.DummyFilter;
 import com.opencvtester.data.LayerData;
-import com.opencvtester.data.LayerData;
+import com.opencvtester.data.LayerFactory;
 import com.opencvtester.renderer.FiltersDataBase;
-import com.opencvtester.renderer.entity.LayerFactory;
 
 class LayerFactoryTest {
 

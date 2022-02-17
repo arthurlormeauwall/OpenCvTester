@@ -1,22 +1,23 @@
-package com.opencvtester.renderer.entity;
+package com.opencvtester.renderer;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import com.opencvtester.filterController.FilterDataInterface;
-import com.opencvtester.renderer.interfaces.IOFrame;
+import com.opencvtester.controller.interfaces.DataProvider;
+import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.data.interfaces.IndexInterface;
 
-public abstract class ControlledFilter extends IOFrame
+public abstract class ControlledFilter extends Renderer implements DataProvider
 {	
-	FilterDataInterface data;
+	protected FilterDataInterface data;
 	
 	/*
 	 * CONSTRUCTOR & INITS & ABSTRACT
 	 */
-	public ControlledFilter(String name) {
-		
+	public ControlledFilter(String name) {		
 		initFilterControlledByFloat(name);
 	} 
 
@@ -37,7 +38,12 @@ public abstract class ControlledFilter extends IOFrame
 
 	public abstract ControlledFilter createNew();
 	public abstract void setParameterFlags();
-	public abstract void execute();
+	
+
+	
+	public IndexInterface getData() {
+		return data;
+	}
 	
 	public void bypass(Boolean bypass){
 		data.setBypass(bypass);
@@ -122,8 +128,5 @@ public abstract class ControlledFilter extends IOFrame
 	public int filterIndex() {
 		return data.filterIndex();
 	}
-	
-	public void activate() {
-		data.activate();
-	}
+
 }

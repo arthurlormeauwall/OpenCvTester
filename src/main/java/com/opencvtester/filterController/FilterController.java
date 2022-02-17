@@ -3,9 +3,10 @@ package com.opencvtester.filterController;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.data.Command;
 import com.opencvtester.gui.FilterWidget;
-import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.ControlledFilter;
+
+import aaaaaaaaaapoubelle.Command;
 
 public class FilterController extends Command {
 	

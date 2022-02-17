@@ -3,12 +3,12 @@ package com.opencvtester.controller.layer;
 import java.util.Stack;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.data.Command;
-import com.opencvtester.data.LayerData;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.LayerWidget;
 import com.opencvtester.gui.LayerWindow;
+
+import aaaaaaaaaapoubelle.Command;
 
 
 public class LayerController extends Command
@@ -62,8 +62,8 @@ public class LayerController extends Command
 	/*
 	 * FEATURES
 	 */	
-	public FilterController deleteFilterWidget(Command command) {
-		return (FilterController)chainOfFilterManager.remove(command.getIndex(indexType));
+	public FilterController deleteFilterWidget(int filterIndex) {
+		return (FilterController)chainOfFilterManager.remove(filterIndex);
 	}
 
 	public FilterController addFilterManager(FilterController newFilterManager) {

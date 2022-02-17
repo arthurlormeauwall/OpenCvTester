@@ -1,6 +1,6 @@
 package com.opencvtester.baseClasses.filter;
 
-import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.ControlledFilter;
 
 public class DummyFilter extends ControlledFilter{
 

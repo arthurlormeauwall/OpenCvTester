@@ -1,41 +1,36 @@
 package com.opencvtester.controller.interfaces;
 
-import com.opencvtester.controller.layer.LayerController;
-import com.opencvtester.data.FilterData;
-import com.opencvtester.data.LayerData;
-import com.opencvtester.filterController.FilterController;
-import com.opencvtester.renderer.entity.ControlledFilter;
-import com.opencvtester.renderer.interfaces.IOFrame;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.opencvtester.renderer.ControlledFilter;
+import com.opencvtester.renderer.Layer;
 
 public interface DataController {
+	
+	void addLayer(int layerIndex);
+	
+//	public void addLayer(Layer layer);
 
-	LayerData createLayerData(int layerIndex);
+	void deleteLayer(int  layerIndex);
+	
+	void addFilter(ControlledFilter filterManager);
+	
+	ControlledFilter addFilter(int layerIndex,int filterInex,String name);
 
-	void addLayer(LayerController layerManager);
-
-	void deleteLayer(LayerController layerManager);
-
-	FilterData createFilter(int layerIndex, int filterIndex, String filterName);
-
-	void addFilter(FilterController filterManager);
-
-	void deleteFilter(FilterController filterManager);
-
-	void layerIndex(int layerIndex, Float opacity);
+	void deleteFilter(int layerIndex,int filterInex);
 
 	void setParameters(ControlledFilter filterToSet, String name, Float value);
 
 	void setBypass(int layerIndex, int filterIndex, Boolean bypass);
 
+	void setOpacity(int layerIndex, Float opacity);
+	
 	void clearAll();
 
-	void setOpacity(int layerIndex, Float opacity);
-
-	void checkAndActivateFilter(int layerIndex, int filterIndex);
+	List<Layer> getLayers();
+	
+	ArrayList<ControlledFilter> getFilters(int layerIndex);
 
 	void checkAndActivateLayer(int layerIndex);
-	
-	int getNumberOfLayers();
-	
-	int getNumberOfFilters(int layerIndex);
 }

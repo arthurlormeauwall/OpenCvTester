@@ -1,6 +1,6 @@
 package com.sandbox.example.userFilters;
 
-import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.ControlledFilter;
 
 public class GrayScaleFilter extends ControlledFilter 
 {
@@ -20,12 +20,10 @@ public class GrayScaleFilter extends ControlledFilter
 	}
 
 	public void render() {
-		if (isBypass) {
+		if (data.isBypass()) {
 			frameIn.copyTo(frameOut);
 		}
-
-		if (!isBypass)
-	    {
+		else {
 	        int row = frameIn.getSpecs().rows;
 	        int column = frameIn.getSpecs().cols;
 	        int bitMax = frameIn.getSpecs().bitMax;

@@ -1,4 +1,4 @@
-package com.opencvtester.renderer.entity;
+package com.opencvtester.renderer;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.renderer.interfaces.FrameInterface;
@@ -54,7 +54,7 @@ public class OpacityFilter extends ControlledFilter
 	/*
 	 * FEATURES
 	 */
-	public void execute() {
+	public void render() {
 		if (data.isBypass()) {
 			frameIn.copyTo(frameOut);
 		}

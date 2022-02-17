@@ -3,7 +3,9 @@ package com.opencvtester.gui.interfacesImp;
 
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Stack;
 
 import javax.swing.BoxLayout;
@@ -13,20 +15,27 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.interfaces.MainWindow;
+import com.opencvtester.controller.interfaces.MainWindowController;
 import com.opencvtester.controller.layer.LayerController;
 import com.opencvtester.controller.layer.LayersController;
+import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.LayerWindow;
-import com.opencvtester.renderer.entity.ControlledFilter;
+import com.opencvtester.renderer.ControlledFilter;
+import com.opencvtester.renderer.Layer;
 
 
-public class MainWindowSwing extends JFrame implements MainWindow
+public class MainWindowSwing extends JFrame implements MainWindowController
 {
 	private static final long serialVersionUID = 1L;
 	
 	private LayersController chainOfLayerManagers;
 	private MainController guiManager;
+	
+	private List<Layer> layers;
+	private List<ArrayList<ControlledFilter>> filters;
+	
+	
 	private JPanel layerPanel;
 	private JButton addLayerButton; 
 	private JButton delLayerButton; 
@@ -102,7 +111,7 @@ public class MainWindowSwing extends JFrame implements MainWindow
 	     });
 		 
 		 saveAsButton.addActionListener((ActionEvent event)->{
-	    	  MainWindowSwing.this.saveSessionAs();
+	    	  MainWindowSwing.this.launchSaveSessionAs();
 	     });
 	 
 		 reloadButton.addActionListener((ActionEvent event)->{
@@ -122,10 +131,11 @@ public class MainWindowSwing extends JFrame implements MainWindow
 		     });
 		 
 		 delLayerButton.addActionListener((ActionEvent event)->{
-		    	  if (MainWindowSwing.this.guiManager.deleteLayerAndSetHistory(chainOfLayerManagers.getLayerManager(chainOfLayerManagers.getNumberOfLayer()-1))) {
-		    		  MainWindowSwing.this.guiManager.store();
-		    	  }		    	  
-		     });
+			 if(chainOfLayerManagers.getNumberOfLayer()>0) {
+				 MainWindowSwing.this.guiManager.deleteLayerAndSetHistory(chainOfLayerManagers.getNumberOfLayer()-1);
+				 MainWindowSwing.this.guiManager.store();	  
+			 }	  
+		 });
 	}
 
 
@@ -136,9 +146,6 @@ public class MainWindowSwing extends JFrame implements MainWindow
 		}
 	}
 
-	/*
-	 * GETTERS & SETTERS
-	 */
 	public MainController getGuiManager() {
 		return guiManager;
 	}
@@ -146,29 +153,39 @@ public class MainWindowSwing extends JFrame implements MainWindow
 	public LayersController getChainOfLayerManagers() {
 		return chainOfLayerManagers;
 	}	
-	
-	/*
-	 * FEATURES
-	 */
+
 	
 	public void setOpacity(int layerIndex, Float opacity) {
 		chainOfLayerManagers.getLayerManager(layerIndex).getLayerWidget().setOpacitySlider(opacity);
 	}
 	
-	public void addFilterManager(FilterController filterManager) {
+	public void addFilter(int layerIndex, int filterIndex) {
+		FilterController filterManager= createFilterManager(filters.get(layerIndex).get(filterIndex));
 		chainOfLayerManagers.addFilterManager(filterManager);
 	}
 
-	public void deleteFilterManager(FilterController filterManager) {	
-		chainOfLayerManagers.deleteFilterManager(filterManager);	
+	private FilterController createFilterManager(ControlledFilter controlledFilter) {
+
+		return null;
 	}
 
-	public void addLayerManager(LayerController layerManager) {
+	public void deleteFilter(int layerIndex, int filterIndex) {	
+		chainOfLayerManagers.deleteFilterManager(layerIndex,  filterIndex);	
+	}
+
+	public void addLayer(int layerIndex) {
+		LayerController layerManager= createLayerController(layerIndex);
 		layerManager.createLayerWindow();
 		chainOfLayerManagers.addLayerManager(layerManager);	
 	}
 	
-	public void deleteLayerManager(LayerController layerManager) {
+	private LayerController createLayerController(int layerIndex) {
+		
+		return null;
+	}
+
+	public void deleteLayer(int layerIndex) {
+		LayerController layerManager= chainOfLayerManagers.getLayerManager(layerIndex);
 		layerManager.deleteLayerWindow();
 		chainOfLayerManagers.deleteLayerManager(layerManager);		
 	}
@@ -177,8 +194,9 @@ public class MainWindowSwing extends JFrame implements MainWindow
 	public void updateOpacityValue(int layerIndex, Float opacity) {
 	}
 
-	public void updateParametersValues(ControlledFilter filter, LinkedHashMap<String, Float> parameters) {	
-		chainOfLayerManagers.getLayerManager(filter.layerIndex()).getFilterManager(filter.filterIndex()).updateParameterValues(parameters);
+	public void updateFilter(int layerIndex, int filterIndex) {	
+		LinkedHashMap<String, Float> parameters= ((FilterDataInterface)filters.get(layerIndex).get(filterIndex).getData()).getParameterValues();
+		chainOfLayerManagers.getLayerManager(layerIndex).getFilterManager(filterIndex).updateParameterValues(parameters);
 	}
 	
 	public void updateGui() {
@@ -201,7 +219,7 @@ public class MainWindowSwing extends JFrame implements MainWindow
 		}
 	}
 
-	public void saveSessionAs() {
+	public void launchSaveSessionAs() {
 	
 		int response = fileChooser.showSaveDialog(this);
 		if (response==0) {

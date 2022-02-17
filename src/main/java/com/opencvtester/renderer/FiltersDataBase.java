@@ -7,8 +7,6 @@ import java.util.Map.Entry;
 import java.util.Stack;
 
 import com.opencvtester.data.FilterData;
-import com.opencvtester.renderer.entity.ControlledFilter;
-import com.opencvtester.renderer.entity.OpacityFilter;
 
 public class FiltersDataBase 
 {
