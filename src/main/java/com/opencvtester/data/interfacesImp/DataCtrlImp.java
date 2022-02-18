@@ -1,12 +1,14 @@
 package com.opencvtester.data.interfacesImp;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.opencvtester.controller.interfaces.DataController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.data.interfaces.LayerDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
+import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Layer;
 
 public class DataCtrlImp implements DataController
@@ -14,8 +16,10 @@ public class DataCtrlImp implements DataController
 	
 	protected List<Layer> layers;
 	protected List<ArrayList<ControlledFilter>> filters;
+	private FiltersDataBase filtersDataBase;
 	
-	public DataCtrlImp() {
+	public DataCtrlImp(FiltersDataBase filtersDataBase) {
+		this.filtersDataBase = filtersDataBase;
 		layers=new ArrayList<Layer>();
 		filters=new ArrayList<ArrayList<ControlledFilter>>();
 	}
@@ -24,7 +28,9 @@ public class DataCtrlImp implements DataController
 		int numberOfLayers = layers.size();
 		
 		for (int i=0;i<numberOfLayers;i++) {
-			layers.get(i).getData().setLayerIndex(i);
+			layers.get(i).
+							getData().
+										setLayerIndex(i);
 			int numberOfFilters = filters.get(i).size();
 			for (int j=0;j<numberOfFilters;j++) {
 				filters.get(i).get(j).getData().setFilterIndex(j);
@@ -35,12 +41,8 @@ public class DataCtrlImp implements DataController
 
 	@Override
 	public void addLayer(int layerIndex) {
-		Layer layer = createLayerData(layerIndex);
+		Layer layer = createLayer(layerIndex);
 		addLayer(layer);		
-	}
-	
-	private Layer createLayerData(int layerIndex) {
-		return null;
 	}
 	
 	public void addLayer(Layer layer) {
@@ -68,9 +70,10 @@ public class DataCtrlImp implements DataController
 }
 	
 	@Override
-	public void addFilter(ControlledFilter filterManager) {
-		// TODO Auto-generated method stub
-		
+	public void addFilter(ControlledFilter filter) {
+		filters.get(filter.layerIndex()).add(filter);		
+		udpateIndex();
+		checkAndActivateFilter(filter.layerIndex(),filter.filterIndex());
 	}
 	
 	@Override
@@ -81,12 +84,26 @@ public class DataCtrlImp implements DataController
 	}
 	
 	private ControlledFilter createFilter(int layerIndex, int filterIndex, String name) {
-		return null;
+		return filtersDataBase.getFilter(name);
+	}
+		
+	private Layer createLayer(int layerIndex) {
+		return new Layer(new ArrayList<ControlledFilter>());
 	}
 
 	@Override
-	public void deleteFilter(int layerIndex, int filterInex) {
-		// TODO Auto-generated method stub
+	public void deleteFilter(int layerIndex, int filterIndex) {
+
+		filters.get(layerIndex).remove(filterIndex);		
+		
+		udpateIndex();
+		
+		if (this.getLayer(layerIndex).getNumberOfFilters()==0 || filterIndex==0) {
+			checkAndActivateLayer(getLayer(layerIndex).getData().layerIndex());
+		}
+		else {
+			checkAndActivateFilter(layerIndex, filterIndex-1);
+		}
 		
 	}
 	
@@ -128,6 +145,11 @@ public class DataCtrlImp implements DataController
 		checkAndActivateFilter(filterToSet.layerIndex(), filterToSet.filterIndex());	
 		
 	}
+	
+	public void setParameters(ControlledFilter filterToSet, LinkedHashMap<String, Float> parameters) {
+		filterToSet.setAllParameters(parameters);
+		checkAndActivateFilter(filterToSet.layerIndex(), filterToSet.filterIndex());	
+	}
 
 	@Override
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
@@ -138,8 +160,7 @@ public class DataCtrlImp implements DataController
 	@Override
 	public void setOpacity(int layerIndex, Float opacity) {
 		layers.get(layerIndex).getOpacityFilter().setOpacity(opacity);	
-		checkAndActivateLayer(layerIndex);
-		
+		checkAndActivateLayer(layerIndex);	
 	}
 
 	@Override
@@ -152,23 +173,22 @@ public class DataCtrlImp implements DataController
 	public List<Layer> getLayers() {
 		return layers;
 	}
-
+	
 	@Override
-	public ArrayList<ControlledFilter> getFilters(int layerIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ArrayList<ControlledFilter>> getFilters() {		
+		return filters;
 	}
 
 	@Override
 	public void checkAndActivateLayer(int layerIndex) {
-		LayerDataInterface layer= (LayerDataInterface) layers.get(layerIndex);
+		LayerDataInterface layer= (LayerDataInterface) layers.get(layerIndex).getData();
 		layer.activate();
 		
 		if (layer.getNumberOfFilters()>0) {
 			getFilter(layerIndex,0).getData().activate();
 		}
 		for (int i= layerIndex; i< layers.size() ; i++) {
-			LayerDataInterface currentLayer= (LayerDataInterface) layers.get(i);
+			LayerDataInterface currentLayer= (LayerDataInterface) layers.get(i).getData();
 			currentLayer.activate();
 			if (currentLayer.getNumberOfFilters()>0) {
 				getFilter(i,0).getData().activate();
@@ -180,13 +200,6 @@ public class DataCtrlImp implements DataController
 //	public void deleteLayer(Layer layer) {
 //		deleteLayer(layer.getData().layerIndex());
 //	}
-
-//	public void addFilter(ControlledFilter filter) {
-//		filters.get(filter.layerIndex()).add(filter);		
-//		udpateIndex();
-//		checkAndActivateFilter(filter.layerIndex(),filter.filterIndex());
-//	}
-
 
 //	public Layer getLastLayer(){
 //		return layers.get(getNumberOfLayers() - 1);

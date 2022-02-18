@@ -19,14 +19,14 @@ public class OpacityFilter extends ControlledFilter
 	public void init(FrameInterface background) {
 		setBackGround(background);
 		setParameterFlags();
-		setOpacity(data.getDefaultValues().get("Opacity"));
+		setOpacity(filterData.getDefaultValues().get("Opacity"));
 	}
 	
 	/*
 	 * GETTERS & SETTERS
 	 */
 	public void setParameterFlags() {	
-		data.setName("Opacity");
+		filterData.setName("Opacity");
 		opacity=1f; 
 		addParameterFlag("Opacity", 1f,1f, 100); 
 	}
@@ -55,10 +55,10 @@ public class OpacityFilter extends ControlledFilter
 	 * FEATURES
 	 */
 	public void render() {
-		if (data.isBypass()) {
+		if (filterData.isBypass()) {
 			frameIn.copyTo(frameOut);
 		}
-		else if (!data.isBypass()) {
+		else if (!filterData.isBypass()) {
 			
 			Float opacity = getParameter("Opacity");
 			

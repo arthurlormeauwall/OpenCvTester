@@ -95,6 +95,6 @@ public class ChainOfLayersRenderer extends ChainRenderer
 
 	@Override
 	public int getNumberOfFiltersPlusOpacity() {
-		return chainOfRenderer.size()+1;
+		return chainOfRenderer.size();
 	}	
 }

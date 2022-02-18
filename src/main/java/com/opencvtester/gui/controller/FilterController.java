@@ -1,4 +1,4 @@
-package com.opencvtester.filterController;
+package com.opencvtester.gui.controller;
 
 import java.util.LinkedHashMap;
 
@@ -6,9 +6,7 @@ import com.opencvtester.controller.MainController;
 import com.opencvtester.gui.FilterWidget;
 import com.opencvtester.renderer.ControlledFilter;
 
-import aaaaaaaaaapoubelle.Command;
-
-public class FilterController extends Command {
+public class FilterController{
 	
 	protected ControlledFilter filter;
 	protected FilterWidget filterWidget;
@@ -18,13 +16,22 @@ public class FilterController extends Command {
 	 */
 	public FilterController(ControlledFilter filter, MainController guiManager){
 		this.filter=filter;
-		setId(filter.layerIndex(), filter.filterIndex());
 		filterWidget=new FilterWidget(filter, guiManager);
 	}
+	
 	
 	/*
 	 * GETTERS & SETTERS
 	 */
+	
+	public int filterIndex() {
+		return filter.filterIndex();
+	}
+	
+	public int layerIndex() {
+		return filter.layerIndex();
+	}
+	
 	public ControlledFilter getFilter() {
 		return filter;
 	}

@@ -8,6 +8,11 @@ public class Index implements IndexInterface{
 	protected int layerIndex;	
 	protected Boolean isActivate;
 	
+	public Index(int layerIndex, int filterIndex) {
+		this.layerIndex=layerIndex;
+		this.filterIndex=filterIndex;
+	}
+	
 	public int filterIndex() {
 		return filterIndex;
 	}

@@ -1,68 +1,30 @@
 package com.opencvtester.data;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.opencvtester.data.interfaces.LayerDataInterface;
+import com.opencvtester.renderer.ControlledFilter;
 
 public class LayerData extends Index implements LayerDataInterface
 {
-	private Float opacityValue;
-	private Stack<String> filterNames;
+	private List<ControlledFilter> filters;
 	
 	public LayerData() {
-	
+		super(0,-2);
+		filters = new ArrayList<ControlledFilter>();
 	}
 	
-	public LayerData (int layerIndex) {
-		opacityValue=1f;
-		filterNames= new Stack<String>();
-	}
-	
-	public LayerData (int layerIndex, Stack<String> filterNames) {
-	
-		opacityValue=1f;
-		this.filterNames=filterNames;
-	}
-	
-	public LayerData (int layerIndex, Float opacity) {
-		
-		opacityValue=opacity;
-		this.filterNames=new Stack<String>();
-	}
-	
-	
-	public LayerData (int layerIndex, Float opacity, Stack<String> filterNames) {
-
-		opacityValue=opacity;
-		this.filterNames=filterNames;
-	}
-
-	public Float getOpacityValue() {
-		return opacityValue;
-	}
-
-	public void setOpacityValue(Float opacityValue) {
-		this.opacityValue = opacityValue;
-	}
-
-	public Stack<String> getFilterNames() {
-		return filterNames;
-	}
-
-	public void setFilterNames(Stack<String> filterNames) {
-		this.filterNames = filterNames;
+	public LayerData (int layerIndex, List<ControlledFilter> filters) {
+		super(layerIndex,-2);
+		this.filters=filters;
 	}
 	
 	public int getNumberOfFilters() {
-		return filterNames.size();
+		return filters.size();
 	}
 
 	public Boolean hasFilter() {
 		return (getNumberOfFilters()!=0);
 	}
-
-	public LayerData clone() {	
-		return new LayerData(layerIndex(),opacityValue,filterNames);
-	}
-
 }

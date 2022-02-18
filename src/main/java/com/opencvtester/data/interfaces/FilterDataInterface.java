@@ -12,7 +12,7 @@ public interface FilterDataInterface extends IndexInterface {
 
 	void setZeroEffectValues(LinkedHashMap<String, Float> linkedHashMap);
 
-	void setSliderScale(LinkedHashMap<String, Float> linkedHashMap);
+	void setSliderScale(LinkedHashMap<String, Integer> linkedHashMap);
 	
 	void setParameterValues(LinkedHashMap<String, Float> parameters);
 
@@ -27,11 +27,9 @@ public interface FilterDataInterface extends IndexInterface {
 	LinkedHashMap<String, Integer> getSliderScale();
 
 	boolean isBypass();
-
-	boolean isBypassLocked();	
-	
 	
 	public Boolean isActivate();
+	
 	public void activate() ;
 	
 	public void desactivate() ;

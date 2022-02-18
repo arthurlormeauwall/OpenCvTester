@@ -12,6 +12,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 
 import com.opencvtester.controller.MainController;
+import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 
 public class LabelledSlider extends JPanel
@@ -22,22 +23,22 @@ public class LabelledSlider extends JPanel
 	protected JSlider slider;
 	protected int currentValue;
 	protected JLabel  nameWidget;
-	protected ControlledFilter filterToUpdate;
+	protected ControlledFilter filter;
 	protected JLabel value;
 	protected Boolean emitSignal;
 
-	protected MainController guiManager;
+	protected MainController mainController;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
 	public LabelledSlider (String name, Float defaultValue, ControlledFilter filterToUpdate, MainController actionHistoryManager){
 		emitSignal=true;
-		this.filterToUpdate=filterToUpdate;
-		this.guiManager=actionHistoryManager;
+		this.filter=filterToUpdate;
+		this.mainController=actionHistoryManager;
 		slider = new JSlider ();
 
-		slider.setMaximum(filterToUpdate.getFlags().sliderScale.get(name));
+		slider.setMaximum(((FilterDataInterface)filterToUpdate.getData()).getSliderScale().get(name));   
 		slider.setOrientation(JSlider.VERTICAL);
 		slider.setValue(Math.round(filterToUpdate.getParameter(name)*100));
 		this.nameWidget = new JLabel(name);
@@ -59,7 +60,7 @@ public class LabelledSlider extends JPanel
 		    	  try {
 		    		 currentValue=slider.getValue();
 		    		 if (emitSignal) {
-		    			 LabelledSlider.this.guiManager.setParametersAndSetHistory(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
+		    			 LabelledSlider.this.mainController.setParametersAndSetHistory(LabelledSlider.this.filter, nameWidget.getText(), slider.getValue()*0.01f);
 		    		 }
 					 
 				} catch (IOException e) {
@@ -75,17 +76,17 @@ public class LabelledSlider extends JPanel
 			public void mousePressed(MouseEvent event) {
 				if (emitSignal) { 
 					try {
-						LabelledSlider.this.guiManager.setParametersAndSetHistory(LabelledSlider.this.filterToUpdate, nameWidget.getText(), slider.getValue()*0.01f);
+						LabelledSlider.this.mainController.setParametersAndSetHistory(LabelledSlider.this.filter, nameWidget.getText(), slider.getValue()*0.01f);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					 LabelledSlider.this.guiManager.store();
+					 LabelledSlider.this.mainController.store();
 				}
 			}
 
 			public void mouseReleased(MouseEvent e) {	
 				if (emitSignal) { 
-					LabelledSlider.this.guiManager.store();
+					LabelledSlider.this.mainController.store();
 				}
 			}
 

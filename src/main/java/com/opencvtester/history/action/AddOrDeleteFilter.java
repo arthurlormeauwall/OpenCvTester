@@ -4,24 +4,24 @@ import com.opencvtester.controller.MainController;
 import com.opencvtester.history.Action;
 import com.opencvtester.history.Functionalities;
 import com.opencvtester.history.NatureOfAction;
+import com.opencvtester.renderer.ControlledFilter;
 
 public class AddOrDeleteFilter implements Action {
 
 	private Functionalities addOrDelete;
-	private MainController mainController;
 	private NatureOfAction natureOfAction;
-	private int layerIndex;
-	private int filterIndex;
-	private String name;
+	
+	private MainController mainController;
+	private ControlledFilter filter;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public AddOrDeleteFilter(MainController mainController, int layerIndex, int  filterIndex , String filterName){
+	public AddOrDeleteFilter(MainController mainController, ControlledFilter filter){
 		this.mainController=mainController;
-		this.layerIndex=layerIndex;
-		this.filterIndex=filterIndex;
-		this.name=filterName;
+//		this.layerIndex=layerIndex;
+//		this.filterIndex=filterIndex;
+		this.filter=filter;
 		this.natureOfAction=NatureOfAction.ADD_OR_DELETE;
 	}
 
@@ -43,10 +43,10 @@ public class AddOrDeleteFilter implements Action {
 
 	public void execute() {
 		if (addOrDelete== Functionalities.ADD) {
-			mainController.addFilter(layerIndex, filterIndex, name);
+			mainController.addFilter(filter);
 		}
 		else if (addOrDelete== Functionalities.DELETE) {
-			mainController.deleteFilter(layerIndex, filterIndex);
+			mainController.deleteFilter(filter.getData().layerIndex(), filter.getData().filterIndex());
 		}	
 	}
 	
@@ -55,7 +55,7 @@ public class AddOrDeleteFilter implements Action {
 	}
 	
 	public Action clone() {
-		AddOrDeleteFilter newAction = new AddOrDeleteFilter(mainController, layerIndex, filterIndex, name);
+		AddOrDeleteFilter newAction = new AddOrDeleteFilter(mainController, filter);
 		newAction.setAddOrDelete(addOrDelete);
 		return newAction;
 	}

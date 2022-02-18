@@ -1,5 +1,7 @@
 package com.opencvtester.gui;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -14,17 +16,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-
 import com.opencvtester.controller.MainController;
+import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 
 public class FilterWidget extends JPanel
 {
-	private ControlledFilter sourceFilter;
+	private ControlledFilter filter;
 	private JCheckBox bypassBox;
-	private MainController actionHistoryManager;
+	private MainController mainController;
 	private Boolean bypass;
 	private LinkedHashMap<String, LabelledSlider> sliders;
 	
@@ -35,9 +35,11 @@ public class FilterWidget extends JPanel
 	 */
 	public FilterWidget (ControlledFilter sourceFilter, MainController actionHistoryManager){
 		sliders= new LinkedHashMap<String, LabelledSlider>();
-		bypass=sourceFilter.isbypassLocked();
-		this.sourceFilter= sourceFilter;
-		this.actionHistoryManager=actionHistoryManager;
+		this.filter= sourceFilter;
+		
+		bypass=((FilterDataInterface)sourceFilter.getData()).isBypass();
+		
+		this.mainController=actionHistoryManager;
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -73,11 +75,11 @@ public class FilterWidget extends JPanel
 	public void addListeneres() {
 		bypassBox.addActionListener((ActionEvent event)->{
 		    	  if (bypass) {
-		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.layerIndex(), sourceFilter.filterIndex(), false);
+		    		  FilterWidget.this.mainController.setBypass(filter.layerIndex(), filter.filterIndex(), false);
 		    		  bypass=false;
 		    	  }
 		    	  else  {
-		    		  FilterWidget.this.actionHistoryManager.setBypass(sourceFilter.layerIndex(), sourceFilter.filterIndex(), true);
+		    		  FilterWidget.this.mainController.setBypass(filter.layerIndex(), filter.filterIndex(), true);
 		    		  bypass=true;
 		    	  }
 		      });		
@@ -88,7 +90,7 @@ public class FilterWidget extends JPanel
 	 */
 	
 	public ControlledFilter getFilter() {
-		return sourceFilter;
+		return filter;
 	}
 	
 	/*

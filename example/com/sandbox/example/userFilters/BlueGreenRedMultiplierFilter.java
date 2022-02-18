@@ -21,7 +21,7 @@ public class BlueGreenRedMultiplierFilter extends ControlledFilter
 	}
 
 	public void render() {	
-		if (data.isBypass()) {
+		if (filterData.isBypass()) {
 			frameIn.copyTo(frameOut);
 		}
 

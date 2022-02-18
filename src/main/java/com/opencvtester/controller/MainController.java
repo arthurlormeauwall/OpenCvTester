@@ -1,6 +1,9 @@
 package com.opencvtester.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Stack;
 
 import com.opencvtester.controller.interfaces.DataController;
@@ -8,7 +11,6 @@ import com.opencvtester.controller.interfaces.HistoryController;
 import com.opencvtester.controller.interfaces.MainWindowController;
 import com.opencvtester.controller.interfaces.PersistenceController;
 import com.opencvtester.controller.interfaces.Renderer;
-import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
 import com.opencvtester.gui.interfacesImp.MainWindowSwing;
 import com.opencvtester.history.Functionalities;
@@ -42,23 +44,28 @@ public class MainController
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public MainController(String fileName, FiltersDataBase filtersDataBase) throws IOException{
+	public MainController(String fileName, FiltersDataBase filtersDataBase) throws IOException {
 		
 		this.filtersDataBase = filtersDataBase;
 		
-		dataController= new DataCtrlImp();
+		dataController= new DataCtrlImp(filtersDataBase);
 		renderer = new ChainOfLayersRenderer(fileName, dataController.getLayers());
 		
-		mainWindow = new MainWindowSwing(this);		
+		mainWindow = new MainWindowSwing(this, dataController.getFilters(), dataController.getLayers());		
 		
 		
 		historyController=new HistoryCtrlImp();
 		frameOutWindow=new FrameWindowController(renderer.getFrameOut());
-		frameOutWindow.setInMiddleOfScreen();
-
-		
+		frameOutWindow.setInMiddleOfScreen();	
 	}
 
+	public List<Layer> layers(){
+		return dataController.getLayers();
+	}
+	
+	public List<ArrayList<ControlledFilter>> filters(){
+		return dataController.getFilters();
+	}
 
 	public Stack<String> getFiltersName() {
 		return filtersDataBase.getFiltersName();	
@@ -67,28 +74,28 @@ public class MainController
 	
 	public void createAddLayerAndSetHistory(int layerIndex) {		
 		addLayer(layerIndex);
-		setAddLayerHistory(layerIndex);
+		setAddLayerHistory(layers().get(layerIndex));
 	}
 
 	public void deleteLayerAndSetHistory(int layerIndex) {			
 		deleteLayer(layerIndex);			
-		setDeleteLayerHistory(layerIndex);
+		setDeleteLayerHistory(layers().get(layerIndex));
 	}
 	
 	public void addLayer(int layerManager) {
 		dataController.addLayer(layerManager);
-		
+		mainWindow.addLayer(layerManager);
 		renderer.render();
 		refreshFrameOut();
 	}	
 	
-//	public void addLayer(Layer layer) {
-//		dataController.addLayer(layer);
-//		
-//		renderer.render();
-//		mainWindow.updateGui();
-//		refreshFrameOut();
-//	}	
+	public void addLayer(Layer layer) {
+		dataController.addLayer(layer);
+		
+		renderer.render();
+		mainWindow.addLayer(layer.getData().layerIndex());
+		refreshFrameOut();
+	}	
 	
 	public void deleteLayer(int layerIndex) {
 		dataController.deleteLayer(layerIndex);
@@ -97,14 +104,21 @@ public class MainController
 		refreshFrameOut();
 	}
 	
-	public void setAddLayerHistory(int layerIndex) {
-		AddOrDeleteLayer parameter= new AddOrDeleteLayer (this, layerIndex);
+	public void deleteLayer(Layer layer) {
+		dataController.deleteLayer(layer.getData().layerIndex());
+		
+		renderer.render();
+		refreshFrameOut();
+	}
+	
+	public void setAddLayerHistory(Layer layer) {
+		AddOrDeleteLayer parameter= new AddOrDeleteLayer (this, layer);
 		parameter.setAddOrDelete(Functionalities.ADD);
 		historyController.setState(parameter);	
 	}
 	
-	public void setDeleteLayerHistory(int layerIndex) {
-		AddOrDeleteLayer parameter= new AddOrDeleteLayer (this, layerIndex);
+	public void setDeleteLayerHistory(Layer layer) {
+		AddOrDeleteLayer parameter= new AddOrDeleteLayer (this, layer);
 		parameter.setAddOrDelete(Functionalities.DELETE);
 		historyController.setState(parameter);	
 	}
@@ -115,12 +129,12 @@ public class MainController
 	public void createAddFilterAndSetHistory(int layerIndex, int filterIndex, String filterName) {
 
 		addFilter(layerIndex, filterIndex ,filterName);
-		setAddFilterHistory(layerIndex, filterIndex ,filterName);
+		setAddFilterHistory(filters().get(layerIndex).get(filterIndex));
 	}	
 
 	public void deleteFilterAndSetHistory(int layerIndex, int filterIndex, String name) {		
 			deleteFilter(layerIndex, filterIndex);			
-			setDeleteFilterHistory(layerIndex, filterIndex, name);
+			setDeleteFilterHistory(filters().get(layerIndex).get(filterIndex));
 	}
 	
 	public void addFilter(int layerIndex, int filterIndex, String filterName) {
@@ -143,22 +157,21 @@ public class MainController
 		refreshFrameOut();
 	}
 	
-	public void setAddFilterHistory(int layerIndex, int filterIndex , String filterName) {
-		AddOrDeleteFilter parameter= new AddOrDeleteFilter (this, layerIndex, filterIndex ,filterName);
+	public void setAddFilterHistory(ControlledFilter filter) {
+		AddOrDeleteFilter parameter= new AddOrDeleteFilter (this, filter);
 		parameter.setAddOrDelete(Functionalities.ADD);
 		historyController.setState(parameter);
 		
 	}
 	
-	public void setDeleteFilterHistory(int layerIndex, int filterIndex, String name) {
-		AddOrDeleteFilter parameter= new AddOrDeleteFilter (this, layerIndex, filterIndex, name);
+	public void setDeleteFilterHistory(ControlledFilter filter) {
+		AddOrDeleteFilter parameter= new AddOrDeleteFilter (this, filter);
 		parameter.setAddOrDelete(Functionalities.DELETE);
 		historyController.setState(parameter);
 	}
 	
 	public void setOpacity(int layerIndex, Float opacity) {
-		dataController.setOpacity(layerIndex, opacity);
-		
+		dataController.setOpacity(layerIndex, opacity);	
 		renderer.render();
 		refreshFrameOut();
 	}
@@ -170,16 +183,23 @@ public class MainController
 	}
 
 	public void setParameters(ControlledFilter filterToSet, String name, Float value) {
-		dataController.setParameters(filterToSet, name, value);		
+		dataController.setParameters(filterToSet, name, value);
+		mainWindow.updateFilter(filterToSet.layerIndex(), filterToSet.filterIndex());
+		renderer.render();
+		refreshFrameOut();
+	}
+	
+	public void setParameters(ControlledFilter filterToSet, LinkedHashMap<String, Float> parameters) {
+		dataController.setParameters(filterToSet, parameters);
+		mainWindow.updateFilter(filterToSet.layerIndex(), filterToSet.filterIndex());
 		renderer.render();
 		refreshFrameOut();
 	}
 	
 	public void setSetParameterHistory(ControlledFilter filter) {
-		SetParameters parameter= new SetParameters(this, renderer, mainWindow.getChainOfLayerManagers(), filter);
+		SetParameters parameter= new SetParameters(this, filter);
 		historyController.setState(parameter);	
 	}
-	
 	
 	public void setBypass(int layerIndex, int filterIndex, Boolean bypass) {
 		dataController.setBypass(layerIndex, filterIndex, bypass);

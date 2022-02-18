@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.opencvtester.controller.interfaces.DataProvider;
 import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.data.LayerData;
 import com.opencvtester.data.interfaces.LayerDataInterface;
 import com.opencvtester.renderer.interfaces.ChainRenderer;
 import com.opencvtester.renderer.interfaces.FrameInterface;
@@ -17,6 +18,8 @@ public class Layer extends ChainRenderer implements DataProvider {
 	
 	public Layer(List<? extends Renderer> chainOfRenderer) {
 		super(chainOfRenderer);
+		layerData= new LayerData();
+		opacityFilter = new OpacityFilter("Opacity");
 	}
 	
 	public FrameInterface getBackground() {
@@ -45,12 +48,12 @@ public class Layer extends ChainRenderer implements DataProvider {
 	}
 
 	public int getNumberOfFilters() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+		return layerData.getNumberOfFilters();
 	}
 
 	public Renderer getFirstFilter() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	

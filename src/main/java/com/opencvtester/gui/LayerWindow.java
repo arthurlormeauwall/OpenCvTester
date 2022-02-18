@@ -9,15 +9,17 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.layer.LayerController;
-import com.opencvtester.filterController.FilterController;
+import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.gui.controller.FilterController;
+import com.opencvtester.gui.controller.LayerController;
 
 public class LayerWindow  extends JFrame 
 {
 	private static final long serialVersionUID = 1L;
-	private LayerController layerManager;
+	
+	private LayerController layerController;
 	private JPanel filterPanel;
-	private MainController guiManager;
+	private MainController mainController;
 	private JList<String> filtersList;
     
 	private JButton addFilterButton;
@@ -32,8 +34,8 @@ public class LayerWindow  extends JFrame
 		super("Layer");
 		
 		
-		this.guiManager=actionHistoryManager;
-		this.layerManager=layerManager;
+		this.mainController=actionHistoryManager;
+		this.layerController=layerManager;
 		
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
@@ -71,11 +73,11 @@ public class LayerWindow  extends JFrame
 	
 	public void addListeners() {
 		 undoButton.addActionListener((ActionEvent event)->{
-			 	LayerWindow.this.guiManager.undo();
+			 	LayerWindow.this.mainController.undo();
 			});
 
 		 redoButton.addActionListener((ActionEvent event)-> {
-	    	  	LayerWindow.this.guiManager.redo();
+	    	  	LayerWindow.this.mainController.redo();
 	  		});
 		 
 		 addFilterButton.addActionListener((ActionEvent event)->{	    	
@@ -84,24 +86,26 @@ public class LayerWindow  extends JFrame
 	    	});
 		 
 		 delFilterButton.addActionListener((ActionEvent event) -> {
-		    	int indexOfFitlerToDel= LayerWindow.this.layerManager.getLayer().getNumberOfFilters()-1;
+		    	int indexOfFitlerToDel= LayerWindow.this.layerController.getLayer().getNumberOfFilters()-1;
 				if(indexOfFitlerToDel>=0) {
-					FilterController filterToDel= LayerWindow.this.layerManager.getFilterManager(indexOfFitlerToDel);
+					FilterController filterToDel= LayerWindow.this.layerController.getFilterManager(indexOfFitlerToDel);
 					filterToDel.getFilterWidget().setVisible(false);
 					 LayerWindow.this.pack();
-					 LayerWindow.this.guiManager.deleteFilterAndSetHistory(filterToDel);
-				     LayerWindow.this.guiManager.store();
+					 LayerWindow.this.mainController.deleteFilterAndSetHistory(filterToDel.getFilter().layerIndex(), 
+							 												filterToDel.getFilter().filterIndex(),
+							 											    ((FilterDataInterface)filterToDel.getFilter().getData()).getName());
+				     LayerWindow.this.mainController.store();
 				}	 
 		    });
 
 		 filtersList.addListSelectionListener ((listSelectionEvent)-> {
 					 if ( !listSelectionEvent.getValueIsAdjusting()) {
-						 	int thisLayerIndex = LayerWindow.this.layerManager.getLayer().layerIndex();
-					    	int newFilterIndex=LayerWindow.this.layerManager.getLayer().getNumberOfFilters();
+						 	int thisLayerIndex = LayerWindow.this.layerController.getLayer().getData().layerIndex();
+					    	int newFilterIndex=LayerWindow.this.layerController.getLayer().getNumberOfFilters();
 					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
 					    	if (nameOfNewFilter!=null) {
-					    		LayerWindow.this.guiManager.createAddFilterAndSetHistory(thisLayerIndex, newFilterIndex, nameOfNewFilter);
-					        	LayerWindow.this.guiManager.store();
+					    		LayerWindow.this.mainController.createAddFilterAndSetHistory(thisLayerIndex, newFilterIndex, nameOfNewFilter);
+					        	LayerWindow.this.mainController.store();
 					    	}					    	
 					    	LayerWindow.this.filtersList.setVisible(false);
 					    	LayerWindow.this.filtersList.clearSelection();
@@ -117,9 +121,9 @@ public class LayerWindow  extends JFrame
 	public void updateGui() {
 		filterPanel.removeAll();
 		
-		int numberOfFiltersToAdd = layerManager.getLayer().getNumberOfFilters();
+		int numberOfFiltersToAdd = layerController.getLayer().getNumberOfFilters();
 		for (int i=0;i<numberOfFiltersToAdd;i++) {
-			filterPanel.add(layerManager.getFilterManager(i).getFilterWidget());
+			filterPanel.add(layerController.getFilterManager(i).getFilterWidget());
 		}
 		
 		this.pack();		

@@ -1,9 +1,7 @@
-package com.opencvtester.controller.layer;
+package com.opencvtester.gui.controller;
 
-import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.interfacesImp.MainWindowSwing;
 import com.opencvtester.renderer.ControlledFilter;
 
@@ -58,8 +56,8 @@ public class LayersController {
 		mainWindow.updateOpacityValue(layerIndex,opacity);
 	}
 
-	public void setParameters(ControlledFilter filter, LinkedHashMap<String, Float> parameters) {
-		mainWindow.updateParametersValues(filter, parameters);
+	public void setParameters(ControlledFilter filter) {
+		mainWindow.updateFilter(filter.getData().layerIndex(), filter.getData().filterIndex());
 	}
 	
 	public int getNumberOfLayer(){

@@ -6,8 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Stack;
 
-import com.opencvtester.data.FilterData;
-
 public class FiltersDataBase 
 {
 	protected LinkedHashMap<String, ControlledFilter> filters;
@@ -23,12 +21,8 @@ public class FiltersDataBase
 	/*
 	 * GETTERS & SETTERS
 	 */
-	public ControlledFilter getFilter(String name, FilterData filterData){
+	public ControlledFilter getFilter(String name){
 		ControlledFilter filter = filters.get(name).createNew();	
-		
-		if (filterData.getParameterValues()==null) {
-			filterData.setParameterValues(filterData.getDefaultValues());	
-		}
 		return filter;
 	}
 	

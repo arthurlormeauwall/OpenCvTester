@@ -1,6 +1,5 @@
 package com.opencvtester.controller.interfaces;
 
-import com.opencvtester.data.interfaces.IndexInterface;
 import com.opencvtester.renderer.Frame;
 import com.opencvtester.renderer.interfaces.FrameInterface;
 

@@ -10,7 +10,7 @@ import com.opencvtester.renderer.Frame;
 
 public abstract class ChainRenderer extends Renderer {
 	
-	protected Stack<FrameInterface> frames;
+	protected Stack<FrameInterface> IntermediatesFrames;
 	protected List<? extends Renderer> chainOfRenderer;
 
 	/*
@@ -18,7 +18,7 @@ public abstract class ChainRenderer extends Renderer {
 	 */
 	public ChainRenderer(List<? extends Renderer> chainOfRenderer) {
 		this.chainOfRenderer=chainOfRenderer;
-		frames= new Stack<FrameInterface>();
+		IntermediatesFrames= new Stack<FrameInterface>();
 	}
 	
 	public abstract Renderer getLast();
@@ -26,18 +26,18 @@ public abstract class ChainRenderer extends Renderer {
 	
 	protected void updateNumberOfFrames() {
 		int numberOfFilters = getNumberOfFiltersPlusOpacity();
-		int numberOfFrames = frames.size();
-		int lastFrame = frames.size() - 1;
+		int numberOfFrames = IntermediatesFrames.size();
+		int lastFrame = IntermediatesFrames.size() - 1;
 
 		if (numberOfFrames < numberOfFilters - 1) {
 			for (int i = numberOfFrames; i < numberOfFilters - 1; i++)
 			{
-				frames.push(new Frame());
+				IntermediatesFrames.push(new Frame());
 				if (i==0) {		
-					getFrameOut().copyTo(frames.get(i));
+					getFrameOut().copyTo(IntermediatesFrames.get(i));
 				}
 				else {
-					frames.get(i-1).copyTo(frames.get(i));
+					IntermediatesFrames.get(i-1).copyTo(IntermediatesFrames.get(i));
 				}	
 			}
 		}
@@ -45,8 +45,8 @@ public abstract class ChainRenderer extends Renderer {
 			
 				for (int i = lastFrame; i >= numberOfFilters-1; i--)
 				{
-					if(!frames.empty()) {
-						frames.pop();
+					if(!IntermediatesFrames.empty()) {
+						IntermediatesFrames.pop();
 					}
 				}
 			}		
@@ -57,11 +57,10 @@ public abstract class ChainRenderer extends Renderer {
 		int numberOfFilters = getNumberOfFiltersPlusOpacity();
 		updateNumberOfFrames();
 
-		int lastFrameIndex = frames.size() - 1;
+		int lastFrameIndex = IntermediatesFrames.size() - 1;
 
 		if (numberOfFilters>0) {
-			Renderer lastFilter = getLast();
-
+			Renderer lastFilter = this.getLast();
 
 			if (numberOfFilters == 1) {
 				lastFilter.setFrameIn(getFrameIn());
@@ -70,13 +69,13 @@ public abstract class ChainRenderer extends Renderer {
 			else if (numberOfFilters >= 2) {
 
 				chainOfRenderer.get(0).setFrameIn(getFrameIn());
-				chainOfRenderer.get(0).setFrameOut(frames.get(0));
+				chainOfRenderer.get(0).setFrameOut(IntermediatesFrames.get(0));
 
 				for (int j = 1; j < numberOfFilters - 1; j++) {
-					chainOfRenderer.get(j).setFrameIn(frames.get(j - 1));
-					chainOfRenderer.get(j).setFrameOut(frames.get(j));
+					chainOfRenderer.get(j).setFrameIn(IntermediatesFrames.get(j - 1));
+					chainOfRenderer.get(j).setFrameOut(IntermediatesFrames.get(j));
 				}
-				lastFilter.setFrameIn(frames.get(lastFrameIndex));
+				lastFilter.setFrameIn(IntermediatesFrames.get(lastFrameIndex));
 				lastFilter.setFrameOut(getFrameOut());
 			}
 			setFrameOut(((Renderer)lastFilter).getFrameOut());
@@ -109,6 +108,6 @@ public abstract class ChainRenderer extends Renderer {
 	}
 
 	public void deleteAllIntermediateFrames() {
-		frames.clear();	
+		IntermediatesFrames.clear();	
 	}
 }

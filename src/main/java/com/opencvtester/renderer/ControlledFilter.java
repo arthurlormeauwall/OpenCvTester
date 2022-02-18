@@ -7,32 +7,28 @@ import java.util.Map.Entry;
 
 import com.opencvtester.controller.interfaces.DataProvider;
 import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.data.FilterData;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.data.interfaces.IndexInterface;
 
 public abstract class ControlledFilter extends Renderer implements DataProvider
 {	
-	protected FilterDataInterface data;
+	protected FilterDataInterface filterData;
 	
 	/*
 	 * CONSTRUCTOR & INITS & ABSTRACT
 	 */
 	public ControlledFilter(String name) {		
+		filterData=new FilterData(0,0,name);
+		
 		initFilterControlledByFloat(name);
 	} 
 
 	@SuppressWarnings("unchecked")
 	public void initFilterControlledByFloat(String name) {
-		
-		data.setBypass(false);
-		data.setName(name);
-		data.setDefaultValues(new LinkedHashMap<String, Float>());
-		data.setZeroEffectValues(new LinkedHashMap<String, Float>());
-		data.setSliderScale(new LinkedHashMap<String, Float>());
-	
 		setParameterFlags();
 		setFilterName(name);
-		setAllParameters((LinkedHashMap<String, Float>)data.getDefaultValues().clone());
+		setAllParameters((LinkedHashMap<String, Float>)filterData.getDefaultValues().clone());
 	}
 	
 
@@ -42,39 +38,39 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 
 	
 	public IndexInterface getData() {
-		return data;
+		return filterData;
 	}
 	
 	public void bypass(Boolean bypass){
-		data.setBypass(bypass);
+		filterData.setBypass(bypass);
 	}
 	
 	public void setDefaultParameters(String name, Float p) {
-		data.getDefaultValues().put(name, p);
+		filterData.getDefaultValues().put(name, p);
 	}
 	
 	public void setZeroEffectValues(String name, Float p) {
-		data.getZeroEffectValues().put(name, p);
+		filterData.getZeroEffectValues().put(name, p);
 	}
 	
 	public void reset() {
-		setAllParameters(data.getDefaultValues());
+		setAllParameters(filterData.getDefaultValues());
 	}
 	
 	public void setFilterName(String name) {
-		data.setName(name);
+		filterData.setName(name);
 	}
 	
 	public String getFilterName() {
-		return data.getName();
+		return filterData.getName();
 	}
 
 	public Float getParameter(String name) {
-		return data.getParameterValues().get(name);
+		return filterData.getParameterValues().get(name);
 	}
 	
 	public LinkedHashMap<String, Float> getParameters() {
-		return data.getParameterValues();
+		return filterData.getParameterValues();
 	}
 	
 
@@ -87,46 +83,46 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 	}
 	
 	public void setAllParameters(LinkedHashMap<String, Float> parameters) {		
-		if (data.isBypass() && !data.isBypassLocked()) {
-			data.setBypass(false);
+		if (filterData.isBypass()) {
+			filterData.setBypass(false);
 		}
 		
-		data.setParameterValues(parameters);	
+		filterData.setParameterValues(parameters);	
 		boolean parametersAreTheSame = true;
 		
-		Iterator<Entry<String, Float>> zeroEffectValuesIterator= data.getZeroEffectValues().entrySet().iterator();
+		Iterator<Entry<String, Float>> zeroEffectValuesIterator= filterData.getZeroEffectValues().entrySet().iterator();
 		
 	    while (zeroEffectValuesIterator.hasNext() && parametersAreTheSame == true) {
 	    	HashMap.Entry<String, Float> item= (HashMap.Entry<String, Float>) zeroEffectValuesIterator.next();
 	    	
-	    	if (item.getValue().compareTo(data.getParameterValues().get(item.getKey()))!=0) {
+	    	if (item.getValue().compareTo(filterData.getParameterValues().get(item.getKey()))!=0) {
 	        	parametersAreTheSame=false;
 	        }
 	    }
 		if (parametersAreTheSame) {
-			data.setBypass(true);
+			filterData.setBypass(true);
 		}
 	}
 	
 	public void addParameterFlag(String name, Float defaultValue, Float zeroEffectValue, int sliderScale) {
 	
-		data.getDefaultValues().put(name, defaultValue);
-		data.getZeroEffectValues().put(name, zeroEffectValue);
-		data.getSliderScale().put(name, sliderScale);
+		filterData.getDefaultValues().put(name, defaultValue);
+		filterData.getZeroEffectValues().put(name, zeroEffectValue);
+		filterData.getSliderScale().put(name, sliderScale);
 	}
 	
 
 	public String getName() {
-		return data.getName();
+		return filterData.getName();
 	}
 	
 	public int layerIndex() {
 		
-		return data.layerIndex();
+		return filterData.layerIndex();
 	}
 	
 	public int filterIndex() {
-		return data.filterIndex();
+		return filterData.filterIndex();
 	}
 
 }

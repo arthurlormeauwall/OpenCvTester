@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.opencvtester.controller.MainController;
-import com.opencvtester.controller.layer.LayerController;
+import com.opencvtester.gui.controller.LayerController;
 
 public class LayerWidget extends JPanel 
 {

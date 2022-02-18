@@ -20,7 +20,7 @@ public class GrayScaleFilter extends ControlledFilter
 	}
 
 	public void render() {
-		if (data.isBypass()) {
+		if (filterData.isBypass()) {
 			frameIn.copyTo(frameOut);
 		}
 		else {

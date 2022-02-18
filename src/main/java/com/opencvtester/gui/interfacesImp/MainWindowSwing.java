@@ -16,11 +16,11 @@ import javax.swing.JPanel;
 
 import com.opencvtester.controller.MainController;
 import com.opencvtester.controller.interfaces.MainWindowController;
-import com.opencvtester.controller.layer.LayerController;
-import com.opencvtester.controller.layer.LayersController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.filterController.FilterController;
 import com.opencvtester.gui.LayerWindow;
+import com.opencvtester.gui.controller.FilterController;
+import com.opencvtester.gui.controller.LayerController;
+import com.opencvtester.gui.controller.LayersController;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.Layer;
 
@@ -29,12 +29,11 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 {
 	private static final long serialVersionUID = 1L;
 	
-	private LayersController chainOfLayerManagers;
-	private MainController guiManager;
+	private LayersController chainOfLayerController;
+	private MainController mainController;
 	
 	private List<Layer> layers;
 	private List<ArrayList<ControlledFilter>> filters;
-	
 	
 	private JPanel layerPanel;
 	private JButton addLayerButton; 
@@ -44,8 +43,6 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	private JButton saveButton;
 	private JButton reloadButton;
 	private JFileChooser fileChooser;
-	
-	public Stack<LayerWindow> test;
 
 	private JButton saveAsButton;
 
@@ -54,15 +51,14 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public MainWindowSwing(MainController guiManager) {
+	public MainWindowSwing(MainController guiManager, List<ArrayList<ControlledFilter>> filters, List<Layer> layers) {
 		super("OpenCV tester");
-		
-		test= new Stack<LayerWindow>();
-		
+		this.layers=layers;
+		this.filters= filters;
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.guiManager=guiManager;	
-		chainOfLayerManagers= new LayersController(this);
+		this.mainController=guiManager;	
+		chainOfLayerController= new LayersController(this);
 		
 		this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
 		
@@ -107,7 +103,7 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	     });
 		 
 		 saveButton.addActionListener((ActionEvent event)->{
-	    	  MainWindowSwing.this.guiManager.save();
+	    	  MainWindowSwing.this.mainController.save();
 	     });
 		 
 		 saveAsButton.addActionListener((ActionEvent event)->{
@@ -118,22 +114,22 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	    	  MainWindowSwing.this.openSession();
 	     });
 		 undoButton.addActionListener((ActionEvent event)->{
-		    	  MainWindowSwing.this.guiManager.undo();
+		    	  MainWindowSwing.this.mainController.undo();
 		     });
 		 
 		 redoButton.addActionListener((ActionEvent event)->{
-		    	  MainWindowSwing.this.guiManager.redo();
+		    	  MainWindowSwing.this.mainController.redo();
 		     });
 		 
 		 addLayerButton.addActionListener((ActionEvent event)->{	
-		    	MainWindowSwing.this.guiManager.createAddLayerAndSetHistory(chainOfLayerManagers.getNumberOfLayer());
-		    	MainWindowSwing.this.guiManager.store();
+		    	MainWindowSwing.this.mainController.createAddLayerAndSetHistory(chainOfLayerController.getNumberOfLayer());
+		    	MainWindowSwing.this.mainController.store();
 		     });
 		 
 		 delLayerButton.addActionListener((ActionEvent event)->{
-			 if(chainOfLayerManagers.getNumberOfLayer()>0) {
-				 MainWindowSwing.this.guiManager.deleteLayerAndSetHistory(chainOfLayerManagers.getNumberOfLayer()-1);
-				 MainWindowSwing.this.guiManager.store();	  
+			 if(chainOfLayerController.getNumberOfLayer()>0) {
+				 MainWindowSwing.this.mainController.deleteLayerAndSetHistory(chainOfLayerController.getNumberOfLayer()-1);
+				 MainWindowSwing.this.mainController.store();	  
 			 }	  
 		 });
 	}
@@ -142,52 +138,54 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	private void openImage() {
 		int response = fileChooser.showOpenDialog(this);
 		if (response==0) {
-			guiManager.openImage(fileChooser.getSelectedFile().getPath());
+			mainController.openImage(fileChooser.getSelectedFile().getPath());
 		}
 	}
 
 	public MainController getGuiManager() {
-		return guiManager;
+		return mainController;
 	}
 
 	public LayersController getChainOfLayerManagers() {
-		return chainOfLayerManagers;
+		return chainOfLayerController;
 	}	
 
 	
 	public void setOpacity(int layerIndex, Float opacity) {
-		chainOfLayerManagers.getLayerManager(layerIndex).getLayerWidget().setOpacitySlider(opacity);
+		chainOfLayerController.getLayerManager(layerIndex).getLayerWidget().setOpacitySlider(opacity);
 	}
 	
 	public void addFilter(int layerIndex, int filterIndex) {
 		FilterController filterManager= createFilterManager(filters.get(layerIndex).get(filterIndex));
-		chainOfLayerManagers.addFilterManager(filterManager);
+		chainOfLayerController.addFilterManager(filterManager);
 	}
 
-	private FilterController createFilterManager(ControlledFilter controlledFilter) {
 
-		return null;
-	}
 
 	public void deleteFilter(int layerIndex, int filterIndex) {	
-		chainOfLayerManagers.deleteFilterManager(layerIndex,  filterIndex);	
+		chainOfLayerController.deleteFilterManager(layerIndex,  filterIndex);	
 	}
 
 	public void addLayer(int layerIndex) {
 		LayerController layerManager= createLayerController(layerIndex);
 		layerManager.createLayerWindow();
-		chainOfLayerManagers.addLayerManager(layerManager);	
+		chainOfLayerController.addLayerManager(layerManager);	
 	}
 	
 	private LayerController createLayerController(int layerIndex) {
 		
-		return null;
+		return new LayerController(filters.get(layerIndex), layers.get(layerIndex).getData(), mainController);
+	}
+	
+	private FilterController createFilterManager(ControlledFilter controlledFilter) {
+
+		return new FilterController(controlledFilter, mainController);
 	}
 
 	public void deleteLayer(int layerIndex) {
-		LayerController layerManager= chainOfLayerManagers.getLayerManager(layerIndex);
+		LayerController layerManager= chainOfLayerController.getLayerManager(layerIndex);
 		layerManager.deleteLayerWindow();
-		chainOfLayerManagers.deleteLayerManager(layerManager);		
+		chainOfLayerController.deleteLayerManager(layerManager);		
 	}
 	
 
@@ -196,26 +194,26 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 
 	public void updateFilter(int layerIndex, int filterIndex) {	
 		LinkedHashMap<String, Float> parameters= ((FilterDataInterface)filters.get(layerIndex).get(filterIndex).getData()).getParameterValues();
-		chainOfLayerManagers.getLayerManager(layerIndex).getFilterManager(filterIndex).updateParameterValues(parameters);
+		chainOfLayerController.getLayerManager(layerIndex).getFilterManager(filterIndex).updateParameterValues(parameters);
 	}
 	
 	public void updateGui() {
-		chainOfLayerManagers.updateGui();		
+		chainOfLayerController.updateGui();		
 		
 		layerPanel.removeAll();
 		
-		int numberOfFiltersToAdd = chainOfLayerManagers.getNumberOfLayer();
+		int numberOfFiltersToAdd = chainOfLayerController.getNumberOfLayer();
 		for (int i=0;i<numberOfFiltersToAdd;i++) {
 			
-			layerPanel.add(chainOfLayerManagers.getLayerManager(i).getLayerWidget());
+			layerPanel.add(chainOfLayerController.getLayerManager(i).getLayerWidget());
 		}
 		this.pack();
 	}
 
 	public void clearAll() {
-		for (int i=chainOfLayerManagers.getNumberOfLayer()-1;i>=0;i--) {
-			chainOfLayerManagers.getLayerManager(i).deleteLayerWindow();
-			chainOfLayerManagers.deleteLayerManager(chainOfLayerManagers.getLayerManager(i));	
+		for (int i=chainOfLayerController.getNumberOfLayer()-1;i>=0;i--) {
+			chainOfLayerController.getLayerManager(i).deleteLayerWindow();
+			chainOfLayerController.deleteLayerManager(chainOfLayerController.getLayerManager(i));	
 		}
 	}
 
@@ -223,14 +221,14 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	
 		int response = fileChooser.showSaveDialog(this);
 		if (response==0) {
-			guiManager.saveSessionAs(fileChooser.getSelectedFile().getPath());
+			mainController.saveSessionAs(fileChooser.getSelectedFile().getPath());
 		}
 	}
 	
 	private void openSession() {
 		int response = fileChooser.showOpenDialog(this);
 		if (response==0) {
-			guiManager.openSession(fileChooser.getSelectedFile().getPath());
+			mainController.openSession(fileChooser.getSelectedFile().getPath());
 		}
 	}
 
