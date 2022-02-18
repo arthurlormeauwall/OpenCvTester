@@ -1,8 +1,7 @@
 package com.opencvtester.controller.interfaces;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.Stack;
 
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.Layer;
@@ -17,7 +16,7 @@ public interface DataController {
 	
 	void addFilter(ControlledFilter filterManager);
 	
-	ControlledFilter addFilter(int layerIndex,int filterInex,String name);
+	void addFilter(int layerIndex,int filterInex,String name);
 
 	void deleteFilter(int layerIndex,int filterInex);
 
@@ -31,9 +30,7 @@ public interface DataController {
 	
 	void clearAll();
 
-	List<Layer> getLayers();
-
-	List<ArrayList<ControlledFilter>> getFilters();
+	Stack<Layer> getLayers();
 
 	void checkAndActivateLayer(int layerIndex);
 }

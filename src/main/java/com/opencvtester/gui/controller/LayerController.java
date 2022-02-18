@@ -1,7 +1,6 @@
 package com.opencvtester.gui.controller;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
 import com.opencvtester.controller.MainController;
 import com.opencvtester.data.interfaces.LayerDataInterface;
@@ -13,20 +12,24 @@ import com.opencvtester.renderer.Layer;
 
 public class LayerController
 {
-	protected List<FilterController> chainOfFilterController;
+	protected Stack<FilterController> chainOfFilterController;
 	protected Layer layer;
 	protected LayerWidget layerWidget;
 	protected LayerWindow layerWindow;
 	protected MainController mainController;
 	protected String indexType;
 	private  LayerDataInterface layerData;
-	ArrayList<ControlledFilter> filters;
+	protected Stack<ControlledFilter> filters;
 	
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayerController(ArrayList<ControlledFilter> filters, LayerDataInterface layerData, MainController mainController) {
-		chainOfFilterController = new ArrayList<FilterController>();
+	public LayerController(Stack<ControlledFilter> filters, LayerDataInterface layerData, MainController mainController) {
+		chainOfFilterController = new Stack<FilterController>();
+		for (int i=0;i<filters.size();i++) {
+			addFilterController(new FilterController(filters.get(i), mainController));
+		}
+		
 		this.filters=filters;
 		this.layerData=layerData;
 		
@@ -68,7 +71,7 @@ public class LayerController
 		return (FilterController)chainOfFilterController.remove(filterIndex);
 	}
 
-	public FilterController addFilterManager(FilterController newFilterManager) {
+	public FilterController addFilterController(FilterController newFilterManager) {
 		chainOfFilterController.add(newFilterManager);
 		newFilterManager.getFilterWidget().setVisible(true);
 		return newFilterManager;

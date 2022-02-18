@@ -1,7 +1,6 @@
 package com.opencvtester.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Stack;
@@ -51,7 +50,7 @@ public class MainController
 		dataController= new DataCtrlImp(filtersDataBase);
 		renderer = new ChainOfLayersRenderer(fileName, dataController.getLayers());
 		
-		mainWindow = new MainWindowSwing(this, dataController.getFilters(), dataController.getLayers());		
+		mainWindow = new MainWindowSwing(this, dataController.getLayers());		
 		
 		
 		historyController=new HistoryCtrlImp();
@@ -61,10 +60,6 @@ public class MainController
 
 	public List<Layer> layers(){
 		return dataController.getLayers();
-	}
-	
-	public List<ArrayList<ControlledFilter>> filters(){
-		return dataController.getFilters();
 	}
 
 	public Stack<String> getFiltersName() {
@@ -78,20 +73,19 @@ public class MainController
 	}
 
 	public void deleteLayerAndSetHistory(int layerIndex) {			
-		deleteLayer(layerIndex);			
 		setDeleteLayerHistory(layers().get(layerIndex));
+		deleteLayer(layerIndex);				
 	}
 	
-	public void addLayer(int layerManager) {
-		dataController.addLayer(layerManager);
-		mainWindow.addLayer(layerManager);
+	public void addLayer(int layerIndex) {
+		dataController.addLayer(layerIndex);
+		mainWindow.addLayer(layerIndex);
 		renderer.render();
 		refreshFrameOut();
 	}	
 	
 	public void addLayer(Layer layer) {
 		dataController.addLayer(layer);
-		
 		renderer.render();
 		mainWindow.addLayer(layer.getData().layerIndex());
 		refreshFrameOut();
@@ -99,15 +93,15 @@ public class MainController
 	
 	public void deleteLayer(int layerIndex) {
 		dataController.deleteLayer(layerIndex);
-		
 		renderer.render();
+		mainWindow.deleteLayer(layerIndex);
 		refreshFrameOut();
 	}
 	
 	public void deleteLayer(Layer layer) {
 		dataController.deleteLayer(layer.getData().layerIndex());
-		
 		renderer.render();
+		mainWindow.deleteLayer(layer.getData().layerIndex());
 		refreshFrameOut();
 	}
 	
@@ -127,33 +121,33 @@ public class MainController
 	///////////////////////////////////////////////////////////
 	
 	public void createAddFilterAndSetHistory(int layerIndex, int filterIndex, String filterName) {
-
 		addFilter(layerIndex, filterIndex ,filterName);
-		setAddFilterHistory(filters().get(layerIndex).get(filterIndex));
+		setAddFilterHistory(dataController.getLayers().get(layerIndex).getFilter(filterIndex));
 	}	
 
 	public void deleteFilterAndSetHistory(int layerIndex, int filterIndex, String name) {		
-			deleteFilter(layerIndex, filterIndex);			
-			setDeleteFilterHistory(filters().get(layerIndex).get(filterIndex));
+		setDeleteFilterHistory(dataController.getLayers().get(layerIndex).getFilter(filterIndex));	
+		deleteFilter(layerIndex, filterIndex);			
 	}
 	
 	public void addFilter(int layerIndex, int filterIndex, String filterName) {
 		dataController.addFilter(layerIndex, filterIndex,filterName);
-
 		renderer.render();
+		mainWindow.addFilter(layerIndex, filterIndex);
 		refreshFrameOut();
 	}	
 	
 	public void addFilter(ControlledFilter filter) {
 		dataController.addFilter(filter);
 		renderer.render();
+		mainWindow.addFilter(filter.getData().layerIndex(), filter.getData().filterIndex());
 		refreshFrameOut();
 	}
 	
 	public void deleteFilter(int layerIndex, int filterIndex) {
 		dataController.deleteFilter(layerIndex, filterIndex);
-	
 		renderer.render();
+		mainWindow.deleteFilter(layerIndex, filterIndex);
 		refreshFrameOut();
 	}
 	
@@ -161,7 +155,6 @@ public class MainController
 		AddOrDeleteFilter parameter= new AddOrDeleteFilter (this, filter);
 		parameter.setAddOrDelete(Functionalities.ADD);
 		historyController.setState(parameter);
-		
 	}
 	
 	public void setDeleteFilterHistory(ControlledFilter filter) {
@@ -177,9 +170,8 @@ public class MainController
 	}
 
 	public void setParametersAndSetHistory(ControlledFilter filterToSet, String name, Float value) throws IOException {
-		
-		setParameters(filterToSet, name, value);
 		setSetParameterHistory(filterToSet);
+		setParameters(filterToSet, name, value);
 	}
 
 	public void setParameters(ControlledFilter filterToSet, String name, Float value) {
@@ -256,7 +248,12 @@ public class MainController
 
 	public void openImage(String fileName) {
 		
-		renderer.setFrameIn(fileName);
+		renderer.openImage(fileName);
+		
+		if (dataController.getLayers().size()>0) {
+			dataController.checkAndActivateLayer(0);
+		}
+	
 		renderer.render();
 		
 		frameOutWindow.setInMiddleOfScreen();

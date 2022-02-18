@@ -1,12 +1,14 @@
 package com.opencvtester.filtersDataBase;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedHashMap;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.Frame;
 import com.opencvtester.renderer.OpacityFilter;
 
@@ -38,7 +40,7 @@ class OpacityFilterTest {
 		
 		filter.setOpacity(1f);
 		
-		assertTrue(filter.isbypass());	
+		assertTrue(((FilterDataInterface)filter.getData()).isBypass());	
 	}
 	
 	@Test
@@ -53,7 +55,7 @@ class OpacityFilterTest {
 		
 		for (Float opacity=0f;opacity<1; opacity+=0.05f) {
 			filter.setOpacity(opacity);
-			filter.setBypass(false);
+			((FilterDataInterface)filter.getData()).setBypass(false);
 			filter.render();
 			
 			Frame result=new Frame();

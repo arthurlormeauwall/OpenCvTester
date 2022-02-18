@@ -33,7 +33,7 @@ public class LayersController {
 	 * FEATURES
 	 */
 	public void addFilterManager(FilterController filterManager) {
-		((LayerController)layerManagers.get(filterManager.layerIndex())).addFilterManager(filterManager);
+		((LayerController)layerManagers.get(filterManager.layerIndex())).addFilterController(filterManager);
 		mainWindow.updateGui();
 	}
 	

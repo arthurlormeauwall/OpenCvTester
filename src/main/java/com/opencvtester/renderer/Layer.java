@@ -1,6 +1,6 @@
 package com.opencvtester.renderer;
 
-import java.util.List;
+import java.util.Stack;
 
 import com.opencvtester.controller.interfaces.DataProvider;
 import com.opencvtester.controller.interfaces.Renderer;
@@ -14,21 +14,14 @@ public class Layer extends ChainRenderer implements DataProvider {
 	protected LayerDataInterface layerData;
 	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;
+
 	
-	
-	public Layer(List<? extends Renderer> chainOfRenderer) {
-		super(chainOfRenderer);
-		layerData= new LayerData();
+	public Layer(int layerIndex) {
+		super(new Stack<ControlledFilter>());
+		layerData= new LayerData(layerIndex);
 		opacityFilter = new OpacityFilter("Opacity");
 	}
-	
-	public FrameInterface getBackground() {
-		return background;
-	}
 
-	public void setBackground(FrameInterface background) {
-		this.background = background;
-	}
 
 	public OpacityFilter getOpacityFilter() {
 		return opacityFilter;
@@ -49,16 +42,32 @@ public class Layer extends ChainRenderer implements DataProvider {
 
 	public int getNumberOfFilters() {
 	
-		return layerData.getNumberOfFilters();
+		return chainOfRenderer.size();
 	}
 
-	public Renderer getFirstFilter() {
-		
-		return null;
-	}
-	
 	public LayerDataInterface getData() {
 		return layerData;
 	}
 
+	public ControlledFilter getFilter(int filterIndex) {
+		
+		return (ControlledFilter)chainOfRenderer.get(filterIndex);
+	}
+
+	@SuppressWarnings("unchecked")
+	public void addFilter(ControlledFilter filter) {
+		((Stack<ControlledFilter>)chainOfRenderer).push(filter);	
+	}
+
+	@SuppressWarnings("unchecked")
+	public void removeFilter(int filterIndex) {
+		((Stack<ControlledFilter>)chainOfRenderer).remove(filterIndex);	
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public Stack<ControlledFilter> getFilters() {
+		
+		return ((Stack<ControlledFilter>)chainOfRenderer);
+	}
 }

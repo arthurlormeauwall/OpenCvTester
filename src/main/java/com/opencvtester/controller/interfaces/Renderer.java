@@ -45,4 +45,6 @@ public abstract class Renderer
 		this.frameOut=frameOut;
 	}
 
+	public abstract void openImage(String fileName);
+
 }

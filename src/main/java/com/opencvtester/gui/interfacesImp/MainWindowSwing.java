@@ -3,10 +3,8 @@ package com.opencvtester.gui.interfacesImp;
 
 
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Stack;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,7 +15,6 @@ import javax.swing.JPanel;
 import com.opencvtester.controller.MainController;
 import com.opencvtester.controller.interfaces.MainWindowController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.gui.LayerWindow;
 import com.opencvtester.gui.controller.FilterController;
 import com.opencvtester.gui.controller.LayerController;
 import com.opencvtester.gui.controller.LayersController;
@@ -33,7 +30,6 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	private MainController mainController;
 	
 	private List<Layer> layers;
-	private List<ArrayList<ControlledFilter>> filters;
 	
 	private JPanel layerPanel;
 	private JButton addLayerButton; 
@@ -51,10 +47,9 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public MainWindowSwing(MainController guiManager, List<ArrayList<ControlledFilter>> filters, List<Layer> layers) {
+	public MainWindowSwing(MainController guiManager, List<Layer> layers) {
 		super("OpenCV tester");
 		this.layers=layers;
-		this.filters= filters;
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.mainController=guiManager;	
@@ -156,11 +151,9 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	}
 	
 	public void addFilter(int layerIndex, int filterIndex) {
-		FilterController filterManager= createFilterManager(filters.get(layerIndex).get(filterIndex));
-		chainOfLayerController.addFilterManager(filterManager);
+		FilterController filterController= createFilterController(layers.get(layerIndex).getFilter(filterIndex));
+		chainOfLayerController.addFilterManager(filterController);
 	}
-
-
 
 	public void deleteFilter(int layerIndex, int filterIndex) {	
 		chainOfLayerController.deleteFilterManager(layerIndex,  filterIndex);	
@@ -174,10 +167,10 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	
 	private LayerController createLayerController(int layerIndex) {
 		
-		return new LayerController(filters.get(layerIndex), layers.get(layerIndex).getData(), mainController);
+		return new LayerController(layers.get(layerIndex).getFilters(), layers.get(layerIndex).getData(), mainController);
 	}
 	
-	private FilterController createFilterManager(ControlledFilter controlledFilter) {
+	private FilterController createFilterController(ControlledFilter controlledFilter) {
 
 		return new FilterController(controlledFilter, mainController);
 	}
@@ -193,7 +186,7 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	}
 
 	public void updateFilter(int layerIndex, int filterIndex) {	
-		LinkedHashMap<String, Float> parameters= ((FilterDataInterface)filters.get(layerIndex).get(filterIndex).getData()).getParameterValues();
+		LinkedHashMap<String, Float> parameters= ((FilterDataInterface)layers.get(layerIndex).getFilter(filterIndex).getData()).getParameterValues();
 		chainOfLayerController.getLayerManager(layerIndex).getFilterManager(filterIndex).updateParameterValues(parameters);
 	}
 	

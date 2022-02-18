@@ -1,6 +1,5 @@
 package com.opencvtester.renderer.interfaces;
 
-import java.util.List;
 import java.util.Stack;
 
 import com.opencvtester.controller.interfaces.DataProvider;
@@ -11,18 +10,28 @@ import com.opencvtester.renderer.Frame;
 public abstract class ChainRenderer extends Renderer {
 	
 	protected Stack<FrameInterface> IntermediatesFrames;
-	protected List<? extends Renderer> chainOfRenderer;
+	protected Stack<? extends Renderer> chainOfRenderer;
+	protected FrameInterface background;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public ChainRenderer(List<? extends Renderer> chainOfRenderer) {
+	public ChainRenderer(Stack<? extends Renderer> chainOfRenderer) {
 		this.chainOfRenderer=chainOfRenderer;
+		this.background = new Frame();
 		IntermediatesFrames= new Stack<FrameInterface>();
 	}
 	
 	public abstract Renderer getLast();
 	public abstract int getNumberOfFiltersPlusOpacity();
+	
+	public FrameInterface getBackground() {
+		return background;
+	}
+
+	public void setBackground(FrameInterface background) {
+		this.background = background;
+	}
 	
 	protected void updateNumberOfFrames() {
 		int numberOfFilters = getNumberOfFiltersPlusOpacity();
@@ -60,11 +69,11 @@ public abstract class ChainRenderer extends Renderer {
 		int lastFrameIndex = IntermediatesFrames.size() - 1;
 
 		if (numberOfFilters>0) {
-			Renderer lastFilter = this.getLast();
+			Renderer lastRenderer = this.getLast();
 
 			if (numberOfFilters == 1) {
-				lastFilter.setFrameIn(getFrameIn());
-				lastFilter.setFrameOut(getFrameOut());
+				lastRenderer.setFrameIn(getFrameIn());
+				lastRenderer.setFrameOut(getFrameOut());
 			}
 			else if (numberOfFilters >= 2) {
 
@@ -75,10 +84,10 @@ public abstract class ChainRenderer extends Renderer {
 					chainOfRenderer.get(j).setFrameIn(IntermediatesFrames.get(j - 1));
 					chainOfRenderer.get(j).setFrameOut(IntermediatesFrames.get(j));
 				}
-				lastFilter.setFrameIn(IntermediatesFrames.get(lastFrameIndex));
-				lastFilter.setFrameOut(getFrameOut());
+				lastRenderer.setFrameIn(IntermediatesFrames.get(lastFrameIndex));
+				lastRenderer.setFrameOut(getFrameOut());
 			}
-			setFrameOut(((Renderer)lastFilter).getFrameOut());
+			setFrameOut(((Renderer)lastRenderer).getFrameOut());
 		}
 		else {
 			getFrameIn().copyTo(getFrameOut());
@@ -105,6 +114,14 @@ public abstract class ChainRenderer extends Renderer {
 				chainOfRenderer.get(i).render();	
 			}		
 		}	
+	}
+	
+	
+	public void openImage(String fileName) {
+		setFrameIn(fileName);
+		frameIn.copyTo(frameOut);
+		background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
+		deleteAllIntermediateFrames();
 	}
 
 	public void deleteAllIntermediateFrames() {

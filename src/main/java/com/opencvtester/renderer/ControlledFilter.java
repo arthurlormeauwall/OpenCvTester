@@ -28,7 +28,7 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 	public void initFilterControlledByFloat(String name) {
 		setParameterFlags();
 		setFilterName(name);
-		setAllParameters((LinkedHashMap<String, Float>)filterData.getDefaultValues().clone());
+		setAllParameters((LinkedHashMap<String, Float>)filterData.getDefaultValues().clone());	
 	}
 	
 
@@ -123,6 +123,14 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 	
 	public int filterIndex() {
 		return filterData.filterIndex();
+	}
+	
+	public void openImage(String fileName) {
+		try {
+			frameIn.readFromFile(fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
