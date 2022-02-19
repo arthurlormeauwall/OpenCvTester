@@ -1,4 +1,4 @@
-package com.opencvtester.controller;
+package com.opencvtester.gui.controller;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.Rectangle;
@@ -17,12 +17,12 @@ public class FrameWindowController {
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	FrameWindowController(){
+	public FrameWindowController(){
 		frameWindow= new JFrame("Image");
 		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	   
 	}
 	
-	FrameWindowController(FrameInterface frameOut){
+	public FrameWindowController(FrameInterface frameOut){
 		frameWindow= new JFrame("Image");
 		frameWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		

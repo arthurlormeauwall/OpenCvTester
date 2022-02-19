@@ -1,4 +1,4 @@
-package com.opencvtester.filtersDataBase;
+package com.opencvtester.renderer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,7 +40,7 @@ class OpacityFilterTest {
 		
 		filter.setOpacity(1f);
 		
-		assertTrue(((FilterDataInterface)filter.getData()).isBypass());	
+		assertTrue(((FilterDataInterface)filter.getFilterData()).isBypass());	
 	}
 	
 	@Test
@@ -55,7 +55,7 @@ class OpacityFilterTest {
 		
 		for (Float opacity=0f;opacity<1; opacity+=0.05f) {
 			filter.setOpacity(opacity);
-			((FilterDataInterface)filter.getData()).setBypass(false);
+			filter.getFilterData().setBypass(false);
 			filter.render();
 			
 			Frame result=new Frame();

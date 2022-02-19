@@ -2,7 +2,7 @@ package com.opencvtester.gui.controller;
 
 import java.util.Stack;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.data.interfaces.LayerDataInterface;
 import com.opencvtester.gui.LayerWidget;
 import com.opencvtester.gui.LayerWindow;
@@ -35,7 +35,7 @@ public class LayerController
 		
 		this.mainController=mainController;
 		
-		layer = mainController.layers().get(layerData.layerIndex());
+		layer = mainController.layers().get(layerData.getIndexData().layerIndex());
 		
 		indexType="filter";
 
@@ -44,7 +44,7 @@ public class LayerController
 	}
 
 	public int layerIndex() {
-		return layerData.layerIndex();
+		return layerData.getIndexData().layerIndex();
 	}
 	
 	public FilterController getFilterManager(int index) {

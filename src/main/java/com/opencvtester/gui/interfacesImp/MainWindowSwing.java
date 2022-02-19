@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.controller.interfaces.MainWindowController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.gui.controller.FilterController;
@@ -167,7 +167,7 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	
 	private LayerController createLayerController(int layerIndex) {
 		
-		return new LayerController(layers.get(layerIndex).getFilters(), layers.get(layerIndex).getData(), mainController);
+		return new LayerController(layers.get(layerIndex).getFilters(), layers.get(layerIndex).getFilterData(), mainController);
 	}
 	
 	private FilterController createFilterController(ControlledFilter controlledFilter) {
@@ -186,7 +186,7 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	}
 
 	public void updateFilter(int layerIndex, int filterIndex) {	
-		LinkedHashMap<String, Float> parameters= ((FilterDataInterface)layers.get(layerIndex).getFilter(filterIndex).getData()).getParameterValues();
+		LinkedHashMap<String, Float> parameters= (layers.get(layerIndex).getFilter(filterIndex).getFilterData()).getParameterValues();
 		chainOfLayerController.getLayerManager(layerIndex).getFilterManager(filterIndex).updateParameterValues(parameters);
 	}
 	

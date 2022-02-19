@@ -1,4 +1,4 @@
-package com.opencvtester.baseClasses.filter;
+package com.opencvtester.renderer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.Frame;
 
-class FilterControlledByFloatTest {
+class ControlledFilterTest {
 	ControlledFilter filter;
 	private Float a=1.2f, b=1.6f, c=2.6f;
 	

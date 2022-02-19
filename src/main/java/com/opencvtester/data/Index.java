@@ -1,9 +1,12 @@
 package com.opencvtester.data;
 
+import java.io.Serializable;
+
 import com.opencvtester.data.interfaces.IndexInterface;
 
-public class Index implements IndexInterface{
+public class Index implements IndexInterface, Serializable{
 	
+	private static final long serialVersionUID = -4386016043426852508L;
 	protected int filterIndex;
 	protected int layerIndex;	
 	protected Boolean isActivate;
@@ -11,6 +14,7 @@ public class Index implements IndexInterface{
 	public Index(int layerIndex, int filterIndex) {
 		this.layerIndex=layerIndex;
 		this.filterIndex=filterIndex;
+		isActivate = true;
 	}
 	
 	public int filterIndex() {

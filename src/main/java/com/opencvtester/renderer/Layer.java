@@ -2,17 +2,18 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
+import com.opencvtester.controller.interfaces.DataIndexProvider;
 import com.opencvtester.controller.interfaces.DataProvider;
 import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.data.LayerData;
+import com.opencvtester.data.interfaces.IndexInterface;
 import com.opencvtester.data.interfaces.LayerDataInterface;
 import com.opencvtester.renderer.interfaces.ChainRenderer;
 import com.opencvtester.renderer.interfaces.FrameInterface;
 
-public class Layer extends ChainRenderer implements DataProvider {
+public class Layer extends ChainRenderer implements DataProvider  {
 
 	protected LayerDataInterface layerData;
-	protected FrameInterface background;
 	protected OpacityFilter opacityFilter;
 
 	
@@ -20,6 +21,8 @@ public class Layer extends ChainRenderer implements DataProvider {
 		super(new Stack<ControlledFilter>());
 		layerData= new LayerData(layerIndex);
 		opacityFilter = new OpacityFilter("Opacity");
+		opacityFilter.getData().getIndexData().setLayerIndex(layerIndex);
+		opacityFilter.setBackGround(background);
 	}
 
 
@@ -40,17 +43,15 @@ public class Layer extends ChainRenderer implements DataProvider {
 		getOpacityFilter().render();	
 	}
 
-	public int getNumberOfFilters() {
-	
+	public int getNumberOfFilters() {	
 		return chainOfRenderer.size();
 	}
 
-	public LayerDataInterface getData() {
+	public LayerDataInterface getFilterData() {
 		return layerData;
 	}
 
 	public ControlledFilter getFilter(int filterIndex) {
-		
 		return (ControlledFilter)chainOfRenderer.get(filterIndex);
 	}
 
@@ -62,12 +63,19 @@ public class Layer extends ChainRenderer implements DataProvider {
 	@SuppressWarnings("unchecked")
 	public void removeFilter(int filterIndex) {
 		((Stack<ControlledFilter>)chainOfRenderer).remove(filterIndex);	
-		
 	}
 
 	@SuppressWarnings("unchecked")
-	public Stack<ControlledFilter> getFilters() {
-		
+	public Stack<ControlledFilter> getFilters() {	
 		return ((Stack<ControlledFilter>)chainOfRenderer);
+	}
+
+
+	public IndexInterface getIndexData() {
+		return layerData.getIndexData();
+	}
+	
+	public DataIndexProvider getData() {
+		return layerData;
 	}
 }

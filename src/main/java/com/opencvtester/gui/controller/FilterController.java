@@ -2,7 +2,7 @@ package com.opencvtester.gui.controller;
 
 import java.util.LinkedHashMap;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.gui.FilterWidget;
 import com.opencvtester.renderer.ControlledFilter;
 

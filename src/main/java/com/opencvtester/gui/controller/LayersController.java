@@ -57,7 +57,7 @@ public class LayersController {
 	}
 
 	public void setParameters(ControlledFilter filter) {
-		mainWindow.updateFilter(filter.getData().layerIndex(), filter.getData().filterIndex());
+		mainWindow.updateFilter(filter.layerIndex(), filter.filterIndex());
 	}
 	
 	public int getNumberOfLayer(){

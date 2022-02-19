@@ -1,4 +1,4 @@
-package com.opencvtester.baseClasses.frame;
+package com.opencvtester.renderer;
 
 import static org.junit.jupiter.api.Assertions.*;
 

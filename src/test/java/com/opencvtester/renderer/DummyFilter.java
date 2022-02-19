@@ -1,4 +1,4 @@
-package com.opencvtester.baseClasses.filter;
+package com.opencvtester.renderer;
 
 import com.opencvtester.renderer.ControlledFilter;
 

@@ -16,7 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 
@@ -37,7 +37,7 @@ public class FilterWidget extends JPanel
 		sliders= new LinkedHashMap<String, LabelledSlider>();
 		this.filter= sourceFilter;
 		
-		bypass=((FilterDataInterface)sourceFilter.getData()).isBypass();
+		bypass=sourceFilter.getFilterData().isBypass();
 		
 		this.mainController=actionHistoryManager;
 		

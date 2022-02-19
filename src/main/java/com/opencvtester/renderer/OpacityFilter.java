@@ -1,6 +1,7 @@
 package com.opencvtester.renderer;
 import java.util.LinkedHashMap;
 
+import com.opencvtester.data.interfaces.IndexInterface;
 import com.opencvtester.renderer.interfaces.FrameInterface;
 
 
@@ -74,7 +75,10 @@ public class OpacityFilter extends ControlledFilter
 					int[] data= new int[3];
 					for (int i = 0; i < 3; i++) {
 						float alpha_pixel = opacity;
-						float background_pixel = (float)(background.getPixelAt(row, column)[i]);
+						float background_pixel=0;
+						background_pixel = (float)(background.getPixelAt(row, column)[i]);
+										
+						
 						float source_pixel = (float)(frameIn.getPixelAt(row, column)[i]);
 
 						int after = Math.round((background_pixel*(1-alpha_pixel)+source_pixel*alpha_pixel));
@@ -87,4 +91,5 @@ public class OpacityFilter extends ControlledFilter
 			}
 		}
 	}
+
 }

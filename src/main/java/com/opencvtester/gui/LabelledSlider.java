@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 
@@ -38,7 +38,7 @@ public class LabelledSlider extends JPanel
 		this.mainController=actionHistoryManager;
 		slider = new JSlider ();
 
-		slider.setMaximum(((FilterDataInterface)filterToUpdate.getData()).getSliderScale().get(name));   
+		slider.setMaximum(filterToUpdate.getFilterData().getSliderScale().get(name));   
 		slider.setOrientation(JSlider.VERTICAL);
 		slider.setValue(Math.round(filterToUpdate.getParameter(name)*100));
 		this.nameWidget = new JLabel(name);

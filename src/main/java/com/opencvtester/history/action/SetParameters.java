@@ -2,7 +2,7 @@ package com.opencvtester.history.action;
 
 import java.util.LinkedHashMap;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.history.Action;
 import com.opencvtester.history.NatureOfAction;
 import com.opencvtester.renderer.ControlledFilter;

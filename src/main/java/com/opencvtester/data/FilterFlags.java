@@ -1,9 +1,16 @@
 package com.opencvtester.data;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class FilterFlags
+public class FilterFlags implements Serializable
 {	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -587718884077954473L;
+	
+	
 	public String name;
 	public LinkedHashMap<String, Float> defaultValues;
 	public LinkedHashMap<String, Float> zeroEffectValues;

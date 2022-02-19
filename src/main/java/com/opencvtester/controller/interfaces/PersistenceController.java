@@ -1,6 +1,6 @@
 package com.opencvtester.controller.interfaces;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 
 public interface PersistenceController {
 	void saveSession();

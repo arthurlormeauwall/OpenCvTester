@@ -3,22 +3,25 @@ package com.opencvtester.dataPersistence;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 import com.opencvtester.data.FilterData;
 import com.opencvtester.data.LayerData;
+import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.data.interfaces.LayerDataInterface;
 
 public class SessionController implements Serializable {
 
 	private static final long serialVersionUID = -4641469352932119900L;
 	
 	private String title;
-	private List<LayerData> layers;
-	private List<FilterData> filters;
+	private Stack<LayerDataInterface> layers;
+	private Stack<Stack<FilterDataInterface>> filters;
 
-	public SessionController(List<LayerData> layers, List<FilterData> filters) {
+	public SessionController() {
 		this.title=null;
-		this.layers=layers;
-		this.filters=filters;
+		this.layers=new Stack<LayerDataInterface>();
+		this.filters=new Stack<Stack<FilterDataInterface>>();
 	}
 
 	public String getTitle() {
@@ -29,23 +32,23 @@ public class SessionController implements Serializable {
 		this.title = title;
 	}
 
-	public List<LayerData> getLayers() {
+	public List<LayerDataInterface> getLayers() {
 		return layers;
 	}
 
-	public void setLayers(List<LayerData> layers) {
+	public void setLayers(Stack<LayerDataInterface> layers) {
 		this.layers = layers;
 	}
 
-	public List<FilterData> getFilters() {
+	public Stack<Stack<FilterDataInterface>> getFilters() {
 		return filters;
 	}
 
-	public void setFilters(List<FilterData> filters) {
+	public void setFilters(Stack<Stack<FilterDataInterface>> filters) {
 		this.filters = filters;
 	}
 	public SessionController clone() {
-		SessionController sessionTemp= new SessionController(new ArrayList<LayerData>(), new ArrayList<FilterData>());
+		SessionController sessionTemp= new SessionController();
 		for (int i=0;i<getLayers().size();i++) {
 			sessionTemp.getLayers().add(getLayers().get(i));
 		}
@@ -53,5 +56,11 @@ public class SessionController implements Serializable {
 			sessionTemp.getFilters().add(getFilters().get(i));
 		}
 		return sessionTemp;
+	}
+
+	public void clear() {
+		filters.clear();
+		layers.clear();
+		
 	}
 }

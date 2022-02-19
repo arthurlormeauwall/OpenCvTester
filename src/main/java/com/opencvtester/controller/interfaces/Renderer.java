@@ -1,9 +1,11 @@
 package com.opencvtester.controller.interfaces;
 
+import javax.xml.crypto.Data;
+
 import com.opencvtester.renderer.Frame;
 import com.opencvtester.renderer.interfaces.FrameInterface;
 
-public abstract class Renderer 
+public abstract class Renderer implements DataProvider
 {
 	
 	protected FrameInterface frameIn;
@@ -32,6 +34,7 @@ public abstract class Renderer
 	public void setFrameIn(String fileName){
 		try {
 			this.frameIn.readFromFile(fileName);
+			frameIn.setSpecs();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

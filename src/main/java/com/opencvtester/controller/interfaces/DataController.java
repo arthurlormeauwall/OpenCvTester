@@ -33,4 +33,6 @@ public interface DataController {
 	Stack<Layer> getLayers();
 
 	void checkAndActivateLayer(int layerIndex);
+
+	void setParameters(int layerIndex, int filterIndex, LinkedHashMap<String, Float> parameters);
 }

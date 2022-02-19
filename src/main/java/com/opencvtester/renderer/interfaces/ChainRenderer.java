@@ -2,7 +2,6 @@ package com.opencvtester.renderer.interfaces;
 
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.DataProvider;
 import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.data.interfaces.IndexInterface;
 import com.opencvtester.renderer.Frame;
@@ -13,9 +12,6 @@ public abstract class ChainRenderer extends Renderer {
 	protected Stack<? extends Renderer> chainOfRenderer;
 	protected FrameInterface background;
 
-	/*
-	 * CONSTRUCTOR & INITS
-	 */
 	public ChainRenderer(Stack<? extends Renderer> chainOfRenderer) {
 		this.chainOfRenderer=chainOfRenderer;
 		this.background = new Frame();
@@ -30,7 +26,7 @@ public abstract class ChainRenderer extends Renderer {
 	}
 
 	public void setBackground(FrameInterface background) {
-		this.background = background;
+		this.background.setBufferedImage(background.getBufferedImage());
 	}
 	
 	protected void updateNumberOfFrames() {
@@ -87,7 +83,7 @@ public abstract class ChainRenderer extends Renderer {
 				lastRenderer.setFrameIn(IntermediatesFrames.get(lastFrameIndex));
 				lastRenderer.setFrameOut(getFrameOut());
 			}
-			setFrameOut(((Renderer)lastRenderer).getFrameOut());
+			setFrameOut(lastRenderer.getFrameOut());
 		}
 		else {
 			getFrameIn().copyTo(getFrameOut());
@@ -100,7 +96,7 @@ public abstract class ChainRenderer extends Renderer {
 		int numberOfFilters = chainOfRenderer.size();
 		
 		for (int i =0; i < numberOfFilters; i++) {
-			IndexInterface data = ((DataProvider)chainOfRenderer.get(i)).getData();
+			IndexInterface data = chainOfRenderer.get(i).getData().getIndexData();
 			
 			if (checkIfActivate) {
 				if (data.isActivate())
@@ -126,5 +122,5 @@ public abstract class ChainRenderer extends Renderer {
 
 	public void deleteAllIntermediateFrames() {
 		IntermediatesFrames.clear();	
-	}
+	}		
 }

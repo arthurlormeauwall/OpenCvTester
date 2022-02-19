@@ -2,6 +2,7 @@ package com.opencvtester.renderer.interfacesImp;
 
 import java.util.Stack;
 
+import com.opencvtester.controller.interfaces.DataIndexProvider;
 import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.renderer.Layer;
 import com.opencvtester.renderer.interfaces.ChainRenderer;
@@ -10,17 +11,6 @@ import com.opencvtester.renderer.interfaces.FrameInterface;
 public class ChainOfLayersRenderer extends ChainRenderer
 {
 
-	/*
-	 * CONSTRUCTOR & INITS
-	 */
-	public ChainOfLayersRenderer (FrameInterface frameIn, Stack<? extends Renderer>chainOfRenderer) {
-		super(chainOfRenderer);
-		
-		frameIn.copyTo(this.frameIn);
-		this.frameIn.copyTo(this.frameOut);
-		this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
-	}
-	
 	public ChainOfLayersRenderer (String fileName, Stack<? extends Renderer>chainOfRenderer) {
 		super(chainOfRenderer);
 		
@@ -28,10 +18,6 @@ public class ChainOfLayersRenderer extends ChainRenderer
 		
 		this.background.createPlainGrayFrame(frameIn.getSpecs().rows, frameIn.getSpecs().cols, 127);
 	}
-
-
-	
-	
 	
 	public void render() {
 		dealFrames();	
@@ -72,5 +58,11 @@ public class ChainOfLayersRenderer extends ChainRenderer
 	@Override
 	public int getNumberOfFiltersPlusOpacity() {
 		return chainOfRenderer.size();
-	}	
+	}
+
+	@Override
+	public DataIndexProvider getData() {
+		return null;
+	}
+
 }

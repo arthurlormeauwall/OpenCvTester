@@ -2,7 +2,9 @@ package com.opencvtester.data.interfaces;
 
 import java.util.LinkedHashMap;
 
-public interface FilterDataInterface extends IndexInterface {
+import com.opencvtester.controller.interfaces.DataIndexProvider;
+
+public interface FilterDataInterface extends DataIndexProvider {
 
 	void setBypass(boolean b);
 
@@ -27,10 +29,8 @@ public interface FilterDataInterface extends IndexInterface {
 	LinkedHashMap<String, Integer> getSliderScale();
 
 	boolean isBypass();
-	
-	public Boolean isActivate();
-	
-	public void activate() ;
-	
-	public void desactivate() ;
+
+	boolean isBypassLocked();
+
+	void lockedBypass(Boolean bypass);
 }

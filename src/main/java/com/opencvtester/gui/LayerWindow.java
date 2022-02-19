@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import com.opencvtester.controller.MainController;
+import com.opencvtester.app.MainController;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.gui.controller.FilterController;
 import com.opencvtester.gui.controller.LayerController;
@@ -93,14 +93,14 @@ public class LayerWindow  extends JFrame
 					 LayerWindow.this.pack();
 					 LayerWindow.this.mainController.deleteFilterAndSetHistory(filterToDel.getFilter().layerIndex(), 
 							 												filterToDel.getFilter().filterIndex(),
-							 											    ((FilterDataInterface)filterToDel.getFilter().getData()).getName());
+							 											    filterToDel.getFilter().getFilterData().getName());
 				     LayerWindow.this.mainController.store();
 				}	 
 		    });
 
 		 filtersList.addListSelectionListener ((listSelectionEvent)-> {
 					 if ( !listSelectionEvent.getValueIsAdjusting()) {
-						 	int thisLayerIndex = LayerWindow.this.layerController.getLayer().getData().layerIndex();
+						 	int thisLayerIndex = LayerWindow.this.layerController.getLayer().getFilterData().getIndexData().layerIndex();
 					    	int newFilterIndex=LayerWindow.this.layerController.getLayer().getNumberOfFilters();
 					    	String nameOfNewFilter= LayerWindow.this.filtersList.getSelectedValue();
 					    	if (nameOfNewFilter!=null) {

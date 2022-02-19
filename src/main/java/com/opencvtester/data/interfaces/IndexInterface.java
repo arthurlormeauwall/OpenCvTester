@@ -13,7 +13,6 @@ public interface IndexInterface {
 
 	public int getIndex(String indexType);
 	
-	
 	public Boolean isActivate();
 	
 	public void activate() ;

@@ -9,10 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import com.opencvtester.dataPersistence.interfaces.SessionPersistenceDriver;
+import com.opencvtester.dataPersistence.interfacesImp.FileNotCreatedException;
 
-class FileNotCreatedException extends RuntimeException{
-	private static final long serialVersionUID = 9222458802487115627L;	
-}
 
 public class SessionFileDriver implements SessionPersistenceDriver {
 	public void saveSessionAs(SessionController session, String fileName) {

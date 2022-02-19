@@ -4,22 +4,33 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.data.interfaces.IndexInterface;
 
-public class FilterData extends Index implements Serializable, FilterDataInterface{
+public class FilterData implements Serializable, FilterDataInterface{
 	
 	private static final long serialVersionUID = 1L;
 	
 	protected Boolean isBypass;
+	protected Boolean isBypassLocked;
 	protected FilterFlags flags;
 	private LinkedHashMap<String, Float> parameterValues;
+	private Index index;
 
+	public FilterData(){
+		index= new Index(0,0);
+		flags=new FilterFlags();
+		parameterValues = new LinkedHashMap<String, Float>();
+		isBypass= false;
+		isBypassLocked = false;
+	}
 	
 	public FilterData(int layerIndex, int filterIndex, String name) {
-		super(layerIndex, filterIndex);
+		index= new Index(layerIndex,filterIndex);
 		flags=new FilterFlags();
 		flags.name=name;
 		parameterValues = new LinkedHashMap<String, Float>();
 		isBypass= false;
+		isBypassLocked= false;
 	}
 
 	@Override
@@ -39,14 +50,12 @@ public class FilterData extends Index implements Serializable, FilterDataInterfa
 
 	@Override
 	public void setZeroEffectValues(LinkedHashMap<String, Float> zeroEffectValues) {
-		flags.zeroEffectValues=zeroEffectValues;
-		
+		flags.zeroEffectValues=zeroEffectValues;		
 	}
 
 	@Override
 	public void setSliderScale(LinkedHashMap<String, Integer> sliderScale) {
-		flags.sliderScale=sliderScale;
-		
+		flags.sliderScale=sliderScale;		
 	}
 
 	@Override
@@ -55,20 +64,17 @@ public class FilterData extends Index implements Serializable, FilterDataInterfa
 	}
 
 	@Override
-	public LinkedHashMap<String, Float> getDefaultValues() {
-		
+	public LinkedHashMap<String, Float> getDefaultValues() {	
 		return flags.defaultValues;
 	}
 
 	@Override
-	public LinkedHashMap<String, Float> getZeroEffectValues() {
-		
+	public LinkedHashMap<String, Float> getZeroEffectValues() {	
 		return flags.zeroEffectValues;
 	}
 
 	@Override
-	public String getName() {
-		
+	public String getName() {		
 		return flags.name;
 	}
 
@@ -89,5 +95,18 @@ public class FilterData extends Index implements Serializable, FilterDataInterfa
 		return isBypass;
 	}
 
+	@Override
+	public IndexInterface getIndexData() {
+		return index;
+	}
+
+	@Override
+	public boolean isBypassLocked() {
+		return isBypassLocked;
+	}
+	
+	public void lockedBypass(Boolean bypass) {
+		isBypassLocked=bypass;
+	}
 
 }

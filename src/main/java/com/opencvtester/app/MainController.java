@@ -1,4 +1,4 @@
-package com.opencvtester.controller;
+package com.opencvtester.app;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -11,6 +11,8 @@ import com.opencvtester.controller.interfaces.MainWindowController;
 import com.opencvtester.controller.interfaces.PersistenceController;
 import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.data.interfacesImp.DataCtrlImp;
+import com.opencvtester.dataPersistence.interfacesImp.PersistenceCtrlImp;
+import com.opencvtester.gui.controller.FrameWindowController;
 import com.opencvtester.gui.interfacesImp.MainWindowSwing;
 import com.opencvtester.history.Functionalities;
 import com.opencvtester.history.action.AddOrDeleteFilter;
@@ -49,16 +51,16 @@ public class MainController
 		
 		dataController= new DataCtrlImp(filtersDataBase);
 		renderer = new ChainOfLayersRenderer(fileName, dataController.getLayers());
-		
 		mainWindow = new MainWindowSwing(this, dataController.getLayers());		
-		
-		
 		historyController=new HistoryCtrlImp();
+		
+		persistenceController = new PersistenceCtrlImp(filtersDataBase, this);
+		
 		frameOutWindow=new FrameWindowController(renderer.getFrameOut());
 		frameOutWindow.setInMiddleOfScreen();	
 	}
 
-	public List<Layer> layers(){
+	public Stack<Layer> layers(){
 		return dataController.getLayers();
 	}
 
@@ -87,7 +89,7 @@ public class MainController
 	public void addLayer(Layer layer) {
 		dataController.addLayer(layer);
 		renderer.render();
-		mainWindow.addLayer(layer.getData().layerIndex());
+		mainWindow.addLayer(layer.getIndexData().layerIndex());
 		refreshFrameOut();
 	}	
 	
@@ -99,9 +101,9 @@ public class MainController
 	}
 	
 	public void deleteLayer(Layer layer) {
-		dataController.deleteLayer(layer.getData().layerIndex());
+		dataController.deleteLayer(layer.getFilterData().getIndexData().layerIndex());
 		renderer.render();
-		mainWindow.deleteLayer(layer.getData().layerIndex());
+		mainWindow.deleteLayer(layer.getFilterData().getIndexData().layerIndex());
 		refreshFrameOut();
 	}
 	
@@ -140,7 +142,7 @@ public class MainController
 	public void addFilter(ControlledFilter filter) {
 		dataController.addFilter(filter);
 		renderer.render();
-		mainWindow.addFilter(filter.getData().layerIndex(), filter.getData().filterIndex());
+		mainWindow.addFilter(filter.layerIndex(), filter.filterIndex());
 		refreshFrameOut();
 	}
 	
@@ -184,6 +186,13 @@ public class MainController
 	public void setParameters(ControlledFilter filterToSet, LinkedHashMap<String, Float> parameters) {
 		dataController.setParameters(filterToSet, parameters);
 		mainWindow.updateFilter(filterToSet.layerIndex(), filterToSet.filterIndex());
+		renderer.render();
+		refreshFrameOut();
+	}
+	
+	public void setParameters(int layerIndex, int filterIndex, LinkedHashMap<String, Float> parameters) {
+		dataController.setParameters(layerIndex, filterIndex, parameters);
+		mainWindow.updateFilter(layerIndex,filterIndex);
 		renderer.render();
 		refreshFrameOut();
 	}

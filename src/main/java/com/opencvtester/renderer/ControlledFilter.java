@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
+import com.opencvtester.controller.interfaces.DataIndexProvider;
 import com.opencvtester.controller.interfaces.DataProvider;
 import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.data.FilterData;
 import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.data.interfaces.IndexInterface;
 
-public abstract class ControlledFilter extends Renderer implements DataProvider
+public abstract class ControlledFilter extends Renderer 
 {	
 	protected FilterDataInterface filterData;
 	
@@ -35,14 +35,13 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 	public abstract ControlledFilter createNew();
 	public abstract void setParameterFlags();
 	
-
-	
-	public IndexInterface getData() {
+	public FilterDataInterface getFilterData() {
 		return filterData;
 	}
 	
 	public void bypass(Boolean bypass){
 		filterData.setBypass(bypass);
+		filterData.lockedBypass(bypass);
 	}
 	
 	public void setDefaultParameters(String name, Float p) {
@@ -83,7 +82,7 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 	}
 	
 	public void setAllParameters(LinkedHashMap<String, Float> parameters) {		
-		if (filterData.isBypass()) {
+		if (filterData.isBypass() && !filterData.isBypassLocked()) {
 			filterData.setBypass(false);
 		}
 		
@@ -117,12 +116,11 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 	}
 	
 	public int layerIndex() {
-		
-		return filterData.layerIndex();
+		return filterData.getIndexData().layerIndex();
 	}
 	
 	public int filterIndex() {
-		return filterData.filterIndex();
+		return filterData.getIndexData().filterIndex();
 	}
 	
 	public void openImage(String fileName) {
@@ -132,5 +130,8 @@ public abstract class ControlledFilter extends Renderer implements DataProvider
 			e.printStackTrace();
 		}
 	}
-
+	
+	public DataIndexProvider getData() {
+		return filterData;
+	}
 }
