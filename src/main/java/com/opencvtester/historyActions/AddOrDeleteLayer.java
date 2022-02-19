@@ -1,4 +1,4 @@
-package com.opencvtester.history.action;
+package com.opencvtester.historyActions;
 
 
 import com.opencvtester.app.MainController;

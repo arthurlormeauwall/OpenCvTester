@@ -1,4 +1,4 @@
-package com.opencvtester.gui.controller;
+package com.opencvtester.guiControllers;
 
 
 

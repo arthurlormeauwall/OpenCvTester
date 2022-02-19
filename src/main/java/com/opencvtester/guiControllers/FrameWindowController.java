@@ -1,4 +1,4 @@
-package com.opencvtester.gui.controller;
+package com.opencvtester.guiControllers;
 
 import java.awt.GraphicsConfiguration;
 import java.awt.Rectangle;

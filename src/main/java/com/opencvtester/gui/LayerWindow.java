@@ -9,8 +9,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.gui.controller.FilterController;
-import com.opencvtester.gui.controller.LayerController;
+import com.opencvtester.guiControllers.FilterController;
+import com.opencvtester.guiControllers.LayerController;
 
 public class LayerWindow  extends JFrame 
 {
