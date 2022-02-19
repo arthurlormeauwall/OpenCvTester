@@ -35,9 +35,9 @@ public class RGBMultiplierFilter extends ControlledFilter
 	        {
 	            for (int columnCount = 0; columnCount < column; columnCount++)
 	            {
-	                float blueMultiplier = getParameter("BlueMult");
-	                float greenMultiplier = getParameter("GreenMult");
-	                float redMultiplier = getParameter("RedMult"); 
+	                float blueMultiplier = getParameter("Blue");
+	                float greenMultiplier = getParameter("Green");
+	                float redMultiplier = getParameter("Red"); 
 
 	                float bluePixel = (float)frameIn.getPixelAt(rowCount, columnCount)[0];
 	                float greenPixel = (float)frameIn.getPixelAt(rowCount, columnCount)[1];
