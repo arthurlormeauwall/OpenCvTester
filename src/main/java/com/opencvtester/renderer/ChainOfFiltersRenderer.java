@@ -4,11 +4,11 @@ import java.util.Stack;
 
 import com.opencvtester.appControllers.Renderer;
 
-public class FilterChainRenderer extends ChainRenderer {
+public class ChainOfFiltersRenderer extends ChainRenderer {
 
 	protected OpacityFilter opacityFilter;
 
-	public FilterChainRenderer(int layerIndex) {
+	public ChainOfFiltersRenderer(int layerIndex) {
 		super(new Stack<ControlledFilter>());
 		opacityFilter = new OpacityFilter("Opacity");
 		opacityFilter.getData().getIndexData().setLayerIndex(layerIndex);

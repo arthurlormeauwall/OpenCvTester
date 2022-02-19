@@ -10,10 +10,10 @@ import com.opencvtester.data.LayerDataInterface;
 public class Layer extends RendererWithData {
 
 	protected LayerDataInterface layerData;
-	protected FilterChainRenderer chainOfRenderer;
+	protected ChainOfFiltersRenderer chainOfRenderer;
 	
 	public Layer(int layerIndex) {
-		chainOfRenderer= new FilterChainRenderer(layerIndex);
+		chainOfRenderer= new ChainOfFiltersRenderer(layerIndex);
 		chainOfRenderer.setFrameIn(frameIn);
 		chainOfRenderer.setFrameOut(frameOut);
 		layerData= new LayerData(layerIndex);
