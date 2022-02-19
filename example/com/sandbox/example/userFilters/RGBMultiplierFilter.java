@@ -9,9 +9,9 @@ public class RGBMultiplierFilter extends ControlledFilter
 	}
 
 	public void setParameterFlags() {		
-		addParameterFlag("BlueMult", 1f, 1f, 130);
-		addParameterFlag("GreenMult", 1f, 1f, 130);
-		addParameterFlag("RedMult", 1f, 1f, 130);
+		addParameterFlag("Blue", 1f, 1f, 130);
+		addParameterFlag("Green", 1f, 1f, 130);
+		addParameterFlag("Red", 1f, 1f, 130);
 	}
 	
 	public RGBMultiplierFilter createNew() {	

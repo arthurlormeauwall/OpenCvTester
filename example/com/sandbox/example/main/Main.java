@@ -11,8 +11,8 @@ public class Main
     public static void main(String[] args) throws IOException{	
 		App app= new App("assets/test2.jpg"); 
 		
-		app.addFilterInDataBase(new RGBMultiplierFilter("RGB Multiplier Filter"));
-		app.addFilterInDataBase(new BlackAndWhiteFilter("B/W Filter"));	
+		app.addFilterInDataBase(new RGBMultiplierFilter("RGB Multiplier"));
+		app.addFilterInDataBase(new BlackAndWhiteFilter("B/W"));	
 		
 		app.launch();
     }
