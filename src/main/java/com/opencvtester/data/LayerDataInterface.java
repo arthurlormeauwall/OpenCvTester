@@ -1,7 +1,5 @@
 package com.opencvtester.data;
 
-import com.opencvtester.appControllers.IndexProvider;
-
 public interface LayerDataInterface extends IndexProvider {
 
 	void setOpacity(Float opacity);

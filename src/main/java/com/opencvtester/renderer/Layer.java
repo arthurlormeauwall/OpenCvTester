@@ -2,8 +2,8 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.appControllers.IndexProvider;
 import com.opencvtester.data.IndexInterface;
+import com.opencvtester.data.IndexProvider;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.data.LayerDataInterface;
 
