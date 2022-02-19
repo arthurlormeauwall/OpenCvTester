@@ -5,13 +5,11 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import com.opencvtester.controller.interfaces.DataIndexProvider;
-import com.opencvtester.controller.interfaces.DataProvider;
-import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.controller.interfaces.IndexProvider;
 import com.opencvtester.data.FilterData;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 
-public abstract class ControlledFilter extends Renderer 
+public abstract class ControlledFilter extends RendererWithData
 {	
 	protected FilterDataInterface filterData;
 	
@@ -110,7 +108,6 @@ public abstract class ControlledFilter extends Renderer
 		filterData.getSliderScale().put(name, sliderScale);
 	}
 	
-
 	public String getName() {
 		return filterData.getName();
 	}
@@ -123,15 +120,7 @@ public abstract class ControlledFilter extends Renderer
 		return filterData.getIndexData().filterIndex();
 	}
 	
-	public void openImage(String fileName) {
-		try {
-			frameIn.readFromFile(fileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public DataIndexProvider getData() {
+	public IndexProvider getData() {
 		return filterData;
 	}
 }

@@ -1,4 +1,4 @@
-package com.opencvtester.gui.interfacesImp;
+package com.opencvtester.gui.controller;
 
 
 
@@ -13,16 +13,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.controller.interfaces.MainWindowController;
-import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.gui.controller.FilterController;
-import com.opencvtester.gui.controller.LayerController;
-import com.opencvtester.gui.controller.LayersController;
+import com.opencvtester.controller.interfaces.MainWindowInterface;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.Layer;
 
 
-public class MainWindowSwing extends JFrame implements MainWindowController
+public class MainWindowController extends JFrame implements MainWindowInterface
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -47,7 +43,7 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public MainWindowSwing(MainController guiManager, List<Layer> layers) {
+	public MainWindowController(MainController guiManager, List<Layer> layers) {
 		super("OpenCV tester");
 		this.layers=layers;
 		
@@ -94,37 +90,37 @@ public class MainWindowSwing extends JFrame implements MainWindowController
 	
 	public void addListeners() {
 		 openImageButton.addActionListener((ActionEvent event)->{
-	    	  MainWindowSwing.this.openImage();
+	    	  MainWindowController.this.openImage();
 	     });
 		 
 		 saveButton.addActionListener((ActionEvent event)->{
-	    	  MainWindowSwing.this.mainController.save();
+	    	  MainWindowController.this.mainController.save();
 	     });
 		 
 		 saveAsButton.addActionListener((ActionEvent event)->{
-	    	  MainWindowSwing.this.launchSaveSessionAs();
+	    	  MainWindowController.this.launchSaveSessionAs();
 	     });
 	 
 		 reloadButton.addActionListener((ActionEvent event)->{
-	    	  MainWindowSwing.this.openSession();
+	    	  MainWindowController.this.openSession();
 	     });
 		 undoButton.addActionListener((ActionEvent event)->{
-		    	  MainWindowSwing.this.mainController.undo();
+		    	  MainWindowController.this.mainController.undo();
 		     });
 		 
 		 redoButton.addActionListener((ActionEvent event)->{
-		    	  MainWindowSwing.this.mainController.redo();
+		    	  MainWindowController.this.mainController.redo();
 		     });
 		 
 		 addLayerButton.addActionListener((ActionEvent event)->{	
-		    	MainWindowSwing.this.mainController.createAddLayerAndSetHistory(chainOfLayerController.getNumberOfLayer());
-		    	MainWindowSwing.this.mainController.store();
+		    	MainWindowController.this.mainController.createAddLayerAndSetHistory(chainOfLayerController.getNumberOfLayer());
+		    	MainWindowController.this.mainController.store();
 		     });
 		 
 		 delLayerButton.addActionListener((ActionEvent event)->{
 			 if(chainOfLayerController.getNumberOfLayer()>0) {
-				 MainWindowSwing.this.mainController.deleteLayerAndSetHistory(chainOfLayerController.getNumberOfLayer()-1);
-				 MainWindowSwing.this.mainController.store();	  
+				 MainWindowController.this.mainController.deleteLayerAndSetHistory(chainOfLayerController.getNumberOfLayer()-1);
+				 MainWindowController.this.mainController.store();	  
 			 }	  
 		 });
 	}

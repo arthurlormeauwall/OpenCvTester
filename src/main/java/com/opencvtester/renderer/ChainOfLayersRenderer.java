@@ -1,17 +1,11 @@
-package com.opencvtester.renderer.interfacesImp;
+package com.opencvtester.renderer;
 
 import java.util.Stack;
-
-import com.opencvtester.controller.interfaces.DataIndexProvider;
-import com.opencvtester.controller.interfaces.Renderer;
-import com.opencvtester.renderer.Layer;
-import com.opencvtester.renderer.interfaces.ChainRenderer;
-import com.opencvtester.renderer.interfaces.FrameInterface;
 
 public class ChainOfLayersRenderer extends ChainRenderer
 {
 
-	public ChainOfLayersRenderer (String fileName, Stack<? extends Renderer>chainOfRenderer) {
+	public ChainOfLayersRenderer (String fileName, Stack<? extends RendererWithData>chainOfRenderer) {
 		super(chainOfRenderer);
 		
 		openImage(fileName);
@@ -59,10 +53,4 @@ public class ChainOfLayersRenderer extends ChainRenderer
 	public int getNumberOfFiltersPlusOpacity() {
 		return chainOfRenderer.size();
 	}
-
-	@Override
-	public DataIndexProvider getData() {
-		return null;
-	}
-
 }

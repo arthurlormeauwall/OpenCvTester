@@ -1,12 +1,9 @@
 package com.opencvtester.dataPersistence;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import com.opencvtester.data.FilterData;
-import com.opencvtester.data.LayerData;
 import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.data.interfaces.LayerDataInterface;
 

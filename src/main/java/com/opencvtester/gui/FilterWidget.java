@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 
 public class FilterWidget extends JPanel

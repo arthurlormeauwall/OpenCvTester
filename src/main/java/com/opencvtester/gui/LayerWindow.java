@@ -9,7 +9,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.gui.controller.FilterController;
 import com.opencvtester.gui.controller.LayerController;
 

@@ -2,40 +2,39 @@ package com.opencvtester.app;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.DataController;
-import com.opencvtester.controller.interfaces.HistoryController;
-import com.opencvtester.controller.interfaces.MainWindowController;
-import com.opencvtester.controller.interfaces.PersistenceController;
+import com.opencvtester.controller.interfaces.DataInterface;
+import com.opencvtester.controller.interfaces.HistoryInterface;
+import com.opencvtester.controller.interfaces.MainWindowInterface;
+import com.opencvtester.controller.interfaces.PersistenceInterface;
 import com.opencvtester.controller.interfaces.Renderer;
-import com.opencvtester.data.interfacesImp.DataCtrlImp;
-import com.opencvtester.dataPersistence.interfacesImp.PersistenceCtrlImp;
+import com.opencvtester.data.DataController;
+import com.opencvtester.dataPersistence.PersistenceController;
 import com.opencvtester.gui.controller.FrameWindowController;
-import com.opencvtester.gui.interfacesImp.MainWindowSwing;
+import com.opencvtester.gui.controller.MainWindowController;
 import com.opencvtester.history.Functionalities;
+import com.opencvtester.history.HistoryController;
 import com.opencvtester.history.action.AddOrDeleteFilter;
 import com.opencvtester.history.action.AddOrDeleteLayer;
 import com.opencvtester.history.action.SetParameters;
-import com.opencvtester.history.interfacesImp.HistoryCtrlImp;
+import com.opencvtester.renderer.ChainOfLayersRenderer;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Layer;
-import com.opencvtester.renderer.interfacesImp.ChainOfLayersRenderer;
 
 
 public class MainController 
 {
-	private HistoryController historyController;
+	private HistoryInterface historyController;
 	
 	private Renderer renderer;
 	
-	private DataController dataController;
+	private DataInterface dataController;
 	
-	private PersistenceController persistenceController;
+	private PersistenceInterface persistenceController;
 	
-	private MainWindowController mainWindow;
+	private MainWindowInterface mainWindow;
 		
 	private FrameWindowController frameOutWindow;
 	
@@ -49,12 +48,12 @@ public class MainController
 		
 		this.filtersDataBase = filtersDataBase;
 		
-		dataController= new DataCtrlImp(filtersDataBase);
+		dataController= new DataController(filtersDataBase);
 		renderer = new ChainOfLayersRenderer(fileName, dataController.getLayers());
-		mainWindow = new MainWindowSwing(this, dataController.getLayers());		
-		historyController=new HistoryCtrlImp();
+		mainWindow = new MainWindowController(this, dataController.getLayers());		
+		historyController=new HistoryController();
 		
-		persistenceController = new PersistenceCtrlImp(filtersDataBase, this);
+		persistenceController = new PersistenceController(filtersDataBase, this);
 		
 		frameOutWindow=new FrameWindowController(renderer.getFrameOut());
 		frameOutWindow.setInMiddleOfScreen();	

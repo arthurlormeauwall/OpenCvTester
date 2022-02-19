@@ -1,23 +1,22 @@
-package com.opencvtester.data.interfacesImp;
+package com.opencvtester.data;
 
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.DataController;
-import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.controller.interfaces.DataInterface;
 import com.opencvtester.data.interfaces.LayerDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Layer;
 
-public class DataCtrlImp implements DataController
+public class DataController implements DataInterface
 {
 	
 	protected Stack<Layer> layers;
 
 	private FiltersDataBase filtersDataBase;
 	
-	public DataCtrlImp(FiltersDataBase filtersDataBase) {
+	public DataController(FiltersDataBase filtersDataBase) {
 		this.filtersDataBase = filtersDataBase;
 		layers=new Stack<Layer>();
 	}

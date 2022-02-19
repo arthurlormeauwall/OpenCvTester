@@ -1,11 +1,10 @@
 package com.opencvtester.controller.interfaces;
 
-import javax.xml.crypto.Data;
 
 import com.opencvtester.renderer.Frame;
-import com.opencvtester.renderer.interfaces.FrameInterface;
+import com.opencvtester.renderer.FrameInterface;
 
-public abstract class Renderer implements DataProvider
+public abstract class Renderer
 {
 	
 	protected FrameInterface frameIn;

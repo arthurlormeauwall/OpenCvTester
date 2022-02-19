@@ -2,18 +2,17 @@ package com.opencvtester.gui.controller;
 
 import java.util.Stack;
 
-import com.opencvtester.gui.interfacesImp.MainWindowSwing;
 import com.opencvtester.renderer.ControlledFilter;
 
 public class LayersController {
 	
 	private Stack<LayerController> layerManagers;
-	private MainWindowSwing mainWindow;
+	private MainWindowController mainWindow;
 
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public LayersController (MainWindowSwing gui){	
+	public LayersController (MainWindowController gui){	
 		this.mainWindow=gui;
 		layerManagers= new Stack<LayerController>();
 	}

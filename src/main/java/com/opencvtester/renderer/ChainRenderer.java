@@ -1,18 +1,17 @@
-package com.opencvtester.renderer.interfaces;
+package com.opencvtester.renderer;
 
 import java.util.Stack;
 
 import com.opencvtester.controller.interfaces.Renderer;
 import com.opencvtester.data.interfaces.IndexInterface;
-import com.opencvtester.renderer.Frame;
 
 public abstract class ChainRenderer extends Renderer {
 	
 	protected Stack<FrameInterface> IntermediatesFrames;
-	protected Stack<? extends Renderer> chainOfRenderer;
+	protected Stack<? extends RendererWithData> chainOfRenderer;
 	protected FrameInterface background;
 
-	public ChainRenderer(Stack<? extends Renderer> chainOfRenderer) {
+	public ChainRenderer(Stack<? extends RendererWithData> chainOfRenderer) {
 		this.chainOfRenderer=chainOfRenderer;
 		this.background = new Frame();
 		IntermediatesFrames= new Stack<FrameInterface>();
@@ -111,7 +110,6 @@ public abstract class ChainRenderer extends Renderer {
 			}		
 		}	
 	}
-	
 	
 	public void openImage(String fileName) {
 		setFrameIn(fileName);

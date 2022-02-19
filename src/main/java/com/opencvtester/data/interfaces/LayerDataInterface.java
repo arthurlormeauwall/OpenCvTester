@@ -1,8 +1,8 @@
 package com.opencvtester.data.interfaces;
 
-import com.opencvtester.controller.interfaces.DataIndexProvider;
+import com.opencvtester.controller.interfaces.IndexProvider;
 
-public interface LayerDataInterface extends DataIndexProvider {
+public interface LayerDataInterface extends IndexProvider {
 
 	void setOpacity(Float opacity);
 	

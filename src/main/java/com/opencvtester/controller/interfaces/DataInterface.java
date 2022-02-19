@@ -6,7 +6,7 @@ import java.util.Stack;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.Layer;
 
-public interface DataController {
+public interface DataInterface {
 	
 	void addLayer(int layerIndex);
 	

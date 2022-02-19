@@ -2,49 +2,42 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.DataIndexProvider;
-import com.opencvtester.controller.interfaces.DataProvider;
-import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.controller.interfaces.IndexProvider;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.data.interfaces.IndexInterface;
 import com.opencvtester.data.interfaces.LayerDataInterface;
-import com.opencvtester.renderer.interfaces.ChainRenderer;
-import com.opencvtester.renderer.interfaces.FrameInterface;
 
-public class Layer extends ChainRenderer implements DataProvider  {
+public class Layer extends RendererWithData {
 
 	protected LayerDataInterface layerData;
-	protected OpacityFilter opacityFilter;
-
+	protected FilterChainRenderer chainOfRenderer;
 	
 	public Layer(int layerIndex) {
-		super(new Stack<ControlledFilter>());
+		chainOfRenderer= new FilterChainRenderer(layerIndex);
+		chainOfRenderer.setFrameIn(frameIn);
+		chainOfRenderer.setFrameOut(frameOut);
 		layerData= new LayerData(layerIndex);
-		opacityFilter = new OpacityFilter("Opacity");
-		opacityFilter.getData().getIndexData().setLayerIndex(layerIndex);
-		opacityFilter.setBackGround(background);
 	}
 
-
-	public OpacityFilter getOpacityFilter() {
-		return opacityFilter;
+	public void setFrameIn(FrameInterface frameIn){
+		this.frameIn=frameIn;
+		chainOfRenderer.setFrameIn(frameIn);
 	}
-
-	public Renderer getLast() {
-		return getOpacityFilter(); 
-	}
-
-	public int getNumberOfFiltersPlusOpacity() {
-		return chainOfRenderer.size()+1;
+	public void setFrameOut(FrameInterface frameOut){
+		this.frameOut=frameOut;
+		chainOfRenderer.setFrameOut(frameOut);
 	}
 	
+	public OpacityFilter getOpacityFilter() {
+		return chainOfRenderer.getOpacityFilter();
+	}
+
 	public void render() {
-		execute();
-		getOpacityFilter().render();	
+		chainOfRenderer.render();
 	}
 
 	public int getNumberOfFilters() {	
-		return chainOfRenderer.size();
+		return chainOfRenderer.getNumberOfFilters();
 	}
 
 	public LayerDataInterface getFilterData() {
@@ -52,30 +45,39 @@ public class Layer extends ChainRenderer implements DataProvider  {
 	}
 
 	public ControlledFilter getFilter(int filterIndex) {
-		return (ControlledFilter)chainOfRenderer.get(filterIndex);
+		return (ControlledFilter)chainOfRenderer.getFilter(filterIndex);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void addFilter(ControlledFilter filter) {
-		((Stack<ControlledFilter>)chainOfRenderer).push(filter);	
+		chainOfRenderer.addFilter(filter);	
 	}
 
-	@SuppressWarnings("unchecked")
 	public void removeFilter(int filterIndex) {
-		((Stack<ControlledFilter>)chainOfRenderer).remove(filterIndex);	
+		chainOfRenderer.removeFilter(filterIndex);	
 	}
 
-	@SuppressWarnings("unchecked")
 	public Stack<ControlledFilter> getFilters() {	
-		return ((Stack<ControlledFilter>)chainOfRenderer);
+		return chainOfRenderer.getFilters();
 	}
-
 
 	public IndexInterface getIndexData() {
 		return layerData.getIndexData();
 	}
 	
-	public DataIndexProvider getData() {
+	public IndexProvider getData() {
 		return layerData;
+	}
+
+	public void setBackground(FrameInterface background) {
+		chainOfRenderer.setBackground(background);
+	}
+
+	public void dealFrames() {
+		chainOfRenderer.dealFrames();
+		
+	}
+	
+	public void deleteAllIntermediateFrames() {
+		chainOfRenderer.deleteAllIntermediateFrames();	
 	}
 }

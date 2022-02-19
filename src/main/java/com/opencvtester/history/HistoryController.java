@@ -1,11 +1,8 @@
-package com.opencvtester.history.interfacesImp;
+package com.opencvtester.history;
 
-import com.opencvtester.controller.interfaces.HistoryController;
-import com.opencvtester.history.Action;
-import com.opencvtester.history.History;
-import com.opencvtester.history.NatureOfAction;
+import com.opencvtester.controller.interfaces.HistoryInterface;
 
-public class HistoryCtrlImp implements HistoryController
+public class HistoryController implements HistoryInterface
 { 
 	protected boolean firstUndo;
 	protected boolean firstRedo;
@@ -15,7 +12,7 @@ public class HistoryCtrlImp implements HistoryController
 	/*
 	 * CONSTRUCTOR & INITS
 	 */
-	public HistoryCtrlImp(){
+	public HistoryController(){
 		history= new History();
 
 		firstRedo=true;

@@ -12,7 +12,6 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 
 public class LabelledSlider extends JPanel

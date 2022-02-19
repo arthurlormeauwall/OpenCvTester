@@ -1,6 +1,6 @@
 package com.opencvtester.controller.interfaces;
 
-public interface MainWindowController {
+public interface MainWindowInterface {
 	
 	void clearAll();
 

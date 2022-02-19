@@ -1,27 +1,23 @@
-package com.opencvtester.dataPersistence.interfacesImp;
+package com.opencvtester.dataPersistence;
 
 import java.util.Stack;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.controller.interfaces.PersistenceController;
-import com.opencvtester.data.FilterData;
+import com.opencvtester.controller.interfaces.PersistenceInterface;
 import com.opencvtester.data.LayerData;
 import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.dataPersistence.SessionController;
-import com.opencvtester.dataPersistence.SessionFileDriver;
-import com.opencvtester.dataPersistence.interfaces.SessionPersistenceDriver;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Layer;
 
 
-public class PersistenceCtrlImp implements PersistenceController{
+public class PersistenceController implements PersistenceInterface{
 	
 	private SessionController session;
 	
 	private SessionPersistenceDriver sessionPersistenceDriver;
 	private MainController mainController;
 	
-	public PersistenceCtrlImp(FiltersDataBase filtersDataBase, MainController mainController) {
+	public PersistenceController(FiltersDataBase filtersDataBase, MainController mainController) {
 		init();	
 		sessionPersistenceDriver = new SessionFileDriver();
 		this.mainController= mainController;

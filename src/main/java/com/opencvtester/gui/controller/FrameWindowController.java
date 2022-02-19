@@ -3,11 +3,12 @@ package com.opencvtester.gui.controller;
 import java.awt.GraphicsConfiguration;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.opencvtester.renderer.interfaces.FrameInterface;
+import com.opencvtester.renderer.FrameInterface;
 
 public class FrameWindowController {
 

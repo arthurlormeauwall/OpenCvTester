@@ -1,9 +1,6 @@
 package com.opencvtester.renderer;
 import java.util.LinkedHashMap;
 
-import com.opencvtester.data.interfaces.IndexInterface;
-import com.opencvtester.renderer.interfaces.FrameInterface;
-
 
 public class OpacityFilter extends ControlledFilter 
 {

@@ -2,9 +2,9 @@ package com.opencvtester.data.interfaces;
 
 import java.util.LinkedHashMap;
 
-import com.opencvtester.controller.interfaces.DataIndexProvider;
+import com.opencvtester.controller.interfaces.IndexProvider;
 
-public interface FilterDataInterface extends DataIndexProvider {
+public interface FilterDataInterface extends IndexProvider {
 
 	void setBypass(boolean b);
 

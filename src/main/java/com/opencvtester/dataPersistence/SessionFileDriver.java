@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import com.opencvtester.dataPersistence.interfaces.SessionPersistenceDriver;
-import com.opencvtester.dataPersistence.interfacesImp.FileNotCreatedException;
-
 
 public class SessionFileDriver implements SessionPersistenceDriver {
 	public void saveSessionAs(SessionController session, String fileName) {

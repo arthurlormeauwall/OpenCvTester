@@ -1,7 +1,5 @@
 package com.opencvtester.renderer;
 
-import com.opencvtester.renderer.ControlledFilter;
-
 public class DummyFilter extends ControlledFilter{
 
 	@SuppressWarnings("unused")

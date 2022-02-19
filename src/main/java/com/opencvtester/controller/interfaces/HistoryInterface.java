@@ -2,7 +2,7 @@ package com.opencvtester.controller.interfaces;
 
 import com.opencvtester.history.Action;
 
-public interface HistoryController {
+public interface HistoryInterface {
 
 	void setState(Action action);
 

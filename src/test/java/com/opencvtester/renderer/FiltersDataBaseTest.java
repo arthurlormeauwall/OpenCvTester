@@ -1,12 +1,10 @@
 package com.opencvtester.renderer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Stack;
 
 import org.junit.jupiter.api.Test;
-
-import com.opencvtester.renderer.FiltersDataBase;
 
 class FiltersDataBaseTest {
 
