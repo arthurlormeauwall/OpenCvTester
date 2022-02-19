@@ -38,8 +38,6 @@ public class ChainOfFiltersRenderer extends ChainRenderer {
 		return chainOfRenderer.size();
 	}
 
-
-
 	public ControlledFilter getFilter(int filterIndex) {
 		return (ControlledFilter)chainOfRenderer.get(filterIndex);
 	}
