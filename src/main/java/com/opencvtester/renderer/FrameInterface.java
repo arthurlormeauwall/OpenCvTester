@@ -1,4 +1,4 @@
-package com.opencvtester.baseClasses.frame;
+package com.opencvtester.renderer;
 
 import java.awt.image.BufferedImage;
 
@@ -23,4 +23,6 @@ public interface FrameInterface {
 	public BufferedImage getBufferedImage();
 	
 	public FrameInterface create();
+
+	public void setBufferedImage(BufferedImage bufferedImage);
 }

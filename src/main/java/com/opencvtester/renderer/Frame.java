@@ -1,4 +1,4 @@
-package com.opencvtester.baseClasses.frame;
+package com.opencvtester.renderer;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
