@@ -2,7 +2,7 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.appControllers.Renderer;
 
 public class FilterChainRenderer extends ChainRenderer {
 

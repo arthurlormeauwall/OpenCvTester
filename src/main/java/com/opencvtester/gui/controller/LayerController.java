@@ -3,7 +3,7 @@ package com.opencvtester.gui.controller;
 import java.util.Stack;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.data.interfaces.LayerDataInterface;
+import com.opencvtester.data.LayerDataInterface;
 import com.opencvtester.gui.LayerWidget;
 import com.opencvtester.gui.LayerWindow;
 import com.opencvtester.renderer.ControlledFilter;

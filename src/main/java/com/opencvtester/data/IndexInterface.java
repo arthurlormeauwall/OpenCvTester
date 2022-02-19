@@ -1,4 +1,4 @@
-package com.opencvtester.data.interfaces;
+package com.opencvtester.data;
 
 public interface IndexInterface {
 	public int filterIndex();

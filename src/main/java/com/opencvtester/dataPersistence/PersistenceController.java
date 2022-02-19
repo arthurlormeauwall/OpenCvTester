@@ -3,9 +3,9 @@ package com.opencvtester.dataPersistence;
 import java.util.Stack;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.controller.interfaces.PersistenceInterface;
+import com.opencvtester.appControllers.PersistenceInterface;
+import com.opencvtester.data.FilterDataInterface;
 import com.opencvtester.data.LayerData;
-import com.opencvtester.data.interfaces.FilterDataInterface;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Layer;
 

@@ -1,6 +1,6 @@
 package com.opencvtester.history;
 
-import com.opencvtester.controller.interfaces.HistoryInterface;
+import com.opencvtester.appControllers.HistoryInterface;
 
 public class HistoryController implements HistoryInterface
 { 

@@ -3,9 +3,6 @@ package com.opencvtester.data;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.data.interfaces.IndexInterface;
-
 public class FilterData implements Serializable, FilterDataInterface{
 	
 	private static final long serialVersionUID = 1L;

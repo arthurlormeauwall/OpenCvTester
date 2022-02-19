@@ -2,9 +2,6 @@ package com.opencvtester.data;
 
 import java.io.Serializable;
 
-import com.opencvtester.data.interfaces.IndexInterface;
-import com.opencvtester.data.interfaces.LayerDataInterface;
-
 public class LayerData implements LayerDataInterface, Serializable
 {	
 	/**

@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.opencvtester.app.MainController;
-import com.opencvtester.controller.interfaces.MainWindowInterface;
+import com.opencvtester.appControllers.MainWindowInterface;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.Layer;
 

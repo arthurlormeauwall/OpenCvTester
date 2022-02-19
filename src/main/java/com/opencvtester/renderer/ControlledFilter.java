@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import com.opencvtester.controller.interfaces.IndexProvider;
+import com.opencvtester.appControllers.IndexProvider;
 import com.opencvtester.data.FilterData;
-import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.data.FilterDataInterface;
 
 public abstract class ControlledFilter extends RendererWithData
 {	

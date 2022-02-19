@@ -1,7 +1,7 @@
 package com.opencvtester.renderer;
 
-import com.opencvtester.controller.interfaces.DataProvider;
-import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.appControllers.DataProvider;
+import com.opencvtester.appControllers.Renderer;
 
 public abstract class RendererWithData extends Renderer implements DataProvider {
 	public void openImage(String fileName) {

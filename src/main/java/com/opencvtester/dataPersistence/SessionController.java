@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Stack;
 
-import com.opencvtester.data.interfaces.FilterDataInterface;
-import com.opencvtester.data.interfaces.LayerDataInterface;
+import com.opencvtester.data.FilterDataInterface;
+import com.opencvtester.data.LayerDataInterface;
 
 public class SessionController implements Serializable {
 

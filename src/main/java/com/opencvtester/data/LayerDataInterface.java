@@ -1,6 +1,6 @@
-package com.opencvtester.data.interfaces;
+package com.opencvtester.data;
 
-import com.opencvtester.controller.interfaces.IndexProvider;
+import com.opencvtester.appControllers.IndexProvider;
 
 public interface LayerDataInterface extends IndexProvider {
 

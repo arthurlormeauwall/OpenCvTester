@@ -2,8 +2,8 @@ package com.opencvtester.renderer;
 
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.Renderer;
-import com.opencvtester.data.interfaces.IndexInterface;
+import com.opencvtester.appControllers.Renderer;
+import com.opencvtester.data.IndexInterface;
 
 public abstract class ChainRenderer extends Renderer {
 	

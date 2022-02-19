@@ -8,7 +8,7 @@ import java.util.LinkedHashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.opencvtester.data.interfaces.FilterDataInterface;
+import com.opencvtester.data.FilterDataInterface;
 
 
 class OpacityFilterTest {

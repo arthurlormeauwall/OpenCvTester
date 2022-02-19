@@ -3,8 +3,7 @@ package com.opencvtester.data;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.DataInterface;
-import com.opencvtester.data.interfaces.LayerDataInterface;
+import com.opencvtester.appControllers.DataInterface;
 import com.opencvtester.renderer.ControlledFilter;
 import com.opencvtester.renderer.FiltersDataBase;
 import com.opencvtester.renderer.Layer;

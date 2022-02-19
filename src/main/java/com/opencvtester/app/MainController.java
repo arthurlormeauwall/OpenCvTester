@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Stack;
 
-import com.opencvtester.controller.interfaces.DataInterface;
-import com.opencvtester.controller.interfaces.HistoryInterface;
-import com.opencvtester.controller.interfaces.MainWindowInterface;
-import com.opencvtester.controller.interfaces.PersistenceInterface;
-import com.opencvtester.controller.interfaces.Renderer;
+import com.opencvtester.appControllers.DataInterface;
+import com.opencvtester.appControllers.HistoryInterface;
+import com.opencvtester.appControllers.MainWindowInterface;
+import com.opencvtester.appControllers.PersistenceInterface;
+import com.opencvtester.appControllers.Renderer;
 import com.opencvtester.data.DataController;
 import com.opencvtester.dataPersistence.PersistenceController;
 import com.opencvtester.gui.controller.FrameWindowController;

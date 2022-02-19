@@ -1,4 +1,4 @@
-package com.opencvtester.controller.interfaces;
+package com.opencvtester.appControllers;
 
 public interface MainWindowInterface {
 	
