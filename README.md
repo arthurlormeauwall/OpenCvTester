@@ -47,7 +47,7 @@ To use this framework, you first have to import `App` classe from *com.opencvtes
 Filters are objects that you create and add to the `FiltersDataBase` object.
 In the beginning, the filters database is empty. 
 
-To write your own filter class you have to create a class that extends the `FilterControlledByFloat` class (`import com.opencvtester.baseClasses.filter.FilterControlledByFloat;`).
+To write your own filter class you have to create a class that extends the `ControlledFilter` class (`import com.opencvtester.renderer.ControlledFilter;`).
 
 `FilterControlledByFloat` class provide several important things : 
 * Two `Frame` objects : `frameIn` and `frameOut` (input and output frame as yourFilter(frameIn)=frameOut). Important methods of `Frame` class : 
@@ -67,7 +67,7 @@ In the main method you create an object of this new class and add it to the filt
 
 Once that is done, you can run the programm. 
 
-In the example folder you may find Main.java and two filter of my own : BlueGreenRedMultiplierFilter and GrayScaleFilter. 
+In the example folder you may find Main.java and two filter of my own : RGBMultiplierFilter and BlackAndWhiteFilter. 
 
 ## Contact
 Created by [@arthurlormeauwall](https://github.com/arthurlormeauwall) - feel free to contact me!
