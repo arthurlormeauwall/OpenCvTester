@@ -2,9 +2,9 @@ package com.sandbox.example.userFilters;
 
 import com.opencvtester.renderer.ControlledFilter;
 
-public class BlueGreenRedMultiplierFilter extends ControlledFilter 
+public class RGBMultiplierFilter extends ControlledFilter 
 {
-	public BlueGreenRedMultiplierFilter(String name) {		
+	public RGBMultiplierFilter(String name) {		
 		super(name);
 	}
 
@@ -14,8 +14,8 @@ public class BlueGreenRedMultiplierFilter extends ControlledFilter
 		addParameterFlag("RedMult", 1f, 1f, 130);
 	}
 	
-	public BlueGreenRedMultiplierFilter createNew() {	
-		 BlueGreenRedMultiplierFilter temp= new BlueGreenRedMultiplierFilter(getFilterName());
+	public RGBMultiplierFilter createNew() {	
+		 RGBMultiplierFilter temp= new RGBMultiplierFilter(getFilterName());
 		 temp.setParameterFlags();
 		 return temp;
 	}

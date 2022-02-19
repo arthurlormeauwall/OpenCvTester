@@ -2,9 +2,9 @@ package com.sandbox.example.userFilters;
 
 import com.opencvtester.renderer.ControlledFilter;
 
-public class GrayScaleFilter extends ControlledFilter 
+public class BlackAndWhiteFilter extends ControlledFilter 
 {
-	public GrayScaleFilter(String name) {
+	public BlackAndWhiteFilter(String name) {
 		super(name);
 	}
 	
@@ -15,8 +15,8 @@ public class GrayScaleFilter extends ControlledFilter
 		addParameterFlag("RedMult", 0.3f, -1f, 100);
 	}
 	
-	public GrayScaleFilter createNew() {	
-		return new GrayScaleFilter(getFilterName());
+	public BlackAndWhiteFilter createNew() {	
+		return new BlackAndWhiteFilter(getFilterName());
 	}
 
 	public void render() {
